@@ -16,21 +16,37 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 
 function App() {
   // const [count, setCount] = useState(0);
-  const [num1, setNum1] = useState(0);
-  const [num2, setNum2] = useState(0);
+  // const [num1, setNum1] = useState(0);
+  // const [num2, setNum2] = useState(0);
   const [userAnswer, setUserAnswer] = useState<string | number>("");
-  const [attempts, setAttempts] = useState(3);
   const [message, setMessage] = useState("");
   const [gameOver, setGameOver] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState(0);
-  const [attemptsLimit, setAttemptsLimit] = useState(3);
+  const [result, setResult] = useState<"success" | "failed" | null>(null);
+  const [settings, setSettings] = useState({
+    numberOne: 0,
+    numberTwo: 0,
+    attempts: 3,
+    questions: 5,
+  });
+  // LIMITS
+  // const [numberOne, setNumberOne] = useState(0);
+  // const [numberTwo, setNumberTwo] = useState(0);
+  // const [attempts, setAttempts] = useState(3);
+  // const [questions, setQuestions] = useState(5);
 
   // Generate two random numbers between 1 and 10
   const generateRandomNumbers = () => {
     const newNum1 = Math.floor(Math.random() * 10) + 1;
     const newNum2 = Math.floor(Math.random() * 10) + 1;
-    setNum1(newNum1);
-    setNum2(newNum2);
+    // Updating numberOne & numberTwo at the same time
+    setSettings({
+      ...settings,
+      numberOne: newNum1,
+      numberTwo: newNum2,
+    });
+    // setNumberOne(newNum1);
+    // setNumberTwo(newNum2);
     setCorrectAnswer(newNum1 + newNum2);
   };
   // // Generate two random numbers between 1 and 10
@@ -44,19 +60,25 @@ function App() {
 
   // Check if the user's answer is correct
   const checkAnswer = () => {
-    const sum = num1 + num2;
+    const sum = settings.numberOne + settings.numberTwo;
     const userGuess = parseInt(userAnswer, 10);
 
     if (userGuess === sum) {
-      setMessage("Correct! You win!");
+      // setMessage("Correct! You win!");
+      setResult("success");
       setGameOver(true);
     } else {
-      setAttempts(attempts - 1);
-      if (attempts === 1) {
+      setSettings({
+        ...settings,
+        attempts: settings.attempts - 1,
+      });
+      // setAttempts(attempts - 1);
+      if (settings.attempts === 1) {
         // setMessage(`Incorrect. \nThe correct answer is ${sum}. \nGame over.`);
         setGameOver(true);
+        setResult("failed");
       } else {
-        setMessage(`Incorrect. ${attempts - 1} ${attempts === 2 ? "attempt" : "attempts"} left.`);
+        setMessage(`Incorrect. ${settings.attempts - 1} ${settings.attempts === 2 ? "attempt" : "attempts"} left.`);
       }
     }
   };
@@ -76,7 +98,10 @@ function App() {
   };
 
   const handleGameReset = () => {
-    setAttempts(3);
+    setSettings({
+      ...settings,
+      attempts: 3,
+    });
     setMessage("");
     setGameOver(false);
     generateRandomNumbers();
@@ -84,19 +109,31 @@ function App() {
   };
 
   // TODO - User will click on a number range to select the range of numbers to use in the game (1-10, 1-20, ..., 1-100)
-  const handleNumberRange = () => {};
+  // const handleNumberRange = () => {};
 
   const gridListStyle =
     "w-full bg-blue-500 text-white text-center px-4 py-2 rounded-xl hover:bg-blue-700 transition-color duration-300";
 
-  const handleNumberLimit = (e) => {
-    // e.preventDefault();
-    // console.log(e);
-  };
+  // const handleNumberLimit = (e) => {
+  //   // e.preventDefault();
+  //   // console.log(e);
+  // };
 
   // User is able to set the number of attempts and number values they want to have in the game
-  const handleSettings = () => {
-    // TODO - 4 values
+  const handleSettings = (e) => {
+    e.preventDefault();
+    // console.log('e.target.elements["numberOne"]', e.target.elements["numberOne"].value);
+    // console.log('e.target.elements["numberTwo"]', e.target.elements["numberTwo"].value);
+    // console.log('e.target.elements["questions"]', e.target.elements["questions"].value);
+    // console.log('e.target.elements["attempts"]', e.target.elements["attempts"].value);
+    setSettings({
+      numberOne: e.target.elements["numberOne"].value,
+      numberTwo: e.target.elements["numberTwo"].value,
+      questions: e.target.elements["questions"].value,
+      attempts: e.target.elements["attempts"].value,
+    });
+
+    // TODO - refresh the game with the new settings
   };
 
   return (
@@ -112,25 +149,21 @@ function App() {
                     Settings
                   </PopoverTrigger>
                   {/* <PopoverContent>Place content for the popover here.</PopoverContent> */}
-                  <PopoverContent align="center" className="bg-red-500">
+                  <PopoverContent align="center" className="bg-slate-300 rounded-md w-full">
                     <span>Number Limit</span>
-                    <form onSubmit={handleNumberLimit} className="flex flex-col b w-[300px] gap-4">
-                      <label htmlFor="firstNumber">
-                        Number 1
-                        <input type="text" className="w-full" />
-                      </label>
-                      <label htmlFor="secondNumber">
-                        Number 2
-                        <input type="text" className="w-full" />
-                      </label>
-                      <label htmlFor="secondNumber">
-                        Number of Questions
-                        <input type="text" className="w-full" />
-                      </label>
-                      <label htmlFor="attempts">
-                        Attempts Limit
-                        <input type="text" className="w-full" />
-                      </label>
+                    <form onSubmit={handleSettings} className="flex flex-col b w-[300px] gap-1">
+                      <label htmlFor="firstNumber">Number 1</label>
+                      <input type="text" name="numberOne" className="w-full" required />
+
+                      <label htmlFor="secondNumber">Number 2</label>
+                      <input type="text" name="numberTwo" className="w-full" required />
+
+                      <label htmlFor="secondNumber">Number of Questions</label>
+                      <input type="text" name="questions" className="w-full" required />
+
+                      <label htmlFor="attempts">Attempts Limit</label>
+                      <input type="text" name="attempts" className="w-full" required />
+
                       <button type="submit" className="bg-blue-500 px-4 py-2 rounded-full w-full">
                         Submit
                       </button>
@@ -170,45 +203,24 @@ function App() {
           </li>
         </ul>
       </nav>
-      {/* <div className="b"> handleouu1
-        <h1 className="text-5xl w-full b">Math Game</h1>
-      </div> */}
+      {/* END OF NAVIGATION MENU */}
 
-      {/* SETTINGS FORM */}
-      <div>
-        {/* <span>Number Limit</span>
-        <form onSubmit={handleNumberLimit} className="flex flex-col b w-[300px] gap-4">
-          <label htmlFor="firstNumber">
-            Number 1
-            <input type="text" className="w-full" />
-          </label>
-          <label htmlFor="secondNumber">
-            Number 2
-            <input type="text" className="w-full" />
-          </label>
-          <label htmlFor="secondNumber">
-            Number of Questions
-            <input type="text" className="w-full" />
-          </label>
-          <label htmlFor="attempts">
-            Attempts Limit
-            <input type="text" className="w-full" />
-          </label>
-          <button type="submit" className="bg-blue-500 px-4 py-2 rounded-full w-full">
-            Submit
-          </button>
-        </form> */}
-      </div>
-      {/* END OF SETTINGS FORM */}
-
+      {/* MAIN CONTENT */}
       <div className="bg-slate-900 w-fullX flex flex-col justify-center items-center text-white text-5xl b">
         {/* GAME IS COMPLETED */}
         {gameOver ? (
           <>
             <div className="text-center font-bold">
-              <p>Incorrect</p>
-              <p>The correct answer is {correctAnswer}</p>
-              <p>Game Over</p>
+              {result === "success" ? (
+                <p className="text-green-500">Good Job!</p>
+              ) : (
+                // result === 'failed'
+                <>
+                  <p>Incorrect</p>
+                  <p>The correct answer is {correctAnswer}</p>
+                  <p>Game Over</p>
+                </>
+              )}
             </div>
             <button
               className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 transition-colors duration-300 hover:shadow-xl px-6 py-3 rounded-full"
@@ -221,13 +233,13 @@ function App() {
           // NEW GAME / GAME IN PROGRESS
           <div className="flex flex-col gap-4 text-center b">
             <p>
-              {num1} + {num2}?
+              {settings.numberOne} + {settings.numberTwo} = __?
             </p>
             <input type="number" value={userAnswer} onChange={handleChange} className="text-black px-4 py-2 text-2xl" />
             <button onClick={checkAnswer} className="bg-blue-500 text-2xl px-2 py-4">
               Submit
             </button>
-            <p>Attempts remaining: {attempts}</p>
+            <p>Attempts remaining: {settings.attempts}</p>
             {/* Number Grid */}
             <ul className="grid grid-cols-3 max-w-[90vw] gap-2">
               <li>
