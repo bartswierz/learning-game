@@ -15,7 +15,7 @@ function App() {
   // const [count, setCount] = useState(0);
   const [num1, setNum1] = useState(0);
   const [num2, setNum2] = useState(0);
-  const [userAnswer, setUserAnswer] = useState("");
+  const [userAnswer, setUserAnswer] = useState(null);
   const [attempts, setAttempts] = useState(3);
   const [message, setMessage] = useState("");
   const [gameOver, setGameOver] = useState(false);
@@ -57,6 +57,10 @@ function App() {
     setUserAnswer(e.target.value);
   };
 
+  const handleClick = (num: number) => {
+    setUserAnswer((userAnswer) => userAnswer + num);
+  };
+
   return (
     <>
       <NavigationMenu>
@@ -92,6 +96,43 @@ function App() {
               Submit
             </button>
             <p>Attempts remaining: {attempts}</p>
+            {/* Number Grid */}
+            <ul className="grid grid-cols-3 max-w-[90vw] gap-2">
+              <li className="bg-blue-500 text-white text-center px-4 py-2">
+                <button onClick={() => handleClick(1)} className="hover:cursor-pointer">
+                  1
+                </button>
+              </li>
+              <li className="bg-blue-500 text-white text-center px-4 py-2">
+                <button onClick={() => handleClick(2)}>2</button>
+              </li>
+              <li className="bg-blue-500 text-white text-center px-4 py-2">
+                <button onClick={() => handleClick(3)}>3</button>
+              </li>
+              <li className="bg-blue-500 text-white text-center px-4 py-2">
+                <button onClick={() => handleClick(4)}>4</button>
+              </li>
+              <li className="bg-blue-500 text-white text-center px-4 py-2">
+                <button onClick={() => handleClick(5)}>5</button>
+              </li>
+              <li className="bg-blue-500 text-white text-center px-4 py-2">
+                <button onClick={() => handleClick(6)}>6</button>
+              </li>
+              <li className="bg-blue-500 text-white text-center px-4 py-2">
+                <button onClick={() => handleClick(7)}>7</button>
+              </li>
+              <li className="bg-blue-500 text-white text-center px-4 py-2">
+                <button onClick={() => handleClick(8)}>8</button>
+              </li>
+              <li className="bg-blue-500 text-white text-center px-4 py-2">
+                <button onClick={() => handleClick(9)}>9</button>
+              </li>
+              <li className="grid">
+                <button className="bg-blue-500 text-white text-center px-4 py-2" onClick={() => setUserAnswer("")}>
+                  Clear
+                </button>
+              </li>
+            </ul>
           </div>
         )}
       </div>
