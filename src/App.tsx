@@ -59,7 +59,7 @@ function App() {
     setUserAnswer(e.target.value);
   };
 
-  const handleClick = (num: number) => {
+  const handleClick = (num: string) => {
     setUserAnswer((userAnswer) => userAnswer + num);
   };
 
@@ -91,7 +91,7 @@ function App() {
         </NavigationMenuList>
       </NavigationMenu> */}
       <nav>
-        <ul className="flex flex-col flex-wrap md:flex-row justify-between items-center bg-blue-500X text-white p-4">
+        <ul className="flex flex-col flex-wrap md:flex-row justify-between items-center bg-blue-500X text-white p-4 bX">
           <li className="text-2xl font-bold">Learning Game</li>
           <li>
             <ul className="flex gap-4 items-center justify-center text-black font-bold">
@@ -130,22 +130,25 @@ function App() {
       {/* <div className="b"> handleouu1
         <h1 className="text-5xl w-full b">Math Game</h1>
       </div> */}
-      <div className="bg-slate-900 w-full h-full w-screenX h-screenX flex flex-col justify-center items-center text-white text-5xl">
+      <div className="bg-slate-900 w-full h-full w-screenX h-screenX flex flex-col justify-center items-center text-white text-5xl b">
         {/* GAME IS COMPLETED */}
         {gameOver ? (
           <>
-            <div className="text-center">
+            <div className="text-center font-bold">
               <p>Incorrect</p>
               <p>The correct answer is {correctAnswer}</p>
               <p>Game Over</p>
             </div>
-            <button className="bg-blue-500 px-4 py-2" onClick={handleGameReset}>
+            <button
+              className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 transition-colors duration-300 hover:shadow-xl px-6 py-3 rounded-full"
+              onClick={handleGameReset}
+            >
               Start Over
             </button>
           </>
         ) : (
           // NEW GAME / GAME IN PROGRESS
-          <div className="flex flex-col gap-4 text-center">
+          <div className="flex flex-col gap-4 text-center b">
             <p>
               {num1} + {num2}?
             </p>
