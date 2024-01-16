@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import "./globals.css";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-} from "@/components/ui/navigation-menu";
+// import {
+//   NavigationMenu,
+//   NavigationMenuContent,
+//   NavigationMenuIndicator,
+//   NavigationMenuItem,
+//   NavigationMenuLink,
+//   NavigationMenuList,
+//   NavigationMenuTrigger,
+//   NavigationMenuViewport,
+// } from "@/components/ui/navigation-menu";
 import { Slider } from "@/components/ui/slider";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -94,53 +96,71 @@ function App() {
 
   // User is able to set the number of attempts and number values they want to have in the game
   const handleSettings = () => {
-    // TODO - 3 values
+    // TODO - 4 values
   };
 
   return (
     <div className="bg-slate-900 text-white max-w-screen max-h-screen overflow-hiddenX overflow-y-hiddenX w-screenX h-screen">
-      {/* <NavigationMenu>
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
-            <NavigationMenuContent className="flex flex-col gap-2">
-              <NavigationMenuLink className="cursor-pointer">Addition</NavigationMenuLink>
-              <NavigationMenuLink className="cursor-pointer">Subtraction</NavigationMenuLink>
-              <NavigationMenuLink className="cursor-pointer">Division</NavigationMenuLink>
-              <NavigationMenuLink className="cursor-pointer">Multiplication</NavigationMenuLink>
-              <NavigationMenuLink className="cursor-pointer">Restart</NavigationMenuLink>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu> */}
       <nav>
         <ul className="flex flex-col flex-wrap md:flex-row justify-between items-center bg-blue-500X text-white p-4 bX">
-          <li className="text-2xl font-bold">Learning Game</li>
+          <span className="text-2xl font-bold">Learning Game</span>
           <li>
             <ul className="flex gap-4 items-center justify-center text-black font-bold">
+              <li>
+                <Popover modal={true}>
+                  <PopoverTrigger className="bg-blue-500 hover:bg-blue-600 hover:ring ring-slate-200 focus:bg-blue-700 px-4 py-2 rounded-full hover:text-white transition-all duration-300 hover:shadow-xl">
+                    Settings
+                  </PopoverTrigger>
+                  {/* <PopoverContent>Place content for the popover here.</PopoverContent> */}
+                  <PopoverContent align="center" className="bg-red-500">
+                    <span>Number Limit</span>
+                    <form onSubmit={handleNumberLimit} className="flex flex-col b w-[300px] gap-4">
+                      <label htmlFor="firstNumber">
+                        Number 1
+                        <input type="text" className="w-full" />
+                      </label>
+                      <label htmlFor="secondNumber">
+                        Number 2
+                        <input type="text" className="w-full" />
+                      </label>
+                      <label htmlFor="secondNumber">
+                        Number of Questions
+                        <input type="text" className="w-full" />
+                      </label>
+                      <label htmlFor="attempts">
+                        Attempts Limit
+                        <input type="text" className="w-full" />
+                      </label>
+                      <button type="submit" className="bg-blue-500 px-4 py-2 rounded-full w-full">
+                        Submit
+                      </button>
+                    </form>
+                  </PopoverContent>
+                </Popover>
+              </li>
               <li className="cursor-pointer">
-                <button className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 hover:text-white px-4 py-2 rounded-full hover:shadow-xl transition-colors duration-300">
+                <button className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 hover:text-white hover:ring ring-slate-200 px-4 py-2 rounded-full hover:shadow-xl transition-all duration-300">
                   Addition
                 </button>
               </li>
               <li className="cursor-pointer">
-                <button className="bg-green-500 hover:bg-green-600 focus:bg-green-700 hover:text-white hover:shadow-xl px-4 py-2 rounded-full transition-colors duration-300">
+                <button className="bg-green-500 hover:bg-green-600 focus:bg-green-700 hover:text-white hover:shadow-xl hover:ring ring-slate-200 px-4 py-2 rounded-full transition-all duration-300">
                   Subtraction
                 </button>
               </li>
               <li className="cursor-pointer">
-                <button className="bg-yellow-500 hover:bg-yellow-600 focus:bg-yellow-700 hover:text-white px-4 py-2 hover:shadow-xl rounded-full transition-colors duration-300">
+                <button className="bg-yellow-500 hover:bg-yellow-600 focus:bg-yellow-700 hover:text-white hover:ring ring-slate-200 px-4 py-2 hover:shadow-xl rounded-full transition-all duration-300">
                   Division
                 </button>
               </li>
               <li className="cursor-pointer">
-                <button className="bg-red-500 hover:bg-red-600 focus:bg-red-700 hover:text-white px-4 py-2 rounded-full hover:shadow-xl transition-colors duration-300">
+                <button className="bg-red-500 hover:bg-red-600 focus:bg-red-700 hover:text-white hover:ring ring-slate-200 px-4 py-2 rounded-full hover:shadow-xl transition-all duration-300">
                   Multiplication
                 </button>
               </li>
               <li className="cursor-pointer">
                 <button
-                  className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 hover:text-white px-4 py-2 rounded-full hover:shadow-xl transition-colors duration-300"
+                  className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 hover:text-white hover:ring ring-slate-200 px-4 py-2 rounded-full hover:shadow-xl transition-all duration-300"
                   onClick={handleGameReset}
                 >
                   Restart Game
@@ -153,9 +173,10 @@ function App() {
       {/* <div className="b"> handleouu1
         <h1 className="text-5xl w-full b">Math Game</h1>
       </div> */}
+
       {/* SETTINGS FORM */}
       <div>
-        <span>Number Limit</span>
+        {/* <span>Number Limit</span>
         <form onSubmit={handleNumberLimit} className="flex flex-col b w-[300px] gap-4">
           <label htmlFor="firstNumber">
             Number 1
@@ -176,10 +197,11 @@ function App() {
           <button type="submit" className="bg-blue-500 px-4 py-2 rounded-full w-full">
             Submit
           </button>
-        </form>
+        </form> */}
       </div>
       {/* END OF SETTINGS FORM */}
-      <div className="bg-slate-900 w-full h-full flex flex-col justify-center items-center text-white text-5xl b">
+
+      <div className="bg-slate-900 w-fullX flex flex-col justify-center items-center text-white text-5xl b">
         {/* GAME IS COMPLETED */}
         {gameOver ? (
           <>
