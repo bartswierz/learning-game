@@ -10,6 +10,7 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
+import { Slider } from "@/components/ui/slider";
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -20,6 +21,7 @@ function App() {
   const [message, setMessage] = useState("");
   const [gameOver, setGameOver] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState(0);
+  const [attemptsLimit, setAttemptsLimit] = useState(3);
 
   // Generate two random numbers between 1 and 10
   const generateRandomNumbers = () => {
@@ -29,6 +31,14 @@ function App() {
     setNum2(newNum2);
     setCorrectAnswer(newNum1 + newNum2);
   };
+  // // Generate two random numbers between 1 and 10
+  // const generateRandomNumbers = () => {
+  //   const newNum1 = Math.floor(Math.random() * 10) + 1;
+  //   const newNum2 = Math.floor(Math.random() * 10) + 1;
+  //   setNum1(newNum1);
+  //   setNum2(newNum2);
+  //   setCorrectAnswer(newNum1 + newNum2);
+  // };
 
   // Check if the user's answer is correct
   const checkAnswer = () => {
@@ -71,11 +81,24 @@ function App() {
     setUserAnswer("");
   };
 
+  // TODO - User will click on a number range to select the range of numbers to use in the game (1-10, 1-20, ..., 1-100)
+  const handleNumberRange = () => {};
+
   const gridListStyle =
     "w-full bg-blue-500 text-white text-center px-4 py-2 rounded-xl hover:bg-blue-700 transition-color duration-300";
 
+  const handleNumberLimit = (e) => {
+    // e.preventDefault();
+    // console.log(e);
+  };
+
+  // User is able to set the number of attempts and number values they want to have in the game
+  const handleSettings = () => {
+    // TODO - 3 values
+  };
+
   return (
-    <div className="bg-slate-900 text-white overflow-hidden overflow-y-hidden w-screen h-screen">
+    <div className="bg-slate-900 text-white max-w-screen max-h-screen overflow-hiddenX overflow-y-hiddenX w-screenX h-screen">
       {/* <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -130,7 +153,33 @@ function App() {
       {/* <div className="b"> handleouu1
         <h1 className="text-5xl w-full b">Math Game</h1>
       </div> */}
-      <div className="bg-slate-900 w-full h-full w-screenX h-screenX flex flex-col justify-center items-center text-white text-5xl b">
+      {/* SETTINGS FORM */}
+      <div>
+        <span>Number Limit</span>
+        <form onSubmit={handleNumberLimit} className="flex flex-col b w-[300px] gap-4">
+          <label htmlFor="firstNumber">
+            Number 1
+            <input type="text" className="w-full" />
+          </label>
+          <label htmlFor="secondNumber">
+            Number 2
+            <input type="text" className="w-full" />
+          </label>
+          <label htmlFor="secondNumber">
+            Number of Questions
+            <input type="text" className="w-full" />
+          </label>
+          <label htmlFor="attempts">
+            Attempts Limit
+            <input type="text" className="w-full" />
+          </label>
+          <button type="submit" className="bg-blue-500 px-4 py-2 rounded-full w-full">
+            Submit
+          </button>
+        </form>
+      </div>
+      {/* END OF SETTINGS FORM */}
+      <div className="bg-slate-900 w-full h-full flex flex-col justify-center items-center text-white text-5xl b">
         {/* GAME IS COMPLETED */}
         {gameOver ? (
           <>
@@ -160,52 +209,54 @@ function App() {
             {/* Number Grid */}
             <ul className="grid grid-cols-3 max-w-[90vw] gap-2">
               <li>
-                <button onClick={() => handleClick(1)} className={gridListStyle}>
+                <button onClick={() => handleClick("1")} className={gridListStyle}>
                   1
                 </button>
               </li>
               <li>
-                <button onClick={() => handleClick(2)} className={gridListStyle}>
+                <button onClick={() => handleClick("2")} className={gridListStyle}>
                   2
                 </button>
               </li>
               <li>
-                <button onClick={() => handleClick(3)} className={gridListStyle}>
+                <button onClick={() => handleClick("3")} className={gridListStyle}>
                   3
                 </button>
               </li>
               <li>
-                <button onClick={() => handleClick(4)} className={gridListStyle}>
+                <button onClick={() => handleClick("4")} className={gridListStyle}>
                   4
                 </button>
               </li>
               <li>
-                <button onClick={() => handleClick(5)} className={gridListStyle}>
+                <button onClick={() => handleClick("5")} className={gridListStyle}>
                   5
                 </button>
               </li>
               <li>
-                <button onClick={() => handleClick(6)} className={gridListStyle}>
+                <button onClick={() => handleClick("6")} className={gridListStyle}>
                   6
                 </button>
               </li>
               <li>
-                <button onClick={() => handleClick(7)} className={gridListStyle}>
+                <button onClick={() => handleClick("7")} className={gridListStyle}>
                   7
                 </button>
               </li>
               <li>
-                <button onClick={() => handleClick(8)} className={gridListStyle}>
+                <button onClick={() => handleClick("8")} className={gridListStyle}>
                   8
                 </button>
               </li>
               <li>
-                <button onClick={() => handleClick(9)} className={gridListStyle}>
+                <button onClick={() => handleClick("9")} className={gridListStyle}>
                   9
                 </button>
               </li>
+              {/* Empty Slot */}
+              <li></li>
               <li>
-                <button onClick={() => handleClick(0)} className={gridListStyle}>
+                <button onClick={() => handleClick("0")} className={gridListStyle}>
                   0
                 </button>
               </li>
