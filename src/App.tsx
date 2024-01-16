@@ -15,7 +15,7 @@ function App() {
   // const [count, setCount] = useState(0);
   const [num1, setNum1] = useState(0);
   const [num2, setNum2] = useState(0);
-  const [userAnswer, setUserAnswer] = useState(null);
+  const [userAnswer, setUserAnswer] = useState<string | number>("");
   const [attempts, setAttempts] = useState(3);
   const [message, setMessage] = useState("");
   const [gameOver, setGameOver] = useState(false);
@@ -61,24 +61,29 @@ function App() {
     setUserAnswer((userAnswer) => userAnswer + num);
   };
 
+  const gridListStyle =
+    "w-full bg-blue-500 text-white text-center px-4 py-2 rounded-xl hover:bg-blue-700 transition-color duration-300";
+
   return (
     <>
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <NavigationMenuLink>Addition</NavigationMenuLink>
-              <NavigationMenuLink>Subtraction</NavigationMenuLink>
-              <NavigationMenuLink>Division</NavigationMenuLink>
-              <NavigationMenuLink>Multiplication</NavigationMenuLink>
-              <NavigationMenuLink>Restart</NavigationMenuLink>
+            <NavigationMenuContent className="flex flex-col gap-2">
+              <NavigationMenuLink className="cursor-pointer">Addition</NavigationMenuLink>
+              <NavigationMenuLink className="cursor-pointer">Subtraction</NavigationMenuLink>
+              <NavigationMenuLink className="cursor-pointer">Division</NavigationMenuLink>
+              <NavigationMenuLink className="cursor-pointer">Multiplication</NavigationMenuLink>
+              <NavigationMenuLink className="cursor-pointer">Restart</NavigationMenuLink>
             </NavigationMenuContent>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
       <div className="bg-slate-900 w-screen h-screen flex flex-col justify-center items-center text-white text-5xl">
-        <h1>Math Game</h1>
+        <div className="b">
+          <h1>Math Game</h1>
+        </div>
         {gameOver ? (
           <>
             <p>{message}</p>
@@ -98,37 +103,53 @@ function App() {
             <p>Attempts remaining: {attempts}</p>
             {/* Number Grid */}
             <ul className="grid grid-cols-3 max-w-[90vw] gap-2">
-              <li className="bg-blue-500 text-white text-center px-4 py-2">
-                <button onClick={() => handleClick(1)} className="hover:cursor-pointer">
+              <li>
+                <button onClick={() => handleClick(1)} className={gridListStyle}>
                   1
                 </button>
               </li>
-              <li className="bg-blue-500 text-white text-center px-4 py-2">
-                <button onClick={() => handleClick(2)}>2</button>
+              <li>
+                <button onClick={() => handleClick(2)} className={gridListStyle}>
+                  2
+                </button>
               </li>
-              <li className="bg-blue-500 text-white text-center px-4 py-2">
-                <button onClick={() => handleClick(3)}>3</button>
+              <li>
+                <button onClick={() => handleClick(3)} className={gridListStyle}>
+                  3
+                </button>
               </li>
-              <li className="bg-blue-500 text-white text-center px-4 py-2">
-                <button onClick={() => handleClick(4)}>4</button>
+              <li>
+                <button onClick={() => handleClick(4)} className={gridListStyle}>
+                  4
+                </button>
               </li>
-              <li className="bg-blue-500 text-white text-center px-4 py-2">
-                <button onClick={() => handleClick(5)}>5</button>
+              <li>
+                <button onClick={() => handleClick(5)} className={gridListStyle}>
+                  5
+                </button>
               </li>
-              <li className="bg-blue-500 text-white text-center px-4 py-2">
-                <button onClick={() => handleClick(6)}>6</button>
+              <li>
+                <button onClick={() => handleClick(6)} className={gridListStyle}>
+                  6
+                </button>
               </li>
-              <li className="bg-blue-500 text-white text-center px-4 py-2">
-                <button onClick={() => handleClick(7)}>7</button>
+              <li>
+                <button onClick={() => handleClick(7)} className={gridListStyle}>
+                  7
+                </button>
               </li>
-              <li className="bg-blue-500 text-white text-center px-4 py-2">
-                <button onClick={() => handleClick(8)}>8</button>
+              <li>
+                <button onClick={() => handleClick(8)} className={gridListStyle}>
+                  8
+                </button>
               </li>
-              <li className="bg-blue-500 text-white text-center px-4 py-2">
-                <button onClick={() => handleClick(9)}>9</button>
+              <li>
+                <button onClick={() => handleClick(9)} className={gridListStyle}>
+                  9
+                </button>
               </li>
               <li className="grid">
-                <button className="bg-blue-500 text-white text-center px-4 py-2" onClick={() => setUserAnswer("")}>
+                <button className={`${gridListStyle}`} onClick={() => setUserAnswer("")}>
                   Clear
                 </button>
               </li>
