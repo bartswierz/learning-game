@@ -19,6 +19,7 @@ function App() {
   const [attempts, setAttempts] = useState(3);
   const [message, setMessage] = useState("");
   const [gameOver, setGameOver] = useState(false);
+  const [correctAnswer, setCorrectAnswer] = useState(0);
 
   // Generate two random numbers between 1 and 10
   const generateRandomNumbers = () => {
@@ -26,6 +27,7 @@ function App() {
     const newNum2 = Math.floor(Math.random() * 10) + 1;
     setNum1(newNum1);
     setNum2(newNum2);
+    setCorrectAnswer(newNum1 + newNum2);
   };
 
   // Check if the user's answer is correct
@@ -39,7 +41,7 @@ function App() {
     } else {
       setAttempts(attempts - 1);
       if (attempts === 1) {
-        setMessage(`Incorrect. The correct answer is ${sum}. Game over.`);
+        // setMessage(`Incorrect. \nThe correct answer is ${sum}. \nGame over.`);
         setGameOver(true);
       } else {
         setMessage(`Incorrect. ${attempts - 1} ${attempts === 2 ? "attempt" : "attempts"} left.`);
@@ -61,12 +63,20 @@ function App() {
     setUserAnswer((userAnswer) => userAnswer + num);
   };
 
+  const handleGameReset = () => {
+    setAttempts(3);
+    setMessage("");
+    setGameOver(false);
+    generateRandomNumbers();
+    setUserAnswer("");
+  };
+
   const gridListStyle =
     "w-full bg-blue-500 text-white text-center px-4 py-2 rounded-xl hover:bg-blue-700 transition-color duration-300";
 
   return (
-    <>
-      <NavigationMenu>
+    <div className="bg-slate-900 text-white overflow-hidden overflow-y-hidden w-screen h-screen">
+      {/* <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
@@ -79,20 +89,63 @@ function App() {
             </NavigationMenuContent>
           </NavigationMenuItem>
         </NavigationMenuList>
-      </NavigationMenu>
-      <div className="bg-slate-900 w-screen h-screen flex flex-col justify-center items-center text-white text-5xl">
-        <div className="b">
-          <h1>Math Game</h1>
-        </div>
+      </NavigationMenu> */}
+      <nav>
+        <ul className="flex flex-col flex-wrap md:flex-row justify-between items-center bg-blue-500X text-white p-4">
+          <li className="text-2xl font-bold">Learning Game</li>
+          <li>
+            <ul className="flex gap-4 items-center justify-center text-black font-bold">
+              <li className="cursor-pointer">
+                <button className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 hover:text-white px-4 py-2 rounded-full hover:shadow-xl transition-colors duration-300">
+                  Addition
+                </button>
+              </li>
+              <li className="cursor-pointer">
+                <button className="bg-green-500 hover:bg-green-600 focus:bg-green-700 hover:text-white hover:shadow-xl px-4 py-2 rounded-full transition-colors duration-300">
+                  Subtraction
+                </button>
+              </li>
+              <li className="cursor-pointer">
+                <button className="bg-yellow-500 hover:bg-yellow-600 focus:bg-yellow-700 hover:text-white px-4 py-2 hover:shadow-xl rounded-full transition-colors duration-300">
+                  Division
+                </button>
+              </li>
+              <li className="cursor-pointer">
+                <button className="bg-red-500 hover:bg-red-600 focus:bg-red-700 hover:text-white px-4 py-2 rounded-full hover:shadow-xl transition-colors duration-300">
+                  Multiplication
+                </button>
+              </li>
+              <li className="cursor-pointer">
+                <button
+                  className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 hover:text-white px-4 py-2 rounded-full hover:shadow-xl transition-colors duration-300"
+                  onClick={handleGameReset}
+                >
+                  Restart Game
+                </button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      {/* <div className="b"> handleouu1
+        <h1 className="text-5xl w-full b">Math Game</h1>
+      </div> */}
+      <div className="bg-slate-900 w-full h-full w-screenX h-screenX flex flex-col justify-center items-center text-white text-5xl">
+        {/* GAME IS COMPLETED */}
         {gameOver ? (
           <>
-            <p>{message}</p>
-            <button className="bg-blue-500 px-4 py-2" onClick={() => generateRandomNumbers()}>
+            <div className="text-center">
+              <p>Incorrect</p>
+              <p>The correct answer is {correctAnswer}</p>
+              <p>Game Over</p>
+            </div>
+            <button className="bg-blue-500 px-4 py-2" onClick={handleGameReset}>
               Start Over
             </button>
           </>
         ) : (
-          <div className="flex flex-col gap-4">
+          // NEW GAME / GAME IN PROGRESS
+          <div className="flex flex-col gap-4 text-center">
             <p>
               {num1} + {num2}?
             </p>
@@ -148,6 +201,11 @@ function App() {
                   9
                 </button>
               </li>
+              <li>
+                <button onClick={() => handleClick(0)} className={gridListStyle}>
+                  0
+                </button>
+              </li>
               <li className="grid">
                 <button className={`${gridListStyle}`} onClick={() => setUserAnswer("")}>
                   Clear
@@ -157,7 +215,7 @@ function App() {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
 

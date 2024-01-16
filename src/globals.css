@@ -76,5 +76,7 @@
 }
 
 b {
-  border-color: #123315;
+  border-color: #316616;
+  font-weight: 900;
+  text-color: red;
 }
