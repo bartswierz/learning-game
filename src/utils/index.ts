@@ -3,7 +3,8 @@ export const randomNumber = (min: number, max: number): number => {
   const number = Math.floor(Math.random() * (max - min + 1) + min);
   console.log("Random Number is: ", number);
 
-  return Math.floor(Math.random() * (max - min + 1) + min);
+  // return Math.floor(Math.random() * (max - min + 1) + min);
+  return number;
 };
 
 // interface RandomTwoNumbers {
@@ -33,10 +34,10 @@ export const randomTwoNumbers = (numberOne: NumberMinMax, numberTwo: NumberMinMa
 
 // TODO - pass in number 1, number 2, and userAnswer
 // May have issues with string and number value type comparison
-export const checkAnswer = (num1: number, num2: number, userAnswer: string | number): boolean => {
+export const checkAnswer = (num1: number, num2: number, userAnswer: string): boolean => {
   const correctAnswer = num1 + num2;
   console.log("Correct Answer is: ", correctAnswer);
   console.log("User Answer is: ", userAnswer);
 
-  return userAnswer === correctAnswer;
+  return Number(userAnswer) === correctAnswer;
 };
