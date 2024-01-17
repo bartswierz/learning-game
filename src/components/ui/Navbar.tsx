@@ -1,6 +1,7 @@
 // import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import RestartGameBtn from "./RestartGameBtn";
 import Settings from "./Settings";
-import { useState } from "react";
+// import { useState } from "react";
 import { randomNumber, randomTwoNumbers } from "@/utils";
 
 const Navbar = () => {

@@ -29,9 +29,9 @@ const Settings = () => {
       attempts: e.target.elements["attempts"].value,
     });
 
-    setGameOver(false);
+    // setGameOver(false);
     // TODO -
-    generateRandomNumbers(settings);
+    // generateRandomNumbers(settings);
     // TODO - refresh the game with the new settings
   };
 
