@@ -22,37 +22,12 @@ const Addition = ({ settings }: SettingsProps) => {
   const [gameOver, setGameOver] = useState(false);
   const [userAnswer, setUserAnswer] = useState<string>("");
 
+  // Gets our new random values on mount
   useEffect(() => {
     const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
     setNumberOne(num1);
     setNumberTwo(num2);
   }, []);
-  // useEffect(() => {}, [score]);
-  // const correctAnswer = checkAnswer(10, 10, userAnswer);
-  // console.log("correct answer: ", correctAnswer);
-  // TODO - update settings, may not need to keep track of number 1 and 2 inside settings, instead replace this with the user's selected number range high and low for each value
-  // const [settings, setSettings] = useState({
-  //   numberOne: 10,
-  //   numberTwo: 10,
-  //   attempts: 3,
-  //   questions: 5,
-  // });
-
-  // TODO - if gameOver is true, then we know the user has answered the question OR ran out of attempts,
-  // Generates two random numbers upon app start
-  // useEffect(() => {
-  //   const { num1, num2 } = randomTwoNumbers(settings.numberOne, settings.numberTwo);
-  //   // generateRandomNumbers(settings);
-  //   console.log("useEffect numbers: ", num1, num2);
-  //   // setSettings({
-  //   //   ...settings,
-  //   //   numberOne: num1,
-  //   //   numberTwo: num2,
-  //   // });
-  //   setNumberOne(num1);
-  //   setNumberTwo(num2);
-  // // }, [score]);
-  // }, []);
 
   const gridListStyle =
     "w-full bg-blue-500 text-white text-center px-4 py-2 rounded-xl hover:bg-blue-700 transition-color duration-300";
@@ -62,9 +37,6 @@ const Addition = ({ settings }: SettingsProps) => {
     setUserAnswer((userAnswer) => userAnswer + num);
   };
 
-  // const handleChange = (e) => {
-  //   setUserAnswer(e.target.value);
-  // };
   /* 
   User Submit, 
   IF CORRECT: Score + 1, New Question 
@@ -80,19 +52,23 @@ const Addition = ({ settings }: SettingsProps) => {
     if (isCorrect) {
       setScore((prev) => prev + 1);
       // const { num1, num2 } = randomTwoNumbers(1, 10); // TODO - update max value to be the user's selected number range
-      const { num1, num2 } = randomTwoNumbers(settings.numberOne, settings.numberTwo); // TODO - update max value to be the user's selected number range
+      const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange); // TODO - update max value to be the user's selected number range
       console.log("inside handle submit - random numbers => num1, num2: ", num1, num2);
       // TODO - generate new random numbers
       setNumberOne(num1);
       setNumberTwo(num2);
       setUserAnswer(""); // Resets value to empty string
       // User reached the last question
-      if (score === numOfQuestions - 1) setGameOver(true);
+      if (score === numOfQuestions - 1) {
+        setGameOver(true); //will trigger conditional check of Success or Failed
+        setProgress("Success"); // Will display the success message
+      }
     } else {
       // Not correct, Decrease Attempts by 1
       setAttempts((prev) => prev - 1);
       if (attempts === 0) {
         setGameOver(true);
+        setProgress("Failed"); // Will display the failed message
       }
     }
   };
