@@ -10,7 +10,7 @@ interface AdditionProps {
 // const Addition = ({ settings }: Settings) => {
 const Addition = ({ settings }: AdditionProps) => {
   const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
-  console.log("settings: ", settings);
+  // console.log("settings: ", settings);
   const [attempts, setAttempts] = useState<number>(numOfAttempts);
   const [numberOne, setNumberOne] = useState(0);
   const [numberTwo, setNumberTwo] = useState(0);
@@ -48,7 +48,7 @@ const Addition = ({ settings }: AdditionProps) => {
     if (isCorrect) {
       setScore((prev) => prev + 1);
       const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange); // TODO - update max value to be the user's selected number range
-      console.log("inside handle submit - random numbers => num1, num2: ", num1, num2);
+      // console.log("inside handle submit - random numbers => num1, num2: ", num1, num2);
       // TODO - generate new random numbers
       setNumberOne(num1);
       setNumberTwo(num2);
