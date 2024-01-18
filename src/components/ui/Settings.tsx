@@ -1,5 +1,6 @@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { useState, useEffect } from "react";
+// import { FormEvent } from "react";
+// import { useState } from "react";
 
 interface Settings {
   numberOne: number;
@@ -11,29 +12,26 @@ interface Settings {
 // Settings Component that allows the user to update the value settings(numberOne, numberTwo, # of questions, # of Attempts)
 // TODO - pass in values
 const Settings = () => {
-  const [settings, setSettings] = useState({
-    numberOne: 10,
-    numberTwo: 10,
-    attempts: 3,
-    questions: 5,
-  });
+  // const [settings, setSettings] = useState({
+  //   numberOne: 10,
+  //   numberTwo: 10,
+  //   attempts: 3,
+  //   questions: 5,
+  // });
 
-  const handleSettings = (e) => {
-    e.preventDefault();
+  // const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
 
-    // Match 4 form inputs to the settings object props
-    setSettings({
-      numberOne: e.target.elements["numberOne"].value,
-      numberTwo: e.target.elements["numberTwo"].value,
-      questions: e.target.elements["questions"].value,
-      attempts: e.target.elements["attempts"].value,
-    });
+  //   const form = e.currentTarget as HTMLFormElement;
 
-    // setGameOver(false);
-    // TODO -
-    // generateRandomNumbers(settings);
-    // TODO - refresh the game with the new settings
-  };
+  //   // Match 4 form inputs to the settings object props
+  //   setSettings({
+  //     numberOne: form.elements["numberOne"].value,
+  //     numberTwo: form.elements["numberTwo"].value,
+  //     questions: form.elements["questions"].value,
+  //     attempts: form.elements["attempts"].value,
+  //   });
+  // };
 
   return (
     <Popover modal={true}>
@@ -43,7 +41,8 @@ const Settings = () => {
       {/* <PopoverContent>Place content for the popover here.</PopoverContent> */}
       <PopoverContent align="center" className="bg-slate-300 rounded-md w-full">
         <span>Number Limit</span>
-        <form onSubmit={handleSettings} className="flex flex-col b w-[300px] gap-1">
+        {/* <form onSubmit={handleSubmit} className="flex flex-col b w-[300px] gap-1"> */}
+        <form className="flex flex-col b w-[300px] gap-1">
           <label htmlFor="firstNumber">Number 1</label>
           <input type="text" name="numberOne" id="firstNumber" className="w-full" required />
 

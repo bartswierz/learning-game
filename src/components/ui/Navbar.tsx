@@ -1,44 +1,7 @@
-// import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import RestartGameBtn from "./RestartGameBtn";
 import Settings from "./Settings";
-// import { useState } from "react";
-import { randomNumber, randomTwoNumbers } from "@/utils";
 
 const Navbar = () => {
-  // const handleSettings = (e) => {
-  //   e.preventDefault();
-  //   // console.log('e.target.elements["numberOne"]', e.target.elements["numberOne"].value);
-  //   // console.log('e.target.elements["numberTwo"]', e.target.elements["numberTwo"].value);
-  //   // console.log('e.target.elements["questions"]', e.target.elements["questions"].value);
-  //   // console.log('e.target.elements["attempts"]', e.target.elements["attempts"].value);
-  //   setSettings({
-  //     numberOne: e.target.elements["numberOne"].value,
-  //     numberTwo: e.target.elements["numberTwo"].value,
-  //     questions: e.target.elements["questions"].value,
-  //     attempts: e.target.elements["attempts"].value,
-  //   });
-
-  //   setGameOver(false);
-  //   // TODO -
-  //   generateRandomNumbers(settings);
-  //   // generateRandomNumbers(settings);
-  //   // TODO - refresh the game with the new settings
-  // };
-
-  // // Resets Game
-  // const handleGameReset = () => {
-  //   setSettings({
-  //     ...settings,
-  //     attempts: 3,
-  //   });
-  //   setMessage("");
-  //   setGameOver(false);
-  //   generateRandomNumbers(settings);
-  //   const { firstNumber, secondNumber } = randomTwoNumbers(1, 10);
-  //   console.log("handleGameRest in navbar randomTwoNumbers() => firstNumber, secondNumber: ", firstNumber, secondNumber);
-  //   setUserAnswer("");
-  // };
-
   return (
     <nav>
       <ul className="flex flex-col flex-wrap md:flex-row justify-between items-center bg-blue-500X text-white p-4 bX">

@@ -18,6 +18,8 @@ interface NumberMinMax {
 
 // Creates two random numbers between passed minimum and maximum values
 export const randomTwoNumbers = (numberOne: NumberMinMax, numberTwo: NumberMinMax): { num1: number; num2: number } => {
+  console.log("numberOne: ", numberOne);
+  console.log("numberTwo: ", numberTwo);
   const randomNum1 = randomNumber(numberOne.min, numberOne.max);
   const randomNum2 = randomNumber(numberTwo.min, numberTwo.max);
   console.log("Random Two Numbers are: ", randomNum1, randomNum2);

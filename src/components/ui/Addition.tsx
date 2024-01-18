@@ -1,33 +1,31 @@
 import { useState, useEffect } from "react";
-import { randomNumber, randomTwoNumbers, checkAnswer } from "@/utils";
+import { randomTwoNumbers, checkAnswer } from "@/utils";
+import { Settings } from "@/types/index.ts";
 
-interface SettingsProps {
-  numOneRange: { min: number; max: number };
-  numTwoRange: { min: number; max: number };
-  numOfAttempts: number;
-  numOfQuestions: number;
+interface AdditionProps {
+  settings: Settings;
 }
 
 // Addition Question Game
-const Addition = ({ settings }: SettingsProps) => {
+// const Addition = ({ settings }: Settings) => {
+const Addition = ({ settings }: AdditionProps) => {
   const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
+  console.log("settings: ", settings);
   const [attempts, setAttempts] = useState<number>(numOfAttempts);
   const [numberOne, setNumberOne] = useState(0);
   const [numberTwo, setNumberTwo] = useState(0);
-  const [correctAnswer, setCorrectAnswer] = useState<number>(numberOne + numberTwo);
-  // const [numberOne, setNumberOne] = useState(randomNumber(numOneRange.min, numOneRange.max));
-  // const [numberTwo, setNumberTwo] = useState(randomNumber(numTwoRange.min, numTwoRange.max));
+  // const [correctAnswer, setCorrectAnswer] = useState<number>(numberOne + numberTwo);
   const [score, setScore] = useState(0);
   const [progress, setProgress] = useState<"Success" | "InProgress" | "Failed" | null>(null);
   const [gameOver, setGameOver] = useState(false);
   const [userAnswer, setUserAnswer] = useState<string>("");
 
-  // Gets our new random values on mount
+  // Gets our new random values on mount - passing numOneRange and numTwoRange as dependencies if they change from user changing them in the settings
   useEffect(() => {
     const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
     setNumberOne(num1);
     setNumberTwo(num2);
-  }, []);
+  }, [numOneRange, numTwoRange]);
 
   const gridListStyle =
     "w-full bg-blue-500 text-white text-center px-4 py-2 rounded-xl hover:bg-blue-700 transition-color duration-300";
@@ -42,16 +40,13 @@ const Addition = ({ settings }: SettingsProps) => {
   IF CORRECT: Score + 1, New Question 
   IF WRONG: Attempts-1
   */
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    console.log("handleSubmit - userAnswer: ", userAnswer);
-    console.log("numberOne + numberTwo: ", numberOne + numberTwo);
     const isCorrect = checkAnswer(numberOne, numberTwo, userAnswer);
 
     // IF correct, score + 1, new question
     if (isCorrect) {
       setScore((prev) => prev + 1);
-      // const { num1, num2 } = randomTwoNumbers(1, 10); // TODO - update max value to be the user's selected number range
       const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange); // TODO - update max value to be the user's selected number range
       console.log("inside handle submit - random numbers => num1, num2: ", num1, num2);
       // TODO - generate new random numbers
@@ -73,6 +68,18 @@ const Addition = ({ settings }: SettingsProps) => {
     }
   };
 
+  // Reset the game back to the original settings
+  const handleGameReset = () => {
+    setAttempts(numOfAttempts);
+    setScore(0);
+    setGameOver(false);
+    setProgress(null);
+    setUserAnswer("");
+    const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
+    setNumberOne(num1);
+    setNumberTwo(num2);
+  };
+
   return (
     <div className="bg-slate-900 w-fullX flex flex-col justify-center items-center text-white text-5xl b">
       <div>
@@ -87,27 +94,26 @@ const Addition = ({ settings }: SettingsProps) => {
           <div className="text-center font-bold">
             {/* User answered all questions */}
             {progress === "Success" && <p className="text-green-500">Good Job!</p>}
-            {
+            {/* {
               // result === 'failed'
               progress === "InProgress" && (
                 <>
                   <p>Incorrect</p>
-                  <p>The correct answer is {correctAnswer}</p>
-                  <p>Game Over</p>
+                  <p>The correct answer is {numberOne + numberTwo}</p>
                 </>
               )
-            }
+            } */}
             {progress === "Failed" && ( //User ran out of attempts
               <>
                 <p>Incorrect</p>
-                <p>The correct answer is {correctAnswer}</p>
+                <p>The correct answer is {numberOne + numberTwo}</p>
                 <p>Game Over</p>
               </>
             )}
           </div>
           <button
             className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 transition-colors duration-300 hover:shadow-xl px-6 py-3 rounded-full"
-            // onClick={handleGameReset}
+            onClick={handleGameReset}
           >
             Start Over
           </button>
@@ -118,10 +124,7 @@ const Addition = ({ settings }: SettingsProps) => {
           <p>
             {numberOne} + {numberTwo} = __?
           </p>
-          {/* <input type="number" value={userAnswer} className="text-black px-4 py-2 text-2xl" /> */}
-          {/* <input type="number" value={userAnswer} className="text-black px-4 py-2 text-2xl" /> */}
           <div className="bg-white text-black w-full h-16">{userAnswer}</div>
-          {/* <input type="number" value={userAnswer} onChange={handleChange} className="text-black px-4 py-2 text-2xl" /> */}
           <button onClick={handleSubmit} className="bg-blue-500 text-2xl px-2 py-4">
             Check Answer
           </button>
