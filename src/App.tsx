@@ -3,7 +3,7 @@ import Navbar from "./components/ui/Navbar";
 import Addition from "./components/ui/Addition";
 import { Settings } from "./types/index.ts";
 // import SampleComponent from "./components/ui/sampleTests/SampleComponent.tsx";
-import RestartGameBtn from "./components/ui/RestartGameBtn.tsx";
+// import RestartGameBtn from "./components/ui/RestartGameBtn.tsx";
 
 function App() {
   const settings: Settings = {
@@ -19,7 +19,6 @@ function App() {
 
       {/* MAIN CONTENT */}
       <Addition settings={settings} />
-      <RestartGameBtn />
     </div>
   );
 }
