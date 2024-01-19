@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { randomTwoNumbers, checkAnswer } from "@/utils";
 import { Settings } from "@/types/index.ts";
+import NumberPad from "./NumberPad";
 
 interface AdditionProps {
   settings: Settings;
@@ -18,7 +19,7 @@ const Addition = ({ settings }: AdditionProps) => {
   const [score, setScore] = useState(0);
   const [progress, setProgress] = useState<"Success" | "InProgress" | "Failed" | null>(null);
   const [gameOver, setGameOver] = useState(false);
-  const [userAnswer, setUserAnswer] = useState<string>("");
+  const [userInput, setUserInput] = useState<string>("");
 
   // Gets our new random values on mount - passing numOneRange and numTwoRange as dependencies if they change from user changing them in the settings
   useEffect(() => {
@@ -27,22 +28,29 @@ const Addition = ({ settings }: AdditionProps) => {
     setNumberTwo(num2);
   }, [numOneRange, numTwoRange]);
 
-  const gridListStyle =
-    "w-full bg-blue-500 text-white text-center px-4 py-2 rounded-xl hover:bg-blue-700 transition-color duration-300";
+  // const gridListStyle =
+  //   "w-full bg-blue-500 text-white text-center px-4 py-2 rounded-xl hover:bg-blue-700 transition-color duration-300";
 
   // Adds user input from the number grid to the userAnswer state
-  const handleClick = (num: string) => {
-    setUserAnswer((userAnswer) => userAnswer + num);
-  };
+  // const handleClick = (num: string) => {
+  //   setUserInput((current) => current + num);
+  // };
 
+  //
+  // TODO - Either add the numbers next to each other OR if its "" indicating user clicked clear, we will reset the user answer to an empty string to prevent having to create to separate functions
+  // const handleUserInput = (numPadValue: string) => {
+  //   if(numPadValue === "clear") setUserAnswer(""); //Resets value to empty string
+
+  //   setUserAnswer((userAnswer) => userAnswer + numPadValue); // Add the number to the userAnswer state
+  // }
   /* 
   User Submit, 
   IF CORRECT: Score + 1, New Question 
   IF WRONG: Attempts-1
   */
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleCheck = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const isCorrect = checkAnswer(numberOne, numberTwo, userAnswer);
+    const isCorrect = checkAnswer(numberOne, numberTwo, userInput);
 
     // IF correct, score + 1, new question
     if (isCorrect) {
@@ -52,7 +60,7 @@ const Addition = ({ settings }: AdditionProps) => {
       // TODO - generate new random numbers
       setNumberOne(num1);
       setNumberTwo(num2);
-      setUserAnswer(""); // Resets value to empty string
+      setUserInput(""); // Resets value to empty string
       // User reached the last question
       if (score === numOfQuestions - 1) {
         setGameOver(true); //will trigger conditional check of Success or Failed
@@ -74,7 +82,7 @@ const Addition = ({ settings }: AdditionProps) => {
     setScore(0);
     setGameOver(false);
     setProgress(null);
-    setUserAnswer("");
+    setUserInput("");
     const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
     setNumberOne(num1);
     setNumberTwo(num2);
@@ -127,73 +135,14 @@ const Addition = ({ settings }: AdditionProps) => {
           <p>
             {numberOne} + {numberTwo} = __?
           </p>
-          <div className="bg-white text-black w-full h-16" data-testid="user-answer-input" data-user-answer={userAnswer}>
-            {userAnswer}
+          <div className="bg-white text-black w-full h-16" data-testid="user-answer-input" data-user-answer={userInput}>
+            {userInput}
           </div>
-          <button onClick={handleSubmit} className="bg-blue-500 text-2xl px-2 py-4">
+          <button onClick={handleCheck} className="bg-blue-500 text-2xl px-2 py-4">
             Check Answer
           </button>
           <p>Attempts remaining: {attempts}</p>
-          {/* Number Grid */}
-          <ul className="grid grid-cols-3 max-w-[90vw] gap-2">
-            <li>
-              <button onClick={() => handleClick("1")} className={gridListStyle}>
-                1
-              </button>
-            </li>
-            <li>
-              <button onClick={() => handleClick("2")} className={gridListStyle}>
-                2
-              </button>
-            </li>
-            <li>
-              <button onClick={() => handleClick("3")} className={gridListStyle}>
-                3
-              </button>
-            </li>
-            <li>
-              <button onClick={() => handleClick("4")} className={gridListStyle}>
-                4
-              </button>
-            </li>
-            <li>
-              <button onClick={() => handleClick("5")} className={gridListStyle}>
-                5
-              </button>
-            </li>
-            <li>
-              <button onClick={() => handleClick("6")} className={gridListStyle}>
-                6
-              </button>
-            </li>
-            <li>
-              <button onClick={() => handleClick("7")} className={gridListStyle} data-testid="number-button-7">
-                7
-              </button>
-            </li>
-            <li>
-              <button onClick={() => handleClick("8")} className={gridListStyle}>
-                8
-              </button>
-            </li>
-            <li>
-              <button onClick={() => handleClick("9")} className={gridListStyle}>
-                9
-              </button>
-            </li>
-            {/* Empty Slot */}
-            <li></li>
-            <li>
-              <button onClick={() => handleClick("0")} className={gridListStyle}>
-                0
-              </button>
-            </li>
-            <li className="grid">
-              <button className={`${gridListStyle}`} onClick={() => setUserAnswer("")}>
-                Clear
-              </button>
-            </li>
-          </ul>
+          <NumberPad setUserInputCallback={setUserInput} />
         </div>
       )}
     </div>
