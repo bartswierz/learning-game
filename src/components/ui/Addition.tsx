@@ -19,8 +19,9 @@ const Addition = ({ settings }: AdditionProps) => {
   const [score, setScore] = useState(0);
   const [progress, setProgress] = useState<"Success" | "InProgress" | "Failed" | null>(null);
   const [gameOver, setGameOver] = useState(false);
-  const [userInput, setUserInput] = useState<string>("");
+  const [userInput, setUserInput] = useState<string>(""); // User input is a string due to "" being user for empty string AND we want to concatenate the user input to the end of the current input(ex. user clicking 1, then 5 will result in "15")
 
+  const disabled: boolean = userInput === "" ? true : false;
   // Gets our new random values on mount - passing numOneRange and numTwoRange as dependencies if they change from user changing them in the settings
   useEffect(() => {
     const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
@@ -28,21 +29,6 @@ const Addition = ({ settings }: AdditionProps) => {
     setNumberTwo(num2);
   }, [numOneRange, numTwoRange]);
 
-  // const gridListStyle =
-  //   "w-full bg-blue-500 text-white text-center px-4 py-2 rounded-xl hover:bg-blue-700 transition-color duration-300";
-
-  // Adds user input from the number grid to the userAnswer state
-  // const handleClick = (num: string) => {
-  //   setUserInput((current) => current + num);
-  // };
-
-  //
-  // TODO - Either add the numbers next to each other OR if its "" indicating user clicked clear, we will reset the user answer to an empty string to prevent having to create to separate functions
-  // const handleUserInput = (numPadValue: string) => {
-  //   if(numPadValue === "clear") setUserAnswer(""); //Resets value to empty string
-
-  //   setUserAnswer((userAnswer) => userAnswer + numPadValue); // Add the number to the userAnswer state
-  // }
   /* 
   User Submit, 
   IF CORRECT: Score + 1, New Question 
@@ -138,11 +124,15 @@ const Addition = ({ settings }: AdditionProps) => {
           <div className="bg-white text-black w-full h-16" data-testid="user-answer-input" data-user-answer={userInput}>
             {userInput}
           </div>
-          <button onClick={handleCheck} className="bg-blue-500 text-2xl px-2 py-4">
+          <button
+            onClick={handleCheck}
+            className={`${disabled ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500"} bg-blue-500 text-2xl px-2 py-4`}
+            disabled={disabled}
+          >
             Check Answer
           </button>
           <p>Attempts remaining: {attempts}</p>
-          <NumberPad setUserInputCallback={setUserInput} />
+          <NumberPad setUserInputCallback={setUserInput} userInput={userInput} />
         </div>
       )}
     </div>
