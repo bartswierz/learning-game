@@ -13,6 +13,17 @@ const RestartGameBtn = () => {
   //   setUserAnswer("");
   // };
 
+  // const handleGameReset = () => {
+  //   setAttempts(numOfAttempts);
+  //   setScore(0);
+  //   setGameOver(false);
+  //   setProgress(null);
+  //   setUserAnswer("");
+  //   const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
+  //   setNumberOne(num1);
+  //   setNumberTwo(num2);
+  // };
+
   return (
     // <div data-testid="restart-btn">
     <button

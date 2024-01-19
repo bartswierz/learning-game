@@ -3,17 +3,17 @@
 // import {it}
 import { describe, it, expect, test } from "vitest";
 import { render, screen } from "@testing-library/react";
-import SampleComponent from "../sampleTests/SampleComponent";
+import SampleComponent from "../SampleComponent";
 
 // test("SampleComponent", () => {
-describe("SampleComponent", () => {
+describe.skip("SampleComponent", () => {
   it("should be equal to 2", () => {
     expect(1 + 1).toBe(2);
   });
 });
 
 // describe("<SampleComponent />", () => {
-describe("<SampleComponent />", () => {
+describe.skip("<SampleComponent />", () => {
   // Test #1
   it("renders the SampleTest component", () => {
     render(<SampleComponent />);

@@ -7,6 +7,7 @@ import "@testing-library/jest-dom/vitest";
  * Common Jest to Vite migration errors: https://blog.stackademic.com/migration-from-jest-to-vitest-is-it-worth-it-react-ts-4ce220f6bfcf
  * Vitest setup and short tutorial - https://victorbruce82.medium.com/vitest-with-react-testing-library-in-react-created-with-vite-3552f0a9a19a
  * https://flexiple.com/react/react-testing-library-cheat-sheet
+ * https://www.freecodecamp.org/news/how-to-test-user-interactions-in-react/ - Basic testing of user interactions
  * IT - It allows you to specify a clear description of what the test case is checking or asserting
  * EXPECT - It allows you to specify what the expected value is
  * RENDER - It allows you to render the component(note: file must be .jsx extension otherwise we will receive error 'ERROR: Expected expression')

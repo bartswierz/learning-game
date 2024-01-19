@@ -3,9 +3,11 @@ import Settings from "./Settings";
 
 const Navbar = () => {
   return (
-    <nav>
+    <nav data-testid="navbar">
       <ul className="flex flex-col flex-wrap md:flex-row justify-between items-center bg-blue-500X text-white p-4 bX">
-        <span className="text-2xl font-bold">Learning Game</span>
+        <span className="text-2xl font-bold" id="navbar-title">
+          Learning Game
+        </span>
         <li>
           <ul className="flex gap-4 items-center justify-center text-black font-bold">
             <li>

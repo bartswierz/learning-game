@@ -81,7 +81,10 @@ const Addition = ({ settings }: AdditionProps) => {
   };
 
   return (
-    <div className="bg-slate-900 w-fullX flex flex-col justify-center items-center text-white text-5xl b">
+    <div
+      className="bg-slate-900 w-fullX flex flex-col justify-center items-center text-white text-5xl b"
+      data-testid="addition-component"
+    >
       <div>
         {/* <span>Score: {score}</span> */}
         <span>
@@ -124,7 +127,9 @@ const Addition = ({ settings }: AdditionProps) => {
           <p>
             {numberOne} + {numberTwo} = __?
           </p>
-          <div className="bg-white text-black w-full h-16">{userAnswer}</div>
+          <div className="bg-white text-black w-full h-16" data-testid="user-answer-input" data-user-answer={userAnswer}>
+            {userAnswer}
+          </div>
           <button onClick={handleSubmit} className="bg-blue-500 text-2xl px-2 py-4">
             Check Answer
           </button>
@@ -162,7 +167,7 @@ const Addition = ({ settings }: AdditionProps) => {
               </button>
             </li>
             <li>
-              <button onClick={() => handleClick("7")} className={gridListStyle}>
+              <button onClick={() => handleClick("7")} className={gridListStyle} data-testid="number-button-7">
                 7
               </button>
             </li>
