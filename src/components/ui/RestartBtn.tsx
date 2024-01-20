@@ -1,4 +1,4 @@
-const RestartGameBtn = () => {
+const RestartBtn = () => {
   // Resets Game
   // const handleGameReset = () => {
   //   setSettings({
@@ -37,4 +37,4 @@ const RestartGameBtn = () => {
   );
 };
 
-export default RestartGameBtn;
+export default RestartBtn;

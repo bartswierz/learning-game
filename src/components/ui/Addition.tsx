@@ -65,31 +65,41 @@ const Addition = ({ settings }: AdditionProps) => {
       const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange); // TODO - update max value to be the user's selected number range
 
       // USER ANSWERED QUESTION CORRECTLY - UPDATE GLOBAL STATE
-      setGlobals((prev) => ({ ...prev, numberOne: num1, numberTwo: num2, userInput: "", score: prev.score + 1 }));
+      setGlobals((prev) => ({
+        ...prev,
+        numberOne: num1,
+        numberTwo: num2,
+        userInput: "",
+        score: prev.score + 1,
+        numOfAttempts: numOfAttempts,
+      }));
 
       // SUCCESS - ALL QUESTIONS ANSWERED - GAME OVER
       if (globals.score === numOfQuestions - 1) {
         setGlobals((prev) => ({ ...prev, isGameOver: true, progress: "Success" }));
       }
     } else {
-      // INCORRECT - DECREASE ATTEMPTS BY 1
-      setGlobals((prev) => ({ ...prev, numOfAttempts: prev.numOfAttempts - 1 }));
+      // INCORRECT ANSWER - UPDATE GLOBAL STATE
+      setGlobals((prev) => ({ ...prev, numOfAttempts: prev.numOfAttempts - 1, userInput: "" }));
 
       // OUT OF ATTEMPTS - GAME OVER
-      if (globals.numOfAttempts === 0) {
+      if (globals.numOfAttempts - 1 === 0) {
         setGlobals((prev) => ({ ...prev, isGameOver: true, progress: "Failed" }));
       }
     }
   };
 
+  // Updates the userInput state in the global state
   const handleUserInput = (input: string) => {
     setGlobals((prev) => ({ ...prev, userInput: input }));
   };
 
+  // TODO - refactor this into the restart button component, pass a callback function to update the global state
   // Reset the game back to the original settings
   const handleGlobalReset = () => {
     // Getting new random numbers and passing it to our global state
     const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
+
     setGlobals({
       numOneRange: numOneRange,
       numTwoRange: numTwoRange,
@@ -110,7 +120,6 @@ const Addition = ({ settings }: AdditionProps) => {
       data-testid="addition-component"
     >
       <div>
-        {/* <span>Score: {score}</span> */}
         <span>
           Question: {globals.score} / {globals.numOfQuestions}
         </span>

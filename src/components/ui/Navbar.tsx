@@ -1,4 +1,4 @@
-import RestartGameBtn from "./RestartGameBtn";
+import RestartGameBtn from "./RestartBtn";
 import Settings from "./Settings";
 
 const Navbar = () => {
