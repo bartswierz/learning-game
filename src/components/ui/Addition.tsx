@@ -1,28 +1,14 @@
 import { useState, useEffect } from "react";
 import { randomTwoNumbers, checkAnswer } from "@/utils";
-import { Settings } from "@/types/index.ts";
+import { Settings, Globals } from "@/types/index.ts";
 import NumberPad from "./NumberPad";
+import RestartBtn from "./RestartBtn";
 
 interface AdditionProps {
   settings: Settings;
 }
 
-// Contains all the global settings for the game - Will be used to set the default settings and reset the game back to the original settings
-interface Globals {
-  numOneRange: { min: number; max: number };
-  numTwoRange: { min: number; max: number };
-  numOfAttempts: number;
-  numOfQuestions: number;
-  score: number;
-  progress: "Success" | "InProgress" | "Failed" | null;
-  isGameOver: boolean;
-  userInput: string;
-  numberOne: number;
-  numberTwo: number;
-}
-
 // Addition Question Game
-// const Addition = ({ settings }: Settings) => {
 // Passed settings are the default settings upon starting the app. Using currentSettings to allow the component to manage global reset for better code readability and avoid having to update multiple state values individually
 const Addition = ({ settings }: AdditionProps) => {
   // Values passed from the app - these values can be changed by the user in the settings component and will update the game
@@ -96,23 +82,23 @@ const Addition = ({ settings }: AdditionProps) => {
 
   // TODO - refactor this into the restart button component, pass a callback function to update the global state
   // Reset the game back to the original settings
-  const handleGlobalReset = () => {
-    // Getting new random numbers and passing it to our global state
-    const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
+  // const handleGlobalReset = () => {
+  //   // Getting new random numbers and passing it to our global state
+  //   const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
 
-    setGlobals({
-      numOneRange: numOneRange,
-      numTwoRange: numTwoRange,
-      numOfAttempts: numOfAttempts,
-      numOfQuestions: numOfQuestions,
-      score: 0,
-      progress: null,
-      isGameOver: false,
-      userInput: "",
-      numberOne: num1,
-      numberTwo: num2,
-    });
-  };
+  //   setGlobals({
+  //     numOneRange: numOneRange,
+  //     numTwoRange: numTwoRange,
+  //     numOfAttempts: numOfAttempts,
+  //     numOfQuestions: numOfQuestions,
+  //     score: 0,
+  //     progress: null,
+  //     isGameOver: false,
+  //     userInput: "",
+  //     numberOne: num1,
+  //     numberTwo: num2,
+  //   });
+  // };
 
   return (
     <div
@@ -139,12 +125,13 @@ const Addition = ({ settings }: AdditionProps) => {
               </>
             )}
           </div>
-          <button
+          {/* <button
             className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 transition-colors duration-300 hover:shadow-xl px-6 py-3 rounded-full"
             onClick={handleGlobalReset}
           >
             Start Over
-          </button>
+          </button> */}
+          <RestartBtn setGlobalsCallback={setGlobals} settings={settings} />
         </>
       ) : (
         // NEW GAME / GAME IN PROGRESS
