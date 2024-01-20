@@ -5,21 +5,21 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 
 const Navbar = () => {
   const navbarLinks = [
-    { link: "Addition", color: "green" },
-    { link: "Subtraction", color: "red" },
-    { link: "Multiplication", color: "blue" },
-    { link: "Division", color: "yellow" },
+    { link: "Addition", bgColor: "bg-green-500 hover:bg-green-600 focus:bg-green-700" },
+    { link: "Subtraction", bgColor: "bg-red-500 hover:bg-red-600 focus:bg-red-700" },
+    { link: "Multiplication", bgColor: "bg-blue-500 hover:bg-blue-600 focus:bg-blue-700" },
+    { link: "Division", bgColor: "bg-yellow-500 hover:bg-yellow-600 focus:bg-yellow-700" },
   ];
 
   const NavbarLinks = () => {
     return (
       <ul className="flex flex-col md:flex-row flex-wrap text-gray-100 items-center gap-3">
-        {navbarLinks.map(({ link, color }) => {
+        {navbarLinks.map(({ link, bgColor }) => {
           return (
             <li className="cursor-pointer" key={link}>
               <Link
                 to={`/${link}`}
-                className={`bg-${color}-500 hover:bg-${color}-600 focus:bg-${color}-700 hover:text-white hover:shadow-xl hover:ring ring-slate-200 px-4 py-2 rounded-full transition-all duration-300 `}
+                className={`${bgColor} hover:text-white hover:shadow-xl hover:ring ring-slate-200 px-4 py-2 rounded-full transition-all duration-300 `}
                 data-tooltip-target="tooltip-default"
               >
                 <TooltipProvider>

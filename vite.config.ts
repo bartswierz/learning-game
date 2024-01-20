@@ -11,6 +11,10 @@ export default defineConfig({
     globals: true,
     setupFiles: "./tests/setup.js", // assuming the test folder is in the root of our project
   },
+  build: {
+    //For react dev tools to work
+    sourcemap: true,
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
