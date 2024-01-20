@@ -1,6 +1,5 @@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-// import { FormEvent } from "react";
-// import { useState } from "react";
+import { IoSettingsSharp } from "react-icons/io5";
 
 interface Settings {
   numberOne: number;
@@ -10,33 +9,11 @@ interface Settings {
 }
 
 // Settings Component that allows the user to update the value settings(numberOne, numberTwo, # of questions, # of Attempts)
-// TODO - pass in values
 const Settings = () => {
-  // const [settings, setSettings] = useState({
-  //   numberOne: 10,
-  //   numberTwo: 10,
-  //   attempts: 3,
-  //   questions: 5,
-  // });
-
-  // const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-
-  //   const form = e.currentTarget as HTMLFormElement;
-
-  //   // Match 4 form inputs to the settings object props
-  //   setSettings({
-  //     numberOne: form.elements["numberOne"].value,
-  //     numberTwo: form.elements["numberTwo"].value,
-  //     questions: form.elements["questions"].value,
-  //     attempts: form.elements["attempts"].value,
-  //   });
-  // };
-
   return (
     <Popover modal={true}>
-      <PopoverTrigger className="bg-blue-500 hover:bg-blue-600 hover:ring ring-slate-200 focus:bg-blue-700 px-4 py-2 rounded-full hover:text-white transition-all duration-300 hover:shadow-xl">
-        Settings
+      <PopoverTrigger className="bg-blue-500 hover:bg-blue-600 hover:ring ring-slate-200 focus:bg-blue-700 px-4 py-2 rounded-full hover:text-white transition-all duration-300 hover:shadow-xl group">
+        <IoSettingsSharp className="text-2xl transition-all duration-700 group-hover:rotate-180" />
       </PopoverTrigger>
       {/* <PopoverContent>Place content for the popover here.</PopoverContent> */}
       <PopoverContent align="center" className="bg-slate-300 rounded-md w-full">
