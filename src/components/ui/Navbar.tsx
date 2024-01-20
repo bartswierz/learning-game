@@ -18,7 +18,8 @@ const Navbar = () => {
           return (
             <li className="cursor-pointer" key={link}>
               <Link
-                to={`/${link}`}
+                // to={`/${link}`}
+                to={`/`} // TODO - remove this once the routes are set up
                 className={`${bgColor} hover:text-white hover:shadow-xl hover:ring ring-slate-200 px-4 py-2 rounded-full transition-all duration-300 `}
                 data-tooltip-target="tooltip-default"
               >

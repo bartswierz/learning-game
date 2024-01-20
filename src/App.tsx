@@ -1,6 +1,7 @@
 import "./globals.css";
 import Navbar from "./components/ui/Navbar";
 import Addition from "./components/ui/Addition";
+import Operation from "./components/ui/Operation";
 import { Settings } from "./types/index.ts";
 // import SampleComponent from "./components/ui/sampleTests/SampleComponent.tsx";
 // import RestartGameBtn from "./components/ui/RestartGameBtn.tsx";
@@ -36,7 +37,12 @@ function App() {
           <Addition settings={settings} test={"division route"} />
         </Route>
       </Switch> */}
-      <Addition settings={settings} />
+      {/* TODO - Turn this into a reusable component for the 4 operations - pass down which of the four operations will be used as a prop */}
+      {/* <Addition settings={settings} /> */}
+      <Operation settings={settings} operationType={"ADDITION"} />
+      {/* <Operation settings={settings} operationType={"subtraction"} />
+      <Operation settings={settings} operationType={"multiplication"} />
+      <Operation settings={settings} operationType={"division"} /> */}
     </div>
   );
 }
