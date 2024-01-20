@@ -6,6 +6,7 @@ import { Settings } from "./types/index.ts";
 // import RestartGameBtn from "./components/ui/RestartGameBtn.tsx";
 
 function App() {
+  // Settings will be the default settings upon starting the app.
   const settings: Settings = {
     numOneRange: { min: 1, max: 10 },
     numTwoRange: { min: 1, max: 10 },

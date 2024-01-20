@@ -1,17 +1,17 @@
 interface NumberPadProps {
-  setUserInputCallback: (userInput: string) => void;
+  handleUserInputCallback: (userInput: string) => void;
   checkAnswerCallback: () => void;
   userInput: string;
 }
 
 // Component containing buttons 0-9 and a clear button to reset user input
-const NumberPad = ({ setUserInputCallback, checkAnswerCallback, userInput }: NumberPadProps) => {
+const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: NumberPadProps) => {
   const numberPadValues = ["7", "8", "9", "4", "5", "6", "1", "2", "3", "0", "Clear"];
 
   // Updates userInput state in the parent component via callback function
   const handleClick = (value: string) => {
-    if (value === "Clear" || value === "check") setUserInputCallback(""); // RESET INPUT
-    else setUserInputCallback(userInput + value); // ADD VALUE TO THE END OF THE CURRENT INPUT
+    if (value === "Clear" || value === "check") handleUserInputCallback(""); // RESET INPUT
+    else handleUserInputCallback(userInput + value); // ADD VALUE TO THE END OF THE CURRENT INPUT
   };
 
   const handleCheck = () => {

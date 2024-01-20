@@ -34,12 +34,21 @@ export const randomTwoNumbers = (numberOne: NumberMinMax, numberTwo: NumberMinMa
 //   return { num1: randomNum1, num2: randomNum2 };
 // };
 
+interface CheckAnswer {
+  numberOne: number;
+  numberTwo: number;
+  userInput: string;
+}
 // TODO - pass in number 1, number 2, and userAnswer
 // May have issues with string and number value type comparison
-export const checkAnswer = (num1: number, num2: number, userAnswer: string): boolean => {
-  const correctAnswer = num1 + num2;
+export const checkAnswer = ({ numberOne, numberTwo, userInput }: CheckAnswer): boolean => {
+  // const { num1, num2, userAnswer } = values;
+  console.log("numberOne: ", numberOne);
+  console.log("numberTwo: ", numberTwo);
+  console.log("userInput: ", userInput);
+  const correctAnswer = numberOne + numberTwo;
   // console.log("Correct Answer is: ", correctAnswer);
   // console.log("User Answer is: ", userAnswer);
 
-  return Number(userAnswer) === correctAnswer;
+  return Number(userInput) === correctAnswer;
 };
