@@ -34,8 +34,9 @@ const Addition = ({ settings }: AdditionProps) => {
   IF CORRECT: Score + 1, New Question 
   IF WRONG: Attempts-1
   */
-  const handleCheck = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  // const handleCheck = (e: { preventDefault: () => void }) => {
+  const handleCheck = () => {
+    // e.preventDefault();
     const isCorrect = checkAnswer(numberOne, numberTwo, userInput);
 
     // IF correct, score + 1, new question
@@ -86,6 +87,7 @@ const Addition = ({ settings }: AdditionProps) => {
         </span>
       </div>
       {/* GAME IS COMPLETED - Game ends either the user reaches all questions OR runs out of attempts */}
+      {/* TODO - move this into a separate component */}
       {gameOver ? ( // result === 'success' || result === 'failed'
         <>
           <div className="text-center font-bold">
@@ -132,7 +134,7 @@ const Addition = ({ settings }: AdditionProps) => {
             Check Answer
           </button>
           <p>Attempts remaining: {attempts}</p>
-          <NumberPad setUserInputCallback={setUserInput} userInput={userInput} />
+          <NumberPad setUserInputCallback={setUserInput} userInput={userInput} checkAnswerCallback={handleCheck} />
         </div>
       )}
     </div>
