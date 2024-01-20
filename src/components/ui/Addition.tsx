@@ -11,6 +11,7 @@ interface AdditionProps {
 // Addition Question Game
 // Passed settings are the default settings upon starting the app. Using currentSettings to allow the component to manage global reset for better code readability and avoid having to update multiple state values individually
 const Addition = ({ settings }: AdditionProps) => {
+  // const Addition = ({ settings, test }: AdditionProps) => {
   // Values passed from the app - these values can be changed by the user in the settings component and will update the game
   const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
 
@@ -106,6 +107,7 @@ const Addition = ({ settings }: AdditionProps) => {
       data-testid="addition-component"
     >
       <div>
+        {/* <h2>/{test}</h2> */}
         <span>
           Question: {globals.score} / {globals.numOfQuestions}
         </span>
