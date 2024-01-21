@@ -3,6 +3,12 @@ import Navbar from "./components/ui/Navbar";
 import Addition from "./components/ui/Addition";
 import Operation from "./components/ui/Operation";
 import { Settings } from "./types/index.ts";
+import GenerateProblemsPdf from "./components/ui/GenerateProblemsPdf";
+import GeneratePdf from "./components/ui/GeneratePdf";
+import { BlobProvider, PDFViewer, usePDF } from "@react-pdf/renderer";
+import { render } from "@react-pdf/renderer";
+import ReactPDF from "@react-pdf/renderer";
+import { Page, Text, View, Document, StyleSheet, PDFDownloadLink } from "@react-pdf/renderer";
 // import SampleComponent from "./components/ui/sampleTests/SampleComponent.tsx";
 // import RestartGameBtn from "./components/ui/RestartGameBtn.tsx";
 // import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
@@ -18,31 +24,24 @@ function App() {
   return (
     <div className="bg-slate-900 text-white max-w-screen max-h-screen overflow-hiddenX overflow-y-hiddenX w-screenX h-screen">
       <Navbar />
-
       {/* MAIN CONTENT */}
-      {/* <Switch>
-        <Route exact path="/">
-          <Addition settings={settings} />
-        </Route>
-        <Route path="/Addition">
-          <Addition settings={settings} test={"addition route"} />
-        </Route>
-        <Route path="/Subtraction">
-          <Addition settings={settings} test={"subtraction route"} />
-        </Route>
-        <Route path="/Multiplication">
-          <Addition settings={settings} test={"multiplication route"} />
-        </Route>
-        <Route path="/Division">
-          <Addition settings={settings} test={"division route"} />
-        </Route>
-      </Switch> */}
-      {/* TODO - Turn this into a reusable component for the 4 operations - pass down which of the four operations will be used as a prop */}
       {/* <Addition settings={settings} /> */}
-      <Operation settings={settings} operationType={"ADDITION"} />
-      {/* <Operation settings={settings} operationType={"subtraction"} />
-      <Operation settings={settings} operationType={"multiplication"} />
-      <Operation settings={settings} operationType={"division"} /> */}
+      {/* <Operation settings={settings} operationType={"ADDITION"} /> */}
+      {/* <div className="flex w-full b h-[50vh] items-center justify-center"> */}
+      {/* <PDFViewer> */}
+      {/* <GeneratePdf /> */}
+      {/* </PDFViewer> */}
+      {/* </div> */}
+      {/* ReactPDF.render( */}
+      <div className="b flex justify-center items-center text-gray-700X">
+        <GeneratePdf />
+      </div>
+      {/* ); */}
+      <div>
+        <PDFDownloadLink document={<GeneratePdf />} fileName="PracticeProblems.pdf">
+          <button className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600">Download</button>
+        </PDFDownloadLink>
+      </div>
     </div>
   );
 }
