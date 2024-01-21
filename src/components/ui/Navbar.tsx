@@ -1,6 +1,5 @@
 import Settings from "./Settings";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-// import Tooltip from "./tooltip";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const Navbar = () => {

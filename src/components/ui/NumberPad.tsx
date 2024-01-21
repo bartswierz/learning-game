@@ -1,4 +1,4 @@
-import { FaArrowLeft } from "react-icons/fa6";
+import { FaArrowLeft, FaDivide } from "react-icons/fa6";
 
 interface NumberPadProps {
   handleUserInputCallback: (userInput: string) => void;
@@ -15,7 +15,7 @@ const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: 
   const numberPadValues = [
     {
       id: "undo",
-      value: "<",
+      value: "undo",
       bgColor: "bg-red-500",
       rowSpan: "row-span-1",
       colSpan: "col-span-1",
@@ -132,20 +132,6 @@ const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: 
       rowSpan: "row-span-1",
       colSpan: "col-span-1",
     },
-    // {
-    //   id: "clear",
-    //   value: "Clear",
-    //   bgColor: "bg-blue-500",
-    //   rowSpan: "row-span-1",
-    //   colSpan: "col-span-1",
-    // },
-    // {
-    //   id: "enter",
-    //   value: "=",
-    //   bgColor: "bg-blue-500",
-    //   rowSpan: "row-span-1",
-    //   colSpan: "col-span-1",
-    // },
   ];
 
   // const disabled: boolean = globals.userInput === "" ? true : false;
@@ -161,13 +147,13 @@ const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: 
     checkAnswerCallback();
   };
 
-  return (
-    <div className="flex justify-center">
-      <ul className="grid grid-cols-3X grid-cols-4 grid-rows-4 max-w-[90vw] gap-1.5 w-[400px]">
+  const NumberPadButtons = () => {
+    return (
+      <ul className="grid grid-cols-4 grid-rows-4 max-w-[90vw] gap-2 w-[400px]">
         {numberPadValues.map(({ value, id, bgColor, colSpan, rowSpan }) => {
           return (
             // <li key={value}>
-            <li key={id} className={`${colSpan} ${rowSpan} w-full h-full b`}>
+            <li key={id} className={`${colSpan} ${rowSpan} w-full h-full`}>
               <button
                 onClick={() => handleClick(value)}
                 className={`${bgColor} align-middle w-full h-full bg-blue-500 text-white px-2 py-1 rounded-xl hover:bg-blue-700 transition-color duration-300`}
@@ -186,6 +172,12 @@ const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: 
         </button>
       </li> */}
       </ul>
+    );
+  };
+
+  return (
+    <div className="flex justify-center">
+      <NumberPadButtons />
     </div>
   );
 };

@@ -1,14 +1,9 @@
 import "./globals.css";
 import Navbar from "./components/ui/Navbar";
-import Addition from "./components/ui/Addition";
+// import Addition from "./components/ui/Addition";
 import Operation from "./components/ui/Operation";
 import { Settings } from "./types/index.ts";
-import GenerateProblemsPdf from "./components/ui/GenerateProblemsPdf";
-import TakeHomeProblems from "./components/ui/TakeHomeProblems.tsx";
-import { BlobProvider, PDFViewer, usePDF } from "@react-pdf/renderer";
-import { render } from "@react-pdf/renderer";
-import ReactPDF from "@react-pdf/renderer";
-import { Page, Text, View, Document, StyleSheet, PDFDownloadLink } from "@react-pdf/renderer";
+// import TakeHomeProblems from "./components/ui/TakeHomeProblems.tsx";
 // import SampleComponent from "./components/ui/sampleTests/SampleComponent.tsx";
 // import RestartGameBtn from "./components/ui/RestartGameBtn.tsx";
 // import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
@@ -26,18 +21,8 @@ function App() {
       <Navbar />
       {/* MAIN CONTENT */}
       {/* <Addition settings={settings} /> */}
-      {/* <Operation settings={settings} operationType={"ADDITION"} /> */}
-      {/* PDF DISPLAYED */}
-      {/* <div className="b flex justify-center items-center">
-        {" "}
-        <GeneratePdf />{" "}
-      </div> */}
-
-      {/* DOWNLOAD LINK */}
-      {/* <PDFDownloadLink document={<GeneratePdf />} fileName="PracticeProblems.pdf">
-        <button className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600">Download</button>
-      </PDFDownloadLink> */}
-      <TakeHomeProblems />
+      <Operation settings={settings} operationType={"ADDITION"} />
+      {/* <TakeHomeProblems /> */}
     </div>
   );
 }
