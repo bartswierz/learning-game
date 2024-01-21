@@ -17,3 +17,8 @@ export interface Globals {
   numberOne: number;
   numberTwo: number;
 }
+
+export interface NumberMinMax {
+  min: number;
+  max: number;
+}

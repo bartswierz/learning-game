@@ -43,7 +43,7 @@ const Navbar = () => {
 
   return (
     <Router>
-      <nav data-testid="navbar" className="flex justify-between items-center b p-2">
+      <nav data-testid="navbar" className="flex justify-between items-center b p-2 z-[10]">
         <span className="text-2xl font-bold" id="navbar-title">
           Learning Game
         </span>

@@ -4,7 +4,7 @@ import Addition from "./components/ui/Addition";
 import Operation from "./components/ui/Operation";
 import { Settings } from "./types/index.ts";
 import GenerateProblemsPdf from "./components/ui/GenerateProblemsPdf";
-import GeneratePdf from "./components/ui/GeneratePdf";
+import TakeHomeProblems from "./components/ui/TakeHomeProblems.tsx";
 import { BlobProvider, PDFViewer, usePDF } from "@react-pdf/renderer";
 import { render } from "@react-pdf/renderer";
 import ReactPDF from "@react-pdf/renderer";
@@ -22,26 +22,22 @@ function App() {
   };
 
   return (
-    <div className="bg-slate-900 text-white max-w-screen max-h-screen overflow-hiddenX overflow-y-hiddenX w-screenX h-screen">
+    <div className="bg-slate-900 text-white max-w-screen max-h-screenX overflow-hidden overflow-y-hiddenX w-screenX h-screen relative">
       <Navbar />
       {/* MAIN CONTENT */}
       {/* <Addition settings={settings} /> */}
       {/* <Operation settings={settings} operationType={"ADDITION"} /> */}
-      {/* <div className="flex w-full b h-[50vh] items-center justify-center"> */}
-      {/* <PDFViewer> */}
-      {/* <GeneratePdf /> */}
-      {/* </PDFViewer> */}
-      {/* </div> */}
-      {/* ReactPDF.render( */}
-      <div className="b flex justify-center items-center text-gray-700X">
-        <GeneratePdf />
-      </div>
-      {/* ); */}
-      <div>
-        <PDFDownloadLink document={<GeneratePdf />} fileName="PracticeProblems.pdf">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600">Download</button>
-        </PDFDownloadLink>
-      </div>
+      {/* PDF DISPLAYED */}
+      {/* <div className="b flex justify-center items-center">
+        {" "}
+        <GeneratePdf />{" "}
+      </div> */}
+
+      {/* DOWNLOAD LINK */}
+      {/* <PDFDownloadLink document={<GeneratePdf />} fileName="PracticeProblems.pdf">
+        <button className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600">Download</button>
+      </PDFDownloadLink> */}
+      <TakeHomeProblems />
     </div>
   );
 }

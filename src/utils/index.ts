@@ -1,3 +1,5 @@
+import { NumberMinMax } from "../types";
+
 // Random number generator function using passed minimum and maximum values
 export const randomNumber = (min: number, max: number): number => {
   const number = Math.floor(Math.random() * (max - min + 1) + min);
@@ -11,10 +13,10 @@ export const randomNumber = (min: number, max: number): number => {
 //   numberOne: { min: number; max: number };
 //   numberTwo: { min: number; max: number };
 // }
-interface NumberMinMax {
-  min: number;
-  max: number;
-}
+// interface NumberMinMax {
+//   min: number;
+//   max: number;
+// }
 
 // Creates two random numbers between passed minimum and maximum values
 export const randomTwoNumbers = (numberOne: NumberMinMax, numberTwo: NumberMinMax): { num1: number; num2: number } => {
@@ -25,6 +27,20 @@ export const randomTwoNumbers = (numberOne: NumberMinMax, numberTwo: NumberMinMa
   // console.log("Random Two Numbers are: ", randomNum1, randomNum2);
 
   return { num1: randomNum1, num2: randomNum2 };
+};
+
+// Generates random problems to be displayed in a pdf file for download and printing
+export const generateAdditionProblemsForPDF = (numProblems: number, numberOneRange: NumberMinMax, numberTwoRange: NumberMinMax) => {
+  const problems = [];
+
+  for (let i = 0; i < numProblems; i++) {
+    const { num1, num2 } = randomTwoNumbers(numberOneRange, numberTwoRange);
+    // console.log("num1: ", num1, "num2: ", num2);
+
+    problems.push(`${num1} + ${num2} = ________`);
+  }
+
+  return problems;
 };
 // export const randomTwoNumbers = (min: number, max: number): { num1: number; num2: number } => {
 //   const randomNum1 = randomNumber(min, max);
