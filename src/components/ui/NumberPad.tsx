@@ -1,6 +1,9 @@
 import { isNumberOrDecimal } from "@/utils";
 import { ButtonInfo } from "@/types/types";
-import { FaUndoAlt } from "react-icons/fa";
+import { FaUndoAlt, FaTimes } from "react-icons/fa";
+import { FaDivide } from "react-icons/fa6";
+import { RiSubtractFill } from "react-icons/ri";
+import { IoMdAdd } from "react-icons/io";
 
 interface NumberPadProps {
   handleUserInputCallback: (userInput: string) => void;
@@ -8,6 +11,7 @@ interface NumberPadProps {
   userInput: string;
 }
 
+// TODO - add conditionals for add, subtract, multiply, divide buttons for future problems
 // Component containing buttons 0-9 and a clear button to reset user input
 const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: NumberPadProps) => {
   // Updates userInput state in the parent component via callback functions
@@ -30,14 +34,14 @@ const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: 
   };
 
   const buttonInfoList: ButtonInfo[] = [
-    { value: "undo", reactIcon: <FaUndoAlt />, className: "bg-red-500" },
-    { value: "/", className: "" },
-    { value: "*", className: "" },
-    { value: "-", className: "" },
+    { value: "undo", reactIcon: <FaUndoAlt size={40} />, className: "bg-red-500 hover:bg-red-600" },
+    { value: "divide", reactIcon: <FaDivide size={40} />, className: "" },
+    { value: "multiply", reactIcon: <FaTimes size={40} />, className: "" },
+    { value: "subtract", reactIcon: <RiSubtractFill size={42} />, className: "" },
     { value: "7", className: "" },
     { value: "8", className: "" },
     { value: "9", className: "" },
-    { value: "+", className: "row-span-2" },
+    { value: "add", reactIcon: <IoMdAdd size={42} />, className: "row-span-2" },
     { value: "4", className: "" },
     { value: "5", className: "" },
     { value: "6", className: "" },
@@ -46,7 +50,7 @@ const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: 
     { value: "3", className: "" },
     { value: "=", className: "row-span-2" },
     { value: "0", className: "col-span-2" },
-    { value: ".", className: "" },
+    { value: ".", className: "b" },
   ];
 
   return (
@@ -56,9 +60,9 @@ const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: 
           <li
             key={item.value}
             // IF 'ROWSPAN' OR 'COLSPAN' EXIST, APPLY TO THE LIST ELEMENT
-            className={`bg-blue-500 ${item.className}`}
+            className={`bg-blue-500 hover:bg-blue-600 rounded-lg transition-all duration-300 ease-in-out ${item.className}`}
           >
-            <button className="w-full h-full p-2" onClick={() => handleClick(item.value)}>
+            <button className="flex items-center justify-center w-full h-full p-2" onClick={() => handleClick(item.value)}>
               {/* DISPLAY CUSTOM ICON IF IT EXISTS, ELSE VALUE */}
               {item.reactIcon ? item.reactIcon : item.value}
             </button>
