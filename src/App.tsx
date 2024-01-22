@@ -3,7 +3,7 @@ import Navbar from "./components/ui/Navbar";
 // import Addition from "./components/ui/Addition";
 import Operation from "./components/ui/Operation";
 import { Settings } from "./types/types.ts";
-// import TakeHomeProblems from "./components/ui/TakeHomeProblems.tsx";
+import TakeHomeProblems from "./components/ui/TakeHomeProblems.tsx";
 // import SampleComponent from "./components/ui/sampleTests/SampleComponent.tsx";
 // import RestartGameBtn from "./components/ui/RestartGameBtn.tsx";
 // import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
