@@ -21,8 +21,8 @@ function App() {
       <Navbar />
       {/* MAIN CONTENT */}
       {/* <Addition settings={settings} /> */}
-      {/* <Operation settings={settings} operationType={"ADDITION"} /> */}
-      <Operation settings={settings} operationType={"SUBTRACTION"} />
+      <Operation settings={settings} operationType={"ADDITION"} />
+      {/* <Operation settings={settings} operationType={"SUBTRACTION"} /> */}
       {/* <Operation settings={settings} operationType={"MULTIPLICATION"} /> */}
       {/* <Operation settings={settings} operationType={"DIVISION"} /> */}
       {/* <TakeHomeProblems /> */}
