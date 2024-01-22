@@ -16,21 +16,23 @@ interface NumberPadProps {
 const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: NumberPadProps) => {
   // Updates userInput state in the parent component via callback functions
   const handleClick = (input: string) => {
-    console.log("user clicked: ", input);
+    // console.log("user clicked: ", input);
 
     // NUMBER 0 through 9 - APPEND TO THE USERINPUT STRING AND UPDATE THE STATE
     if (isNumberOrDecimal(input)) {
       handleUserInputCallback(userInput + input);
     }
 
+    // CHECK ANSWER
+    else if (input === "=") checkAnswerCallback();
     // REMOVE LAST CHARACTER FROM USERINPUT IF ITS NOT EMPTY
     else if (input === "undo" && userInput.length > 0) {
       handleUserInputCallback(userInput.slice(0, userInput.length - 1));
     }
-
-    // CHECK ANSWER
-    else if (input === "=") checkAnswerCallback();
-    else return;
+    // ADD SUBTRACT SIGN TO THE FRONT OF THE USERINPUT STRING
+    else if (input === "subtract") {
+      handleUserInputCallback("-" + userInput);
+    } else return;
   };
 
   const buttonInfoList: ButtonInfo[] = [

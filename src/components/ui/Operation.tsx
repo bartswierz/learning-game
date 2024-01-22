@@ -3,7 +3,7 @@ import { randomTwoNumbers, checkAnswer } from "@/utils";
 import { Settings, Globals } from "@/types/types";
 import NumberPad from "./NumberPad";
 import RestartBtn from "./RestartBtn";
-
+import { getOperationIcon } from "@/utils";
 interface OperationProps {
   settings: Settings;
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
@@ -30,12 +30,21 @@ const Operation = ({ settings, operationType }: OperationProps) => {
     numberTwo: 0,
   });
 
+  const [operationIcon, setOperationIcon] = useState<JSX.Element>();
+  // const [operationIcon, setOperationIcon] = useState<JSX.Element>(getOperationIcon(operationType));
+  console.log("operationIcon: ", operationIcon);
+
   const disabled: boolean = globals.userInput === "" ? true : false;
   // Gets our new random values on mount - passing numOneRange and numTwoRange as dependencies if they change from user changing them in the settings
   useEffect(() => {
     const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
     setGlobals((prev) => ({ ...prev, numberOne: num1, numberTwo: num2 }));
   }, [numOneRange, numTwoRange]);
+
+  // Gets the operation icon on mount & if user changes the type of questions via operation links in the navbar
+  useEffect(() => {
+    setOperationIcon(getOperationIcon(operationType));
+  }, [operationType]);
 
   /* 
   User Submit, 
@@ -47,7 +56,7 @@ const Operation = ({ settings, operationType }: OperationProps) => {
     const { userInput, numberOne, numberTwo } = globals;
     // TODO - replace this checkAnswer with a specific function for each operation
     // Passed as an object to ensure the order of the arguments doesn't matter
-    const isCorrect = checkAnswer({ userInput, numberOne, numberTwo });
+    const isCorrect = checkAnswer({ userInput, numberOne, numberTwo, operationType });
 
     // IF correct, score + 1, new question
     if (isCorrect) {
@@ -115,8 +124,8 @@ const Operation = ({ settings, operationType }: OperationProps) => {
       ) : (
         // NEW GAME / GAME IN PROGRESS
         <div className="flex flex-col gap-4 text-center b">
-          <p>
-            {globals.numberOne} + {globals.numberTwo} = __?
+          <p className="flex justify-center items-center">
+            {globals.numberOne} {operationIcon} {globals.numberTwo} = __?
           </p>
           <div className="bg-white text-black w-full h-16" data-testid="user-answer-input" data-user-answer={globals.userInput}>
             {globals.userInput}
