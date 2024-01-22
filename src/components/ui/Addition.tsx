@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { randomTwoNumbers, checkAnswer } from "@/utils";
-import { Settings, Globals } from "@/types/index.ts";
+import { Settings, Globals } from "@/types/types";
 import NumberPad from "./NumberPad";
 import RestartBtn from "./RestartBtn";
 

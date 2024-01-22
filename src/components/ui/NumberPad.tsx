@@ -1,3 +1,5 @@
+import { isNumberOrDecimal } from "@/utils";
+import { ButtonInfo } from "@/types/types";
 import { FaUndoAlt } from "react-icons/fa";
 
 interface NumberPadProps {
@@ -8,67 +10,61 @@ interface NumberPadProps {
 
 // Component containing buttons 0-9 and a clear button to reset user input
 const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: NumberPadProps) => {
-  // Updates userInput state in the parent component via callback function
-  const handleClick = (value: string) => {
-    console.log("user clicked: ", value);
-    // USER CLICKED A NUMBER 0 through 9 - APPEND TO THE USERINPUT STRING AND UPDATE THE STATE
-    if (["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"].includes(value)) handleUserInputCallback(userInput + value);
-    // USER CLICKED UNDO - Remove last character from the userInput string and update the state
-    else if (value === "undo") handleUserInputCallback(userInput.slice(0, userInput.length - 1));
-    // USER CLICKED EQUAL
-    else if (value === "=") checkAnswerCallback();
+  // Updates userInput state in the parent component via callback functions
+  const handleClick = (input: string) => {
+    console.log("user clicked: ", input);
+
+    // NUMBER 0 through 9 - APPEND TO THE USERINPUT STRING AND UPDATE THE STATE
+    if (isNumberOrDecimal(input)) {
+      handleUserInputCallback(userInput + input);
+    }
+
+    // REMOVE LAST CHARACTER FROM USERINPUT IF ITS NOT EMPTY
+    else if (input === "undo" && userInput.length > 0) {
+      handleUserInputCallback(userInput.slice(0, userInput.length - 1));
+    }
+
+    // CHECK ANSWER
+    else if (input === "=") checkAnswerCallback();
+    else return;
   };
 
-  interface ButtonInfo {
-    value: string;
-    reactIcon?: JSX.Element;
-    colSpan?: number;
-    rowSpan?: number;
-  }
+  const buttonInfoList: ButtonInfo[] = [
+    { value: "undo", reactIcon: <FaUndoAlt />, className: "bg-red-500" },
+    { value: "/", className: "" },
+    { value: "*", className: "" },
+    { value: "-", className: "" },
+    { value: "7", className: "" },
+    { value: "8", className: "" },
+    { value: "9", className: "" },
+    { value: "+", className: "row-span-2" },
+    { value: "4", className: "" },
+    { value: "5", className: "" },
+    { value: "6", className: "" },
+    { value: "1", className: "" },
+    { value: "2", className: "" },
+    { value: "3", className: "" },
+    { value: "=", className: "row-span-2" },
+    { value: "0", className: "col-span-2" },
+    { value: ".", className: "" },
+  ];
 
-  const NumberPadButtons = () => {
-    // Numberpad values & option custom icons for a few buttons
-    const buttonInfoList: ButtonInfo[] = [
-      { value: "undo", reactIcon: <FaUndoAlt /> },
-      { value: "/" },
-      { value: "*" },
-      { value: "-" },
-      { value: "7" },
-      { value: "8" },
-      { value: "9" },
-      { value: "+", rowSpan: 2 },
-      { value: "4" },
-      { value: "5" },
-      { value: "6" },
-      { value: "1" },
-      { value: "2" },
-      { value: "3" },
-      { value: "=", rowSpan: 2 },
-      { value: "0", colSpan: 2 },
-      { value: "." },
-    ];
-
-    return (
-      <ul className="grid grid-cols-4 max-w-[90vw] gap-2 w-[400px] justify-centerX place-content-centerX">
+  return (
+    <div className="flex justify-center">
+      <ul className="grid grid-cols-4 max-w-[90vw] gap-2 w-[400px]">
         {buttonInfoList.map((item) => (
           <li
             key={item.value}
             // IF 'ROWSPAN' OR 'COLSPAN' EXIST, APPLY TO THE LIST ELEMENT
-            className={`${item.rowSpan && `row-span-${item.rowSpan}`} 
-              ${item.colSpan && `col-span-${item.colSpan}`}`}
+            className={`bg-blue-500 ${item.className}`}
           >
-            <button className="place-self-center place-content-center b w-full h-full p-2" onClick={() => handleClick(item.value)}>
+            <button className="w-full h-full p-2" onClick={() => handleClick(item.value)}>
+              {/* DISPLAY CUSTOM ICON IF IT EXISTS, ELSE VALUE */}
               {item.reactIcon ? item.reactIcon : item.value}
             </button>
           </li>
         ))}
       </ul>
-    );
-  };
-
-  return (
-    <div className="flex justify-center">
-      <NumberPadButtons />
     </div>
   );
 };

@@ -22,3 +22,10 @@ export interface NumberMinMax {
   min: number;
   max: number;
 }
+
+// NumberPad.tsx
+export interface ButtonInfo {
+  value: string;
+  reactIcon?: JSX.Element;
+  className: string;
+}

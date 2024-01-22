@@ -1,4 +1,4 @@
-import { Globals, Settings } from "@/types";
+import { Globals, Settings } from "@/types/types";
 import { randomTwoNumbers } from "@/utils";
 
 interface RestartBtnProps {

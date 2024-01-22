@@ -1,4 +1,4 @@
-import { NumberMinMax } from "../types";
+import { NumberMinMax } from "../types/types";
 
 // Random number generator function using passed minimum and maximum values
 export const randomNumber = (min: number, max: number): number => {
@@ -67,4 +67,10 @@ export const checkAnswer = ({ numberOne, numberTwo, userInput }: CheckAnswer): b
   // console.log("User Answer is: ", userAnswer);
 
   return Number(userInput) === correctAnswer;
+};
+
+// Checks if user input is a number or decimal. Values are passed as strings because we are appending to a string for display(ex. user clicks 1, user clicks 5 = '15')
+export const isNumberOrDecimal = (input: string): boolean => {
+  if (["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."].includes(input)) return true;
+  else return false;
 };
