@@ -3,7 +3,8 @@ import { randomTwoNumbers, checkAnswer } from "@/utils";
 import { Settings, Globals } from "@/types/types";
 import NumberPad from "./NumberPad";
 import RestartBtn from "./RestartBtn";
-import { getOperationIcon } from "@/utils";
+import { getOperationIcon, randomTwoNumbersForDivision } from "@/utils";
+
 interface OperationProps {
   settings: Settings;
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
@@ -37,8 +38,15 @@ const Operation = ({ settings, operationType }: OperationProps) => {
   const disabled: boolean = globals.userInput === "" ? true : false;
   // Gets our new random values on mount - passing numOneRange and numTwoRange as dependencies if they change from user changing them in the settings
   useEffect(() => {
-    const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
-    setGlobals((prev) => ({ ...prev, numberOne: num1, numberTwo: num2 }));
+    // DIVISION PROBLEM
+    if (operationType === "DIVISION") {
+      const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
+      setGlobals((prev) => ({ ...prev, numberOne: num1, numberTwo: num2 }));
+    } else {
+      // NOT DIVISION
+      const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
+      setGlobals((prev) => ({ ...prev, numberOne: num1, numberTwo: num2 }));
+    }
   }, [numOneRange, numTwoRange]);
 
   // Gets the operation icon on mount & if user changes the type of questions via operation links in the navbar
@@ -60,13 +68,29 @@ const Operation = ({ settings, operationType }: OperationProps) => {
 
     // IF correct, score + 1, new question
     if (isCorrect) {
-      const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange); // TODO - update max value to be the user's selected number range
+      let newNum1: number;
+      let newNum2: number;
 
+      if (operationType === "DIVISION") {
+        console.log("inside division check");
+        const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
+        console.log("randomNumber for division returned: ", num1, num2);
+        newNum1 = num1;
+        newNum2 = num2;
+      } else {
+        console.log("Not a division problem, updating with normal");
+        const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange); // TODO - update max value to be the user's selected number range
+        console.log("randomNumber returned: ", num1, num2);
+        newNum1 = num1;
+        newNum2 = num2;
+      }
+
+      console.log("outside of the if/else statement, updating globals with new numbers: ", newNum1, newNum2);
       // USER ANSWERED QUESTION CORRECTLY - UPDATE GLOBAL STATE
       setGlobals((prev) => ({
         ...prev,
-        numberOne: num1,
-        numberTwo: num2,
+        numberOne: newNum1,
+        numberTwo: newNum2,
         userInput: "",
         score: prev.score + 1,
         numOfAttempts: numOfAttempts,

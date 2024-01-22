@@ -1,4 +1,4 @@
-import { NumberMinMax } from "../types/types";
+import { NumberMinMax, CheckAnswer } from "../types/types";
 import { FaUndoAlt, FaTimes } from "react-icons/fa";
 import { FaDivide } from "react-icons/fa6";
 import { RiSubtractFill } from "react-icons/ri";
@@ -33,6 +33,25 @@ export const randomTwoNumbers = (numberOne: NumberMinMax, numberTwo: NumberMinMa
   return { num1: randomNum1, num2: randomNum2 };
 };
 
+export const randomTwoNumbersForDivision = (numberOne: NumberMinMax, numberTwo: NumberMinMax): { num1: number; num2: number } => {
+  // Generate two random numbers between min and max
+  const randomNum1 = randomNumber(numberOne.min, numberOne.max);
+  const randomNum2 = randomNumber(numberTwo.min, numberTwo.max);
+
+  // CALCULATE RESULT TO CHECK IF IT IS A WHOLE NUMBER
+  const result = randomNum1 / randomNum2;
+
+  // CHECK IF THE RESULT IS A WHOLE NUMBER, OTHERWISE RECURSIVELY CALL THE FUNCTION UNTIL A VALID PAIR IS FOUND
+  if (result % 1 === 0) {
+    return { num1: randomNum1, num2: randomNum2 };
+  } else {
+    // FAIL CALL AGAIN
+    return randomTwoNumbersForDivision(numberOne, numberTwo);
+  }
+};
+
+// Usage example:
+
 // Generates random problems to be displayed in a pdf file for download and printing
 export const generateAdditionProblemsForPDF = (numProblems: number, numberOneRange: NumberMinMax, numberTwoRange: NumberMinMax) => {
   const problems = [];
@@ -46,33 +65,6 @@ export const generateAdditionProblemsForPDF = (numProblems: number, numberOneRan
 
   return problems;
 };
-// export const randomTwoNumbers = (min: number, max: number): { num1: number; num2: number } => {
-//   const randomNum1 = randomNumber(min, max);
-//   const randomNum2 = randomNumber(min, max);
-//   console.log("Random Two Numbers are: ", randomNum1, randomNum2);
-
-//   return { num1: randomNum1, num2: randomNum2 };
-// };
-// TODO - pass in number 1, number 2, and userAnswer
-// May have issues with string and number value type comparison
-// export const checkAnswer = ({ numberOne, numberTwo, userInput }: CheckAnswer): boolean => {
-//   // const { num1, num2, userAnswer } = values;
-//   console.log("numberOne: ", numberOne);
-//   console.log("numberTwo: ", numberTwo);
-//   console.log("userInput: ", userInput);
-//   const correctAnswer = numberOne + numberTwo;
-//   // console.log("Correct Answer is: ", correctAnswer);
-//   // console.log("User Answer is: ", userAnswer);
-
-//   return Number(userInput) === correctAnswer;
-// };
-
-interface CheckAnswer {
-  numberOne: number;
-  numberTwo: number;
-  userInput: string;
-  operationType: string;
-}
 
 // TODO
 export const checkAnswer = ({ numberOne, numberTwo, userInput, operationType }: CheckAnswer): boolean => {

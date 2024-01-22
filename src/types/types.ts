@@ -29,3 +29,10 @@ export interface ButtonInfo {
   reactIcon?: JSX.Element;
   className: string;
 }
+
+export interface CheckAnswer {
+  numberOne: number;
+  numberTwo: number;
+  userInput: string;
+  operationType: string;
+}
