@@ -1,12 +1,21 @@
 import "./globals.css";
-import Navbar from "./components/ui/Navbar";
+// import Navbar from "./components/ui/Navbar";
 // import Addition from "./components/ui/Addition";
-import Operation from "./components/ui/Operation";
+// import Operation from "./components/ui/Operation";
 import { Settings } from "./types/types.ts";
 // import TakeHomeProblems from "./components/ui/TakeHomeProblems.tsx";
 // import SampleComponent from "./components/ui/sampleTests/SampleComponent.tsx";
 // import RestartGameBtn from "./components/ui/RestartGameBtn.tsx";
-import { BrowserRouter as Router, Route, Link, Switch, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
+// import { BrowserRouter as Router, Route, Link, Switch, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
+// import Addition from "./pages/Addition.js";
+import Navbar from "./components/ui/Navbar.tsx";
+import Home from "./pages/Home.jsx";
+import Addition from "./pages/Addition.js";
+import Subtraction from "./pages/Subtraction.jsx";
+import Multiplication from "./pages/Multiplication.jsx";
+import Division from "./pages/Division.jsx";
+
 function App() {
   // Settings will be the default settings upon starting the app.
   const settings: Settings = {
@@ -17,16 +26,18 @@ function App() {
   };
 
   return (
-    <div className="bg-slate-900 text-white max-w-screen max-h-screenX overflow-hiddenX overflow-y-hiddenX w-screenX h-screen relative mb-[100px]X">
+    <>
+      {/* NAVBAR does not rerender, we only rerender wthin the Routes component */}
       <Navbar />
-      {/* MAIN CONTENT */}
-      {/* <Addition settings={settings} /> */}
-      {/* <Operation settings={settings} operationType={"ADDITION"} /> */}
-      {/* <Operation settings={settings} operationType={"SUBTRACTION"} /> */}
-      {/* <Operation settings={settings} operationType={"MULTIPLICATION"} /> */}
-      <Operation settings={settings} operationType={"DIVISION"} />
-      {/* <TakeHomeProblems /> */}
-    </div>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/addition" element={<Addition />} />
+        <Route path="/subtraction" element={<Subtraction />} />
+        <Route path="/multiplication" element={<Multiplication />} />
+        <Route path="/division" element={<Division />} />
+      </Routes>
+    </>
   );
 }
 

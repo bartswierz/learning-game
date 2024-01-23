@@ -47,7 +47,7 @@ const Settings = () => {
               <IoSettingsSharp className="text-2xl transition-all duration-700 group-hover:rotate-180" />
             </PopoverTrigger>
           </TooltipTrigger>
-          <TooltipContent>Edit Settings</TooltipContent>
+          <TooltipContent className="font-bold">Edit Settings</TooltipContent>
         </Tooltip>
       </TooltipProvider>
 

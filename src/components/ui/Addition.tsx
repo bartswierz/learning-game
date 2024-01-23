@@ -82,10 +82,7 @@ const Addition = ({ settings }: AdditionProps) => {
   };
 
   return (
-    <div
-      className="bg-slate-900 w-fullX flex flex-col justify-center items-center text-white text-5xl "
-      data-testid="addition-component"
-    >
+    <div className=" w-fullX flex flex-col justify-center items-center text-white text-5xl " data-testid="addition-component">
       <div>
         {/* <h2>/{test}</h2> */}
         <span>
