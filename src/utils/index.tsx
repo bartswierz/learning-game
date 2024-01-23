@@ -34,18 +34,22 @@ export const randomTwoNumbers = (numberOne: NumberMinMax, numberTwo: NumberMinMa
 };
 
 export const randomTwoNumbersForDivision = (numberOne: NumberMinMax, numberTwo: NumberMinMax): { num1: number; num2: number } => {
+  console.log("inside randomTwoNumbersForDivision");
   // Generate two random numbers between min and max
   const randomNum1 = randomNumber(numberOne.min, numberOne.max);
   const randomNum2 = randomNumber(numberTwo.min, numberTwo.max);
 
   // CALCULATE RESULT TO CHECK IF IT IS A WHOLE NUMBER
   const result = randomNum1 / randomNum2;
-
+  // console.log("result for division is:", result, "\nrandomNum1:", randomNum1, "\brandomNum2:", randomNum2);
   // CHECK IF THE RESULT IS A WHOLE NUMBER, OTHERWISE RECURSIVELY CALL THE FUNCTION UNTIL A VALID PAIR IS FOUND
+  // console.log(`0.4 % 1 === 0: ", ${0.4 % 1 === 0 ? "yes" : "no"} `);
   if (result % 1 === 0) {
+    console.log("SUCCESS - result: ", result, "is a whole number, returning random numbers: ", randomNum1, randomNum2);
     return { num1: randomNum1, num2: randomNum2 };
   } else {
     // FAIL CALL AGAIN
+    console.log("FAIL - result: ", result, "is NOT a whole number, calling again. Nums: ", randomNum1, randomNum2);
     return randomTwoNumbersForDivision(numberOne, numberTwo);
   }
 };

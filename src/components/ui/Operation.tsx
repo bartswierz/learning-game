@@ -32,8 +32,6 @@ const Operation = ({ settings, operationType }: OperationProps) => {
   });
 
   const [operationIcon, setOperationIcon] = useState<JSX.Element>();
-  // const [operationIcon, setOperationIcon] = useState<JSX.Element>(getOperationIcon(operationType));
-  console.log("operationIcon: ", operationIcon);
 
   const disabled: boolean = globals.userInput === "" ? true : false;
   // Gets our new random values on mount - passing numOneRange and numTwoRange as dependencies if they change from user changing them in the settings
@@ -47,7 +45,7 @@ const Operation = ({ settings, operationType }: OperationProps) => {
       const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
       setGlobals((prev) => ({ ...prev, numberOne: num1, numberTwo: num2 }));
     }
-  }, [numOneRange, numTwoRange]);
+  }, [numOneRange, numTwoRange, operationType]);
 
   // Gets the operation icon on mount & if user changes the type of questions via operation links in the navbar
   useEffect(() => {
@@ -72,7 +70,6 @@ const Operation = ({ settings, operationType }: OperationProps) => {
       let newNum2: number;
 
       if (operationType === "DIVISION") {
-        console.log("inside division check");
         const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
         console.log("randomNumber for division returned: ", num1, num2);
         newNum1 = num1;
@@ -143,7 +140,7 @@ const Operation = ({ settings, operationType }: OperationProps) => {
               </>
             )}
           </div>
-          <RestartBtn setGlobalsCallback={setGlobals} settings={settings} />
+          <RestartBtn setGlobalsCallback={setGlobals} settings={settings} operationType={operationType} />
         </>
       ) : (
         // NEW GAME / GAME IN PROGRESS

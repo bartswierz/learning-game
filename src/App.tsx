@@ -13,7 +13,9 @@ function App() {
     numOneRange: { min: 1, max: 10 },
     numTwoRange: { min: 1, max: 10 },
     numOfAttempts: 3,
-    numOfQuestions: 5,
+    // numOfQuestions: 5,
+    numOfQuestions: 105,
+    // numOfQuestions: 1,
   };
 
   return (

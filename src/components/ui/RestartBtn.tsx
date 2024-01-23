@@ -1,29 +1,49 @@
 import { Globals, Settings } from "@/types/types";
-import { randomTwoNumbers } from "@/utils";
+import { randomTwoNumbers, randomTwoNumbersForDivision } from "@/utils";
 
 interface RestartBtnProps {
   setGlobalsCallback: (globals: Globals) => void;
   settings: Settings;
+  operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
 }
 
-const RestartBtn = ({ setGlobalsCallback, settings }: RestartBtnProps) => {
+const RestartBtn = ({ setGlobalsCallback, settings, operationType }: RestartBtnProps) => {
   const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
 
   const handleGlobalReset = () => {
-    const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
+    if (operationType === "DIVISION") {
+      console.log("inside division - restart btn");
+      const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
+      setGlobalsCallback({
+        numOneRange: numOneRange,
+        numTwoRange: numTwoRange,
+        numOfAttempts: numOfAttempts,
+        numOfQuestions: numOfQuestions,
+        score: 0,
+        progress: null,
+        isGameOver: false,
+        userInput: "",
+        numberOne: num1,
+        numberTwo: num2,
+      });
+    } else {
+      const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
 
-    setGlobalsCallback({
-      numOneRange: numOneRange,
-      numTwoRange: numTwoRange,
-      numOfAttempts: numOfAttempts,
-      numOfQuestions: numOfQuestions,
-      score: 0,
-      progress: null,
-      isGameOver: false,
-      userInput: "",
-      numberOne: num1,
-      numberTwo: num2,
-    });
+      console.log("NOT division - restart btn");
+
+      setGlobalsCallback({
+        numOneRange: numOneRange,
+        numTwoRange: numTwoRange,
+        numOfAttempts: numOfAttempts,
+        numOfQuestions: numOfQuestions,
+        score: 0,
+        progress: null,
+        isGameOver: false,
+        userInput: "",
+        numberOne: num1,
+        numberTwo: num2,
+      });
+    }
   };
 
   return (
