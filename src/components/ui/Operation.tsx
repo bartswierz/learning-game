@@ -11,7 +11,7 @@ interface OperationProps {
 }
 
 // TODO - mode this into the operations section OR inside zustand store
-export const settings: Settings = {
+const settings: Settings = {
   numOneRange: { min: 1, max: 10 },
   numTwoRange: { min: 1, max: 10 },
   numOfAttempts: 3,
