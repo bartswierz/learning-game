@@ -75,7 +75,6 @@ const TakeHomeProblems = () => {
       <Document style={styles.document}>
         <Page size="A4" style={styles.body}>
           <Text style={styles.title}>Take Home Problems</Text>
-          {/* TODO - add take home problems here after randomizing */}
           <View style={styles.section}>
             <View style={styles.problems}>
               {problemsArray.map((problem, index) => (

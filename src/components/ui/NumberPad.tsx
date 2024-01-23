@@ -16,8 +16,6 @@ interface NumberPadProps {
 const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: NumberPadProps) => {
   // Updates userInput state in the parent component via callback functions
   const handleClick = (input: string) => {
-    // console.log("user clicked: ", input);
-
     // NUMBER 0 through 9 - APPEND TO THE USERINPUT STRING AND UPDATE THE STATE
     if (isNumberOrDecimal(input)) {
       handleUserInputCallback(userInput + input);

@@ -11,8 +11,8 @@ const RestartBtn = ({ setGlobalsCallback, settings, operationType }: RestartBtnP
   const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
 
   const handleGlobalReset = () => {
+    // DIVISION PROBLEM RESET
     if (operationType === "DIVISION") {
-      console.log("inside division - restart btn");
       const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
       setGlobalsCallback({
         numOneRange: numOneRange,
@@ -27,9 +27,8 @@ const RestartBtn = ({ setGlobalsCallback, settings, operationType }: RestartBtnP
         numberTwo: num2,
       });
     } else {
+      // ADDITION/SUBTRACTION/MULTIPLICATION PROBLEM RESET
       const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
-
-      console.log("NOT division - restart btn");
 
       setGlobalsCallback({
         numOneRange: numOneRange,

@@ -5,9 +5,7 @@ const GenerateProblemsPdf = () => {
   const [pdfUrl, setPdfUrl] = useState(null);
 
   const handleGeneratePdf = () => {
-    console.log("user clicked generate pdf button");
     const generatePdf = async () => {
-      console.log("inside generatePdf function");
       // Create a new PDF document
       const pdfDoc = await PDFDocument.create();
       const page = pdfDoc.addPage([612, 792]); // US Letter size page
@@ -20,7 +18,7 @@ const GenerateProblemsPdf = () => {
       for (let i = 0; i < 30; i++) {
         const num1 = Math.floor(Math.random() * 20) + 1;
         const num2 = Math.floor(Math.random() * 20) + 1;
-        const sum = num1 + num2;
+        // const sum = num1 + num2;
         equations.push(`${num1} + ${num2} = ________`);
       }
 

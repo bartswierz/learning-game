@@ -71,18 +71,14 @@ const Operation = ({ settings, operationType }: OperationProps) => {
 
       if (operationType === "DIVISION") {
         const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
-        console.log("randomNumber for division returned: ", num1, num2);
         newNum1 = num1;
         newNum2 = num2;
       } else {
-        console.log("Not a division problem, updating with normal");
         const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange); // TODO - update max value to be the user's selected number range
-        console.log("randomNumber returned: ", num1, num2);
         newNum1 = num1;
         newNum2 = num2;
       }
 
-      console.log("outside of the if/else statement, updating globals with new numbers: ", newNum1, newNum2);
       // USER ANSWERED QUESTION CORRECTLY - UPDATE GLOBAL STATE
       setGlobals((prev) => ({
         ...prev,
@@ -115,12 +111,12 @@ const Operation = ({ settings, operationType }: OperationProps) => {
 
   return (
     <div
-      className="bg-slate-900 w-fullX flex flex-col justify-center items-center text-white text-5xl "
+      className="bg-slate-900 w-fullX flex flex-col justify-center items-center text-white text-5xl b gap-10 mt-4"
       data-testid="addition-component"
     >
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 b text-center">
         {/* <h2>/{test}</h2> */}
-        <span>{operationType} Questions</span>
+        <span>{operationType}</span>
         <span>
           Question: {globals.score} / {globals.numOfQuestions}
         </span>

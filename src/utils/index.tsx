@@ -7,49 +7,30 @@ import { IoMdAdd } from "react-icons/io";
 // Random number generator function using passed minimum and maximum values
 export const randomNumber = (min: number, max: number): number => {
   const number = Math.floor(Math.random() * (max - min + 1) + min);
-  // console.log("Random Number is: ", number);
 
   // return Math.floor(Math.random() * (max - min + 1) + min);
   return number;
 };
 
-// interface RandomTwoNumbers {
-//   numberOne: { min: number; max: number };
-//   numberTwo: { min: number; max: number };
-// }
-// interface NumberMinMax {
-//   min: number;
-//   max: number;
-// }
-
 // Creates two random numbers between passed minimum and maximum values
 export const randomTwoNumbers = (numberOne: NumberMinMax, numberTwo: NumberMinMax): { num1: number; num2: number } => {
-  // console.log("numberOne: ", numberOne);
-  // console.log("numberTwo: ", numberTwo);
   const randomNum1 = randomNumber(numberOne.min, numberOne.max);
   const randomNum2 = randomNumber(numberTwo.min, numberTwo.max);
-  // console.log("Random Two Numbers are: ", randomNum1, randomNum2);
 
   return { num1: randomNum1, num2: randomNum2 };
 };
 
 export const randomTwoNumbersForDivision = (numberOne: NumberMinMax, numberTwo: NumberMinMax): { num1: number; num2: number } => {
-  console.log("inside randomTwoNumbersForDivision");
   // Generate two random numbers between min and max
   const randomNum1 = randomNumber(numberOne.min, numberOne.max);
   const randomNum2 = randomNumber(numberTwo.min, numberTwo.max);
 
   // CALCULATE RESULT TO CHECK IF IT IS A WHOLE NUMBER
   const result = randomNum1 / randomNum2;
-  // console.log("result for division is:", result, "\nrandomNum1:", randomNum1, "\brandomNum2:", randomNum2);
-  // CHECK IF THE RESULT IS A WHOLE NUMBER, OTHERWISE RECURSIVELY CALL THE FUNCTION UNTIL A VALID PAIR IS FOUND
-  // console.log(`0.4 % 1 === 0: ", ${0.4 % 1 === 0 ? "yes" : "no"} `);
   if (result % 1 === 0) {
-    console.log("SUCCESS - result: ", result, "is a whole number, returning random numbers: ", randomNum1, randomNum2);
     return { num1: randomNum1, num2: randomNum2 };
   } else {
     // FAIL CALL AGAIN
-    console.log("FAIL - result: ", result, "is NOT a whole number, calling again. Nums: ", randomNum1, randomNum2);
     return randomTwoNumbersForDivision(numberOne, numberTwo);
   }
 };
@@ -62,7 +43,6 @@ export const generateAdditionProblemsForPDF = (numProblems: number, numberOneRan
 
   for (let i = 0; i < numProblems; i++) {
     const { num1, num2 } = randomTwoNumbers(numberOneRange, numberTwoRange);
-    // console.log("num1: ", num1, "num2: ", num2);
 
     problems.push(`${num1} + ${num2} = ________`);
   }
@@ -72,7 +52,6 @@ export const generateAdditionProblemsForPDF = (numProblems: number, numberOneRan
 
 // TODO
 export const checkAnswer = ({ numberOne, numberTwo, userInput, operationType }: CheckAnswer): boolean => {
-  console.log("operation type is: ", operationType);
   let correctAnswer;
 
   switch (operationType) {
@@ -92,9 +71,7 @@ export const checkAnswer = ({ numberOne, numberTwo, userInput, operationType }: 
       throw new Error(`Unsupported operation: ${operationType}`);
   }
 
-  console.log("Correct Answer is: ", correctAnswer);
   const isCorrect = Number(userInput) === correctAnswer ? true : false;
-  console.log("is user correct? ", isCorrect ? "yes" : "no");
   return isCorrect;
 };
 
