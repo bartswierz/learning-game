@@ -1,7 +1,9 @@
+import Operation from "@/components/ui/Operation";
+
 export default function Division() {
   return (
-    <div>
-      <h1>Division</h1>
-    </div>
+    <>
+      <Operation operationType="DIVISION" />
+    </>
   );
 }

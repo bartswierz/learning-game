@@ -1,7 +1,9 @@
-export default function Multiplication() {
+import Operation from "@/components/ui/Operation";
+
+export default function Division() {
   return (
-    <div>
-      <h1>Multiplication</h1>
-    </div>
+    <>
+      <Operation operationType="MULTIPLICATION" />
+    </>
   );
 }

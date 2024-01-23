@@ -6,13 +6,22 @@ import RestartBtn from "./RestartBtn";
 import { getOperationIcon, randomTwoNumbersForDivision } from "@/utils";
 
 interface OperationProps {
-  settings: Settings;
+  // settings: Settings;
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
 }
 
+// TODO - mode this into the operations section OR inside zustand store
+export const settings: Settings = {
+  numOneRange: { min: 1, max: 10 },
+  numTwoRange: { min: 1, max: 10 },
+  numOfAttempts: 3,
+  numOfQuestions: 5,
+};
+
 // Addition Question Game
 // Passed settings are the default settings upon starting the app. Using currentSettings to allow the component to manage global reset for better code readability and avoid having to update multiple state values individually
-const Operation = ({ settings, operationType }: OperationProps) => {
+// const Operation = ({ settings, operationType }: OperationProps) => {
+const Operation = ({ operationType }: OperationProps) => {
   // const Addition = ({ settings, test }: AdditionProps) => {
   // Values passed from the app - these values can be changed by the user in the settings component and will update the game
   const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;

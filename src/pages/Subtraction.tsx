@@ -1,7 +1,9 @@
+import Operation from "@/components/ui/Operation";
+
 export default function Subtraction() {
   return (
-    <div>
-      <h1>Subtraction</h1>
-    </div>
+    <>
+      <Operation operationType="SUBTRACTION" />
+    </>
   );
 }

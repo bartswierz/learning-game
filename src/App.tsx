@@ -18,12 +18,6 @@ import Division from "./pages/Division.jsx";
 
 function App() {
   // Settings will be the default settings upon starting the app.
-  const settings: Settings = {
-    numOneRange: { min: 1, max: 10 },
-    numTwoRange: { min: 1, max: 10 },
-    numOfAttempts: 3,
-    numOfQuestions: 5,
-  };
 
   return (
     <>
