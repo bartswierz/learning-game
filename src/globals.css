@@ -1,9 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   background: rgb(15 23 42);
   color: rgb(255 255 255);
+  height: 100%;
+  width: 100%;
+}
+
+body,
+h1,
+h2,
+p,
+ul,
+li {
+  margin: 0;
+  padding: 0;
 }
 
 @layer base {

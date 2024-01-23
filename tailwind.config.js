@@ -12,6 +12,10 @@ export default {
       },
     },
     extend: {
+      container: {
+        center: true, // Center the container content
+        padding: "2rem", // Add padding to the container
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
