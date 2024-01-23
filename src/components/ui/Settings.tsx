@@ -33,9 +33,15 @@ interface Settings {
 //     </form>
 //   );
 // };
-const SettingsSlider = () => {
+
+interface SettingsSliderProps {
+  min: number;
+  max: number;
+}
+
+const SettingsSlider = ({ min = 1, max = 50 }: SettingsSliderProps) => {
   return (
-    <Slider.Root className="SliderRoot" defaultValue={[1, 50]} max={100} step={1} minStepsBetweenThumbs={1}>
+    <Slider.Root className="SliderRoot" defaultValue={[min, max]} max={50} step={1} minStepsBetweenThumbs={1}>
       <Slider.Track className="SliderTrack">
         <Slider.Range className="SliderRange" />
       </Slider.Track>
@@ -45,27 +51,46 @@ const SettingsSlider = () => {
   );
 };
 
+// interface Settings {
+//   numberOne: number;
+//   numberTwo: number;
+//   attempts: number;
+//   questions: number;
+// }
+// /* TODO - for testing purposes, using settings from the Operation component
+const settings = {
+  numOneRange: { min: 1, max: 10 },
+  numTwoRange: { min: 1, max: 10 },
+  numOfQuestions: 5,
+  numOfAttempts: 3,
+};
+
+const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
+// */
 //TODO - add slider range for numberOne and numberTwo
 // Form contents for the Settings Component
 const SettingsForm__ = () => {
   return (
-    <form className="flex flex-col gap-8 text-white">
-      <div>
-        <label htmlFor="firstNumber">Number 1 Limit</label>
-        <SettingsSlider />
+    <form className="flex flex-col justify-center items-center gap-8 text-white">
+      <div className="b p-2">
+        <label htmlFor="numberOne">Number 1 Limit - Min Value: Max Value:</label>
+        <SettingsSlider min={numOneRange.min} max={numOneRange.max} />
       </div>
       <div>
-        <label htmlFor="firstNumber">Number 2 Limit</label>
-        <SettingsSlider />
+        <label htmlFor="numberTwo">Number 2 Limit - Min Value: Max Value:</label>
+        <SettingsSlider min={numTwoRange.min} max={numTwoRange.max} />
       </div>
       <div>
-        <label htmlFor="firstNumber"># of Questions</label>
-        <SettingsSlider />
+        <label htmlFor="questions"># of Questions - Min Value: Max Value:</label>
+        <SettingsSlider min={1} max={numOfQuestions} />
       </div>
       <div>
-        <label htmlFor="firstNumber"># of Attempts</label>
-        <SettingsSlider />
+        <label htmlFor="attempts"># of Attempts - Min Value: Max Value:</label>
+        <SettingsSlider min={1} max={numOfAttempts} />
       </div>
+      <button type="submit" className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 px-4 py-2 rounded-full">
+        Update Settings
+      </button>
     </form>
   );
 };
