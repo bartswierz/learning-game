@@ -15,17 +15,24 @@ const initialState: Settings = {
   numOfAttempts: 3,
 };
 
-const useSettingsStore = create((set) => ({
+interface SettingsStore {
+  settings: Settings;
+  setNumOneRange: (min: number, max: number) => void;
+  setNumTwoRange: (min: number, max: number) => void;
+  setNumOfAttempts: (numOfAttempts: number) => void;
+  setNumOfQuestions: (numOfQuestions: number) => void;
+  setSettings: (settings: Settings) => void;
+}
+
+const useSettingsStore = create<SettingsStore>((set) => ({
   settings: {
-    numOneRange: { min: 1, max: 100 },
-    numTwoRange: { min: 1, max: 100 },
-    numOfQuestions: 5,
-    numOfAttempts: 3,
+    ...initialState,
   },
-  setNumOneRange: (min: number, max: number) => set({ numOneRange: { min, max } }),
-  setNumTwoRange: (min: number, max: number) => set({ numTwoRange: { min, max } }),
-  setNumOfAttempts: (numOfAttempts: number) => set({ numOfAttempts }),
-  setNumOfQuestions: (numOfQuestions: number) => set({ numOfQuestions }),
+  setSettings: (settings: Settings) => set(() => ({ settings })),
+  setNumOneRange: (min: number, max: number) => set((state) => ({ settings: { ...state.settings, numOneRange: { min, max } } })),
+  setNumTwoRange: (min: number, max: number) => set((state) => ({ settings: { ...state.settings, numTwoRange: { min, max } } })),
+  setNumOfAttempts: (numOfAttempts: number) => set((state) => ({ settings: { ...state.settings, numOfAttempts } })),
+  setNumOfQuestions: (numOfQuestions: number) => set((state) => ({ settings: { ...state.settings, numOfQuestions } })),
 }));
 
 export default useSettingsStore;

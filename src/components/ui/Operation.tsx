@@ -1,29 +1,22 @@
 import { useState, useEffect } from "react";
 import { randomTwoNumbers, checkAnswer } from "@/utils";
-import { Settings, Globals } from "@/types/types";
+import { Globals } from "@/types/types";
 import NumberPad from "./NumberPad";
 import RestartBtn from "./RestartBtn";
 import { getOperationIcon, randomTwoNumbersForDivision } from "@/utils";
+import useSettingsStore from "@/store/store";
 
 interface OperationProps {
   // settings: Settings;
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
 }
 
-// TODO - mode this into the operations section OR inside zustand store
-const settings: Settings = {
-  numOneRange: { min: 1, max: 10 },
-  numTwoRange: { min: 1, max: 10 },
-  numOfAttempts: 3,
-  numOfQuestions: 5,
-};
-
 // Addition Question Game
 // Passed settings are the default settings upon starting the app. Using currentSettings to allow the component to manage global reset for better code readability and avoid having to update multiple state values individually
 // const Operation = ({ settings, operationType }: OperationProps) => {
 const Operation = ({ operationType }: OperationProps) => {
-  // const Addition = ({ settings, test }: AdditionProps) => {
-  // Values passed from the app - these values can be changed by the user in the settings component and will update the game
+  // Calling our Zustand Store for the settings
+  const { settings } = useSettingsStore((state) => state);
   const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
 
   // Global state for the game

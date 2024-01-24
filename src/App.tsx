@@ -1,14 +1,5 @@
 import "./globals.css";
-// import Navbar from "./components/ui/Navbar";
-// import Addition from "./components/ui/Addition";
-// import Operation from "./components/ui/Operation";
-import { Settings } from "./types/types.ts";
-// import TakeHomeProblems from "./components/ui/TakeHomeProblems.tsx";
-// import SampleComponent from "./components/ui/sampleTests/SampleComponent.tsx";
-// import RestartGameBtn from "./components/ui/RestartGameBtn.tsx";
-// import { BrowserRouter as Router, Route, Link, Switch, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
-import { Link, Route, Routes } from "react-router-dom";
-// import Addition from "./pages/Addition.js";
+import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/ui/Navbar.tsx";
 import Home from "./pages/Home.jsx";
 import Addition from "./pages/Addition.js";
