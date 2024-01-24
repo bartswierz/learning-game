@@ -3,100 +3,14 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/shadcn/tooltip";
 import * as Slider from "@radix-ui/react-slider";
 import "./shadcn/styles.css";
-
-interface Settings {
-  numberOne: number;
-  numberTwo: number;
-  attempts: number;
-  questions: number;
-}
-
-// Form contents for the Settings Component
-// const SettingsForm__ = () => {
-//   return (
-//     <form className="flex flex-col b w-[300px] gap-1">
-//       <label htmlFor="firstNumber">Number 1</label>
-//       <input type="text" name="numberOne" id="firstNumber" className="w-full" required />
-
-//       <label htmlFor="secondNumber">Number 2</label>
-//       <input type="text" name="numberTwo" id="numberTwo" className="w-full" required />
-
-//       <label htmlFor="secondNumber">Number of Questions</label>
-//       <input type="text" name="questions" id="questions" className="w-full" required />
-
-//       <label htmlFor="attempts">Attempts Limit</label>
-//       <input type="text" name="attempts" id="attempts" className="w-full" required />
-
-//       <button type="submit" className="bg-blue-500 px-4 py-2 rounded-full w-full">
-//         Submit
-//       </button>
-//     </form>
-//   );
-// };
-
-interface SettingsSliderProps {
-  min: number;
-  max: number;
-}
-
-const SettingsSlider = ({ min = 1, max = 50 }: SettingsSliderProps) => {
-  return (
-    <Slider.Root className="SliderRoot" defaultValue={[min, max]} max={50} step={1} minStepsBetweenThumbs={1}>
-      <Slider.Track className="SliderTrack">
-        <Slider.Range className="SliderRange" />
-      </Slider.Track>
-      <Slider.Thumb className="SliderThumb" aria-label="Volume" />
-      <Slider.Thumb className="SliderThumb" aria-label="Volume" />
-    </Slider.Root>
-  );
-};
-
-// interface Settings {
-//   numberOne: number;
-//   numberTwo: number;
-//   attempts: number;
-//   questions: number;
-// }
-// /* TODO - for testing purposes, using settings from the Operation component
-const settings = {
-  numOneRange: { min: 1, max: 10 },
-  numTwoRange: { min: 1, max: 10 },
-  numOfQuestions: 5,
-  numOfAttempts: 3,
-};
-
-const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
-// */
-//TODO - add slider range for numberOne and numberTwo
-// Form contents for the Settings Component
-const SettingsForm__ = () => {
-  return (
-    <form className="flex flex-col justify-center items-center gap-8 text-white">
-      <div className="b p-2">
-        <label htmlFor="numberOne">Number 1 Limit - Min Value: Max Value:</label>
-        <SettingsSlider min={numOneRange.min} max={numOneRange.max} />
-      </div>
-      <div>
-        <label htmlFor="numberTwo">Number 2 Limit - Min Value: Max Value:</label>
-        <SettingsSlider min={numTwoRange.min} max={numTwoRange.max} />
-      </div>
-      <div>
-        <label htmlFor="questions"># of Questions - Min Value: Max Value:</label>
-        <SettingsSlider min={1} max={numOfQuestions} />
-      </div>
-      <div>
-        <label htmlFor="attempts"># of Attempts - Min Value: Max Value:</label>
-        <SettingsSlider min={1} max={numOfAttempts} />
-      </div>
-      <button type="submit" className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 px-4 py-2 rounded-full">
-        Update Settings
-      </button>
-    </form>
-  );
-};
+import useSettingsStore from "@/store/store";
 
 // Settings Component that allows the user to update the value settings(numberOne, numberTwo, # of questions, # of Attempts)
 const Settings = () => {
+  const { settings, initialState } = useSettingsStore();
+  console.log("settings from store: ", settings);
+  console.log("initialState from store: ", initialState);
+  // const { settings } = useSettingsStore();
   return (
     <Popover modal={true}>
       {/* TOOLTIP POPUP */}
@@ -115,11 +29,90 @@ const Settings = () => {
       </TooltipProvider>
 
       {/* CONTENT INSIDE POPUP */}
-      <PopoverContent align="center" className="bg-transparent/70x bg-black/25 border-blue-500 border-4 rounded-md w-full">
+      <PopoverContent
+        align="center"
+        className="bg-transparent/70x bg-black/25X bg-gray-500/50 border-blue-500 border-4 rounded-md w-full"
+      >
         <p className="text-white text-center b mb-4 font-bold">Question Settings</p>
-        <SettingsForm__ />
+        <SettingsForm__ settings={settings} />
       </PopoverContent>
     </Popover>
+  );
+};
+
+// const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
+// */
+//TODO - add slider range for numberOne and numberTwo
+// Form contents for the Settings Component
+const SettingsForm__ = ({ settings }) => {
+  const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
+
+  // Updates the settings state in our SettingsStore
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("inside handleSubmit");
+
+    // TODO - update the store with the new values here
+
+    // Close the Settings popup once the state is updated
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-8 text-white">
+      <div className="b p-2">
+        <label htmlFor="numberOne">
+          Number 1 Limit - Min Value: {numTwoRange.min} Max Value: {numTwoRange.max}
+        </label>
+        <SettingsDualSlider min={numOneRange.min} max={numOneRange.max} />
+      </div>
+      <div>
+        <label htmlFor="numberTwo">
+          Number 2 Limit - Min Value: {numTwoRange.min} Max Value: {numTwoRange.max}
+        </label>
+        <SettingsDualSlider min={numTwoRange.min} max={numTwoRange.max} />
+      </div>
+      <div>
+        <label htmlFor="questions"># of Questions - Value: {numOfQuestions}</label>
+        <SettingsSlider min={1} max={numOfQuestions} />
+      </div>
+      <div>
+        <label htmlFor="attempts"># of Attempts - Value: {numOfAttempts}</label>
+        <SettingsSlider min={1} max={numOfAttempts} />
+      </div>
+      <button type="submit" className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 px-4 py-2 rounded-full">
+        Update Settings
+      </button>
+    </form>
+  );
+};
+
+interface SettingsSliderProps {
+  min: number;
+  max: number;
+}
+
+const SettingsDualSlider = ({ min = 1, max = 50 }: SettingsSliderProps) => {
+  console.log("inside SettingsDualSlider");
+  return (
+    <Slider.Root className="SliderRoot" defaultValue={[min, max]} max={50} step={1} minStepsBetweenThumbs={1}>
+      <Slider.Track className="SliderTrack">
+        <Slider.Range className="SliderRange" />
+      </Slider.Track>
+      <Slider.Thumb className="SliderThumb" aria-label="Volume" />
+      <Slider.Thumb className="SliderThumb" aria-label="Volume" />
+    </Slider.Root>
+  );
+};
+
+const SettingsSlider = ({ min = 1 }: SettingsSliderProps) => {
+  console.log("inside SettingsSlider");
+  return (
+    <Slider.Root className="SliderRoot" defaultValue={[min]} max={50} step={1} minStepsBetweenThumbs={1}>
+      <Slider.Track className="SliderTrack">
+        <Slider.Range className="SliderRange" />
+      </Slider.Track>
+      <Slider.Thumb className="SliderThumb" aria-label="Volume" />
+    </Slider.Root>
   );
 };
 

@@ -3,8 +3,13 @@ import { Link } from "react-router-dom";
 // import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { IoHome } from "react-icons/io5";
 import TooltipButton from "./TooltipButton";
+// import { useStore } from "zustand";
+// import useCounterStore from "@/store/counter";
+import useSettingsStore from "@/store/store";
 
 const Navbar = () => {
+  const { settings } = useSettingsStore((state) => state);
+  console.log("settings fromm store: ", settings);
   // Link information for our four operations along with custom button colors
   const navbarLinks = [
     { link: "Addition", bgColor: "bg-green-500 hover:bg-green-600" },
@@ -23,7 +28,7 @@ const Navbar = () => {
     return (
       <ul className="flex flex-col md:flex-row flex-wrap items-center gap-3">
         {navbarLinks.map(({ link, bgColor }) => {
-          return <NavbarLink link={link} btnColor={bgColor} />;
+          return <NavbarLink link={link} btnColor={bgColor} key={link} />;
         })}
       </ul>
     );
