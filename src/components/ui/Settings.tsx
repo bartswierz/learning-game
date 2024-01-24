@@ -42,6 +42,8 @@ const Settings = () => {
   );
 };
 
+export default Settings;
+
 // const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
 // */
 interface SettingsFormProps {
@@ -58,32 +60,52 @@ const SettingsForm__ = ({ settings }: SettingsFormProps) => {
     e.preventDefault();
     console.log("inside handleSubmit - e: ", e);
 
+    /* Form has 6 inputs input[0-6] - 6 being the button
+    0 - numberOne Min & 1 - numberOne MAX 
+    2 - numberTwo Min & 3 - numberTwo MAX 
+    4 - # of Questions
+    5 - # of Attempts
+    */
+    const formData = new FormData(e.target); // Capture the form data
+    console.log("formData: ", formData);
+
+    // Access the slider values using their names - using getAll() for our dual sliders as we have two thumb values to track, numberOne is applied to both thumbs
+    const numberOneValue = formData.getAll("numberOne[]");
+    const numberTwoValue = formData.getAll("numberTwo[]");
+    const questionsValue = formData.get("questions");
+    const attemptsValue = formData.get("attempts");
+
+    console.log("Number One Value: ", numberOneValue);
+    console.log("Number Two Value: ", numberTwoValue);
+    console.log("Questions Value: ", questionsValue);
+    console.log("Attempts Value: ", attemptsValue);
     // TODO - update the store with the new values here
 
     // Close the Settings popup once the state is updated
   };
 
+  // the name prop IS being applied to our values, however we have an issue with the dual sliders, the formData only gathers the first vaue
   return (
     <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-8 text-white">
       <div className="b p-2">
         <label htmlFor="numberOne">
           Number 1 Limit - Min Value: {numTwoRange.min} Max Value: {numTwoRange.max}
         </label>
-        <SettingDualSlider min={numOneRange.min} max={numOneRange.max} />
+        <SettingDualSlider min={numOneRange.min} max={numOneRange.max} name="numberOne" />
       </div>
       <div>
         <label htmlFor="numberTwo">
           Number 2 Limit - Min Value: {numTwoRange.min} Max Value: {numTwoRange.max}
         </label>
-        <SettingDualSlider min={numTwoRange.min} max={numTwoRange.max} />
+        <SettingDualSlider min={numTwoRange.min} max={numTwoRange.max} name="numberTwo" />
       </div>
       <div>
         <label htmlFor="questions"># of Questions - Value: {numOfQuestions}</label>
-        <SettingSlider min={1} max={numOfQuestions} />
+        <SettingSlider min={1} max={numOfQuestions} name="questions" />
       </div>
       <div>
         <label htmlFor="attempts"># of Attempts - Value: {numOfAttempts}</label>
-        <SettingSlider min={1} max={numOfAttempts} />
+        <SettingSlider min={1} max={numOfAttempts} name="attempts" />
       </div>
       <button type="submit" className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 px-4 py-2 rounded-full">
         Update Settings
@@ -96,10 +118,11 @@ interface SettingsSliderProps {
   min?: number;
   max?: number;
   step?: number;
+  name: string;
 }
 
 // TODO - in charge of Min and Max values - need to pass which type its for
-const SettingDualSlider = ({ min = 1, max = 100 }: SettingsSliderProps) => {
+const SettingDualSlider = ({ min = 1, max = 100, name }: SettingsSliderProps) => {
   // console.log("inside SettingsDualSlider");
   const [value, setValue] = useState([min]); // [min, max
 
@@ -129,6 +152,7 @@ const SettingDualSlider = ({ min = 1, max = 100 }: SettingsSliderProps) => {
       step={1}
       minStepsBetweenThumbs={1}
       onValueChange={handleValueChange}
+      name={name}
     >
       <Slider.Track className="SliderTrack">
         <Slider.Range className="SliderRange" />
@@ -139,7 +163,7 @@ const SettingDualSlider = ({ min = 1, max = 100 }: SettingsSliderProps) => {
   );
 };
 
-const SettingSlider = ({ min = 1, max = 50, step = 1 }: SettingsSliderProps) => {
+const SettingSlider = ({ min = 1, max = 50, step = 1, name }: SettingsSliderProps) => {
   // TODO - replace this with the value from the store
   const [value, setValue] = useState([min]); // [min, max
   console.log("inside SettingsSlider");
@@ -165,6 +189,7 @@ const SettingSlider = ({ min = 1, max = 50, step = 1 }: SettingsSliderProps) => 
       step={step}
       minStepsBetweenThumbs={1}
       onValueChange={handleValueChange}
+      name={name}
     >
       <Slider.Track className="SliderTrack">
         <Slider.Range className="SliderRange" />
@@ -173,5 +198,3 @@ const SettingSlider = ({ min = 1, max = 50, step = 1 }: SettingsSliderProps) => 
     </Slider.Root>
   );
 };
-
-export default Settings;
