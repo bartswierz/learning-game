@@ -48,6 +48,7 @@ interface SettingsFormProps {
   settings: Settings;
 }
 //TODO - add slider range for numberOne and numberTwo
+//TODO - on submit may allow gathering all 6 data values, we need to add a name or id to each slider to identify which one is which
 // Form contents for the Settings Component
 const SettingsForm__ = ({ settings }: SettingsFormProps) => {
   const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
@@ -55,7 +56,7 @@ const SettingsForm__ = ({ settings }: SettingsFormProps) => {
   // Updates the settings state in our SettingsStore
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("inside handleSubmit");
+    console.log("inside handleSubmit - e: ", e);
 
     // TODO - update the store with the new values here
 
@@ -97,10 +98,38 @@ interface SettingsSliderProps {
   step?: number;
 }
 
+// TODO - in charge of Min and Max values - need to pass which type its for
 const SettingDualSlider = ({ min = 1, max = 100 }: SettingsSliderProps) => {
-  console.log("inside SettingsDualSlider");
+  // console.log("inside SettingsDualSlider");
+  const [value, setValue] = useState([min]); // [min, max
+
+  // Prevents the slider from updating the state on every value change, 300ms is the delay until the user stops indicating their value choice
+  const debouncedSetValue = debounce((newValue) => {
+    console.log("inside debouncedSetValue - newValue: ", newValue);
+    // IF - Number One Slider - update min/max for numberOne - e[0] = min value, e[1] = max value
+    // IF - Number Two Slider - update min/max for numberTwo - e[0] = min value, e[1] = max value
+    setValue(newValue);
+  }, 300);
+
+  // Value is an array of numbers, we can use first index using OnValueChange
+  const handleValueChange = (e) => {
+    // e[0] = min value, e[1] = max value
+    // console.log("dual value change e: ", e[0], e[1]);
+    console.log("dual value change e: ", e);
+    // Pass the value to our debounce function
+    debouncedSetValue(e);
+  };
+
   return (
-    <Slider.Root className="SliderRoot" defaultValue={[min, max]} max={50} step={1} minStepsBetweenThumbs={1}>
+    <Slider.Root
+      className="SliderRoot"
+      defaultValue={[min, max]}
+      min={min}
+      max={50}
+      step={1}
+      minStepsBetweenThumbs={1}
+      onValueChange={handleValueChange}
+    >
       <Slider.Track className="SliderTrack">
         <Slider.Range className="SliderRange" />
       </Slider.Track>
