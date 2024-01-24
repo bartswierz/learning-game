@@ -49,11 +49,13 @@ export default Settings;
 interface SettingsFormProps {
   settings: Settings;
 }
+// TODO - updates are updating our store however we are then limited to what value our settings can have. We need to change it so max and minimum are static values of 1 and 100, and have our thumb values be the min and max values passed to them. This way our track stays at 1-100 or 1-50 but our thumbs will still reflect the custom values
 //TODO - add slider range for numberOne and numberTwo
 //TODO - on submit may allow gathering all 6 data values, we need to add a name or id to each slider to identify which one is which
 // Form contents for the Settings Component
 const SettingsForm__ = ({ settings }: SettingsFormProps) => {
   const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
+  const setSettings = useSettingsStore((state) => state.setSettings);
 
   // Updates the settings state in our SettingsStore
   const handleSubmit = (e) => {
@@ -69,18 +71,36 @@ const SettingsForm__ = ({ settings }: SettingsFormProps) => {
     const formData = new FormData(e.target); // Capture the form data
     console.log("formData: ", formData);
 
-    // Access the slider values using their names - using getAll() for our dual sliders as we have two thumb values to track, numberOne is applied to both thumbs
+    // Dual Thumb Slider - returns an array of string values - ex. ['1', '10']
     const numberOneValue = formData.getAll("numberOne[]");
     const numberTwoValue = formData.getAll("numberTwo[]");
+
+    // Single Thumb Slider - returns a single string value - ex. '10'
     const questionsValue = formData.get("questions");
     const attemptsValue = formData.get("attempts");
+
+    const updatedNumberOneRange = { min: Number(numberOneValue[0]), max: Number(numberOneValue[1]) };
+    const updatedNumberTwoRange = { min: Number(numberTwoValue[0]), max: Number(numberTwoValue[1]) };
+
+    const updatedQuestionsValue = Number(questionsValue);
+    const updatedAttemptsValue = Number(attemptsValue);
 
     console.log("Number One Value: ", numberOneValue);
     console.log("Number Two Value: ", numberTwoValue);
     console.log("Questions Value: ", questionsValue);
     console.log("Attempts Value: ", attemptsValue);
     // TODO - update the store with the new values here
+    const newSettings: Settings = {
+      numOneRange: updatedNumberOneRange,
+      numTwoRange: updatedNumberTwoRange,
+      numOfQuestions: updatedQuestionsValue,
+      numOfAttempts: updatedAttemptsValue,
+    };
 
+    console.log("new settings: ", newSettings);
+
+    // setSettings((prev) => ({ ...prev, numberOneRange: { min: 1, max: 100 } }));
+    setSettings(newSettings);
     // Close the Settings popup once the state is updated
   };
 
@@ -138,7 +158,7 @@ const SettingDualSlider = ({ min = 1, max = 100, name }: SettingsSliderProps) =>
   const handleValueChange = (e) => {
     // e[0] = min value, e[1] = max value
     // console.log("dual value change e: ", e[0], e[1]);
-    console.log("dual value change e: ", e);
+    // console.log("dual value change e: ", e);
     // Pass the value to our debounce function
     debouncedSetValue(e);
   };
@@ -166,7 +186,7 @@ const SettingDualSlider = ({ min = 1, max = 100, name }: SettingsSliderProps) =>
 const SettingSlider = ({ min = 1, max = 50, step = 1, name }: SettingsSliderProps) => {
   // TODO - replace this with the value from the store
   const [value, setValue] = useState([min]); // [min, max
-  console.log("inside SettingsSlider");
+  // console.log("inside SettingsSlider");
 
   // Prevents the slider from updating the state on every value change, 300ms is the delay until the user stops indicating their value choice
   const debouncedSetValue = debounce((newValue) => {
