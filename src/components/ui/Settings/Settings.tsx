@@ -1,10 +1,12 @@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/shadcn/popover";
+import { PopoverClose } from "@radix-ui/react-popover";
 import { IoSettingsSharp } from "react-icons/io5";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/shadcn/tooltip";
 import "../shadcn/styles.css";
 import useSettingsStore from "@/store/store";
 import type { Settings } from "@/types/types";
 import SettingsForm__ from "./SettingsForm";
+import { FaTimes } from "react-icons/fa";
 
 // Settings Component that allows the user to update the value settings(numberOne, numberTwo, # of questions, # of Attempts)
 const Settings = () => {
@@ -31,10 +33,15 @@ const Settings = () => {
       {/* CONTENT INSIDE POPUP */}
       <PopoverContent
         align="center"
-        className="bg-transparent/70x bg-black/25X bg-black/90 border-blue-500 border-4 rounded-md w-full"
+        className="bg-transparent/70x bg-black/25X bg-black/90 border-blue-500 border-4 rounded-md w-full relative"
       >
-        <p className="text-white text-center mb-4 font-bold text-xl">Question Settings</p>
+        <p className="text-white text-center mb-4 font-bold text-xl">Settings</p>
         <SettingsForm__ settings={settings} />
+        <PopoverClose className="absolute text-white top-2 right-2">
+          <div className="transition-color duration-100 ease-in bg-gray-500 hover:bg-blue-500 p-1">
+            <FaTimes size={22} />
+          </div>
+        </PopoverClose>
       </PopoverContent>
     </Popover>
   );
