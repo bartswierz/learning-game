@@ -16,28 +16,20 @@ const Settings = () => {
   const [isOpen, setIsOpen] = useState(false);
   // const { settings } = useSettingsStore();
 
-  // USER CLICKED THE CLOSE BUTTON
+  // USER CLICKED "CLOSE" OR "UPDATE SETTINGS"
   const handleClose = () => {
     setIsOpen(false);
   };
 
-  // USER CLICKED THE SETTINGS ICON IN THE NAVBAR
-  const handleOpen = () => {
-    setIsOpen(true);
-  };
-
   return (
-    // <Popover onOpenChange={setIsOpen}>
     <Popover open={isOpen} onOpenChange={setIsOpen}>
-      {/* <Popover open={isOpen}> */}
-      {/* TOOLTIP POPUP */}
+      {/* POPOVER TRIGGER W/ TOOLTIP MESSAGE */}
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
             <PopoverTrigger
               className="bg-blue-500 hover:bg-blue-600 hover:ring ring-slate-200 focus:bg-blue-700 px-4 py-2 rounded-full hover:text-white transition-all duration-300 hover:shadow-xl group"
               role="button"
-              onClick={handleOpen}
             >
               <IoSettingsSharp className="text-2xl transition-all duration-700 group-hover:rotate-180" />
             </PopoverTrigger>
@@ -46,14 +38,15 @@ const Settings = () => {
         </Tooltip>
       </TooltipProvider>
 
-      {/* CONTENT INSIDE POPUP */}
+      {/* CONTENT DISPLAYED WHEN OPEN */}
       <PopoverContent
         align="center"
         className="bg-transparent/70x bg-black/25X bg-black/90 border-blue-500 border-4 rounded-md w-full relative"
-        // onFocusOutside={handleClose}
       >
         <p className="text-white text-center mb-4 font-bold text-xl">Settings</p>
         <SettingsForm__ settings={settings} handleCloseCallback={handleClose} />
+
+        {/* CLOSE BTN */}
         <PopoverClose className="absolute text-white top-2 right-2">
           <button className="transition-color duration-100 ease-in bg-gray-500 hover:bg-blue-500 p-1" onClick={handleClose}>
             <FaTimes size={22} />
