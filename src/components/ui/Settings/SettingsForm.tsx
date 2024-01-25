@@ -5,9 +5,10 @@ import useSettingsStore from "@/store/store";
 
 interface SettingsFormProps {
   settings: Settings;
+  handleCloseCallback: () => void;
 }
 
-const SettingsForm = ({ settings }: SettingsFormProps) => {
+const SettingsForm = ({ settings, handleCloseCallback }: SettingsFormProps) => {
   const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
   const setSettings = useSettingsStore((state) => state.setSettings);
 
@@ -38,12 +39,8 @@ const SettingsForm = ({ settings }: SettingsFormProps) => {
       numOfAttempts: updatedAttemptsValue,
     };
 
-    // Updates our SettingsStore with the new values
-    setSettings(newSettings);
-
-    // Close the Settings popup once the state is updated
-    // set it to true when user clicks the settings icon
-    // setIsOpen(false); //CLOSES THE SETTINGS POPUP
+    setSettings(newSettings); // RESTARTS THE GAME WITH NEW SETTINGS
+    handleCloseCallback(); // CLOSES SETTINGS POPUP
   };
 
   // the name prop IS being applied to our values, however we have an issue with the dual sliders, the formData only gathers the first vaue
