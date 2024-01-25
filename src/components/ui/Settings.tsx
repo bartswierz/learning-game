@@ -90,20 +90,22 @@ const SettingsForm__ = ({ settings }: SettingsFormProps) => {
   // the name prop IS being applied to our values, however we have an issue with the dual sliders, the formData only gathers the first vaue
   return (
     <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-8 text-white font-bold">
-      <div className="flex flex-col items-center">
+      <div>
         <label htmlFor="numberOne">1st Number Range (Max: 50)</label>
         <SettingDualSlider minValue={numOneRange.min} maxValue={numOneRange.max} name="numberOne" minStepsBetween={1} />
       </div>
-      <div className="flex flex-col items-center">
+      <div>
         <label htmlFor="numberTwo">2nd Number Range (Max: 50)</label>
-        <SettingDualSlider minValue={numTwoRange.min} maxValue={numTwoRange.max} name="numberTwo" minStepsBetween={1} />
+        <div className="">
+          <SettingDualSlider minValue={numTwoRange.min} maxValue={numTwoRange.max} name="numberTwo" minStepsBetween={1} />
+        </div>
       </div>
-      <div className="w-full ">
+      <div>
         <label htmlFor="questions"># of Questions (Max: 50)</label>
         <SettingSlider value={numOfQuestions} name="questions" min={5} max={50} step={5} />
       </div>
       <div>
-        <label htmlFor="attempts"># of Attempts - Value: {numOfAttempts}</label>
+        <label htmlFor="attempts"># of Attempts (Max: 10)</label>
         <SettingSlider value={numOfAttempts} name="attempts" min={1} max={10} />
       </div>
       <button type="submit" className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 px-4 py-2 rounded-full">
@@ -143,7 +145,7 @@ const SettingDualSlider = ({
 
   return (
     <Slider.Root
-      className="SliderRoot"
+      className="SliderRoot mx-auto"
       defaultValue={[thumbValueMin, thumbValueMax]}
       min={min}
       max={max}

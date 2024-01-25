@@ -18,13 +18,13 @@ const Operation = ({ operationType }: OperationProps) => {
   // Calling our Zustand Store for the settings
   const { settings } = useSettingsStore((state) => state);
   const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
-
+  console.log("inside operation component");
   // Global state for the game
   const [globals, setGlobals] = useState<Globals>({
-    numOneRange: numOneRange,
-    numTwoRange: numTwoRange,
-    numOfAttempts: numOfAttempts,
-    numOfQuestions: numOfQuestions,
+    numOneRange: { min: 0, max: 0 },
+    numTwoRange: { min: 0, max: 0 },
+    numOfAttempts: 1,
+    numOfQuestions: 1,
     score: 0,
     progress: null,
     isGameOver: false,
@@ -32,6 +32,23 @@ const Operation = ({ operationType }: OperationProps) => {
     numberOne: 0,
     numberTwo: 0,
   });
+
+  // SETTINGS UPDATES WILL RESET THE SESSION WITH THE NEW SETTINGS
+  useEffect(() => {
+    console.log("use effect settings changed...");
+    setGlobals({
+      numOneRange: numOneRange,
+      numTwoRange: numTwoRange,
+      numOfAttempts: numOfAttempts,
+      numOfQuestions: numOfQuestions,
+      score: 0,
+      progress: null,
+      isGameOver: false,
+      userInput: "",
+      numberOne: 0,
+      numberTwo: 0,
+    });
+  }, [numOneRange, numTwoRange, numOfAttempts, numOfQuestions]);
 
   const [operationIcon, setOperationIcon] = useState<JSX.Element>();
 
