@@ -24,7 +24,7 @@ const Settings = () => {
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       {/* POPOVER TRIGGER W/ TOOLTIP MESSAGE */}
-      <TooltipProvider>
+      <TooltipProvider delayDuration={500}>
         <Tooltip>
           <TooltipTrigger asChild>
             <PopoverTrigger

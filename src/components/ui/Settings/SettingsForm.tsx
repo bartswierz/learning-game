@@ -39,6 +39,7 @@ const SettingsForm = ({ settings, handleCloseCallback }: SettingsFormProps) => {
       numOfAttempts: updatedAttemptsValue,
     };
 
+    // TODO - add a toast message to let the user know the settings have been updated
     setSettings(newSettings); // RESTARTS THE GAME WITH NEW SETTINGS
     handleCloseCallback(); // CLOSES SETTINGS POPUP
   };

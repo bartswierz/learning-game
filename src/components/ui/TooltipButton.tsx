@@ -8,7 +8,7 @@ interface TooltipButtonProps {
 // Display useful text for the user on hover
 const TooltipButton = ({ trigger, popup }: TooltipButtonProps) => {
   return (
-    <TooltipProvider>
+    <TooltipProvider delayDuration={500}>
       <Tooltip>
         <TooltipTrigger asChild>
           <button>{trigger}</button>
