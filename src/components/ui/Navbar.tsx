@@ -1,4 +1,4 @@
-import Settings from "./Settings";
+import Settings from "./Settings/Settings";
 import { Link } from "react-router-dom";
 import { IoHome } from "react-icons/io5";
 import TooltipButton from "./TooltipButton";
