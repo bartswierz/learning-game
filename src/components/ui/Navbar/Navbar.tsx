@@ -1,7 +1,8 @@
-import Settings from "./Settings/Settings";
+import Settings from "../Settings/Settings";
 import { Link } from "react-router-dom";
 import { IoHome } from "react-icons/io5";
-import TooltipButton from "./TooltipButton";
+import TooltipButton from "../TooltipButton";
+import NavbarMobile from "./NavbarMobile";
 
 const Navbar = () => {
   // Link information for our four operations along with custom button colors
@@ -17,10 +18,12 @@ const Navbar = () => {
     btnColor: string;
   }
 
-  // Links for the four operations
+  // Link Buttons for Addition, Subtraction, Multiplication, and Division Pages
   const NavbarLinks = () => {
+    // TODO - display on mobile
     return (
-      <ul className="flex flex-col md:flex-row flex-wrap items-center gap-3">
+      <ul className="b flex flex-row flex-wrap items-center gap-3">
+        {/* // <ul className="b w-[500px] grid grid-cols-4 place-items-center flex-wrap items-centerx gap-3"> */}
         {navbarLinks.map(({ link, bgColor }) => {
           return <NavbarLink link={link} btnColor={bgColor} key={link} />;
         })}
@@ -31,7 +34,7 @@ const Navbar = () => {
   // Individual Link
   const NavbarLink = ({ link, btnColor }: NavbarLinkProps) => {
     return (
-      <li className="cursor-pointer" key={link}>
+      <li className="cursor-pointer b" key={link}>
         <Link
           to={`/${link.toLowerCase()}`}
           // to={`/`} // TODO - remove this once the routes are set up
@@ -56,17 +59,26 @@ const Navbar = () => {
     );
   };
 
+  const NavbarDesktop = () => {
+    return (
+      <nav data-testid="navbar" className="hidden md:flex justify-between items-center b p-2 z-[10]">
+        <span className="text-2xl font-bold" id="navbar-title">
+          DESKTOP
+        </span>
+        {/* TODO - setup a desktop and mobile navbar */}
+        <NavbarLinks />
+        <div className="flex justify-between items-center gap-4 b">
+          <HomepageLink />
+          <Settings />
+        </div>
+      </nav>
+    );
+  };
   return (
-    <nav data-testid="navbar" className="flex justify-between items-center b p-2 z-[10]">
-      <span className="text-2xl font-bold" id="navbar-title">
-        Learning Game
-      </span>
-      <NavbarLinks />
-      <div className="flex justify-between items-center gap-4 b">
-        <HomepageLink />
-        <Settings />
-      </div>
-    </nav>
+    <>
+      <NavbarDesktop />
+      <NavbarMobile />
+    </>
   );
 };
 

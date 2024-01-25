@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Route, Routes } from "react-router-dom";
-import Navbar from "./components/ui/Navbar.tsx";
+import Navbar from "./components/ui/Navbar/Navbar.tsx";
 import Home from "./pages/Home.jsx";
 import Addition from "./pages/Addition.js";
 import Subtraction from "./pages/Subtraction.jsx";
