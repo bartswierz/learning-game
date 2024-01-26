@@ -1,9 +1,9 @@
-import Operation from "@/components/ui/Operation";
+import Problems from "@/components/ui/Problems/Problems";
 
 export default function Addition() {
   return (
     <>
-      <Operation operationType="ADDITION" />
+      <Problems operationType="ADDITION" />
     </>
   );
 }

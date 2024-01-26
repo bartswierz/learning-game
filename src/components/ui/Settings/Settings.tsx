@@ -47,10 +47,11 @@ const Settings = () => {
         <SettingsForm__ settings={settings} handleCloseCallback={handleClose} />
 
         {/* CLOSE BTN */}
-        <PopoverClose className="absolute text-white top-2 right-2">
-          <button className="transition-color duration-100 ease-in bg-gray-500 hover:bg-blue-500 p-1" onClick={handleClose}>
-            <FaTimes size={22} />
-          </button>
+        <PopoverClose
+          className="absolute text-white top-2 right-2 transition-color duration-100 ease-in bg-gray-500 hover:bg-blue-500 p-1"
+          onClick={handleClose}
+        >
+          <FaTimes size={22} />
         </PopoverClose>
       </PopoverContent>
     </Popover>

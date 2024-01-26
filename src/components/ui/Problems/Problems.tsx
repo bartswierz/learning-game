@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { randomTwoNumbers, checkAnswer } from "@/utils";
 import { Globals } from "@/types/types";
 import NumberPad from "./NumberPad";
-import RestartBtn from "./RestartBtn";
+import RestartBtn from "../RestartBtn";
 import { getOperationIcon, randomTwoNumbersForDivision } from "@/utils";
 import useSettingsStore from "@/store/store";
 
@@ -14,7 +14,7 @@ interface OperationProps {
 // Addition Question Game
 // Passed settings are the default settings upon starting the app. Using currentSettings to allow the component to manage global reset for better code readability and avoid having to update multiple state values individually
 // const Operation = ({ settings, operationType }: OperationProps) => {
-const Operation = ({ operationType }: OperationProps) => {
+const Problems = ({ operationType }: OperationProps) => {
   // Calling our Zustand Store for the settings
   const { settings } = useSettingsStore((state) => state);
   const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
@@ -128,17 +128,20 @@ const Operation = ({ operationType }: OperationProps) => {
     setGlobals((prev) => ({ ...prev, userInput: input }));
   };
 
+  if (globals.isGameOver) console.log("game over");
+
   return (
     <div
-      className="bg-slate-900 w-fullX flex flex-col justify-center items-center text-white text-5xl b gap-10 mt-4"
+      className="b bg-slate-900 w-fullX flex flex-col justify-center items-center mx-4 sm:mx-0 gap-10 sm:mt-4"
       data-testid="addition-component"
     >
       <div className="flex flex-col gap-2 b text-center">
         {/* <h2>/{test}</h2> */}
-        <span>{operationType}</span>
-        <span>
+        <h2 className="text-2xl">{operationType}</h2>
+        <span className="text-xl">
           Question: {globals.score} / {globals.numOfQuestions}
         </span>
+        <p className="text-xl">Attempts Left: {globals.numOfAttempts}</p>
       </div>
       {/* GAME IS COMPLETED - Game ends either the user reaches all questions OR runs out of attempts */}
       {/* TODO - move this into a separate component */}
@@ -160,7 +163,7 @@ const Operation = ({ operationType }: OperationProps) => {
       ) : (
         // NEW GAME / GAME IN PROGRESS
         <div className="flex flex-col gap-4 text-center b">
-          <p className="flex justify-center items-center">
+          <p className="flex justify-center items-center text-4xl">
             {globals.numberOne} {operationIcon} {globals.numberTwo} = __?
           </p>
           <div className="bg-white text-black w-full h-16" data-testid="user-answer-input" data-user-answer={globals.userInput}>
@@ -169,12 +172,11 @@ const Operation = ({ operationType }: OperationProps) => {
           {/* TODO - creating a CheckAnswer button - should have the evaluate logic in there */}
           <button
             onClick={handleCheck}
-            className={`${disabled ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500"} bg-blue-500 text-2xl px-2 py-4`}
+            className={`${disabled ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500"} bg-blue-500 text-xl px-2 py-3`}
             disabled={disabled}
           >
             Check Answer
           </button>
-          <p>Attempts remaining: {globals.numOfAttempts}</p>
           <NumberPad handleUserInputCallback={handleUserInput} userInput={globals.userInput} checkAnswerCallback={handleCheck} />
         </div>
       )}
@@ -182,4 +184,4 @@ const Operation = ({ operationType }: OperationProps) => {
   );
 };
 
-export default Operation;
+export default Problems;

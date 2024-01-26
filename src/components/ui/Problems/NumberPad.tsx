@@ -54,7 +54,7 @@ const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: 
   ];
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center text-xl">
       <ul className="grid grid-cols-4 max-w-[90vw] gap-2 w-[400px]">
         {buttonInfoList.map((item) => (
           <li
