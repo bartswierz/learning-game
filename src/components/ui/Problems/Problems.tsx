@@ -6,6 +6,7 @@ import RestartBtn from "../RestartBtn";
 import { getOperationIcon, randomTwoNumbersForDivision } from "@/utils";
 import useSettingsStore from "@/store/store";
 import GameOverMessage from "./GameOverMessage";
+import CheckAnswer from "./CheckAnswer";
 
 interface OperationProps {
   // settings: Settings;
@@ -19,7 +20,7 @@ interface OperationProps {
 const Problems = ({ operationType }: OperationProps) => {
   //TODO - currently selecting all our states from our Settings Store and displaying here, we will remove them from here as we find where they are used as we refactor the code into smaller components to prevent prop drilling
   // Calling our Zustand Store for the settings
-  const { settings } = useSettingsStore((state) => state);
+  const settings = useSettingsStore((state) => state.settings);
   const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
   // These will be 0 at first, will need to update them with the random numbers functions
   const numberOne = useSettingsStore((state) => state.numberOne);
@@ -36,42 +37,6 @@ const Problems = ({ operationType }: OperationProps) => {
   const updateForIncorrectAnswer = useSettingsStore((state) => state.updateForIncorrectAnswer);
   const updateNewNumbers = useSettingsStore((state) => state.updateNewNumbers);
   console.log("inside operation component");
-
-  // Global state for the game
-  // const [globals, setGlobals] = useState<Globals>({
-  //   numOneRange: { min: 0, max: 0 },
-  //   numTwoRange: { min: 0, max: 0 },
-  //   numOfAttempts: 1,
-  //   numOfQuestions: 1,
-  //   //
-  //   score: 0,
-  //   // - combine progress and isGameOver, null while in progress, once user completed the questions, set to 'success', if user runs out of attempts, set to 'failed'
-  //   progress: null,
-  //   isGameOver: false,
-  //   //
-  //   userInput: "",
-  //   // numbers: { numberOne: 0, numberTwo: 0 },
-  //   numberOne: 0,
-  //   numberTwo: 0,
-  // });
-
-  // SETTINGS UPDATES WILL RESET THE SESSION WITH THE NEW SETTINGS
-  // useEffect(() => {
-  //   console.log("use effect settings changed...");
-  //   setGlobals({
-  //     numOneRange: numOneRange,
-  //     numTwoRange: numTwoRange,
-  //     numOfAttempts: numOfAttempts,
-  //     numOfQuestions: numOfQuestions,
-  //     score: 0,
-  //     progress: null,
-  //     isGameOver: false,
-  //     // isGameOver: true,
-  //     userInput: "",
-  //     numberOne: 0, //Move numberOne and NumberTwo in a object together
-  //     numberTwo: 0,
-  //   });
-  // }, [numOneRange, numTwoRange, numOfAttempts, numOfQuestions]);
 
   const [operationIcon, setOperationIcon] = useState<JSX.Element>();
 
@@ -102,64 +67,46 @@ const Problems = ({ operationType }: OperationProps) => {
   IF WRONG: Attempts-1
   */
   // const handleCheck = (e: { preventDefault: () => void }) => {
-  const handleCheck = () => {
-    console.log("inside handleCheck");
-    // const { userInput, numberOne, numberTwo } = globals;
-    // TODO - replace this checkAnswer with a specific function for each operation
-    // Passed as an object to ensure the order of the arguments doesn't matter
-    const isCorrect = checkAnswer({ userInput, numberOne, numberTwo, operationType });
+  // const handleCheck = () => {
+  //   console.log("inside handleCheck");
+  //   // const { userInput, numberOne, numberTwo } = globals;
+  //   // TODO - replace this checkAnswer with a specific function for each operation
+  //   // Passed as an object to ensure the order of the arguments doesn't matter
+  //   const isCorrect = checkAnswer({ userInput, numberOne, numberTwo, operationType });
 
-    // IF correct, score + 1, new question
-    if (isCorrect) {
-      let newNum1: number;
-      let newNum2: number;
+  //   // IF correct, score + 1, new question
+  //   if (isCorrect) {
+  //     let newNum1: number;
+  //     let newNum2: number;
 
-      if (operationType === "DIVISION") {
-        const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
-        // replace this with a
-        newNum1 = num1;
-        newNum2 = num2;
-      } else {
-        const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange); // TODO - update max value to be the user's selected number range
-        newNum1 = num1;
-        newNum2 = num2;
-      }
+  //     if (operationType === "DIVISION") {
+  //       const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
+  //       // replace this with a
+  //       newNum1 = num1;
+  //       newNum2 = num2;
+  //     } else {
+  //       const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
+  //       newNum1 = num1;
+  //       newNum2 = num2;
+  //     }
 
-      //TODO - add updateForCorrectAnswer
-      // USER ANSWERED QUESTION CORRECTLY - UPDATE GLOBAL STATE - updaing the numberOne and numberTwo values to the new random numbers AND resetting the userInput to an empty string and updating our score
-      // Correct Answer updates: numberOne, numberTwo, userInput = '', score + 1
-      updateForCorrectAnswer(newNum1, newNum2);
-      console.log("newNum1: ", newNum1);
-      console.log("newNum2: ", newNum2);
-      // setGlobals((prev) => ({
-      //   ...prev,
-      //   numberOne: newNum1,
-      //   numberTwo: newNum2,
-      //   userInput: "",
-      //   score: prev.score + 1,
-      //   numOfAttempts: numOfAttempts,
-      // }));
+  //     // USER ANSWERED CORRECTLY - UPDATES: numberOne = newNum1, numberTwo = newNum2, userInput = '', score + 1
+  //     updateForCorrectAnswer(newNum1, newNum2);
 
-      // SUCCESS - ALL QUESTIONS ANSWERED - GAME OVER
-      if (score === numOfQuestions - 1) {
-        updateIsGameOver(true);
-        // setGlobals((prev) => ({ ...prev, isGameOver: true, progress: "Success" }));
-      }
-    } else {
-      //TODO - updateForIncorrectAnswer()
-      // INCORRECT ANSWER - UPDATE GLOBAL STATE
-      updateForIncorrectAnswer();
-      // setGlobals((prev) => ({ ...prev, numOfAttempts: prev.numOfAttempts - 1, userInput: "" }));
+  //     // SUCCESS: ALL QUESTIONS ANSWERED - GAME OVER
+  //     if (score === numOfQuestions - 1) {
+  //       updateIsGameOver(true);
+  //     }
+  //   } else {
+  //     // INCORRECT ANSWER - attemptsLeft - 1 & userInput = ''
+  //     updateForIncorrectAnswer();
 
-      // OUT OF ATTEMPTS - GAME OVER - This is checking IF user is OUT OF ATTEMPTS, this may not be necessary as we can check if the score is equal to the numOfQuestions
-      // if (numOfAttempts - 1 === 0) {
-      if (attemptsLeft - 1 === 0) {
-        // TODO - setGameOver(true) - progress may not be necessary as we can check if the score is equal to the numOfQuestions
-        updateIsGameOver(true);
-        // setGlobals((prev) => ({ ...prev, isGameOver: true, progress: "Failed" }));
-      }
-    }
-  };
+  //     // FAILED: USER RAN OUT OF ATTEMPTS - GAME OVER
+  //     if (attemptsLeft - 1 === 0) {
+  //       updateIsGameOver(true);
+  //     }
+  //   }
+  // };
 
   // Updates the userInput state in the global state
   const handleUserInput = (input: string) => {
@@ -221,14 +168,20 @@ const Problems = ({ operationType }: OperationProps) => {
           {userInput}
         </div>
         {/* TODO - creating a CheckAnswer button - should have the evaluate logic in there */}
-        <button
+        {/* <button
           onClick={handleCheck}
           className={`${disabled ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500"} bg-blue-500 text-xl px-2 py-3`}
           disabled={disabled}
         >
           Check Answer
-        </button>
-        <NumberPad handleUserInputCallback={handleUserInput} userInput={userInput} handleCheckCallback={handleCheck} />
+        </button> */}
+        <CheckAnswer disabled={disabled} operationType={operationType} text="Check Answer" />
+        <NumberPad
+          handleUserInputCallback={handleUserInput}
+          userInput={userInput}
+          // handleCheckCallback={handleCheck}
+          operationType={operationType}
+        />
       </div>
     </div>
   );

@@ -1,10 +1,11 @@
-import { isNumberOrDecimal } from "@/utils";
+import { checkAnswer, isNumberOrDecimal } from "@/utils";
 import { ButtonInfo } from "@/types/types";
 import { FaUndoAlt, FaTimes } from "react-icons/fa";
 import { FaDivide } from "react-icons/fa6";
 import { RiSubtractFill } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
 import useSettingsStore from "@/store/store";
+import CheckAnswer from "./CheckAnswer";
 
 const buttonInfoList: ButtonInfo[] = [
   { value: "undo", reactIcon: <FaUndoAlt size={26} />, className: "bg-red-500 hover:bg-red-600" },
@@ -29,11 +30,15 @@ const buttonInfoList: ButtonInfo[] = [
 interface NumberPadProps {
   handleUserInputCallback: (userInput: string) => void;
   handleCheckCallback: () => void;
+  operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
   userInput: string;
 }
 // TODO - add conditionals for add, subtract, multiply, divide buttons for future problems
 // Component containing buttons 0-9 and a clear button to reset user input
-const NumberPad = ({ handleUserInputCallback, handleCheckCallback, userInput }: NumberPadProps) => {
+const NumberPad = ({ handleUserInputCallback, handleCheckCallback, userInput, operationType }: NumberPadProps) => {
+  const numberOne = useSettingsStore((state) => state.numberOne);
+  const numberTwo = useSettingsStore((state) => state.numberTwo);
+
   // Removes the need for our handleUserInputCallback
   const updateUserInput = useSettingsStore((state) => state.updateUserInput);
   // const appendUserInput = useSettingsStore((state) => state.appendUserInput);
@@ -43,13 +48,12 @@ const NumberPad = ({ handleUserInputCallback, handleCheckCallback, userInput }: 
     // NUMBER 0 through 9 - APPEND TO THE USERINPUT STRING AND UPDATE THE STATE
     if (isNumberOrDecimal(input)) {
       updateUserInput(userInput + input);
-      // handleUserInputCallback(userInput + input);
-      // appendUserInput(input);
     }
 
     // TODO - handleCheckCallback can stay for now but we need to remove it once we have fixed the other sections of children components in the Problems component
     // CHECK ANSWER
-    else if (input === "=") handleCheckCallback();
+    // else if (input === "=") handleCheckCallback();
+    else if (input === "=") checkAnswer({ userInput, numberOne, numberTwo, operationType });
     // REMOVE LAST CHARACTER FROM USERINPUT IF ITS NOT EMPTY
     else if (input === "undo" && userInput.length > 0) {
       const newInput = userInput.slice(0, userInput.length - 1);
@@ -73,6 +77,7 @@ const NumberPad = ({ handleUserInputCallback, handleCheckCallback, userInput }: 
     } else return;
   };
 
+  // TODO - FIX CONDITIONAL LOGIC FOR THE CHECK ANSWER BUTTON ONCE THE REMAINING CHILDREN COMPONENTS IN THE PROBLEMS COMPONENT ARE REFACTORED
   return (
     <div className="flex justify-center text-xl">
       <ul className="grid grid-cols-4 max-w-[90vw] gap-2 w-[300px]">
@@ -82,10 +87,20 @@ const NumberPad = ({ handleUserInputCallback, handleCheckCallback, userInput }: 
             // IF 'ROWSPAN' OR 'COLSPAN' EXIST, APPLY TO THE LIST ELEMENT
             className={`bg-blue-500 hover:bg-blue-600 rounded-lg transition-all duration-300 ease-in-out ${item.className}`}
           >
-            <button className="flex items-center justify-center w-full h-full p-2" onClick={() => handleClick(item.value)}>
-              {/* DISPLAY CUSTOM ICON IF IT EXISTS, ELSE VALUE */}
-              {item.reactIcon ? item.reactIcon : item.value}
-            </button>
+            {/* IF BUTTON VALUE IS ""=" => REPLACE IT WITH OUR CHECKANSWER COMPONENT */}
+            {item.value === "=" ? (
+              <CheckAnswer
+                disabled={false}
+                operationType={operationType}
+                text={"="}
+                className="bg-red-500x w-full h-full rounded-lg hover:bg-blue-600 transition-all duration-300 ease-in-out"
+              />
+            ) : (
+              <button className="flex items-center justify-center w-full h-full p-2" onClick={() => handleClick(item.value)}>
+                {/* DISPLAY CUSTOM ICON IF IT EXISTS, ELSE VALUE */}
+                {item.reactIcon ? item.reactIcon : item.value}
+              </button>
+            )}
           </li>
         ))}
       </ul>

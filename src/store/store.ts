@@ -37,7 +37,7 @@ type Action = {
   updateForCorrectAnswer: (newNumOne: number, newNumTwo: number) => void;
   updateForIncorrectAnswer: () => void;
   updateIsGameOver: (isGameOver: boolean) => void;
-  // updateNumbers: (numberOne: number, numberTwo: number) => void;
+  updateNewNumbers: (newNumberOne: number, newNumberTwo: number) => void;
 };
 
 const initialState: State = {
@@ -47,6 +47,7 @@ const initialState: State = {
     numOfAttempts: 1,
     numOfQuestions: 1,
   },
+  attemptsLeft: 0,
   score: 0,
   numberOne: 0,
   numberTwo: 0,
@@ -54,23 +55,6 @@ const initialState: State = {
   progress: null,
   isGameOver: false,
 };
-
-// const initialState: Settings = {
-//   numOneRange: { min: 1, max: 10 },
-//   numTwoRange: { min: 1, max: 10 },
-//   numOfQuestions: 5,
-//   numOfAttempts: 3,
-// };
-
-// interface SettingsStore {
-//   settings: Settings;
-//   score: number;
-//   // setNumOneRange: (min: number, max: number) => void;
-//   // setNumTwoRange: (min: number, max: number) => void;
-//   // setNumOfAttempts: (numOfAttempts: number) => void;
-//   // setNumOfQuestions: (numOfQuestions: number) => void;
-//   setSettings: (settings: Settings) => void;
-// }
 
 // const useSettingsStore = create<SettingsStore>((set) => ({
 const useSettingsStore = create<State & Action>((set) => ({
