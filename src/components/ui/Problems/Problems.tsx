@@ -56,7 +56,7 @@ const Problems = ({ operationType }: OperationProps) => {
   // GAME OVER - EITHER SUCCESS OR FAILED
   if (isGameOver) {
     return (
-      <div className="b">
+      <div className="b flex justify-center items-center flex-col bg-red-500x">
         <GameOverMessage isGameOver={isGameOver} progress={"Failed"} numberOne={numberOne} numberTwo={numberTwo} />
         <RestartBtn operationType={operationType} />
       </div>
