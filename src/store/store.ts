@@ -38,16 +38,17 @@ type Action = {
   updateForIncorrectAnswer: () => void;
   updateIsGameOver: (isGameOver: boolean) => void;
   updateNewNumbers: (newNumberOne: number, newNumberTwo: number) => void;
+  restartGame: (newNumberOne: number, newNumberTwo: number) => void;
 };
 
 const initialState: State = {
   settings: {
-    numOneRange: { min: 1, max: 0 },
-    numTwoRange: { min: 0, max: 0 },
-    numOfAttempts: 1,
-    numOfQuestions: 1,
+    numOneRange: { min: 1, max: 10 },
+    numTwoRange: { min: 1, max: 10 },
+    numOfAttempts: 3,
+    numOfQuestions: 5,
   },
-  attemptsLeft: 0,
+  attemptsLeft: 3,
   score: 0,
   numberOne: 0,
   numberTwo: 0,
@@ -84,7 +85,10 @@ const useSettingsStore = create<State & Action>((set) => ({
       userInput: "",
     })),
   // DECREASE ATTEMPTS BY 1 & RESET USER INPUT FOR NEXT QUESTION
-  updateForIncorrectAnswer: () => set((state) => ({ numOfAttempts: state.settings.numOfAttempts - 1, userInput: "" })),
+  updateForIncorrectAnswer: () => set((state) => ({ attemptsLeft: state.attemptsLeft - 1, userInput: "" })),
+  // TODO - may need to update manually instead of using spread operator if restart doesnt work correctly
+  restartGame: (newNumberOne: number, newNumberTwo: number) =>
+    set(() => ({ userInput: "", isGameOver: false, score: 0, numberOne: newNumberOne, numberTwo: newNumberTwo })),
 }));
 
 export default useSettingsStore;

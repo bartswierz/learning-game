@@ -6,7 +6,7 @@ interface CheckAnswerProps {
   disabled: boolean;
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
   text: string;
-  className: string;
+  className?: string;
 }
 const CheckAnswer = ({ disabled, operationType, text, className }: CheckAnswerProps) => {
   // const [isDisabled, setIsDisabled] = useState(false);

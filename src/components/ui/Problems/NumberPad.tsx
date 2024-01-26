@@ -28,14 +28,14 @@ const buttonInfoList: ButtonInfo[] = [
 ];
 
 interface NumberPadProps {
-  handleUserInputCallback: (userInput: string) => void;
-  handleCheckCallback: () => void;
+  // handleUserInputCallback: (userInput: string) => void;
+  // handleCheckCallback: () => void;
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
   userInput: string;
 }
 // TODO - add conditionals for add, subtract, multiply, divide buttons for future problems
 // Component containing buttons 0-9 and a clear button to reset user input
-const NumberPad = ({ handleUserInputCallback, handleCheckCallback, userInput, operationType }: NumberPadProps) => {
+const NumberPad = ({ userInput, operationType }: NumberPadProps) => {
   const numberOne = useSettingsStore((state) => state.numberOne);
   const numberTwo = useSettingsStore((state) => state.numberTwo);
 

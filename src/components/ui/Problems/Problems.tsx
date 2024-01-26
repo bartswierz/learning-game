@@ -109,13 +109,13 @@ const Problems = ({ operationType }: OperationProps) => {
   // };
 
   // Updates the userInput state in the global state
-  const handleUserInput = (input: string) => {
-    //TODO - REPLACE WITH updateUserInput(input)
-    // setGlobals((prev) => ({ ...prev, userInput: input }));
-    // updateUserInput(input);
-    // appendUserInput(input);
-    updateUserInput(input);
-  };
+  // const handleUserInput = (input: string) => {
+  //   //TODO - REPLACE WITH updateUserInput(input)
+  //   // setGlobals((prev) => ({ ...prev, userInput: input }));
+  //   // updateUserInput(input);
+  //   // appendUserInput(input);
+  //   updateUserInput(input);
+  // };
 
   // GAME OVER - EITHER SUCCESS OR FAILED
   if (isGameOver) {
@@ -130,7 +130,8 @@ const Problems = ({ operationType }: OperationProps) => {
           numberTwo={numberTwo}
         />
         {/* <RestartBtn setGlobalsCallback={setGlobals} settings={settings} operationType={operationType} /> */}
-        <RestartBtn settings={settings} operationType={operationType} />
+        {/* <RestartBtn settings={settings} operationType={operationType} /> */}
+        <RestartBtn operationType={operationType} />
       </div>
     );
   }
@@ -157,7 +158,7 @@ const Problems = ({ operationType }: OperationProps) => {
         <span className="text-xl">
           Question: {score} / {numOfQuestions}
         </span>
-        <p className="text-xl">Attempts Left: {numOfAttempts}</p>
+        <p className="text-xl">Attempts Left: {attemptsLeft}</p>
       </div>
       {/* TODO - move this into a separate component */}
       <div className="flex flex-col gap-4 text-center b">
@@ -177,10 +178,10 @@ const Problems = ({ operationType }: OperationProps) => {
         </button> */}
         <CheckAnswer disabled={disabled} operationType={operationType} text="Check Answer" />
         <NumberPad
-          handleUserInputCallback={handleUserInput}
           userInput={userInput}
-          // handleCheckCallback={handleCheck}
           operationType={operationType}
+          // handleUserInputCallback={handleUserInput}
+          // handleCheckCallback={handleCheck}
         />
       </div>
     </div>
