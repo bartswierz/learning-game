@@ -1,6 +1,9 @@
 import { Globals, Settings } from "@/types/types";
 import { randomTwoNumbers, randomTwoNumbersForDivision } from "@/utils";
 
+/*
+operationType passed from Problems component to know which random function to use for the random numbers, division requires a different random function to ensure the numbers are divisible
+*/
 interface RestartBtnProps {
   setGlobalsCallback: (globals: Globals) => void;
   settings: Settings;
@@ -14,6 +17,7 @@ const RestartBtn = ({ setGlobalsCallback, settings, operationType }: RestartBtnP
     // DIVISION PROBLEM RESET
     if (operationType === "DIVISION") {
       const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
+      // TODO - create a GlobalReset function in Zustand store
       setGlobalsCallback({
         numOneRange: numOneRange,
         numTwoRange: numTwoRange,

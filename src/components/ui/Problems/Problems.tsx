@@ -15,21 +15,27 @@ interface OperationProps {
 // Addition Question Game
 // Passed settings are the default settings upon starting the app. Using currentSettings to allow the component to manage global reset for better code readability and avoid having to update multiple state values individually
 // const Operation = ({ settings, operationType }: OperationProps) => {
+//TODO - replace globals with store
 const Problems = ({ operationType }: OperationProps) => {
   // Calling our Zustand Store for the settings
   const { settings } = useSettingsStore((state) => state);
   const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
   console.log("inside operation component");
+
   // Global state for the game
   const [globals, setGlobals] = useState<Globals>({
     numOneRange: { min: 0, max: 0 },
     numTwoRange: { min: 0, max: 0 },
     numOfAttempts: 1,
     numOfQuestions: 1,
+    //
     score: 0,
+    // - combine progress and isGameOver, null while in progress, once user completed the questions, set to 'success', if user runs out of attempts, set to 'failed'
     progress: null,
     isGameOver: false,
+    //
     userInput: "",
+    // numbers: { numberOne: 0, numberTwo: 0 },
     numberOne: 0,
     numberTwo: 0,
   });
@@ -47,7 +53,7 @@ const Problems = ({ operationType }: OperationProps) => {
       // isGameOver: false,
       isGameOver: true,
       userInput: "",
-      numberOne: 0,
+      numberOne: 0, //Move numberOne and NumberTwo in a object together
       numberTwo: 0,
     });
   }, [numOneRange, numTwoRange, numOfAttempts, numOfQuestions]);
@@ -92,6 +98,7 @@ const Problems = ({ operationType }: OperationProps) => {
 
       if (operationType === "DIVISION") {
         const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
+        // replace this with a
         newNum1 = num1;
         newNum2 = num2;
       } else {
@@ -100,7 +107,7 @@ const Problems = ({ operationType }: OperationProps) => {
         newNum2 = num2;
       }
 
-      // USER ANSWERED QUESTION CORRECTLY - UPDATE GLOBAL STATE
+      // USER ANSWERED QUESTION CORRECTLY - UPDATE GLOBAL STATE - updaing the numberOne and numberTwo values to the new random numbers AND resetting the userInput to an empty string and updating our score
       setGlobals((prev) => ({
         ...prev,
         numberOne: newNum1,
@@ -115,11 +122,13 @@ const Problems = ({ operationType }: OperationProps) => {
         setGlobals((prev) => ({ ...prev, isGameOver: true, progress: "Success" }));
       }
     } else {
+      //TODO - updateForIncorrectAnswer()
       // INCORRECT ANSWER - UPDATE GLOBAL STATE
       setGlobals((prev) => ({ ...prev, numOfAttempts: prev.numOfAttempts - 1, userInput: "" }));
 
-      // OUT OF ATTEMPTS - GAME OVER
+      // OUT OF ATTEMPTS - GAME OVER - This is checking IF user is OUT OF ATTEMPTS, this may not be necessary as we can check if the score is equal to the numOfQuestions
       if (globals.numOfAttempts - 1 === 0) {
+        // TODO - setGameOver(true) - progress may not be necessary as we can check if the score is equal to the numOfQuestions
         setGlobals((prev) => ({ ...prev, isGameOver: true, progress: "Failed" }));
       }
     }
@@ -127,6 +136,7 @@ const Problems = ({ operationType }: OperationProps) => {
 
   // Updates the userInput state in the global state
   const handleUserInput = (input: string) => {
+    //TODO - REPLACE WITH updateUserInput(input)
     setGlobals((prev) => ({ ...prev, userInput: input }));
   };
 
@@ -176,7 +186,7 @@ const Problems = ({ operationType }: OperationProps) => {
         >
           Check Answer
         </button>
-        <NumberPad handleUserInputCallback={handleUserInput} userInput={globals.userInput} checkAnswerCallback={handleCheck} />
+        <NumberPad handleUserInputCallback={handleUserInput} userInput={globals.userInput} handleCheckCallback={handleCheck} />
       </div>
     </div>
   );

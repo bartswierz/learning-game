@@ -5,15 +5,34 @@ import { FaDivide } from "react-icons/fa6";
 import { RiSubtractFill } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
 
+const buttonInfoList: ButtonInfo[] = [
+  { value: "undo", reactIcon: <FaUndoAlt size={26} />, className: "bg-red-500 hover:bg-red-600" },
+  { value: "divide", reactIcon: <FaDivide size={26} />, className: "h-[48px]" },
+  { value: "multiply", reactIcon: <FaTimes size={26} />, className: "h-[48px]" },
+  { value: "subtract", reactIcon: <RiSubtractFill size={26} />, className: "h-[48px]" },
+  { value: "7", className: "" },
+  { value: "8", className: "" },
+  { value: "9", className: "" },
+  { value: "add", reactIcon: <IoMdAdd size={26} />, className: "row-span-2" },
+  { value: "4", className: "" },
+  { value: "5", className: "" },
+  { value: "6", className: "" },
+  { value: "1", className: "" },
+  { value: "2", className: "" },
+  { value: "3", className: "" },
+  { value: "=", className: "row-span-2" },
+  { value: "0", className: "col-span-2" },
+  { value: ".", className: "b" },
+];
+
 interface NumberPadProps {
   handleUserInputCallback: (userInput: string) => void;
-  checkAnswerCallback: () => void;
+  handleCheckCallback: () => void;
   userInput: string;
 }
-
 // TODO - add conditionals for add, subtract, multiply, divide buttons for future problems
 // Component containing buttons 0-9 and a clear button to reset user input
-const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: NumberPadProps) => {
+const NumberPad = ({ handleUserInputCallback, handleCheckCallback, userInput }: NumberPadProps) => {
   // Updates userInput state in the parent component via callback functions
   const handleClick = (input: string) => {
     // NUMBER 0 through 9 - APPEND TO THE USERINPUT STRING AND UPDATE THE STATE
@@ -22,7 +41,7 @@ const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: 
     }
 
     // CHECK ANSWER
-    else if (input === "=") checkAnswerCallback();
+    else if (input === "=") handleCheckCallback();
     // REMOVE LAST CHARACTER FROM USERINPUT IF ITS NOT EMPTY
     else if (input === "undo" && userInput.length > 0) {
       handleUserInputCallback(userInput.slice(0, userInput.length - 1));
@@ -32,26 +51,6 @@ const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: 
       handleUserInputCallback("-" + userInput);
     } else return;
   };
-
-  const buttonInfoList: ButtonInfo[] = [
-    { value: "undo", reactIcon: <FaUndoAlt size={26} />, className: "bg-red-500 hover:bg-red-600" },
-    { value: "divide", reactIcon: <FaDivide size={26} />, className: "h-[48px]" },
-    { value: "multiply", reactIcon: <FaTimes size={26} />, className: "h-[48px]" },
-    { value: "subtract", reactIcon: <RiSubtractFill size={26} />, className: "h-[48px]" },
-    { value: "7", className: "" },
-    { value: "8", className: "" },
-    { value: "9", className: "" },
-    { value: "add", reactIcon: <IoMdAdd size={26} />, className: "row-span-2" },
-    { value: "4", className: "" },
-    { value: "5", className: "" },
-    { value: "6", className: "" },
-    { value: "1", className: "" },
-    { value: "2", className: "" },
-    { value: "3", className: "" },
-    { value: "=", className: "row-span-2" },
-    { value: "0", className: "col-span-2" },
-    { value: ".", className: "b" },
-  ];
 
   return (
     <div className="flex justify-center text-xl">
