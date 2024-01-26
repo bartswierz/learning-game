@@ -34,14 +34,14 @@ const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: 
   };
 
   const buttonInfoList: ButtonInfo[] = [
-    { value: "undo", reactIcon: <FaUndoAlt size={40} />, className: "bg-red-500 hover:bg-red-600" },
-    { value: "divide", reactIcon: <FaDivide size={40} />, className: "" },
-    { value: "multiply", reactIcon: <FaTimes size={40} />, className: "" },
-    { value: "subtract", reactIcon: <RiSubtractFill size={42} />, className: "" },
+    { value: "undo", reactIcon: <FaUndoAlt size={26} />, className: "bg-red-500 hover:bg-red-600" },
+    { value: "divide", reactIcon: <FaDivide size={26} />, className: "" },
+    { value: "multiply", reactIcon: <FaTimes size={26} />, className: "" },
+    { value: "subtract", reactIcon: <RiSubtractFill size={26} />, className: "" },
     { value: "7", className: "" },
     { value: "8", className: "" },
     { value: "9", className: "" },
-    { value: "add", reactIcon: <IoMdAdd size={42} />, className: "row-span-2" },
+    { value: "add", reactIcon: <IoMdAdd size={26} />, className: "row-span-2" },
     { value: "4", className: "" },
     { value: "5", className: "" },
     { value: "6", className: "" },
