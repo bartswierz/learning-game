@@ -5,6 +5,7 @@ import NumberPad from "./NumberPad";
 import RestartBtn from "../RestartBtn";
 import { getOperationIcon, randomTwoNumbersForDivision } from "@/utils";
 import useSettingsStore from "@/store/store";
+import GameOverMessage from "./GameOverMessage";
 
 interface OperationProps {
   // settings: Settings;
@@ -43,7 +44,8 @@ const Problems = ({ operationType }: OperationProps) => {
       numOfQuestions: numOfQuestions,
       score: 0,
       progress: null,
-      isGameOver: false,
+      // isGameOver: false,
+      isGameOver: true,
       userInput: "",
       numberOne: 0,
       numberTwo: 0,
@@ -128,7 +130,22 @@ const Problems = ({ operationType }: OperationProps) => {
     setGlobals((prev) => ({ ...prev, userInput: input }));
   };
 
-  if (globals.isGameOver) console.log("game over");
+  // GAME OVER - EITHER SUCCESS OR FAILED
+  if (globals.isGameOver) {
+    return (
+      <div className="b">
+        <GameOverMessage
+          isGameOver={globals.isGameOver}
+          // progress={globals.progress}
+          // progress={"Success"}
+          progress={"Failed"}
+          numberOne={globals.numberOne}
+          numberTwo={globals.numberTwo}
+        />
+        <RestartBtn setGlobalsCallback={setGlobals} settings={settings} operationType={operationType} />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -143,43 +160,24 @@ const Problems = ({ operationType }: OperationProps) => {
         </span>
         <p className="text-xl">Attempts Left: {globals.numOfAttempts}</p>
       </div>
-      {/* GAME IS COMPLETED - Game ends either the user reaches all questions OR runs out of attempts */}
       {/* TODO - move this into a separate component */}
-      {globals.isGameOver ? ( // result === 'success' || result === 'failed'
-        <>
-          <div className="text-center font-bold">
-            {/* User answered all questions */}
-            {globals.progress === "Success" && <p className="text-green-500">Good Job!</p>}
-            {globals.progress === "Failed" && ( //User ran out of attempts
-              <>
-                <p>Incorrect</p>
-                <p>The correct answer is {globals.numberOne + globals.numberTwo}</p>
-                <p>Game Over</p>
-              </>
-            )}
-          </div>
-          <RestartBtn setGlobalsCallback={setGlobals} settings={settings} operationType={operationType} />
-        </>
-      ) : (
-        // NEW GAME / GAME IN PROGRESS
-        <div className="flex flex-col gap-4 text-center b">
-          <p className="flex justify-center items-center text-4xl">
-            {globals.numberOne} {operationIcon} {globals.numberTwo} = __?
-          </p>
-          <div className="bg-white text-black w-full h-16" data-testid="user-answer-input" data-user-answer={globals.userInput}>
-            {globals.userInput}
-          </div>
-          {/* TODO - creating a CheckAnswer button - should have the evaluate logic in there */}
-          <button
-            onClick={handleCheck}
-            className={`${disabled ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500"} bg-blue-500 text-xl px-2 py-3`}
-            disabled={disabled}
-          >
-            Check Answer
-          </button>
-          <NumberPad handleUserInputCallback={handleUserInput} userInput={globals.userInput} checkAnswerCallback={handleCheck} />
+      <div className="flex flex-col gap-4 text-center b">
+        <p className="flex justify-center items-center text-4xl">
+          {globals.numberOne} {operationIcon} {globals.numberTwo} = __?
+        </p>
+        <div className="bg-white text-black w-full h-16" data-testid="user-answer-input" data-user-answer={globals.userInput}>
+          {globals.userInput}
         </div>
-      )}
+        {/* TODO - creating a CheckAnswer button - should have the evaluate logic in there */}
+        <button
+          onClick={handleCheck}
+          className={`${disabled ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500"} bg-blue-500 text-xl px-2 py-3`}
+          disabled={disabled}
+        >
+          Check Answer
+        </button>
+        <NumberPad handleUserInputCallback={handleUserInput} userInput={globals.userInput} checkAnswerCallback={handleCheck} />
+      </div>
     </div>
   );
 };
