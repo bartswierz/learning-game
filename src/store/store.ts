@@ -33,6 +33,7 @@ type Action = {
   setSettings: (settings: Settings) => void;
   incrementScore: (score: number) => void;
   updateUserInput: (userInput: string) => void;
+  // appendUserInput: (userInputValue: string) => void;
   updateForCorrectAnswer: (newNumOne: number, newNumTwo: number) => void;
   updateForIncorrectAnswer: () => void;
   updateIsGameOver: (isGameOver: boolean) => void;
@@ -84,7 +85,10 @@ const useSettingsStore = create<State & Action>((set) => ({
   isGameOver: false,
   setSettings: (settings: Settings) => set(() => ({ settings })),
   incrementScore: (score: number) => set(() => ({ score: score + 1 })),
-  updateUserInput: (userInputValue: string) => set((state) => ({ userInput: state.userInput + userInputValue })),
+  // updateUserInput: (userInputValue: string) => set(() => ({ userInputValue })),
+  updateNewNumbers: (newNumberOne: number, newNumberTwo: number) => set(() => ({ numberOne: newNumberOne, numberTwo: newNumberTwo })),
+  updateUserInput: (userInputValue: string) => set(() => ({ userInput: userInputValue })),
+  // APPEND USER INPUT TO THE END OF THE CURRENT USER INPUT
   updateIsGameOver: (isGameOver: boolean) => set(() => ({ isGameOver })),
   // UPDATE numberOne & numberTwo & Increase score by 1 & RESET USER INPUT FOR NEXT QUESTION
   updateForCorrectAnswer: (newNumOne, newNumTwo) =>

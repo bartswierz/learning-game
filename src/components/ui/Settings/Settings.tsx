@@ -12,7 +12,7 @@ import { useState } from "react";
 // Settings Component that allows the user to update the value settings(numberOne, numberTwo, # of questions, # of Attempts)
 const Settings = () => {
   const { settings } = useSettingsStore();
-  console.log("settings from store: ", settings);
+  // console.log("settings from store: ", settings);
   const [isOpen, setIsOpen] = useState(false);
   // const { settings } = useSettingsStore();
 

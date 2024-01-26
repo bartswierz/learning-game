@@ -31,8 +31,10 @@ const Problems = ({ operationType }: OperationProps) => {
   const isGameOver = useSettingsStore((state) => state.isGameOver);
   const updateIsGameOver = useSettingsStore((state) => state.updateIsGameOver);
   const updateUserInput = useSettingsStore((state) => state.updateUserInput);
+  // const appendUserInput = useSettingsStore((state) => state.appendUserInput);
   const updateForCorrectAnswer = useSettingsStore((state) => state.updateForCorrectAnswer);
   const updateForIncorrectAnswer = useSettingsStore((state) => state.updateForIncorrectAnswer);
+  const updateNewNumbers = useSettingsStore((state) => state.updateNewNumbers);
   console.log("inside operation component");
 
   // Global state for the game
@@ -75,17 +77,19 @@ const Problems = ({ operationType }: OperationProps) => {
 
   const disabled: boolean = userInput === "" ? true : false;
   // Gets our new random values on mount - passing numOneRange and numTwoRange as dependencies if they change from user changing them in the settings
-  // useEffect(() => {
-  //   // DIVISION PROBLEM
-  //   if (operationType === "DIVISION") {
-  //     const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
-  //     setGlobals((prev) => ({ ...prev, numberOne: num1, numberTwo: num2 }));
-  //   } else {
-  //     // NOT DIVISION
-  //     const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
-  //     setGlobals((prev) => ({ ...prev, numberOne: num1, numberTwo: num2 }));
-  //   }
-  // }, [numOneRange, numTwoRange, operationType]);
+  useEffect(() => {
+    // DIVISION PROBLEM
+    if (operationType === "DIVISION") {
+      const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
+      updateNewNumbers(num1, num2);
+      // setGlobals((prev) => ({ ...prev, numberOne: num1, numberTwo: num2 }));
+    } else {
+      // NOT DIVISION
+      const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
+      updateNewNumbers(num1, num2);
+      // setGlobals((prev) => ({ ...prev, numberOne: num1, numberTwo: num2 }));
+    }
+  }, [numOneRange, numTwoRange, operationType, updateNewNumbers]);
 
   // Gets the operation icon on mount & if user changes the type of questions via operation links in the navbar
   useEffect(() => {
@@ -99,6 +103,7 @@ const Problems = ({ operationType }: OperationProps) => {
   */
   // const handleCheck = (e: { preventDefault: () => void }) => {
   const handleCheck = () => {
+    console.log("inside handleCheck");
     // const { userInput, numberOne, numberTwo } = globals;
     // TODO - replace this checkAnswer with a specific function for each operation
     // Passed as an object to ensure the order of the arguments doesn't matter
@@ -124,6 +129,8 @@ const Problems = ({ operationType }: OperationProps) => {
       // USER ANSWERED QUESTION CORRECTLY - UPDATE GLOBAL STATE - updaing the numberOne and numberTwo values to the new random numbers AND resetting the userInput to an empty string and updating our score
       // Correct Answer updates: numberOne, numberTwo, userInput = '', score + 1
       updateForCorrectAnswer(newNum1, newNum2);
+      console.log("newNum1: ", newNum1);
+      console.log("newNum2: ", newNum2);
       // setGlobals((prev) => ({
       //   ...prev,
       //   numberOne: newNum1,
@@ -158,6 +165,8 @@ const Problems = ({ operationType }: OperationProps) => {
   const handleUserInput = (input: string) => {
     //TODO - REPLACE WITH updateUserInput(input)
     // setGlobals((prev) => ({ ...prev, userInput: input }));
+    // updateUserInput(input);
+    // appendUserInput(input);
     updateUserInput(input);
   };
 
@@ -190,7 +199,7 @@ const Problems = ({ operationType }: OperationProps) => {
           <li>numberOne: {numberOne}</li>
           <li>numberTwo: {numberTwo}</li>
           <li>score: {score}</li>
-          <li>userInput: {userInput === "" ? "Empty String" : "N/A"}</li>
+          <li>userInput: {userInput === "" ? "Empty String" : userInput}</li>
           <li>progress: {progress}</li>
           <li>isGameOver: {isGameOver ? "TRUE" : "FALSE"}</li>
         </ul>
