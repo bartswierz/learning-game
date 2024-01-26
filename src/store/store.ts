@@ -7,17 +7,6 @@ interface Settings {
   numOfQuestions: number;
 }
 
-// Initialize our store with all the variables and functions we need
-// const settings: Settings = {
-// const initialState = {
-//   settings: {
-//     numOneRange: { min: 1, max: 10 },
-//     numTwoRange: { min: 1, max: 10 },
-//     numOfQuestions: 5,
-//     numOfAttempts: 3,
-//   },
-//   score: 0,
-// };
 type State = {
   settings: Settings;
   score: number;
@@ -68,6 +57,7 @@ const useSettingsStore = create<State & Action>((set) => ({
   userInput: "",
   progress: null,
   isGameOver: false,
+  // UPDATE SETTINGS
   setSettings: (settings: Settings) => set(() => ({ settings })),
   incrementScore: (score: number) => set(() => ({ score: score + 1 })),
   // updateUserInput: (userInputValue: string) => set(() => ({ userInputValue })),
@@ -86,9 +76,9 @@ const useSettingsStore = create<State & Action>((set) => ({
     })),
   // DECREASE ATTEMPTS BY 1 & RESET USER INPUT FOR NEXT QUESTION
   updateForIncorrectAnswer: () => set((state) => ({ attemptsLeft: state.attemptsLeft - 1, userInput: "" })),
-  // TODO - may need to update manually instead of using spread operator if restart doesnt work correctly
+  // RESET THE NECESSARY STATE VALUES FOR A NEW GAME
   restartGame: (newNumberOne: number, newNumberTwo: number) =>
-    set(() => ({ userInput: "", isGameOver: false, score: 0, numberOne: newNumberOne, numberTwo: newNumberTwo })),
+    set(() => ({ numberOne: newNumberOne, numberTwo: newNumberTwo, userInput: "", isGameOver: false, score: 0 })),
 }));
 
 export default useSettingsStore;
