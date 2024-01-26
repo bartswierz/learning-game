@@ -23,6 +23,7 @@ type State = {
   score: number;
   numberOne: number;
   numberTwo: number;
+  attemptsLeft: number;
   userInput: string;
   progress: "Success" | "InProgress" | "Failed" | null;
   isGameOver: boolean;
@@ -32,8 +33,9 @@ type Action = {
   setSettings: (settings: Settings) => void;
   incrementScore: (score: number) => void;
   updateUserInput: (userInput: string) => void;
-  updateForCorrectAnswer: () => void;
+  updateForCorrectAnswer: (newNumOne: number, newNumTwo: number) => void;
   updateForIncorrectAnswer: () => void;
+  updateIsGameOver: (isGameOver: boolean) => void;
   // updateNumbers: (numberOne: number, numberTwo: number) => void;
 };
 
@@ -72,18 +74,27 @@ const initialState: State = {
 // const useSettingsStore = create<SettingsStore>((set) => ({
 const useSettingsStore = create<State & Action>((set) => ({
   // ...initialState,
-  settings: { numOneRange: { min: 0, max: 0 }, numTwoRange: { min: 0, max: 0 }, numOfAttempts: 3, numOfQuestions: 5 },
-  score: 0,
+  settings: { numOneRange: { min: 1, max: 10 }, numTwoRange: { min: 1, max: 10 }, numOfAttempts: 3, numOfQuestions: 5 },
+  attemptsLeft: 3,
   numberOne: 0,
   numberTwo: 0,
+  score: 0,
   userInput: "",
   progress: null,
   isGameOver: false,
   setSettings: (settings: Settings) => set(() => ({ settings })),
   incrementScore: (score: number) => set(() => ({ score: score + 1 })),
   updateUserInput: (userInputValue: string) => set((state) => ({ userInput: state.userInput + userInputValue })),
+  updateIsGameOver: (isGameOver: boolean) => set(() => ({ isGameOver })),
   // UPDATE numberOne & numberTwo & Increase score by 1 & RESET USER INPUT FOR NEXT QUESTION
-  updateForCorrectAnswer: () => set(() => ({ progress: "Success" })),
+  updateForCorrectAnswer: (newNumOne, newNumTwo) =>
+    set((state) => ({
+      numberOne: newNumOne,
+      numberTwo: newNumTwo,
+      attemptsLeft: state.settings.numOfAttempts,
+      score: state.score + 1,
+      userInput: "",
+    })),
   // DECREASE ATTEMPTS BY 1 & RESET USER INPUT FOR NEXT QUESTION
   updateForIncorrectAnswer: () => set((state) => ({ numOfAttempts: state.settings.numOfAttempts - 1, userInput: "" })),
 }));
