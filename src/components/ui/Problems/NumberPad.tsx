@@ -35,9 +35,9 @@ const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: 
 
   const buttonInfoList: ButtonInfo[] = [
     { value: "undo", reactIcon: <FaUndoAlt size={26} />, className: "bg-red-500 hover:bg-red-600" },
-    { value: "divide", reactIcon: <FaDivide size={26} />, className: "" },
-    { value: "multiply", reactIcon: <FaTimes size={26} />, className: "" },
-    { value: "subtract", reactIcon: <RiSubtractFill size={26} />, className: "" },
+    { value: "divide", reactIcon: <FaDivide size={26} />, className: "h-[48px]" },
+    { value: "multiply", reactIcon: <FaTimes size={26} />, className: "h-[48px]" },
+    { value: "subtract", reactIcon: <RiSubtractFill size={26} />, className: "h-[48px]" },
     { value: "7", className: "" },
     { value: "8", className: "" },
     { value: "9", className: "" },
@@ -55,7 +55,7 @@ const NumberPad = ({ handleUserInputCallback, checkAnswerCallback, userInput }: 
 
   return (
     <div className="flex justify-center text-xl">
-      <ul className="grid grid-cols-4 max-w-[90vw] gap-2 w-[400px]">
+      <ul className="grid grid-cols-4 max-w-[90vw] gap-2 w-[300px]">
         {buttonInfoList.map((item) => (
           <li
             key={item.value}
