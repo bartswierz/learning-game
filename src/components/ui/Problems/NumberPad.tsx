@@ -6,7 +6,7 @@ import { RiSubtractFill } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
 import useSettingsStore from "@/store/store";
 import CheckAnswer from "./CheckAnswer";
-import { useState } from "react";
+// import { useState } from "react";
 
 const buttonInfoList: ButtonInfo[] = [
   { value: "undo", reactIcon: <FaUndoAlt size={26} />, className: "bg-red-500 hover:bg-red-600" },
@@ -92,9 +92,10 @@ const NumberPad = ({ userInput, operationType }: NumberPadProps) => {
             {item.value === "=" ? (
               <CheckAnswer
                 disabled={isDisabled}
+                userInput={userInput}
                 operationType={operationType}
                 text={"="}
-                className="bg-red-500x w-full h-full rounded-lg hover:bg-blue-600 disabled:hover:bg-gray-500 transition-all duration-300 ease-in-out"
+                className="w-full h-full rounded-lg hover:bg-blue-600 disabled:hover:bg-gray-500 transition-all duration-300 ease-in-out"
               />
             ) : (
               <button className="flex items-center justify-center w-full h-full p-2" onClick={() => handleClick(item.value)}>

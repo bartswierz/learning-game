@@ -4,12 +4,14 @@ import SettingSlider from "./Slider";
 import useSettingsStore from "@/store/store";
 
 interface SettingsFormProps {
-  settings: Settings;
   handleCloseCallback: () => void;
 }
 
-const SettingsForm = ({ settings, handleCloseCallback }: SettingsFormProps) => {
-  const { numOneRange, numTwoRange, numOfAttempts, numOfQuestions } = settings;
+const SettingPanel = ({ handleCloseCallback }: SettingsFormProps) => {
+  const numOneRange = useSettingsStore((state) => state.settings.numOneRange);
+  const numTwoRange = useSettingsStore((state) => state.settings.numTwoRange);
+  const numOfAttempts = useSettingsStore((state) => state.settings.numOfAttempts);
+  const numOfQuestions = useSettingsStore((state) => state.settings.numOfQuestions);
   const setSettings = useSettingsStore((state) => state.setSettings);
 
   // Updates the settings state in our SettingsStore
@@ -31,7 +33,7 @@ const SettingsForm = ({ settings, handleCloseCallback }: SettingsFormProps) => {
     const updatedQuestionsValue = Number(questionsValue);
     const updatedAttemptsValue = Number(attemptsValue);
 
-    // TODO - update the store with the new values here
+    // UPDATING THE SETTINGS WITH THE NEW VALUES
     const newSettings: Settings = {
       numOneRange: updatedNumberOneRange,
       numTwoRange: updatedNumberTwoRange,
@@ -72,4 +74,4 @@ const SettingsForm = ({ settings, handleCloseCallback }: SettingsFormProps) => {
   );
 };
 
-export default SettingsForm;
+export default SettingPanel;

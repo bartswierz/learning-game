@@ -3,17 +3,16 @@ import { PopoverClose } from "@radix-ui/react-popover";
 import { IoSettingsSharp } from "react-icons/io5";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/shadcn/tooltip";
 import "../shadcn/styles.css";
-import useSettingsStore from "@/store/store";
 import type { Settings } from "@/types/types";
-import SettingsForm__ from "./SettingsForm";
+import SettingPanel__ from "./SettingPanel";
 import { FaTimes } from "react-icons/fa";
 import { useState } from "react";
 
 // Settings Component that allows the user to update the value settings(numberOne, numberTwo, # of questions, # of Attempts)
 const Settings = () => {
   // const { settings } = useSettingsStore();
-  const settings = useSettingsStore((state) => state.settings);
-  console.log("settings from store: ", settings);
+  // const settings = useSettingsStore((state) => state.settings);
+  // console.log("settings from store: ", settings);
   const [isOpen, setIsOpen] = useState(false);
   // const { settings } = useSettingsStore();
 
@@ -45,7 +44,8 @@ const Settings = () => {
         className="bg-transparent/70x bg-black/25X bg-black/90 border-blue-500 border-4 rounded-md w-full relative"
       >
         <p className="text-white text-center mb-4 font-bold text-xl">Settings</p>
-        <SettingsForm__ settings={settings} handleCloseCallback={handleClose} />
+        {/* CONTAINS OUR SETTING CONFIGURATIONS */}
+        <SettingPanel__ handleCloseCallback={handleClose} />
 
         {/* CLOSE BTN */}
         <PopoverClose

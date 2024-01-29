@@ -61,6 +61,7 @@ const useSettingsStore = create<State & Action>((set) => ({
   userInput: "",
   progress: null,
   isGameOver: false,
+  // ...initialState,
   // UPDATE SETTINGS
   setSettings: (settings: Settings) => set(() => ({ settings })),
   incrementScore: (score: number) => set(() => ({ score: score + 1 })),
@@ -99,7 +100,7 @@ const useSettingsStore = create<State & Action>((set) => ({
       attemptsLeft: state.settings.numOfAttempts,
       isGameOver: false,
       score: 0,
-      questionNumber: 0,
+      questionNumber: 1,
     })),
 }));
 
