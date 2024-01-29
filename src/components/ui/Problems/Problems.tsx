@@ -24,7 +24,7 @@ const Problems = ({ operationType }: OperationProps) => {
     // if (!isGameOver) {
     return (
       <>
-        <DebugHelper />
+        {/* <DebugHelper /> */}
         <DisplayResults score={score} numOfQuestions={numOfQuestions} operationType={operationType} />;
       </>
     );
@@ -32,7 +32,7 @@ const Problems = ({ operationType }: OperationProps) => {
 
   return (
     <div className="flex flex-col justify-center items-center mx-4 sm:mx-0 gap-10 sm:mt-4 mb-[10vh]" data-testid="addition-component">
-      <DebugHelper />
+      {/* <DebugHelper /> */}
       <Header operationType={operationType} numOfQuestions={numOfQuestions} score={score} />
       <div className="flex justify-centerx items-centerx flex-col gap-4 text-center">
         <Question operationType={operationType} />
