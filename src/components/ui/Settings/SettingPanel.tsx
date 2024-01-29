@@ -2,6 +2,7 @@ import { Settings } from "@/types/types";
 import SettingDualSlider from "./DualSlider";
 import SettingSlider from "./Slider";
 import useSettingsStore from "@/store/store";
+import { FormEvent } from "react";
 
 interface SettingsFormProps {
   handleCloseCallback: () => void;
@@ -15,10 +16,11 @@ const SettingPanel = ({ handleCloseCallback }: SettingsFormProps) => {
   const setSettings = useSettingsStore((state) => state.setSettings);
 
   // Updates the settings state in our SettingsStore
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    console.log("Settings Panel user submitted form e: ", e);
     e.preventDefault();
     console.log("Updating settings...");
-    const formData = new FormData(e.target); // Capture the form data
+    const formData = new FormData(e.target as HTMLFormElement); // Capture the form data
 
     // Dual Thumb Slider - returns an array of string values - ex. ['1', '10']
     const numberOneValue = formData.getAll("numberOne[]");

@@ -5,7 +5,7 @@ import Header from "./Header";
 import Question from "./Question";
 import AnswerDisplay from "./AnswerDisplay";
 import DisplayResults from "./GameOver";
-import DebugHelper from "../DebugHelper";
+// import DebugHelper from "../DebugHelper";
 
 interface OperationProps {
   // settings: Settings;

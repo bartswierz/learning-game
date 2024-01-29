@@ -32,22 +32,22 @@ type Action = {
   restartGame: (newNumberOne: number, newNumberTwo: number) => void;
 };
 
-const initialState: State = {
-  settings: {
-    numOneRange: { min: 1, max: 10 },
-    numTwoRange: { min: 1, max: 10 },
-    numOfAttempts: 3,
-    numOfQuestions: 5,
-  },
-  attemptsLeft: 3,
-  score: 0,
-  numberOne: 0,
-  numberTwo: 0,
-  userInput: "",
-  progress: null,
-  isGameOver: false,
-  questionNumber: 1,
-};
+// const initialState: State = {
+//   settings: {
+//     numOneRange: { min: 1, max: 10 },
+//     numTwoRange: { min: 1, max: 10 },
+//     numOfAttempts: 3,
+//     numOfQuestions: 5,
+//   },
+//   attemptsLeft: 3,
+//   score: 0,
+//   numberOne: 0,
+//   numberTwo: 0,
+//   userInput: "",
+//   progress: null,
+//   isGameOver: false,
+//   questionNumber: 1,
+// };
 
 // const useSettingsStore = create<SettingsStore>((set) => ({
 const useSettingsStore = create<State & Action>((set) => ({

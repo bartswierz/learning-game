@@ -9,7 +9,7 @@ const DebugHelper = () => {
   const score = useSettingsStore((state) => state.score);
   const attemptsLeft = useSettingsStore((state) => state.attemptsLeft);
   const userInput = useSettingsStore((state) => state.userInput);
-  const progress = useSettingsStore((state) => state.progress);
+  // const progress = useSettingsStore((state) => state.progress);
   const isGameOver = useSettingsStore((state) => state.isGameOver);
 
   return (

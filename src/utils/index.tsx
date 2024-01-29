@@ -1,5 +1,5 @@
 import { NumberMinMax, CheckAnswer } from "../types/types";
-import { FaUndoAlt, FaTimes } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import { FaDivide } from "react-icons/fa6";
 import { RiSubtractFill } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
