@@ -84,13 +84,14 @@ export const isNumberOrDecimal = (input: string): boolean => {
 export const getOperationIcon = (operationType: string): JSX.Element => {
   switch (operationType) {
     case "ADDITION":
-      return <IoMdAdd />;
+      return <IoMdAdd data-testid="add-icon" />;
+    // return <IoMdAdd role="img" />;
     case "SUBTRACTION":
-      return <RiSubtractFill />;
+      return <RiSubtractFill data-testid="subtract-icon" />;
     case "MULTIPLICATION":
-      return <FaTimes />;
+      return <FaTimes data-testid="multiply-icon" />;
     case "DIVISION":
-      return <FaDivide />;
+      return <FaDivide data-testid="divide-icon" />;
     default:
       throw new Error(`Unsupported operation: ${operationType}`);
   }

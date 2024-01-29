@@ -16,6 +16,7 @@ const Question = ({ operationType }: QuestionProps) => {
   const numTwoRange = useSettingsStore((state) => state.settings.numTwoRange);
   const updateNewNumbers = useSettingsStore((state) => state.updateNewNumbers);
 
+  // We are using two separate functions because we need to ensure division numbers returned will give the user a whole number
   useEffect(() => {
     // DIVISION PROBLEM
     if (operationType === "DIVISION") {
