@@ -16,6 +16,7 @@ type State = {
   userInput: string;
   progress: "Success" | "InProgress" | "Failed" | null;
   isGameOver: boolean;
+  questionNumber: number;
 };
 
 type Action = {
@@ -25,6 +26,7 @@ type Action = {
   // appendUserInput: (userInputValue: string) => void;
   updateForCorrectAnswer: (newNumOne: number, newNumTwo: number) => void;
   updateForIncorrectAnswer: () => void;
+  updateForMoreAttempts: (newNumOne: number, newNumTwo: number) => void;
   updateIsGameOver: (isGameOver: boolean) => void;
   updateNewNumbers: (newNumberOne: number, newNumberTwo: number) => void;
   restartGame: (newNumberOne: number, newNumberTwo: number) => void;
@@ -44,16 +46,18 @@ const initialState: State = {
   userInput: "",
   progress: null,
   isGameOver: false,
+  questionNumber: 1,
 };
 
 // const useSettingsStore = create<SettingsStore>((set) => ({
 const useSettingsStore = create<State & Action>((set) => ({
   // ...initialState,
-  settings: { numOneRange: { min: 1, max: 10 }, numTwoRange: { min: 1, max: 10 }, numOfAttempts: 3, numOfQuestions: 5 },
-  attemptsLeft: 3,
+  settings: { numOneRange: { min: 1, max: 10 }, numTwoRange: { min: 1, max: 10 }, numOfAttempts: 1, numOfQuestions: 5 },
+  attemptsLeft: 1,
   numberOne: 0,
   numberTwo: 0,
   score: 0,
+  questionNumber: 1,
   userInput: "",
   progress: null,
   isGameOver: false,
@@ -73,12 +77,30 @@ const useSettingsStore = create<State & Action>((set) => ({
       attemptsLeft: state.settings.numOfAttempts,
       score: state.score + 1,
       userInput: "",
+      questionNumber: state.questionNumber + 1,
     })),
   // DECREASE ATTEMPTS BY 1 & RESET USER INPUT FOR NEXT QUESTION
   updateForIncorrectAnswer: () => set((state) => ({ attemptsLeft: state.attemptsLeft - 1, userInput: "" })),
+  // USER HAS MORE QUESTIONS TO ANSWER, REPLENISH ATTEMPTS & RESET USER INPUT FOR NEXT QUESTION
+  updateForMoreAttempts: (newNumOne, newNumTwo) =>
+    set((state) => ({
+      numberOne: newNumOne,
+      numberTwo: newNumTwo,
+      attemptsLeft: state.settings.numOfAttempts,
+      userInput: "",
+      questionNumber: state.questionNumber + 1,
+    })),
   // RESET THE NECESSARY STATE VALUES FOR A NEW GAME
   restartGame: (newNumberOne: number, newNumberTwo: number) =>
-    set(() => ({ numberOne: newNumberOne, numberTwo: newNumberTwo, userInput: "", isGameOver: false, score: 0 })),
+    set((state) => ({
+      numberOne: newNumberOne,
+      numberTwo: newNumberTwo,
+      userInput: "",
+      attemptsLeft: state.settings.numOfAttempts,
+      isGameOver: false,
+      score: 0,
+      questionNumber: 0,
+    })),
 }));
 
 export default useSettingsStore;

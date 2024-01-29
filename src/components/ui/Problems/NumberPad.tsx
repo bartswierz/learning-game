@@ -6,6 +6,7 @@ import { RiSubtractFill } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
 import useSettingsStore from "@/store/store";
 import CheckAnswer from "./CheckAnswer";
+import { useState } from "react";
 
 const buttonInfoList: ButtonInfo[] = [
   { value: "undo", reactIcon: <FaUndoAlt size={26} />, className: "bg-red-500 hover:bg-red-600" },
@@ -33,11 +34,13 @@ interface NumberPadProps {
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
   userInput: string;
 }
-// TODO - add conditionals for add, subtract, multiply, divide buttons for future problems
+
 // Component containing buttons 0-9 and a clear button to reset user input
 const NumberPad = ({ userInput, operationType }: NumberPadProps) => {
   const numberOne = useSettingsStore((state) => state.numberOne);
   const numberTwo = useSettingsStore((state) => state.numberTwo);
+
+  const isDisabled: boolean = userInput === "" ? true : false;
 
   // Removes the need for our handleUserInputCallback
   const updateUserInput = useSettingsStore((state) => state.updateUserInput);
@@ -50,9 +53,7 @@ const NumberPad = ({ userInput, operationType }: NumberPadProps) => {
       updateUserInput(userInput + input);
     }
 
-    // TODO - handleCheckCallback can stay for now but we need to remove it once we have fixed the other sections of children components in the Problems component
     // CHECK ANSWER
-    // else if (input === "=") handleCheckCallback();
     else if (input === "=") checkAnswer({ userInput, numberOne, numberTwo, operationType });
     // REMOVE LAST CHARACTER FROM USERINPUT IF ITS NOT EMPTY
     else if (input === "undo" && userInput.length > 0) {
@@ -90,10 +91,10 @@ const NumberPad = ({ userInput, operationType }: NumberPadProps) => {
             {/* IF BUTTON VALUE IS ""=" => REPLACE IT WITH OUR CHECKANSWER COMPONENT */}
             {item.value === "=" ? (
               <CheckAnswer
-                disabled={false}
+                disabled={isDisabled}
                 operationType={operationType}
                 text={"="}
-                className="bg-red-500x w-full h-full rounded-lg hover:bg-blue-600 transition-all duration-300 ease-in-out"
+                className="bg-red-500x w-full h-full rounded-lg hover:bg-blue-600 disabled:hover:bg-gray-500 transition-all duration-300 ease-in-out"
               />
             ) : (
               <button className="flex items-center justify-center w-full h-full p-2" onClick={() => handleClick(item.value)}>

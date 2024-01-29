@@ -22,7 +22,7 @@ const Navbar = () => {
   const NavbarLinks = () => {
     // TODO - display on mobile
     return (
-      <ul className="b flex flex-row flex-wrap items-center gap-3">
+      <ul className="flex flex-row flex-wrap items-center gap-3">
         {/* // <ul className="b w-[500px] grid grid-cols-4 place-items-center flex-wrap items-centerx gap-3"> */}
         {navbarLinks.map(({ link, bgColor }) => {
           return <NavbarLink link={link} btnColor={bgColor} key={link} />;
@@ -34,7 +34,7 @@ const Navbar = () => {
   // Individual Link
   const NavbarLink = ({ link, btnColor }: NavbarLinkProps) => {
     return (
-      <li className="cursor-pointer b" key={link}>
+      <li className="cursor-pointer" key={link}>
         <Link
           to={`/${link.toLowerCase()}`}
           // to={`/`} // TODO - remove this once the routes are set up
@@ -61,13 +61,13 @@ const Navbar = () => {
 
   const NavbarDesktop = () => {
     return (
-      <nav data-testid="navbar" className="hidden md:flex justify-between items-center b p-2 z-[10]">
+      <nav data-testid="navbar" className="hidden md:flex justify-between items-center p-2 z-[10]">
         <span className="text-2xl font-bold" id="navbar-title">
           DESKTOP
         </span>
         {/* TODO - setup a desktop and mobile navbar */}
         <NavbarLinks />
-        <div className="flex justify-between items-center gap-4 b">
+        <div className="flex justify-between items-center gap-4">
           <HomepageLink />
           <Settings />
         </div>

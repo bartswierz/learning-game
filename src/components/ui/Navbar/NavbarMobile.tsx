@@ -32,7 +32,7 @@ const NavbarMobile = () => {
   // Individual Link
   const NavbarLink = ({ link, btnColor }: NavbarLinkProps) => {
     return (
-      <li className="cursor-pointer b flex text-center" key={link}>
+      <li className="cursor-pointer flex text-center" key={link}>
         <Link
           to={`/${link.toLowerCase()}`}
           className={`${btnColor} hover:text-white hover:shadow-xl hover:ring ring-slate-200 px-4 py-2 rounded-full transition-all duration-300 text-gray-100 font-bold w-full`}
@@ -57,13 +57,13 @@ const NavbarMobile = () => {
   };
 
   return (
-    <nav data-testid="navbar" className="b md:hidden flex flex-col justify-content items-center p-2 z-[10] gap-4">
+    <nav data-testid="navbar" className="md:hidden flex flex-col justify-content items-center p-2 z-[10] gap-4 mb-[2vh]">
       {/* <div className="b flex-colx"> */}
-      <div className="b flex justify-between w-full">
+      <div className="flex justify-between w-full">
         <span className="text-2xl font-bold" id="navbar-title">
           MOBILE
         </span>
-        <div className="flex justify-between items-center gap-4 b">
+        <div className="flex justify-between items-center gap-4">
           <HomepageLink />
           <Settings />
         </div>

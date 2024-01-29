@@ -7,6 +7,11 @@ import { getOperationIcon, randomTwoNumbersForDivision } from "@/utils";
 import useSettingsStore from "@/store/store";
 import GameOverMessage from "./GameOverMessage";
 import CheckAnswer from "./CheckAnswer";
+import Header from "./Header";
+import Question from "./Question";
+import AnswerDisplay from "./AnswerDisplay";
+import DisplayResults from "./GameOver";
+import DebugHelper from "../DebugHelper";
 
 interface OperationProps {
   // settings: Settings;
@@ -54,47 +59,32 @@ const Problems = ({ operationType }: OperationProps) => {
   }, [operationType]);
 
   // GAME OVER - EITHER SUCCESS OR FAILED
+  // if (isGameOver) {
+  //   return (
+  //     <div className="flex justify-center items-center flex-col bg-red-500x">
+  //       <GameOverMessage isGameOver={isGameOver} progress={"Failed"} numberOne={numberOne} numberTwo={numberTwo} />
+  //       <RestartBtn operationType={operationType} />
+  //     </div>
+  //   );
+  // }
+  // TESTING PURPOSES, SET TO TRUE AFTER WE RESOLVE REFACTORING
   if (isGameOver) {
+    // if (!isGameOver) {
     return (
-      <div className="b flex justify-center items-center flex-col bg-red-500x">
-        <GameOverMessage isGameOver={isGameOver} progress={"Failed"} numberOne={numberOne} numberTwo={numberTwo} />
-        <RestartBtn operationType={operationType} />
-      </div>
+      <>
+        <DebugHelper />
+        <DisplayResults score={score} numOfQuestions={numOfQuestions} operationType={operationType} />;
+      </>
     );
   }
 
   return (
-    <div
-      className="b bg-slate-900 w-fullX flex flex-col justify-center items-center mx-4 sm:mx-0 gap-10 sm:mt-4"
-      data-testid="addition-component"
-    >
-      <div className="b">
-        <h1>FOR REFACTOR/TESTING PURPOSES - VALUES:</h1>
-        <ul>
-          <li>numberOne: {numberOne}</li>
-          <li>numberTwo: {numberTwo}</li>
-          <li>score: {score}</li>
-          <li>userInput: {userInput === "" ? "Empty String" : userInput}</li>
-          <li>progress: {progress}</li>
-          <li>isGameOver: {isGameOver ? "TRUE" : "FALSE"}</li>
-        </ul>
-      </div>
-      <div className="flex flex-col gap-2 b text-center">
-        {/* <h2>/{test}</h2> */}
-        <h2 className="text-2xl">{operationType}</h2>
-        <span className="text-xl">
-          Question: {score} / {numOfQuestions}
-        </span>
-        <p className="text-xl">Attempts Left: {attemptsLeft}</p>
-      </div>
-      {/* TODO - move this into a separate component */}
-      <div className="flex flex-col gap-4 text-center b">
-        <p className="flex justify-center items-center text-4xl">
-          {numberOne} {operationIcon} {numberTwo} = __?
-        </p>
-        <div className="bg-white text-black w-full h-16" data-testid="user-answer-input" data-user-answer={userInput}>
-          {userInput}
-        </div>
+    <div className="flex flex-col justify-center items-center mx-4 sm:mx-0 gap-10 sm:mt-4 mb-[10vh]" data-testid="addition-component">
+      <DebugHelper />
+      <Header operationType={operationType} score={score} numOfQuestions={numOfQuestions} attemptsLeft={attemptsLeft} />
+      <div className="flex justify-centerx items-centerx flex-col gap-4 text-center">
+        <Question numberOne={numberOne} numberTwo={numberTwo} operationIcon={operationIcon} />
+        <AnswerDisplay userInput={userInput} />
         <CheckAnswer disabled={disabled} operationType={operationType} text="Check Answer" />
         <NumberPad userInput={userInput} operationType={operationType} />
       </div>

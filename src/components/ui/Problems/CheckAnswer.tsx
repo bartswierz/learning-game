@@ -14,6 +14,7 @@ const CheckAnswer = ({ disabled, operationType, text, className }: CheckAnswerPr
   const numTwoRange = useSettingsStore((state) => state.settings.numTwoRange);
   const updateForCorrectAnswer = useSettingsStore((state) => state.updateForCorrectAnswer);
   const updateForIncorrectAnswer = useSettingsStore((state) => state.updateForIncorrectAnswer);
+  const updateForMoreAttempts = useSettingsStore((state) => state.updateForMoreAttempts);
   const updateIsGameOver = useSettingsStore((state) => state.updateIsGameOver);
   const attemptsLeft = useSettingsStore((state) => state.attemptsLeft);
   const score = useSettingsStore((state) => state.score);
@@ -21,6 +22,30 @@ const CheckAnswer = ({ disabled, operationType, text, className }: CheckAnswerPr
   const numberOne = useSettingsStore((state) => state.numberOne);
   const numberTwo = useSettingsStore((state) => state.numberTwo);
   const numOfQuestions = useSettingsStore((state) => state.settings.numOfQuestions);
+  const questionNumber = useSettingsStore((state) => state.questionNumber);
+  console.log("questionNumber: ", questionNumber);
+
+  interface getNewNumbersProps {
+    operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
+  }
+
+  const getNumbersForNextQuestion = ({ operationType }: getNewNumbersProps) => {
+    let newNum1: number;
+    let newNum2: number;
+
+    if (operationType === "DIVISION") {
+      const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
+      // replace this with a
+      newNum1 = num1;
+      newNum2 = num2;
+      return { newNum1: newNum1, newNum2: newNum2 };
+    } else {
+      const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
+      newNum1 = num1;
+      newNum2 = num2;
+      return { newNum1: newNum1, newNum2: newNum2 };
+    }
+  };
 
   const handleCheck = () => {
     console.log("inside handleCheck");
@@ -31,20 +56,21 @@ const CheckAnswer = ({ disabled, operationType, text, className }: CheckAnswerPr
 
     // IF correct, score + 1, new question
     if (isCorrect) {
-      let newNum1: number;
-      let newNum2: number;
+      // let newNum1: number;
+      // let newNum2: number;
 
-      if (operationType === "DIVISION") {
-        const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
-        // replace this with a
-        newNum1 = num1;
-        newNum2 = num2;
-      } else {
-        const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
-        newNum1 = num1;
-        newNum2 = num2;
-      }
-
+      // if (operationType === "DIVISION") {
+      //   const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
+      //   // replace this with a
+      //   newNum1 = num1;
+      //   newNum2 = num2;
+      // } else {
+      //   const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
+      //   newNum1 = num1;
+      //   newNum2 = num2;
+      // }
+      const { newNum1, newNum2 } = getNumbersForNextQuestion(operationType);
+      // console.log("CORRECT ANSWER - new numbers from getNumbersForNextQuestion: ", newNum1, newNum2);
       // USER ANSWERED CORRECTLY - UPDATES: numberOne = newNum1, numberTwo = newNum2, userInput = '', score + 1
       updateForCorrectAnswer(newNum1, newNum2);
 
@@ -56,9 +82,29 @@ const CheckAnswer = ({ disabled, operationType, text, className }: CheckAnswerPr
       // INCORRECT ANSWER - attemptsLeft - 1 & userInput = ''
       updateForIncorrectAnswer();
 
+      console.log("attemptsLeft: ", attemptsLeft);
+      // TODO - update this to fetch new numbers IF there is more questions to be asked
       // FAILED: USER RAN OUT OF ATTEMPTS - GAME OVER
-      if (attemptsLeft - 1 === 0) {
-        updateIsGameOver(true);
+      // if (attemptsLeft - 1 === 0) {
+      const outOfAttempts: boolean = attemptsLeft - 1 === 0;
+      // if (attemptsLeft - 1 < 1) {
+      if (outOfAttempts) {
+        // updateIsGameOver(true);
+        console.log("attemptsLeft: ", attemptsLeft, "\nquestionNumber: ", questionNumber, "\nnumOfQuestions: ", numOfQuestions);
+        // USER RAN OUT OF ATTEMPTS, FETCH MORE HERE IF THERE IS MORE QUESTIONS TO BE ASKED
+        const hasMoreQuestions: boolean = questionNumber !== numOfQuestions;
+        const outOfQuestions: boolean = questionNumber === numOfQuestions;
+        if (hasMoreQuestions) {
+          console.log("user ran out of attempts, generating new numbers for next question");
+          const { newNum1, newNum2 } = getNumbersForNextQuestion(operationType);
+          updateForMoreAttempts(newNum1, newNum2);
+        } else if (outOfQuestions) {
+          // USER RAN OUT OF ATTEMPTS & NO MORE QUESTIONS
+          if (questionNumber === numOfQuestions) {
+            console.log("user ran out of attempts & no more questions, ending game...");
+            updateIsGameOver(true);
+          }
+        }
       }
     }
   };
