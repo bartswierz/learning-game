@@ -57,9 +57,7 @@ const SettingPanel = ({ handleCloseCallback }: SettingsFormProps) => {
       </div>
       <div>
         <label htmlFor="numberTwo">2nd Number Range (Max: 50)</label>
-        <div className="">
-          <SettingDualSlider minValue={numTwoRange.min} maxValue={numTwoRange.max} name="numberTwo" minStepsBetween={1} />
-        </div>
+        <SettingDualSlider minValue={numTwoRange.min} maxValue={numTwoRange.max} name="numberTwo" minStepsBetween={1} />
       </div>
       <div>
         <label htmlFor="questions"># of Questions (Max: 50)</label>
