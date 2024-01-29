@@ -25,7 +25,7 @@ const Problems = ({ operationType }: OperationProps) => {
     return (
       <>
         {/* <DebugHelper /> */}
-        <DisplayResults score={score} numOfQuestions={numOfQuestions} operationType={operationType} />;
+        <DisplayResults score={score} numOfQuestions={numOfQuestions} operationType={operationType} />
       </>
     );
   }

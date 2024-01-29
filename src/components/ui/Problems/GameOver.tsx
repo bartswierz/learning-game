@@ -1,5 +1,4 @@
 import RestartBtn from "../RestartBtn";
-import GameOverMessage from "./GameOverMessage";
 
 interface DisplayResultsProps {
   score: number;
@@ -9,11 +8,6 @@ interface DisplayResultsProps {
 
 // Display the game over message and restart button with user results
 const DisplayResults = ({ score, numOfQuestions, operationType }: DisplayResultsProps) => {
-  /*
-  TODO - calculate based on results
-  isGameOver is not necessary as we will only display this component if the game is over
-  */
-
   const calculatePercentage = (score: number, numOfQuestions: number) => {
     return (score / numOfQuestions) * 100;
   };
@@ -22,7 +16,6 @@ const DisplayResults = ({ score, numOfQuestions, operationType }: DisplayResults
 
   return (
     <div className="flex justify-center gap-2 items-center flex-col bg-red-500x">
-      {/* <GameOverMessage numberOne={numberOne} numberTwo={numberTwo} /> */}
       <span className="text-xl">Game Over</span>
       <span className="text-lg">
         Questions: {score} / {numOfQuestions}
