@@ -52,8 +52,8 @@ type Action = {
 // const useSettingsStore = create<SettingsStore>((set) => ({
 const useSettingsStore = create<State & Action>((set) => ({
   // ...initialState,
-  settings: { numOneRange: { min: 1, max: 10 }, numTwoRange: { min: 1, max: 10 }, numOfAttempts: 1, numOfQuestions: 5 },
-  attemptsLeft: 1,
+  settings: { numOneRange: { min: 1, max: 10 }, numTwoRange: { min: 1, max: 10 }, numOfAttempts: 3, numOfQuestions: 5 },
+  attemptsLeft: 3,
   numberOne: 0,
   numberTwo: 0,
   score: 0,
