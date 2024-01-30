@@ -4,7 +4,7 @@ import CheckAnswer from "./CheckAnswer";
 import Header from "./Header";
 import Question from "./Question";
 import AnswerDisplay from "./AnswerDisplay";
-import DisplayResults from "./GameOver";
+import DisplayResults from "./DisplayResults";
 // import DebugHelper from "../DebugHelper";
 
 interface OperationProps {
