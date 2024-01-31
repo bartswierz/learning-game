@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "../globals.css";
+import ZustandCounter from "@/components/ui/sampleTests/ZustandCounter";
 
 // TODO
 export default function Home() {

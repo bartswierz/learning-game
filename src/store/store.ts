@@ -17,6 +17,8 @@ type State = {
   progress: "Success" | "InProgress" | "Failed" | null;
   isGameOver: boolean;
   questionNumber: number;
+  // TESTING PURPOSES
+  count: number;
 };
 
 type Action = {
@@ -30,6 +32,8 @@ type Action = {
   updateIsGameOver: (isGameOver: boolean) => void;
   updateNewNumbers: (newNumberOne: number, newNumberTwo: number) => void;
   restartGame: (newNumberOne: number, newNumberTwo: number) => void;
+  // TESTING PURPOSES - ZustandCounter unit testing with vitest
+  increment: () => void;
 };
 
 // const initialState: State = {
@@ -102,6 +106,9 @@ const useSettingsStore = create<State & Action>((set) => ({
       score: 0,
       questionNumber: 1,
     })),
+  // TESTING PURPOSES - ZustandCounter unit testing with vitest
+  count: 0,
+  increment: () => set((state) => ({ count: state.count + 1 })),
 }));
 
 export default useSettingsStore;

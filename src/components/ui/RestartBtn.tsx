@@ -16,17 +16,26 @@ const RestartBtn = ({ operationType }: RestartBtnProps) => {
   const restartGame = useSettingsStore((state) => state.restartGame);
 
   const handleGlobalReset = (operationType: RestartBtnProps["operationType"]) => {
+    console.log("RESTART BUTTON CLICKED...");
     // DIVISION PROBLEM RESET
-    if (operationType === "DIVISION") {
-      const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
-      // TODO - create a GlobalReset function in Zustand store
-      restartGame(num1, num2);
-    } else {
-      // ADDITION/SUBTRACTION/MULTIPLICATION PROBLEM RESET
-      const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
-      restartGame(num1, num2);
-    }
+    const num1 = 8;
+    const num2 = 10;
+    restartGame(num1, num2);
   };
+  // };
+  // const handleGlobalReset = (operationType: RestartBtnProps["operationType"]) => {
+  //   console.log("RESTART BUTTON CLICKED...");
+  //   // DIVISION PROBLEM RESET
+  //   if (operationType === "DIVISION") {
+  //     const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
+  //     // TODO - create a GlobalReset function in Zustand store
+  //     restartGame(num1, num2);
+  //   } else {
+  //     // ADDITION/SUBTRACTION/MULTIPLICATION PROBLEM RESET
+  //     const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
+  //     restartGame(num1, num2);
+  //   }
+  // };
 
   return (
     <button
