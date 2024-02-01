@@ -4,6 +4,8 @@ import RestartBtn from "../RestartBtn";
 import { expect, describe, it, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 
+const store = useSettingsStore.getState();
+
 describe("RestartBtn", () => {
   it("renders correctly", () => {
     render(<RestartBtn operationType="ADDITION" />);
@@ -13,7 +15,6 @@ describe("RestartBtn", () => {
 
   it("should call restartGame function when clicked", () => {
     // Use the useSettingsStore hook to get a reference to the store
-    const store = useSettingsStore.getState();
     // Spy on the restartGame function
     vi.spyOn(store, "restartGame"); //MUST USE vi.spyOn() in order to check if the function was called, how many times, and with what arguments passed
 

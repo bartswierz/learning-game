@@ -89,6 +89,7 @@ const CheckAnswer = ({ disabled, operationType, text, className, userInput }: Ch
       onClick={handleCheck}
       className={`${disabled ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500"} bg-blue-500 text-xl px-2 py-3 ${className}`}
       disabled={disabled}
+      role="button"
     >
       {text}
     </button>

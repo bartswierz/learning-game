@@ -94,11 +94,15 @@ const NumberPad = ({ userInput, operationType }: NumberPadProps) => {
                 disabled={isDisabled}
                 userInput={userInput}
                 operationType={operationType}
-                text={"="}
+                text="="
                 className="w-full h-full rounded-lg hover:bg-blue-600 disabled:hover:bg-gray-500 transition-all duration-300 ease-in-out"
               />
             ) : (
-              <button className="flex items-center justify-center w-full h-full p-2" onClick={() => handleClick(item.value)}>
+              <button
+                className="flex items-center justify-center w-full h-full p-2"
+                onClick={() => handleClick(item.value)}
+                aria-label={`button-${item.value}`}
+              >
                 {/* DISPLAY CUSTOM ICON IF IT EXISTS, ELSE VALUE */}
                 {item.reactIcon ? item.reactIcon : item.value}
               </button>
