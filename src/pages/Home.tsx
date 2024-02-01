@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "../globals.css";
-import ZustandCounter from "@/components/ui/sampleTests/ZustandCounter";
+// import ZustandCounter from "@/components/ui/sampleTests/ZustandCounter";
 
 // TODO
 export default function Home() {
@@ -26,16 +26,6 @@ export default function Home() {
       linkStyle: "rounded-br-[50px] rounded-tl-[50px]",
     },
   ];
-  // const homepageLinks = [
-  //   {
-  //     link: "Addition",
-  //     listItemStyle: "bg-green-500 hover:bg-green-600 hover:shadow-red-500 rounded-tl-[50px]",
-  //     linkStyle: "rounded-tl-[50px]",
-  //   },
-  //   { link: "Subtraction", listItemStyle: "bg-red-500 hover:bg-red-600 rounded-tr-[50px]", linkStyle: "rounded-tr-[50px]" },
-  //   { link: "Multiplication", listItemStyle: "bg-blue-500 hover:bg-blue-600 rounded-bl-[50px]", linkStyle: "rounded-bl-[50px]" },
-  //   { link: "Division", listItemStyle: "bg-yellow-500 hover:bg-yellow-600 rounded-br-[50px]", linkStyle: "rounded-br-[50px]" },
-  // ];
 
   return (
     <div className="container mt-8 pb-12">
@@ -58,6 +48,7 @@ export default function Home() {
           );
         })}
       </ul>
+      {/* <ZustandCounter /> */}
     </div>
   );
 }

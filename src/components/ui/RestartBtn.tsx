@@ -1,12 +1,7 @@
-// import { Globals, Settings } from "@/types/types";
 import { randomTwoNumbers, randomTwoNumbersForDivision } from "@/utils";
 import useSettingsStore from "@/store/store";
-/*
-operationType passed from Problems component to know which random function to use for the random numbers, division requires a different random function to ensure the numbers are divisible
-*/
+
 interface RestartBtnProps {
-  // setGlobalsCallback: (globals: Globals) => void;
-  // settings: Settings;
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
 }
 
@@ -15,27 +10,19 @@ const RestartBtn = ({ operationType }: RestartBtnProps) => {
   const numTwoRange = useSettingsStore((state) => state.settings.numTwoRange);
   const restartGame = useSettingsStore((state) => state.restartGame);
 
+  // Restart the game with new random numbers passed to update our store
   const handleGlobalReset = (operationType: RestartBtnProps["operationType"]) => {
     console.log("RESTART BUTTON CLICKED...");
     // DIVISION PROBLEM RESET
-    const num1 = 8;
-    const num2 = 10;
-    restartGame(num1, num2);
+    if (operationType === "DIVISION") {
+      const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
+      restartGame(num1, num2);
+    } else {
+      // operationType is ADDITION | SUBTRACTION | MULTIPLICATION
+      const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
+      restartGame(num1, num2);
+    }
   };
-  // };
-  // const handleGlobalReset = (operationType: RestartBtnProps["operationType"]) => {
-  //   console.log("RESTART BUTTON CLICKED...");
-  //   // DIVISION PROBLEM RESET
-  //   if (operationType === "DIVISION") {
-  //     const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);
-  //     // TODO - create a GlobalReset function in Zustand store
-  //     restartGame(num1, num2);
-  //   } else {
-  //     // ADDITION/SUBTRACTION/MULTIPLICATION PROBLEM RESET
-  //     const { num1, num2 } = randomTwoNumbers(numOneRange, numTwoRange);
-  //     restartGame(num1, num2);
-  //   }
-  // };
 
   return (
     <button

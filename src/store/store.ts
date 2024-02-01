@@ -65,6 +65,7 @@ const useSettingsStore = create<State & Action>((set) => ({
   userInput: "",
   progress: null,
   isGameOver: false,
+  count: 0,
   // ...initialState,
   // UPDATE SETTINGS
   setSettings: (settings: Settings) => set(() => ({ settings })),
@@ -96,8 +97,10 @@ const useSettingsStore = create<State & Action>((set) => ({
       questionNumber: state.questionNumber + 1,
     })),
   // RESET THE NECESSARY STATE VALUES FOR A NEW GAME
-  restartGame: (newNumberOne: number, newNumberTwo: number) =>
-    set((state) => ({
+  restartGame: (newNumberOne: number, newNumberTwo: number) => {
+    console.log("Store: Restart Game Invoked with values: ", newNumberOne, newNumberTwo);
+
+    return set((state) => ({
       numberOne: newNumberOne,
       numberTwo: newNumberTwo,
       userInput: "",
@@ -105,10 +108,11 @@ const useSettingsStore = create<State & Action>((set) => ({
       isGameOver: false,
       score: 0,
       questionNumber: 1,
-    })),
-  // TESTING PURPOSES - ZustandCounter unit testing with vitest
-  count: 0,
+    }));
+  },
   increment: () => set((state) => ({ count: state.count + 1 })),
+  // TESTING PURPOSES - ZustandCounter unit testing with vitest
+  // count: 0,
 }));
 
 export default useSettingsStore;
