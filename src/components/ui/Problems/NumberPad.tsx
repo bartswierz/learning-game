@@ -25,7 +25,7 @@ const buttonInfoList: ButtonInfo[] = [
   { value: "3", className: "" },
   { value: "=", className: "row-span-2" },
   { value: "0", className: "col-span-2" },
-  { value: ".", className: "b" },
+  { value: ".", className: "" },
 ];
 
 interface NumberPadProps {

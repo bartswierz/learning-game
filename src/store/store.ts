@@ -98,9 +98,7 @@ const useSettingsStore = create<State & Action>((set) => ({
     })),
   // RESET THE NECESSARY STATE VALUES FOR A NEW GAME
   restartGame: (newNumberOne: number, newNumberTwo: number) => {
-    console.log("Store: Restart Game Invoked with values: ", newNumberOne, newNumberTwo);
-
-    return set((state) => ({
+    set((state) => ({
       numberOne: newNumberOne,
       numberTwo: newNumberTwo,
       userInput: "",
