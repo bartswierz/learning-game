@@ -25,7 +25,6 @@ type Action = {
   setSettings: (settings: Settings) => void;
   incrementScore: (score: number) => void;
   updateUserInput: (userInput: string) => void;
-  // appendUserInput: (userInputValue: string) => void;
   updateForCorrectAnswer: (newNumOne: number, newNumTwo: number) => void;
   updateForIncorrectAnswer: () => void;
   updateForMoreAttempts: (newNumOne: number, newNumTwo: number) => void;
@@ -36,27 +35,13 @@ type Action = {
   increment: () => void;
 };
 
-// const initialState: State = {
-//   settings: {
-//     numOneRange: { min: 1, max: 10 },
-//     numTwoRange: { min: 1, max: 10 },
-//     numOfAttempts: 3,
-//     numOfQuestions: 5,
-//   },
-//   attemptsLeft: 3,
-//   score: 0,
-//   numberOne: 0,
-//   numberTwo: 0,
-//   userInput: "",
-//   progress: null,
-//   isGameOver: false,
-//   questionNumber: 1,
-// };
-
-// const useSettingsStore = create<SettingsStore>((set) => ({
-const useSettingsStore = create<State & Action>((set) => ({
-  // ...initialState,
-  settings: { numOneRange: { min: 1, max: 10 }, numTwoRange: { min: 1, max: 10 }, numOfAttempts: 3, numOfQuestions: 5 },
+const initialState: State = {
+  settings: {
+    numOneRange: { min: 1, max: 10 },
+    numTwoRange: { min: 1, max: 10 },
+    numOfAttempts: 3,
+    numOfQuestions: 5,
+  },
   attemptsLeft: 3,
   numberOne: 0,
   numberTwo: 0,
@@ -65,9 +50,12 @@ const useSettingsStore = create<State & Action>((set) => ({
   userInput: "",
   progress: null,
   isGameOver: false,
-  count: 0,
-  // ...initialState,
-  // UPDATE SETTINGS
+  count: 0, //Used for our ZustandCounter testing example
+};
+
+// const useSettingsStore = create<SettingsStore>((set) => ({
+const useSettingsStore = create<State & Action>((set) => ({
+  ...initialState,
   setSettings: (settings: Settings) => set(() => ({ settings })),
   incrementScore: (score: number) => set(() => ({ score: score + 1 })),
   // updateUserInput: (userInputValue: string) => set(() => ({ userInputValue })),
@@ -109,8 +97,6 @@ const useSettingsStore = create<State & Action>((set) => ({
     }));
   },
   increment: () => set((state) => ({ count: state.count + 1 })),
-  // TESTING PURPOSES - ZustandCounter unit testing with vitest
-  // count: 0,
 }));
 
 export default useSettingsStore;

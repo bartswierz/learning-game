@@ -19,6 +19,7 @@ const Problems = ({ operationType }: OperationProps) => {
   const numOfQuestions = useSettingsStore((state) => state.settings.numOfQuestions);
   const disabled: boolean = userInput === "" ? true : false;
 
+  console.log("PROBLEMS: ", userInput);
   // TESTING PURPOSES, SET TO TRUE AFTER WE RESOLVE REFACTORING
   if (isGameOver) {
     // if (!isGameOver) {

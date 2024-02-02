@@ -47,10 +47,11 @@ const NumberPad = ({ userInput, operationType }: NumberPadProps) => {
   // const appendUserInput = useSettingsStore((state) => state.appendUserInput);
   // Updates userInput state in the parent component via callback functions
   const handleClick = (input: string) => {
-    console.log("user clicked: ", input);
+    console.log("Button pressed: ", input);
     // NUMBER 0 through 9 - APPEND TO THE USERINPUT STRING AND UPDATE THE STATE
     if (isNumberOrDecimal(input)) {
-      updateUserInput(userInput + input);
+      if (userInput === undefined) updateUserInput(input);
+      else updateUserInput(userInput + input);
     }
 
     // CHECK ANSWER
