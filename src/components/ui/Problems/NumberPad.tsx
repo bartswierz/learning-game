@@ -6,6 +6,7 @@ import { RiSubtractFill } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
 import useSettingsStore from "@/store/store";
 import CheckAnswer from "./CheckAnswer";
+import { useEffect } from "react";
 // import { useState } from "react";
 
 const buttonInfoList: ButtonInfo[] = [
@@ -32,26 +33,23 @@ interface NumberPadProps {
   // handleUserInputCallback: (userInput: string) => void;
   // handleCheckCallback: () => void;
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
-  userInput: string;
 }
 
 // Component containing buttons 0-9 and a clear button to reset user input
-const NumberPad = ({ userInput, operationType }: NumberPadProps) => {
+const NumberPad = ({ operationType }: NumberPadProps) => {
   const numberOne = useSettingsStore((state) => state.numberOne);
   const numberTwo = useSettingsStore((state) => state.numberTwo);
-
+  const userInput = useSettingsStore((state) => state.userInput);
+  const updateUserInput = useSettingsStore((state) => state.updateUserInput);
   const isDisabled: boolean = userInput === "" ? true : false;
 
-  // Removes the need for our handleUserInputCallback
-  const updateUserInput = useSettingsStore((state) => state.updateUserInput);
-  // const appendUserInput = useSettingsStore((state) => state.appendUserInput);
   // Updates userInput state in the parent component via callback functions
   const handleClick = (input: string) => {
     console.log("Button pressed: ", input);
     // NUMBER 0 through 9 - APPEND TO THE USERINPUT STRING AND UPDATE THE STATE
     if (isNumberOrDecimal(input)) {
-      if (userInput === undefined) updateUserInput(input);
-      else updateUserInput(userInput + input);
+      console.log("user input: ", userInput, "and input: ", input);
+      updateUserInput(userInput + input);
     }
 
     // CHECK ANSWER
@@ -64,18 +62,17 @@ const NumberPad = ({ userInput, operationType }: NumberPadProps) => {
     }
     // ADD SUBTRACT SIGN TO THE FRONT OF THE USERINPUT STRING
     else if (input === "subtract") {
-      // ADD CASE IF USERINPUT ALREADY HAS A SUBTRACT SIGN TO REMOVE IT
-      if (userInput[0] === "-") {
-        // '-' exists in our number remove it and update the state
+      const hasNegativeSignAlready = userInput[0] === "-";
+
+      if (hasNegativeSignAlready) {
+        // REMOVE THE NEGATIVE SIGN AND UPDATE THE STATE
         const newInput = userInput.slice(1, userInput.length);
-        console.log('user input already had a "-" sign, removing it and updating the state to: ', newInput);
         updateUserInput(newInput);
       } else {
-        // '-' does not exist in our number add it and update the state
+        // NO NEGATIVE SIGN FOUND, ADD IT TO THE FRONT OF THE USERINPUT STRING
         console.log('user input did not have a "-" sign, adding it and updating the state to: ', "-" + userInput);
         updateUserInput("-" + userInput);
       }
-      // handleUserInputCallback("-" + userInput);
     } else return;
   };
 

@@ -19,7 +19,6 @@ const Problems = ({ operationType }: OperationProps) => {
   const numOfQuestions = useSettingsStore((state) => state.settings.numOfQuestions);
   const disabled: boolean = userInput === "" ? true : false;
 
-  console.log("PROBLEMS: ", userInput);
   // TESTING PURPOSES, SET TO TRUE AFTER WE RESOLVE REFACTORING
   if (isGameOver) {
     // if (!isGameOver) {
@@ -39,7 +38,8 @@ const Problems = ({ operationType }: OperationProps) => {
         <Question operationType={operationType} />
         <AnswerDisplay userInput={userInput} />
         <CheckAnswer disabled={disabled} operationType={operationType} text="Check Answer" userInput={userInput} />
-        <NumberPad userInput={userInput} operationType={operationType} />
+        {/* <NumberPad userInput={userInput} operationType={operationType} /> */}
+        <NumberPad operationType={operationType} />
       </div>
     </div>
   );
