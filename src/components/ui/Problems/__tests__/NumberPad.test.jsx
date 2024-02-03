@@ -6,10 +6,8 @@ import useSettingsStore from "../../../../store/store";
 import userEvent from "@testing-library/user-event";
 
 describe("NumberPad", () => {
-  afterEach(() => {
-    // beforeEach(() => {
-    // console.log("AFTER EACH");
-    //Reset the userInput value before each test
+  // RESETS userInput to an empty string BEFORE EACH TEST
+  beforeEach(() => {
     useSettingsStore.setState({ userInput: "" });
   });
 
@@ -19,7 +17,7 @@ describe("NumberPad", () => {
 
   it("should update userInput to '7' when user clicks 7", async () => {
     const user = userEvent.setup();
-    render(<NumberPad userInput="" />);
+    render(<NumberPad />);
 
     // aria-label = "button-7"
     const buttonElement = screen.getByRole("button", { name: "button-7" });
@@ -35,11 +33,9 @@ describe("NumberPad", () => {
   });
 
   it("should remove negative sign if it already exists in the userInput", async () => {
-    // it("should remove negative sign if it already exists in the userInput", () => {
     const user = userEvent.setup();
-    const { userInput } = useSettingsStore.getState();
-    render(<NumberPad userInput={userInput} />);
-    // render(<NumberPad userInput="" />);
+
+    render(<NumberPad />);
 
     const buttonSubElement = screen.getByRole("button", { name: "button-subtract" });
     const button8Element = screen.getByRole("button", { name: "button-8" });
@@ -48,14 +44,66 @@ describe("NumberPad", () => {
     user.click(buttonSubElement);
     user.click(button8Element);
     user.click(button9Element);
+    user.click(buttonSubElement);
 
     await waitFor(() => {
-      expect(useSettingsStore.getState().userInput).toBe("-89");
+      expect(useSettingsStore.getState().userInput).toBe("89");
     });
   });
 
-  it.todo("should not allow more than one '.' in the user input value");
-  it.todo("should invoke handleClick function when user clicks the '=' button");
-  it.todo("should remove the last character from the user input value when user clicks the 'undo' button");
-  // });
+  it("should place '-' in front of userInput no matter the order of input", async () => {
+    const user = userEvent.setup();
+
+    render(<NumberPad />);
+
+    const buttonSubElement = screen.getByRole("button", { name: "button-subtract" });
+    const button8Element = screen.getByRole("button", { name: "button-8" });
+    const button9Element = screen.getByRole("button", { name: "button-9" });
+
+    // User clicks, 8, 9, -
+    user.click(button8Element);
+    user.click(button9Element);
+    user.click(buttonSubElement);
+
+    await waitFor(() => {
+      const userInput = useSettingsStore.getState().userInput;
+      expect(userInput).toBe("-89");
+    });
+  });
+
+  // Mode to CheckAnswer component
+  it.todo("should invoke handleClick function when user clicks the '=' button", () => {
+    const user = userEvent.setup();
+    render(<NumberPad />);
+
+    const buttonEqualElement = screen.getByRole("button", { name: "button-equal" });
+
+    user.click(buttonEqualElement);
+  });
+
+  it.todo("should not allow more than one '.' in the user input value", () => {
+    // render(<NumberPad />);
+    // const buttonDotElement = screen.getByRole("button", { name: "button-dot" });
+    // const button8Element = screen.getByRole("button", { name: "button-8" });
+    // const button9Element = screen.getByRole("button", { name: "button-9" });
+  });
+
+  it("should remove the last character from user input when user clicks undo", async () => {
+    const user = userEvent.setup();
+    render(<NumberPad />);
+
+    const button1Element = screen.getByRole("button", { name: "button-1" });
+    const button2Element = screen.getByRole("button", { name: "button-2" });
+    const buttonUndoElement = screen.getByRole("button", { name: "button-undo" });
+
+    // User clicks, 1, 2, undo
+    user.click(button1Element);
+    user.click(button2Element);
+    user.click(buttonUndoElement);
+
+    await waitFor(() => {
+      const userInput = useSettingsStore.getState().userInput;
+      expect(userInput).toBe("1");
+    });
+  });
 });
