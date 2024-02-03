@@ -11,10 +11,6 @@ describe("NumberPad", () => {
     useSettingsStore.setState({ userInput: "" });
   });
 
-  it.skip("should display the correct number of buttons", () => {
-    render(<NumberPad />);
-  });
-
   it("should update userInput to '7' when user clicks 7", async () => {
     const user = userEvent.setup();
     render(<NumberPad />);
@@ -60,7 +56,7 @@ describe("NumberPad", () => {
     const button8Element = screen.getByRole("button", { name: "button-8" });
     const button9Element = screen.getByRole("button", { name: "button-9" });
 
-    // User clicks, 8, 9, -
+    // Button Clicks: '8' => '9' => '-'
     user.click(button8Element);
     user.click(button9Element);
     user.click(buttonSubElement);
@@ -81,11 +77,24 @@ describe("NumberPad", () => {
     user.click(buttonEqualElement);
   });
 
-  it.todo("should not allow more than one '.' in the user input value", () => {
-    // render(<NumberPad />);
-    // const buttonDotElement = screen.getByRole("button", { name: "button-dot" });
-    // const button8Element = screen.getByRole("button", { name: "button-8" });
-    // const button9Element = screen.getByRole("button", { name: "button-9" });
+  it("should not allow more than one '.' in the user input value", async () => {
+    const user = userEvent.setup();
+    render(<NumberPad />);
+
+    const button1Element = screen.getByRole("button", { name: "button-1" });
+    const buttonDotElement = screen.getByRole("button", { name: "button-." });
+    const button2Element = screen.getByRole("button", { name: "button-2" });
+
+    // Button Clicks: '1' => '.' => '2' => '.'
+    user.click(button1Element);
+    user.click(buttonDotElement);
+    user.click(button2Element);
+    user.click(buttonDotElement);
+
+    await waitFor(() => {
+      const userInput = useSettingsStore.getState().userInput;
+      expect(userInput).toBe("1.2");
+    });
   });
 
   it("should remove the last character from user input when user clicks undo", async () => {

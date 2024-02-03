@@ -48,10 +48,20 @@ const NumberPad = ({ operationType }: NumberPadProps) => {
     console.log("Button pressed: ", input);
     // NUMBER 0 through 9 - APPEND TO THE USERINPUT STRING AND UPDATE THE STATE
     if (isNumberOrDecimal(input)) {
-      console.log("user input: ", userInput, "and input: ", input);
-      updateUserInput(userInput + input);
+      const isDecimal = input === ".";
+      if (isDecimal) {
+        const hasDecimalAlready = userInput.includes(".");
+        if (hasDecimalAlready) {
+          return;
+        } else {
+          updateUserInput(userInput + ".");
+        }
+      } else {
+        // IS A NUMBER
+        console.log("user input: ", userInput, "and input: ", input);
+        updateUserInput(userInput + input);
+      }
     }
-
     // CHECK ANSWER
     else if (input === "=") checkAnswer({ userInput, numberOne, numberTwo, operationType });
     // REMOVE LAST CHARACTER FROM USERINPUT IF ITS NOT EMPTY
