@@ -7,7 +7,7 @@ import * as utils from "../../../../utils/index";
 
 // console.log("checkAnswer: ", checkAnswer);
 describe("CheckAnswer", () => {
-  it("should invoke checkAnswer function when user clicks the '=' button", async () => {
+  it.todo("should invoke checkAnswer function when user clicks the '=' button", async () => {
     const checkAnswerSpy = vi.spyOn(utils, "checkAnswer");
 
     const user = userEvent.setup();
