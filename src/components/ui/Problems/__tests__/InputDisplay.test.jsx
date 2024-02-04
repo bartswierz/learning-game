@@ -1,8 +1,8 @@
 import { describe, it, expect } from "vitest";
 import { screen, render } from "@testing-library/react";
-import AnswerDisplay from "../AnswerDisplay";
+import AnswerDisplay from "../InputDisplay";
 
-describe("AnswerDisplay", () => {
+describe("InputDisplay", () => {
   it("should display the userInput prop passed as the value", () => {
     render(<AnswerDisplay userInput="5" />);
 

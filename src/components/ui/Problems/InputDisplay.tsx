@@ -1,8 +1,9 @@
-interface AnswerDisplayProps {
+interface InputDisplayProps {
   userInput: string;
 }
 
-const AnswerDisplay = ({ userInput }: AnswerDisplayProps) => {
+// User Input Display Box
+const InputDisplay = ({ userInput }: InputDisplayProps) => {
   return (
     <div className="flex items-center justify-center bg-white text-black w-full p-2 text-2xl h-12">
       <span className="" aria-label="user-input-value">
@@ -12,4 +13,4 @@ const AnswerDisplay = ({ userInput }: AnswerDisplayProps) => {
   );
 };
 
-export default AnswerDisplay;
+export default InputDisplay;

@@ -6,7 +6,6 @@ import { RiSubtractFill } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
 import useSettingsStore from "@/store/store";
 import CheckAnswer from "./CheckAnswer";
-import { useEffect } from "react";
 // import { useState } from "react";
 
 const buttonInfoList: ButtonInfo[] = [
@@ -52,7 +51,7 @@ const NumberPad = ({ operationType }: NumberPadProps) => {
       if (isDecimal) {
         const hasDecimalAlready = userInput.includes(".");
         if (hasDecimalAlready) {
-          return;
+          return; // DO NOTHING IF USERINPUT ALREADY HAS A DECIMAL IN THE NUMBER
         } else {
           updateUserInput(userInput + ".");
         }

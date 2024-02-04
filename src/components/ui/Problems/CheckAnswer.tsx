@@ -57,7 +57,10 @@ const CheckAnswer = ({ disabled, operationType, text, className, userInput }: Ch
 
       // USER ANSWERED CORRECTLY - UPDATES: numberOne = newNum1, numberTwo = newNum2, userInput = '', score + 1
       updateForCorrectAnswer(newNum1, newNum2);
-    } else {
+    }
+
+    // INCORRECT ANSWER
+    else {
       console.log("isCorrect: ", isCorrect);
       // INCORRECT ANSWER - DECREASE the attemptsLeft by 1 & reset userInput
       updateForIncorrectAnswer();
@@ -89,7 +92,7 @@ const CheckAnswer = ({ disabled, operationType, text, className, userInput }: Ch
       onClick={handleCheck}
       className={`${disabled ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500"} bg-blue-500 text-xl px-2 py-3 ${className}`}
       disabled={disabled}
-      // aria-label="button-="
+      aria-label="button-="
     >
       {text}
     </button>

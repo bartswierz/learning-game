@@ -3,7 +3,7 @@ import useSettingsStore from "@/store/store";
 import CheckAnswer from "./CheckAnswer";
 import Header from "./Header";
 import Question from "./Question";
-import AnswerDisplay from "./AnswerDisplay";
+import InputDisplay from "./InputDisplay";
 import DisplayResults from "./DisplayResults";
 // import DebugHelper from "../DebugHelper";
 
@@ -36,7 +36,7 @@ const Problems = ({ operationType }: OperationProps) => {
       <Header operationType={operationType} numOfQuestions={numOfQuestions} score={score} />
       <div className="flex justify-centerx items-centerx flex-col gap-4 text-center">
         <Question operationType={operationType} />
-        <AnswerDisplay userInput={userInput} />
+        <InputDisplay userInput={userInput} />
         <CheckAnswer disabled={disabled} operationType={operationType} text="Check Answer" userInput={userInput} />
         {/* <NumberPad userInput={userInput} operationType={operationType} /> */}
         <NumberPad operationType={operationType} />

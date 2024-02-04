@@ -28,7 +28,7 @@ describe("NumberPad", () => {
     });
   });
 
-  it("should remove negative sign if it already exists in the userInput", async () => {
+  it("should remove negative sign if it already exists when clicked a second time", async () => {
     const user = userEvent.setup();
 
     render(<NumberPad />);
@@ -47,7 +47,7 @@ describe("NumberPad", () => {
     });
   });
 
-  it("should place '-' in front of userInput no matter the order of input", async () => {
+  it("should place negative sign in front of user input no matter the order of input", async () => {
     const user = userEvent.setup();
 
     render(<NumberPad />);
@@ -65,16 +65,6 @@ describe("NumberPad", () => {
       const userInput = useSettingsStore.getState().userInput;
       expect(userInput).toBe("-89");
     });
-  });
-
-  // Mode to CheckAnswer component
-  it.todo("should invoke handleClick function when user clicks the '=' button", () => {
-    const user = userEvent.setup();
-    render(<NumberPad />);
-
-    const buttonEqualElement = screen.getByRole("button", { name: "button-equal" });
-
-    user.click(buttonEqualElement);
   });
 
   it("should not allow more than one '.' in the user input value", async () => {
