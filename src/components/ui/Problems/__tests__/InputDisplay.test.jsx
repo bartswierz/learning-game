@@ -10,4 +10,12 @@ describe("InputDisplay", () => {
 
     expect(spanElement).toHaveTextContent("5");
   });
+
+  it.fails("should fail if the prop value passed does not match the value displayed", () => {
+    render(<AnswerDisplay userInput="3" />);
+
+    const spanElement = screen.getByLabelText("user-input-value");
+
+    expect(spanElement).toHaveTextContent("5");
+  });
 });

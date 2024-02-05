@@ -1,6 +1,6 @@
 // import useSettingsStore from "../../../store/useSettingsStore";
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { screen, render, waitFor, fireEvent } from "@testing-library/react";
+import { describe, it, expect, beforeEach } from "vitest";
+import { screen, render, waitFor } from "@testing-library/react";
 import NumberPad from "../NumberPad";
 import useSettingsStore from "../../../../store/store";
 import userEvent from "@testing-library/user-event";

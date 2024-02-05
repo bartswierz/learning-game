@@ -5,7 +5,7 @@ import { FaDivide } from "react-icons/fa6";
 import { RiSubtractFill } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
 import useSettingsStore from "@/store/store";
-import CheckAnswer from "./CheckAnswer";
+import CheckAnswer from "./CheckAnswerBtn";
 // import { useState } from "react";
 
 const buttonInfoList: ButtonInfo[] = [

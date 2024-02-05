@@ -1,6 +1,6 @@
 import NumberPad from "./NumberPad";
 import useSettingsStore from "@/store/store";
-import CheckAnswer from "./CheckAnswer";
+import CheckAnswerBtn from "./CheckAnswerBtn";
 import Header from "./Header";
 import Question from "./Question";
 import InputDisplay from "./InputDisplay";
@@ -37,8 +37,7 @@ const Problems = ({ operationType }: OperationProps) => {
       <div className="flex justify-centerx items-centerx flex-col gap-4 text-center">
         <Question operationType={operationType} />
         <InputDisplay userInput={userInput} />
-        <CheckAnswer disabled={disabled} operationType={operationType} text="Check Answer" userInput={userInput} />
-        {/* <NumberPad userInput={userInput} operationType={operationType} /> */}
+        <CheckAnswerBtn disabled={disabled} operationType={operationType} text="Check Answer" userInput={userInput} />
         <NumberPad operationType={operationType} />
       </div>
     </div>

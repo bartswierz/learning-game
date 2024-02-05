@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import DisplayResults from "../DisplayResults";
 import { describe, it, expect } from "vitest";
 
-describe.only("DisplayResults", () => {
+describe("DisplayResults", () => {
   it("should display the correct number of correct Questions", () => {
     render(<DisplayResults score={6} numOfQuestions={10} operationType="ADDITION" />);
 

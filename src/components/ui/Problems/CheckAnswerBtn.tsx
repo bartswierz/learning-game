@@ -2,14 +2,14 @@
 import useSettingsStore from "@/store/store";
 import { checkAnswer, randomTwoNumbers, randomTwoNumbersForDivision } from "@/utils";
 
-interface CheckAnswerProps {
+interface CheckAnswerBtnProps {
   disabled: boolean;
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
   text: "Check Answer" | "=";
   className?: string;
   userInput: string;
 }
-const CheckAnswer = ({ disabled, operationType, text, className, userInput }: CheckAnswerProps) => {
+const CheckAnswerBtn = ({ disabled, operationType, text, className, userInput }: CheckAnswerBtnProps) => {
   // const [isDisabled, setIsDisabled] = useState(false);
   const numOneRange = useSettingsStore((state) => state.settings.numOneRange);
   const numTwoRange = useSettingsStore((state) => state.settings.numTwoRange);
@@ -24,7 +24,7 @@ const CheckAnswer = ({ disabled, operationType, text, className, userInput }: Ch
   const numOfQuestions = useSettingsStore((state) => state.settings.numOfQuestions);
   const questionNumber = useSettingsStore((state) => state.questionNumber);
 
-  const getNumbersForNextQuestion = (operationType: CheckAnswerProps["operationType"]) => {
+  const getNumbersForNextQuestion = (operationType: CheckAnswerBtnProps["operationType"]) => {
     let newNum1: number;
     let newNum2: number;
 
@@ -48,15 +48,14 @@ const CheckAnswer = ({ disabled, operationType, text, className, userInput }: Ch
 
     // IF correct, score + 1, new question
     if (isCorrect) {
-      const { newNum1, newNum2 } = getNumbersForNextQuestion(operationType);
-
       // FINAL QUESTIONS HAS BEEN ANSWERED - GAME OVER
-      if (questionNumber === numOfQuestions) {
-        updateIsGameOver(true);
-      }
+      if (questionNumber === numOfQuestions) updateIsGameOver(true);
+      else {
+        const { newNum1, newNum2 } = getNumbersForNextQuestion(operationType);
 
-      // USER ANSWERED CORRECTLY - UPDATES: numberOne = newNum1, numberTwo = newNum2, userInput = '', score + 1
-      updateForCorrectAnswer(newNum1, newNum2);
+        // USER ANSWERED CORRECTLY - UPDATES: numberOne = newNum1, numberTwo = newNum2, userInput = '', score + 1
+        updateForCorrectAnswer(newNum1, newNum2);
+      }
     }
 
     // INCORRECT ANSWER
@@ -92,11 +91,11 @@ const CheckAnswer = ({ disabled, operationType, text, className, userInput }: Ch
       onClick={handleCheck}
       className={`${disabled ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500"} bg-blue-500 text-xl px-2 py-3 ${className}`}
       disabled={disabled}
-      aria-label="button-="
+      // aria-label="button-equal"
     >
       {text}
     </button>
   );
 };
 
-export default CheckAnswer;
+export default CheckAnswerBtn;
