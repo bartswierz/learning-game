@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, test, expect, vi } from "vitest";
 import { screen, render, waitFor } from "@testing-library/react";
 import CheckAnswerBtn from "../CheckAnswerBtn";
 import userEvent from "@testing-library/user-event";
@@ -24,6 +24,7 @@ describe("CheckAnswer", () => {
     });
   });
 
+  // TODO - move disabled into our CheckAnswerBtn file and have it be true if userInput is an empty string to remove the need for passing a disabled prop
   it("should be disabled on initial render", async () => {
     render(<CheckAnswerBtn text="Check answer" operationType="ADDITION" disabled={true} />);
 
@@ -31,8 +32,6 @@ describe("CheckAnswer", () => {
 
     expect(buttonElement).toBeDisabled();
   });
-
-  it.todo("should decrease attempts by 1 when user answers incorrectly", () => {});
 
   it.todo("should end game when the user has no more attempts", () => {});
 
