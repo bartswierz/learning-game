@@ -92,24 +92,32 @@ const TakeHomeProblems = () => {
   return (
     // <div className=" h-full w-full relative">
     <div className="h-[90vh] w-full relative">
+      <div className="text-center">
+        <h1 className="text-2xl underline underline-offset-[5px]">Generate Take Home Problems</h1>
+      </div>
       {/* Outside Modal */}
       {isOpen && <div onClick={handleClose} className="absolute top-0 left-0 right-0 bottom-0 bg-black/70 z-[1]"></div>}
       {/* Inside Modal */}
-      <div className="b h-full w-[100%] flex justify-center bg-green-500X">
+      <div className="h-full w-[100%] flex justify-center pt-2">
         {isOpen && problemsArray && isPdfCreated && (
           <PDFViewer style={{ width: "70%", maxHeight: "100vh", height: "100%", zIndex: 900, top: 0, position: "absolute" }}>
             <GeneratePdf />
           </PDFViewer>
         )}
         <button
+          className="bg-blue-500 hover:bg-blue-600 transition-all duration-300 text-xl px-4 py-2 h-max m-2"
+          onClick={handleCreatePdf}
+        >
+          {isPdfCreated ? "Create New PDF" : "Create PDF"}
+        </button>
+        <button
           onClick={handleOpen}
-          className={`${isPdfCreated ? "bg-blue-500" : "bg-gray-500"} b bg-blue-500/30X w-[100px] h-[100px] m-2 `}
+          className={`${
+            isPdfCreated ? "bg-blue-500 hover:bg-blue-600" : "disabled:cursor-not-allowed disabled:bg-gray-500"
+          } h-max px-4 py-2 m-2 transition-all duration-300 text-xl`}
           disabled={!isPdfCreated}
         >
           View Pdf
-        </button>
-        <button className="bg-blue-500 text-xl px-4 py-2 w-[150px] h-[100px] m-2" onClick={handleCreatePdf}>
-          {isPdfCreated ? "Create New PDF" : "Create PDF"}
         </button>
       </div>
       {/* <div>
