@@ -42,4 +42,12 @@ describe("Question Component", () => {
 
     expect(question).toBeInTheDocument();
   });
+
+  it.fails("should fail if the two numbers are in the incorrect order", () => {
+    render(<Question operationType="ADDITION" numberOne={1} numberTwo={2} />);
+
+    const question = screen.getByText(/2 1 = __\?/i);
+
+    expect(question).toBeInTheDocument();
+  });
 });
