@@ -5,13 +5,14 @@ import { getOperationIcon, randomTwoNumbers, randomTwoNumbersForDivision } from 
 interface QuestionProps {
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
   // operationIcon: JSX.Element | undefined;
+  numberOne: number;
+  numberTwo: number;
 }
 
-// TODO - move the question login from problems here
-const Question = ({ operationType }: QuestionProps) => {
+const Question = ({ operationType, numberOne, numberTwo }: QuestionProps) => {
   const [operationIcon, setOperationIcon] = useState<JSX.Element>();
-  const numberOne = useSettingsStore((state) => state.numberOne);
-  const numberTwo = useSettingsStore((state) => state.numberTwo);
+  // const numberOne = useSettingsStore((state) => state.numberOne);
+  // const numberTwo = useSettingsStore((state) => state.numberTwo);
   const numOneRange = useSettingsStore((state) => state.settings.numOneRange);
   const numTwoRange = useSettingsStore((state) => state.settings.numTwoRange);
   const updateNewNumbers = useSettingsStore((state) => state.updateNewNumbers);

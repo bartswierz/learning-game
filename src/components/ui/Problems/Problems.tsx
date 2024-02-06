@@ -17,6 +17,8 @@ const Problems = ({ operationType }: OperationProps) => {
   const userInput = useSettingsStore((state) => state.userInput);
   const isGameOver = useSettingsStore((state) => state.isGameOver);
   const numOfQuestions = useSettingsStore((state) => state.settings.numOfQuestions);
+  const numberOne = useSettingsStore((state) => state.numberOne);
+  const numberTwo = useSettingsStore((state) => state.numberTwo);
   const disabled: boolean = userInput === "" ? true : false;
 
   // TESTING PURPOSES, SET TO TRUE AFTER WE RESOLVE REFACTORING
@@ -35,7 +37,7 @@ const Problems = ({ operationType }: OperationProps) => {
       {/* <DebugHelper /> */}
       <Header operationType={operationType} numOfQuestions={numOfQuestions} score={score} />
       <div className="flex justify-centerx items-centerx flex-col gap-4 text-center">
-        <Question operationType={operationType} />
+        <Question operationType={operationType} numberOne={numberOne} numberTwo={numberTwo} />
         <InputDisplay userInput={userInput} />
         <CheckAnswerBtn disabled={disabled} operationType={operationType} text="Check Answer" userInput={userInput} />
         <NumberPad operationType={operationType} />

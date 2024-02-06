@@ -36,8 +36,6 @@ interface NumberPadProps {
 
 // Component containing buttons 0-9 and a clear button to reset user input
 const NumberPad = ({ operationType }: NumberPadProps) => {
-  const numberOne = useSettingsStore((state) => state.numberOne);
-  const numberTwo = useSettingsStore((state) => state.numberTwo);
   const userInput = useSettingsStore((state) => state.userInput);
   const updateUserInput = useSettingsStore((state) => state.updateUserInput);
   const isDisabled: boolean = userInput === "" ? true : false;
@@ -61,8 +59,6 @@ const NumberPad = ({ operationType }: NumberPadProps) => {
         updateUserInput(userInput + input);
       }
     }
-    // CHECK ANSWER
-    else if (input === "=") checkAnswer({ userInput, numberOne, numberTwo, operationType });
     // REMOVE LAST CHARACTER FROM USERINPUT IF ITS NOT EMPTY
     else if (input === "undo" && userInput.length > 0) {
       const newInput = userInput.slice(0, userInput.length - 1);
