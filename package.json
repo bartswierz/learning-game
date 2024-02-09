@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "test": "vitest --environment jsdom",
     "test:ui": "vitest --ui",
-    "coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@radix-ui/react-navigation-menu": "^1.1.4",

@@ -23,13 +23,15 @@ const Settings = () => {
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
+      {/* <Popover open={isOpen} onOpenChange={setIsOpen} data-testid="settings-btn"> */}
       {/* POPOVER TRIGGER W/ TOOLTIP MESSAGE */}
       <TooltipProvider delayDuration={500}>
         <Tooltip>
-          <TooltipTrigger asChild>
+          <TooltipTrigger asChild data-testid="settings-btn">
             <PopoverTrigger
               className="bg-blue-500 hover:bg-blue-600 hover:ring ring-slate-200 focus:bg-blue-700 px-4 py-2 rounded-full hover:text-white transition-all duration-300 hover:shadow-xl group"
               role="button"
+              data-testid="settings-btn"
             >
               <IoSettingsSharp className="text-2xl transition-all duration-700 group-hover:rotate-180" />
             </PopoverTrigger>

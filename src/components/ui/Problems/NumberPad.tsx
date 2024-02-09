@@ -42,7 +42,7 @@ const NumberPad = ({ operationType }: NumberPadProps) => {
 
   // Updates userInput state in the parent component via callback functions
   const handleClick = (input: string) => {
-    console.log("Button pressed: ", input);
+    console.log("Clicked: ", input);
     // NUMBER 0 through 9 - APPEND TO THE USERINPUT STRING AND UPDATE THE STATE
     if (isNumberOrDecimal(input)) {
       const isDecimal = input === ".";
@@ -55,7 +55,6 @@ const NumberPad = ({ operationType }: NumberPadProps) => {
         }
       } else {
         // IS A NUMBER
-        console.log("user input: ", userInput, "and input: ", input);
         updateUserInput(userInput + input);
       }
     }

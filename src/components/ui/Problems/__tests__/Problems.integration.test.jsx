@@ -1,16 +1,41 @@
 import { describe, expect, test, beforeEach } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import Problems from "../Problems";
 import userEvent from "@testing-library/user-event";
 import useSettingsStore from "@/store/store";
 
-const store = useSettingsStore.getState();
-// USED FOR RESTORING THE INITIAL ATTEMPTS LEFT AFTER EACH TEST & FOR ASSERTIONS
-const INITIAL_ATTEMPTS_LEFT = store.attemptsLeft;
+const { updateNewNumbers, attemptsLeft } = useSettingsStore.getState();
+const INITIAL_ATTEMPTS_LEFT = attemptsLeft;
 
 describe("Problems - Integration", () => {
   beforeEach(() => {
-    useSettingsStore.setState({ attemptsLeft: INITIAL_ATTEMPTS_LEFT });
+    useSettingsStore.setState({ attemptsLeft: 3, userInput: "" });
+  });
+
+  test("if user answers correctly, increment score", async () => {
+    const user = userEvent.setup();
+    render(<Problems operationType="ADDITION" />);
+
+    // UPDATING OUT STORE NUMBERS TO 1 AND 2 AS THE NUMBERS ARE NORMALLY RANDOMIZED. THIS WAY, WE CAN STILL SIMULATE THE USER FLOW WITH THE BUTTON CLICKS
+    act(() => {
+      updateNewNumbers(1, 2);
+    });
+
+    // <NumberPad />
+    const buttonNumberElement = screen.getByRole("button", {
+      name: /button-3/i,
+    });
+
+    // <CheckAnswerBtn />
+    const buttonCheckElement = screen.getByRole("button", {
+      name: /check answer/i,
+    });
+
+    await user.click(buttonNumberElement);
+    await user.click(buttonCheckElement);
+
+    const { score } = useSettingsStore.getState();
+    expect(score).toBe(1);
   });
 
   test("if user clicks a number button, it should update the input display", async () => {
@@ -49,12 +74,5 @@ describe("Problems - Integration", () => {
     const { attemptsLeft } = useSettingsStore.getState();
 
     expect(attemptsLeft).toBe(INITIAL_ATTEMPTS_LEFT - 1);
-  });
-
-  test.todo("if user answers correctly, increment score", () => {
-    /*
-     * CheckAnswerBtn: Click Check Answer button with correct answer
-     * Header increases score from 0 to 1
-     */
   });
 });

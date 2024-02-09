@@ -54,6 +54,7 @@ export const generateAdditionProblemsForPDF = (numProblems: number, numberOneRan
 export const checkAnswer = ({ numberOne, numberTwo, userInput, operationType }: CheckAnswer): boolean => {
   let correctAnswer;
 
+  console.log("checkAnswer: ", numberOne, numberTwo, userInput, operationType);
   switch (operationType) {
     case "ADDITION":
       correctAnswer = numberOne + numberTwo;

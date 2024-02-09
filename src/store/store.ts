@@ -61,10 +61,7 @@ const useSettingsStore = create<State & Action>((set) => ({
   // updateUserInput: (userInputValue: string) => set(() => ({ userInputValue })),
   updateNewNumbers: (newNumberOne: number, newNumberTwo: number) => set(() => ({ numberOne: newNumberOne, numberTwo: newNumberTwo })),
   // updateUserInput: (userInputValue: string) => set(() => ({ userInput: userInputValue })),
-  updateUserInput: (userInputValue: string) => {
-    set(() => ({ userInput: userInputValue }));
-    console.log("Accessing updateUserInput, userInputValue: ", userInputValue);
-  },
+  updateUserInput: (userInputValue: string) => set(() => ({ userInput: userInputValue })),
   // APPEND USER INPUT TO THE END OF THE CURRENT USER INPUT
   updateIsGameOver: (isGameOver: boolean) => set(() => ({ isGameOver })),
   // UPDATE numberOne & numberTwo & Increase score by 1 & RESET USER INPUT FOR NEXT QUESTION

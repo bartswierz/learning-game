@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // import useSettingsStore from "../../../store/useSettingsStore";
 import { describe, it, expect, beforeEach } from "vitest";
 import { screen, render, waitFor } from "@testing-library/react";
@@ -18,14 +19,12 @@ describe("NumberPad", () => {
     // aria-label = "button-7"
     const buttonElement = screen.getByRole("button", { name: "button-7" });
 
-    user.click(buttonElement);
+    await user.click(buttonElement);
 
-    await waitFor(() => {
-      const { userInput } = useSettingsStore.getState();
-      console.log("userInput: ", userInput);
+    const { userInput } = useSettingsStore.getState();
+    console.log("userInput: ", userInput);
 
-      expect(userInput).toBe("7");
-    });
+    expect(userInput).toBe("7");
   });
 
   it("should remove negative sign if it already exists when clicked a second time", async () => {
@@ -37,14 +36,12 @@ describe("NumberPad", () => {
     const button8Element = screen.getByRole("button", { name: "button-8" });
     const button9Element = screen.getByRole("button", { name: "button-9" });
 
-    user.click(buttonSubElement);
-    user.click(button8Element);
-    user.click(button9Element);
-    user.click(buttonSubElement);
+    await user.click(buttonSubElement);
+    await user.click(button8Element);
+    await user.click(button9Element);
+    await user.click(buttonSubElement);
 
-    await waitFor(() => {
-      expect(useSettingsStore.getState().userInput).toBe("89");
-    });
+    expect(useSettingsStore.getState().userInput).toBe("89");
   });
 
   it("should place negative sign in front of user input no matter the order of input", async () => {
@@ -57,14 +54,12 @@ describe("NumberPad", () => {
     const button9Element = screen.getByRole("button", { name: "button-9" });
 
     // Button Clicks: '8' => '9' => '-'
-    user.click(button8Element);
-    user.click(button9Element);
-    user.click(buttonSubElement);
+    await user.click(button8Element);
+    await user.click(button9Element);
+    await user.click(buttonSubElement);
 
-    await waitFor(() => {
-      const userInput = useSettingsStore.getState().userInput;
-      expect(userInput).toBe("-89");
-    });
+    const userInput = useSettingsStore.getState().userInput;
+    expect(userInput).toBe("-89");
   });
 
   it("should not allow more than one '.' in the user input value", async () => {
@@ -76,15 +71,13 @@ describe("NumberPad", () => {
     const button2Element = screen.getByRole("button", { name: "button-2" });
 
     // Button Clicks: '1' => '.' => '2' => '.'
-    user.click(button1Element);
-    user.click(buttonDotElement);
-    user.click(button2Element);
-    user.click(buttonDotElement);
+    await user.click(button1Element);
+    await user.click(buttonDotElement);
+    await user.click(button2Element);
+    await user.click(buttonDotElement);
 
-    await waitFor(() => {
-      const userInput = useSettingsStore.getState().userInput;
-      expect(userInput).toBe("1.2");
-    });
+    const userInput = useSettingsStore.getState().userInput;
+    expect(userInput).toBe("1.2");
   });
 
   it("should remove the last character from user input when user clicks undo", async () => {
@@ -95,14 +88,12 @@ describe("NumberPad", () => {
     const button2Element = screen.getByRole("button", { name: "button-2" });
     const buttonUndoElement = screen.getByRole("button", { name: "button-undo" });
 
-    // User clicks, 1, 2, undo
-    user.click(button1Element);
-    user.click(button2Element);
-    user.click(buttonUndoElement);
+    // User clicks, 1 => 2 => undo
+    await user.click(button1Element);
+    await user.click(button2Element);
+    await user.click(buttonUndoElement);
 
-    await waitFor(() => {
-      const userInput = useSettingsStore.getState().userInput;
-      expect(userInput).toBe("1");
-    });
+    const userInput = useSettingsStore.getState().userInput;
+    expect(userInput).toBe("1");
   });
 });

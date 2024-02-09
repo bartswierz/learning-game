@@ -11,8 +11,6 @@ interface QuestionProps {
 
 const Question = ({ operationType, numberOne, numberTwo }: QuestionProps) => {
   const [operationIcon, setOperationIcon] = useState<JSX.Element>();
-  // const numberOne = useSettingsStore((state) => state.numberOne);
-  // const numberTwo = useSettingsStore((state) => state.numberTwo);
   const numOneRange = useSettingsStore((state) => state.settings.numOneRange);
   const numTwoRange = useSettingsStore((state) => state.settings.numTwoRange);
   const updateNewNumbers = useSettingsStore((state) => state.updateNewNumbers);

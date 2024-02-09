@@ -43,16 +43,20 @@ const CheckAnswerBtn = ({ disabled, operationType, text, className, userInput }:
   };
 
   const handleCheck = () => {
+    console.log("Check Answer Button Clicked");
+    console.log("user input: ", userInput);
+    console.log("numberOne & numberTwo: ", numberOne, numberTwo);
     // Passed as an object to ensure the order of the arguments doesn't matter
     const isCorrect = checkAnswer({ userInput, numberOne, numberTwo, operationType });
 
     // IF correct, score + 1, new question
     if (isCorrect) {
+      console.log("value is correct");
       // FINAL QUESTIONS HAS BEEN ANSWERED - GAME OVER
       if (questionNumber === numOfQuestions) updateIsGameOver(true);
       else {
         const { newNum1, newNum2 } = getNumbersForNextQuestion(operationType);
-
+        console.log("inside update for new question");
         // USER ANSWERED CORRECTLY - UPDATES: numberOne = newNum1, numberTwo = newNum2, userInput = '', score + 1
         updateForCorrectAnswer(newNum1, newNum2);
       }
@@ -60,7 +64,7 @@ const CheckAnswerBtn = ({ disabled, operationType, text, className, userInput }:
 
     // INCORRECT ANSWER
     else {
-      console.log("isCorrect: ", isCorrect);
+      console.log("incorrect answer, user input: ", userInput);
       // INCORRECT ANSWER - DECREASE the attemptsLeft by 1 & reset userInput
       updateForIncorrectAnswer();
 
@@ -78,7 +82,7 @@ const CheckAnswerBtn = ({ disabled, operationType, text, className, userInput }:
         } else if (outOfQuestions) {
           // USER RAN OUT OF ATTEMPTS & NO MORE QUESTIONS
           if (questionNumber === numOfQuestions) {
-            console.log("user ran out of attempts & no more questions, ending game...");
+            console.log("Out of attempts & no more questions, ending game...");
             updateIsGameOver(true);
           }
         }
