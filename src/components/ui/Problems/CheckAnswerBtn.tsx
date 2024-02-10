@@ -92,12 +92,26 @@ const CheckAnswerBtn = ({ disabled, operationType, text, className, userInput }:
 
   return (
     <button
+      className={`relative flex items-center justify-center w-full h-full transition-all duration-[5000ms] ease-in-out`}
       onClick={handleCheck}
-      className={`${disabled ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500"} bg-blue-500 text-xl px-2 py-3 ${className}`}
       disabled={disabled}
-      // aria-label="button-equal"
+      aria-label="button-equal"
     >
-      {text}
+      {/* BACKGROUND*/}
+      <div
+        className={`absolute inset-x-0 h-full -bottom-2 bg-blue-600x rounded-lg ${
+          disabled ? "bg-gray-500 cursor-not-allowed" : "bg-blue-600"
+        }`}
+      ></div>
+
+      {/* TEXT CONTAINER */}
+      <div
+        className={`relative flex items-center justify-center w-full h-full  border-2 border-blue-600 rounded-lg py-2 transition transform duration-600 ${
+          disabled ? "bg-gray-500 border-gray-600 cursor-not-allowed" : "bg-blue-500 active:translate-y-2"
+        }`}
+      >
+        {text}
+      </div>
     </button>
   );
 };

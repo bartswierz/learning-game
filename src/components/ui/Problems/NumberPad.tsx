@@ -74,7 +74,7 @@ const NumberPad = ({ operationType }: NumberPadProps) => {
         updateUserInput(newInput);
       } else {
         // NO NEGATIVE SIGN FOUND, ADD IT TO THE FRONT OF THE USERINPUT STRING
-        console.log('user input did not have a "-" sign, adding it and updating the state to: ', "-" + userInput);
+        console.log("No negative sign found, applying to user input...", "-" + userInput);
         updateUserInput("-" + userInput);
       }
     } else return;
@@ -91,21 +91,19 @@ const NumberPad = ({ operationType }: NumberPadProps) => {
     const ariaLabel = `button-${value}`;
 
     return (
-      <>
-        <button
-          className={`relative flex items-center justify-center w-full h-full transition-all duration-[5000ms] ease-in-out`}
-          onClick={() => handleClick(value)}
-          aria-label={ariaLabel}
-        >
-          {/* BACKGROUND*/}
-          <div className="absolute inset-x-0 h-full -bottom-2 bg-blue-600 rounded-lg"></div>
+      <button
+        className={`relative flex items-center justify-center w-full h-full transition-all duration-[5000ms] ease-in-out`}
+        onClick={() => handleClick(value)}
+        aria-label={ariaLabel}
+      >
+        {/* BACKGROUND*/}
+        <div className="absolute inset-x-0 h-full -bottom-2 bg-blue-600 rounded-lg"></div>
 
-          {/* TEXT CONTAINER */}
-          <div className="relative flex items-center justify-center w-full h-full bg-blue-500 border border-blue-600 rounded-lg py-2 transition transform duration-600 active:translate-y-2">
-            {buttonContent}
-          </div>
-        </button>
-      </>
+        {/* TEXT CONTAINER */}
+        <div className="relative flex items-center justify-center w-full h-full bg-blue-500 border border-blue-600 rounded-lg py-2 transition transform duration-600 active:translate-y-2">
+          {buttonContent}
+        </div>
+      </button>
     );
   };
 
