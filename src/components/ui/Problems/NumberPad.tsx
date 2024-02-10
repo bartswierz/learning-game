@@ -1,4 +1,4 @@
-import { checkAnswer, isNumberOrDecimal } from "@/utils";
+import { isNumberOrDecimal } from "@/utils";
 import { ButtonInfo } from "@/types/types";
 import { FaUndoAlt, FaTimes } from "react-icons/fa";
 import { FaDivide } from "react-icons/fa6";
@@ -92,7 +92,7 @@ const NumberPad = ({ operationType }: NumberPadProps) => {
 
     return (
       <button
-        className={`relative flex items-center justify-center w-full h-full transition-all duration-[5000ms] ease-in-out`}
+        className={`relative flex items-center justify-center w-full h-full transition-all duration-700 ease-in-out`}
         onClick={() => handleClick(value)}
         aria-label={ariaLabel}
       >
@@ -109,34 +109,17 @@ const NumberPad = ({ operationType }: NumberPadProps) => {
 
   return (
     <div className="flex justify-center text-xl">
-      <ul className="grid grid-cols-4 max-w-[90vw] focus:h-[50%] gap-[6px] gap-x-[6px]x gap-y-[14px] w-[300px]">
+      <ul className="grid grid-cols-4 max-w-[90vw] focus:h-[50%] gap-[6px] gap-y-[14px] w-[300px]">
         {buttonInfoList.map(({ value, reactIcon, className }) => (
           <li
             key={value}
             // IF 'ROWSPAN' OR 'COLSPAN' EXIST, APPLY TO THE LIST ELEMENT
-            // className={`bg-blue-500 hover:bg-blue-600 rounded-lg transition-all duration-300 ease-in-out ${className}`}
-            // className={` ${className}`}
-            //className adds row-span or col-span
             className={` ${className}`}
           >
             {/* IF BUTTON VALUE IS ""=" => REPLACE IT WITH OUR CHECKANSWER COMPONENT */}
             {value === "=" ? (
-              <CheckAnswerBtn
-                disabled={isDisabled}
-                userInput={userInput}
-                operationType={operationType}
-                text="="
-                // className={`w-full h-full rounded-lg hover:bg-blue-600 disabled:hover:bg-gray-500 transition-all duration-300 ease-in-out ${className}`}
-                className={`w-full h-full rounded-lg hover:bg-blue-600 disabled:hover:bg-gray-500 transition-all duration-300 ease-in-out ${className}`}
-              />
+              <CheckAnswerBtn disabled={isDisabled} userInput={userInput} operationType={operationType} text="=" />
             ) : (
-              // <button
-              //   className="flex items-center justify-center w-full h-full p-2"
-              //   onClick={() => handleClick(value)}
-              //   aria-label={`button-${value}`}
-              // >
-              //   {reactIcon ? reactIcon : value}
-              // </button>
               <NumberBtn value={value} reactIcon={reactIcon} />
             )}
           </li>

@@ -6,10 +6,9 @@ interface CheckAnswerBtnProps {
   disabled: boolean;
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
   text: "Check Answer" | "=";
-  className?: string;
   userInput: string;
 }
-const CheckAnswerBtn = ({ disabled, operationType, text, className, userInput }: CheckAnswerBtnProps) => {
+const CheckAnswerBtn = ({ disabled, operationType, text, userInput }: CheckAnswerBtnProps) => {
   // const [isDisabled, setIsDisabled] = useState(false);
   const numOneRange = useSettingsStore((state) => state.settings.numOneRange);
   const numTwoRange = useSettingsStore((state) => state.settings.numTwoRange);
@@ -92,23 +91,21 @@ const CheckAnswerBtn = ({ disabled, operationType, text, className, userInput }:
 
   return (
     <button
-      className={`relative flex items-center justify-center w-full h-full transition-all duration-[5000ms] ease-in-out`}
+      className={`relative flex items-center justify-center w-full h-full transition-all duration-700 ease-in-out`}
       onClick={handleCheck}
       disabled={disabled}
       aria-label="button-equal"
     >
       {/* BACKGROUND*/}
       <div
-        className={`absolute inset-x-0 h-full -bottom-2 bg-blue-600x rounded-lg ${
-          disabled ? "bg-gray-500 cursor-not-allowed" : "bg-blue-600"
-        }`}
+        className={`absolute inset-x-0 h-full -bottom-2 rounded-lg 
+        ${disabled ? "bg-gray-500 cursor-not-allowed" : "bg-blue-600"}`}
       ></div>
 
       {/* TEXT CONTAINER */}
       <div
-        className={`relative flex items-center justify-center w-full h-full  border-2 border-blue-600 rounded-lg py-2 transition transform duration-600 ${
-          disabled ? "bg-gray-500 border-gray-600 cursor-not-allowed" : "bg-blue-500 active:translate-y-2"
-        }`}
+        className={`relative flex items-center justify-center w-full h-full  border-2 border-blue-600 rounded-lg py-2 transition transform duration-600 
+        ${disabled ? "bg-gray-500 border-gray-600 cursor-not-allowed" : "bg-blue-500 active:translate-y-2"}`}
       >
         {text}
       </div>
