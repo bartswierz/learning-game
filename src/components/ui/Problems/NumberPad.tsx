@@ -6,6 +6,7 @@ import { RiSubtractFill } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
 import useSettingsStore from "@/store/store";
 import CheckAnswerBtn from "./CheckAnswerBtn";
+import { useState } from "react";
 // import { useState } from "react";
 
 const buttonInfoList: ButtonInfo[] = [
@@ -89,22 +90,59 @@ const NumberPad = ({ operationType }: NumberPadProps) => {
   const NumberBtn = ({ value, reactIcon }: NumberBtnProps) => {
     const buttonContent = reactIcon ? reactIcon : value;
     const ariaLabel = `button-${value}`;
+    const [isPressed, setIsPressed] = useState(false);
+
+    const handlePress = () => {
+      // console.log("handlePress");
+      setIsPressed(true);
+      handleClick(value);
+    };
+
+    const handleRelease = () => {
+      // console.log("handleRelease");
+      setIsPressed(false);
+    };
 
     return (
       <button
         className={`relative flex items-center justify-center w-full h-full transition-all duration-700 ease-in-out`}
         onClick={() => handleClick(value)}
+        onTouchStart={handlePress} // Handle touch start
+        onTouchEnd={handleRelease} // Handle touch end
+        onMouseUp={handleRelease} // Handle mouse release
+        onMouseLeave={handleRelease} // Handle mouse leave
         aria-label={ariaLabel}
       >
         {/* BACKGROUND*/}
         <div className="absolute inset-x-0 h-full -bottom-2 bg-blue-600 rounded-lg"></div>
 
         {/* TEXT CONTAINER */}
-        <div className="relative flex items-center justify-center w-full h-full bg-blue-500 border border-blue-600 rounded-lg py-2 transition transform duration-600 active:translate-y-2">
+        <div
+          className={`relative flex items-center justify-center w-full h-full bg-blue-500 border border-blue-600 rounded-lg py-2 transition transform duration-600 ${
+            isPressed ? "active:translate-y-2x" : "active:translate-y-2"
+          }`}
+        >
           {buttonContent}
         </div>
       </button>
     );
+    // <button
+    //     className={`relative flex items-center justify-center w-full h-full transition-all duration-700 ease-in-out`}
+    //     onClick={() => handleClick(value)}
+    //     onTouchStart={handlePress} // Handle touch start
+    //     onTouchEnd={handleRelease} // Handle touch end
+    //     onMouseUp={handleRelease} // Handle mouse release
+    //     onMouseLeave={handleRelease} // Handle mouse leave
+    //     aria-label={ariaLabel}
+    //   >
+    //     {/* BACKGROUND*/}
+    //     <div className="absolute inset-x-0 h-full -bottom-2 bg-blue-600 rounded-lg"></div>
+
+    //     {/* TEXT CONTAINER */}
+    //     <div className="relative flex items-center justify-center w-full h-full bg-blue-500 border border-blue-600 rounded-lg py-2 transition transform duration-600 active:translate-y-2">
+    //       {buttonContent}
+    //     </div>
+    //   </button>
   };
 
   return (

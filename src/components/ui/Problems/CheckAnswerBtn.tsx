@@ -41,7 +41,7 @@ const CheckAnswerBtn = ({ disabled, operationType, text, userInput }: CheckAnswe
     }
   };
 
-  const handleCheck = () => {
+  const handleClick = () => {
     console.log("Check Answer Button Clicked");
     console.log("user input: ", userInput);
     console.log("numberOne & numberTwo: ", numberOne, numberTwo);
@@ -92,7 +92,7 @@ const CheckAnswerBtn = ({ disabled, operationType, text, userInput }: CheckAnswe
   return (
     <button
       className={`relative flex items-center justify-center w-full h-full transition-all duration-700 ease-in-out`}
-      onClick={handleCheck}
+      onClick={handleClick}
       disabled={disabled}
       aria-label="button-equal"
     >
