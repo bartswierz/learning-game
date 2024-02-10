@@ -109,8 +109,8 @@ const NumberPad = ({ operationType }: NumberPadProps) => {
         onClick={() => handleClick(value)}
         onTouchStart={handlePress} // Handle touch start
         onTouchEnd={handleRelease} // Handle touch end
-        onMouseUp={handleRelease} // Handle mouse release
-        onMouseLeave={handleRelease} // Handle mouse leave
+        // onMouseUp={handleRelease} // Handle mouse release
+        // onMouseLeave={handleRelease} // Handle mouse leave
         aria-label={ariaLabel}
       >
         {/* BACKGROUND*/}
