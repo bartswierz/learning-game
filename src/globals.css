@@ -2,8 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+Chalk Font
+font-family: Cabin Sketch;
+
+Game-type Font
+font-family: Galindo;
+*/
+
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -11,16 +21,7 @@ body {
   color: rgb(255 255 255);
   height: 100%;
   width: 100%;
-}
-
-body,
-h1,
-h2,
-p,
-ul,
-li {
-  margin: 0;
-  padding: 0;
+  font-family: "Galindo", sans-serif;
 }
 
 @layer base {
