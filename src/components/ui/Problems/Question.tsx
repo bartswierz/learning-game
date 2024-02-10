@@ -36,7 +36,7 @@ const Question = ({ operationType, numberOne, numberTwo }: QuestionProps) => {
 
   return (
     <span className="flex justify-center items-center text-4xl">
-      {numberOne} {operationIcon} {numberTwo} = __?
+      {numberOne} {operationIcon} {numberTwo} = _?
     </span>
   );
 };

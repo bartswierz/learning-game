@@ -5,11 +5,11 @@ import { FaDivide } from "react-icons/fa6";
 import { RiSubtractFill } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
 import useSettingsStore from "@/store/store";
-import CheckAnswer from "./CheckAnswerBtn";
+import CheckAnswerBtn from "./CheckAnswerBtn";
 // import { useState } from "react";
 
 const buttonInfoList: ButtonInfo[] = [
-  { value: "undo", reactIcon: <FaUndoAlt size={26} />, className: "bg-red-500 hover:bg-red-600" },
+  { value: "undo", reactIcon: <FaUndoAlt size={26} />, className: "bg-red-500x hover:bg-red-600x" },
   { value: "divide", reactIcon: <FaDivide size={26} />, className: "h-[48px]" },
   { value: "multiply", reactIcon: <FaTimes size={26} />, className: "h-[48px]" },
   { value: "subtract", reactIcon: <RiSubtractFill size={26} />, className: "h-[48px]" },
@@ -80,34 +80,66 @@ const NumberPad = ({ operationType }: NumberPadProps) => {
     } else return;
   };
 
-  // TODO - FIX CONDITIONAL LOGIC FOR THE CHECK ANSWER BUTTON ONCE THE REMAINING CHILDREN COMPONENTS IN THE PROBLEMS COMPONENT ARE REFACTORED
+  interface NumberBtnProps {
+    value: string;
+    reactIcon: JSX.Element | undefined;
+  }
+
+  // TODO - add integration test for this refactor
+  const NumberBtn = ({ value, reactIcon }: NumberBtnProps) => {
+    const buttonContent = reactIcon ? reactIcon : value;
+    const ariaLabel = `button-${value}`;
+
+    return (
+      <>
+        <button
+          className={`relative flex items-center justify-center w-full h-full transition-all duration-[5000ms] ease-in-out`}
+          onClick={() => handleClick(value)}
+          aria-label={ariaLabel}
+        >
+          {/* BACKGROUND*/}
+          <div className="absolute inset-x-0 h-full -bottom-2 bg-blue-600 rounded-lg"></div>
+
+          {/* TEXT CONTAINER */}
+          <div className="relative flex items-center justify-center w-full h-full bg-blue-500 border border-blue-600 rounded-lg py-2 transition transform duration-600 active:translate-y-2">
+            {buttonContent}
+          </div>
+        </button>
+      </>
+    );
+  };
+
   return (
     <div className="flex justify-center text-xl">
-      <ul className="grid grid-cols-4 max-w-[90vw] gap-2 w-[300px]">
-        {buttonInfoList.map((item) => (
+      <ul className="grid grid-cols-4 max-w-[90vw] focus:h-[50%] gap-[6px] gap-x-[6px]x gap-y-[14px] w-[300px]">
+        {buttonInfoList.map(({ value, reactIcon, className }) => (
           <li
-            key={item.value}
+            key={value}
             // IF 'ROWSPAN' OR 'COLSPAN' EXIST, APPLY TO THE LIST ELEMENT
-            className={`bg-blue-500 hover:bg-blue-600 rounded-lg transition-all duration-300 ease-in-out ${item.className}`}
+            // className={`bg-blue-500 hover:bg-blue-600 rounded-lg transition-all duration-300 ease-in-out ${className}`}
+            // className={` ${className}`}
+            //className adds row-span or col-span
+            className={` ${className}`}
           >
             {/* IF BUTTON VALUE IS ""=" => REPLACE IT WITH OUR CHECKANSWER COMPONENT */}
-            {item.value === "=" ? (
-              <CheckAnswer
+            {value === "=" ? (
+              <CheckAnswerBtn
                 disabled={isDisabled}
                 userInput={userInput}
                 operationType={operationType}
                 text="="
-                className="w-full h-full rounded-lg hover:bg-blue-600 disabled:hover:bg-gray-500 transition-all duration-300 ease-in-out"
+                // className={`w-full h-full rounded-lg hover:bg-blue-600 disabled:hover:bg-gray-500 transition-all duration-300 ease-in-out ${className}`}
+                className={`w-full h-full rounded-lg hover:bg-blue-600 disabled:hover:bg-gray-500 transition-all duration-300 ease-in-out ${className}`}
               />
             ) : (
-              <button
-                className="flex items-center justify-center w-full h-full p-2"
-                onClick={() => handleClick(item.value)}
-                aria-label={`button-${item.value}`}
-              >
-                {/* DISPLAY CUSTOM ICON IF IT EXISTS, ELSE VALUE */}
-                {item.reactIcon ? item.reactIcon : item.value}
-              </button>
+              // <button
+              //   className="flex items-center justify-center w-full h-full p-2"
+              //   onClick={() => handleClick(value)}
+              //   aria-label={`button-${value}`}
+              // >
+              //   {reactIcon ? reactIcon : value}
+              // </button>
+              <NumberBtn value={value} reactIcon={reactIcon} />
             )}
           </li>
         ))}

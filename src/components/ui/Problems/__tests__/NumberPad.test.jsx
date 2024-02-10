@@ -36,6 +36,10 @@ describe("NumberPad", () => {
     const button8Element = screen.getByRole("button", { name: "button-8" });
     const button9Element = screen.getByRole("button", { name: "button-9" });
 
+    // expect(buttonSubElement).toBeInTheDocument();
+    // expect(button8Element).toBeInTheDocument();
+    // expect(button9Element).toBeInTheDocument();
+
     await user.click(buttonSubElement);
     await user.click(button8Element);
     await user.click(button9Element);
