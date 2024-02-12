@@ -63,7 +63,7 @@ const Navbar = () => {
     return (
       <nav data-testid="navbar" className="hidden md:flex justify-between items-center p-2 z-[10]">
         <span className="text-2xl font-bold" id="navbar-title">
-          DESKTOP
+          Desktop
         </span>
         {/* TODO - setup a desktop and mobile navbar */}
         <NavbarLinks />
@@ -74,6 +74,7 @@ const Navbar = () => {
       </nav>
     );
   };
+
   return (
     <>
       <NavbarDesktop />

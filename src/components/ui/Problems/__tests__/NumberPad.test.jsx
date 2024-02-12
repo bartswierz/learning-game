@@ -29,22 +29,19 @@ describe("NumberPad", () => {
 
   it("should remove negative sign if it already exists when clicked a second time", async () => {
     const user = userEvent.setup();
-
     render(<NumberPad />);
 
     const buttonSubElement = screen.getByRole("button", { name: "button-subtract" });
     const button8Element = screen.getByRole("button", { name: "button-8" });
     const button9Element = screen.getByRole("button", { name: "button-9" });
 
-    // expect(buttonSubElement).toBeInTheDocument();
-    // expect(button8Element).toBeInTheDocument();
-    // expect(button9Element).toBeInTheDocument();
-
     await user.click(buttonSubElement);
     await user.click(button8Element);
     await user.click(button9Element);
     await user.click(buttonSubElement);
 
+    const { userInput } = useSettingsStore.getState();
+    console.log("userInput from store: ", userInput);
     expect(useSettingsStore.getState().userInput).toBe("89");
   });
 

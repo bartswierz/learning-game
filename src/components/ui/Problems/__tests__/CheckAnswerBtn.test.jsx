@@ -15,7 +15,7 @@ describe("CheckAnswer", () => {
 
     render(<CheckAnswerBtn text="Check answer" operationType="ADDITION" />);
 
-    const buttonElement = screen.getByRole("button", { name: /check answer/i });
+    const buttonElement = screen.getByRole("button", { name: /button-equal/i });
 
     user.click(buttonElement);
 
@@ -28,7 +28,7 @@ describe("CheckAnswer", () => {
   it("should be disabled on initial render", async () => {
     render(<CheckAnswerBtn text="Check answer" operationType="ADDITION" disabled={true} />);
 
-    const buttonElement = await screen.findByRole("button", { name: /check answer/i });
+    const buttonElement = await screen.findByRole("button", { name: /button-equal/i });
 
     expect(buttonElement).toBeDisabled();
   });

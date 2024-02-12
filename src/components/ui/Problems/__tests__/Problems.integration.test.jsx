@@ -26,10 +26,12 @@ describe("Problems - Integration", () => {
       name: /button-3/i,
     });
 
-    // <CheckAnswerBtn />
-    const buttonCheckElement = screen.getByRole("button", {
-      name: /check answer/i,
+    const buttonCheckList = screen.getAllByRole("button", {
+      name: /button-equal/i,
     });
+
+    // Destructing the first button from the list(there are 2)
+    const [buttonCheckElement] = buttonCheckList;
 
     await user.click(buttonNumberElement);
     await user.click(buttonCheckElement);
@@ -63,9 +65,12 @@ describe("Problems - Integration", () => {
     });
 
     // <CheckAnswerBtn />
-    const buttonCheckElement = screen.getByRole("button", {
-      name: /check answer/i,
+    const buttonCheckList = screen.getAllByRole("button", {
+      name: /button-equal/i,
     });
+
+    // Destructing the first button from the list(there are 2)
+    const [buttonCheckElement] = buttonCheckList;
 
     await user.click(buttonNumberElement);
     await user.click(buttonCheckElement);

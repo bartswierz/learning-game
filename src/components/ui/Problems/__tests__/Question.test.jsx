@@ -38,7 +38,7 @@ describe("Question Component", () => {
   it("should display the two question numbers in the correct order", () => {
     render(<Question operationType="ADDITION" numberOne={1} numberTwo={2} />);
 
-    const question = screen.getByText(/1 2 = __\?/i);
+    const question = screen.getByText(/1 2 = _\?/i);
 
     expect(question).toBeInTheDocument();
   });
