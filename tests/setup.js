@@ -17,6 +17,9 @@ import "@testing-library/jest-dom/vitest";
  * expect(1 + 1).toBe(2); - This is an assertion that checks if the value of the expression is equal to the expected value
  */
 
+import ResizeObserver from "resize-observer-polyfill";
+
+global.ResizeObserver = ResizeObserver;
 // runs a clean after each test case (e.g. clearing jsdom)
 afterEach(() => {
   cleanup();
