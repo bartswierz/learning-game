@@ -9,7 +9,9 @@ const TooltipSlider = ({ value }: TooltipSliderProps) => {
   return (
     <TooltipProvider delayDuration={0}>
       <Tooltip>
-        <p className="text-center pt-5">{value}</p>
+        <p className="text-center pt-5" data-testid="tooltip-slider">
+          {value}
+        </p>
       </Tooltip>
     </TooltipProvider>
   );
