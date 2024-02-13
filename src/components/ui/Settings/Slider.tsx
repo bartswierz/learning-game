@@ -12,7 +12,7 @@ interface SettingsSliderProps {
 
 const Slider__ = ({ name, value, min = 1, max = 50, step = 1 }: SettingsSliderProps) => {
   const [thumbValue, setThumbValue] = useState(value); // [min, max
-
+  console.log(`name range: ${name}-range`);
   // Value is an array of numbers, we can use first index using OnValueChange
   const handleValueChange = (thumbArray: number[]) => {
     setThumbValue(thumbArray[0]);
@@ -31,8 +31,8 @@ const Slider__ = ({ name, value, min = 1, max = 50, step = 1 }: SettingsSliderPr
       <Track className="SliderTrack">
         <Range className="SliderRange" />
       </Track>
-      <Thumb className="SliderThumb" aria-label="Volume">
-        <TooltipSlider__ value={thumbValue} />
+      <Thumb className="SliderThumb" aria-label={`${name}-thumb`}>
+        <TooltipSlider__ value={thumbValue} name={name} />
       </Thumb>
     </Root>
   );

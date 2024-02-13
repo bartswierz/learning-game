@@ -1,6 +1,6 @@
 import { Settings } from "@/types/types";
-import SettingDualSlider from "./DualSlider";
-import SettingSlider from "./Slider";
+import DualSlider__ from "./DualSlider";
+import Slider__ from "./Slider";
 import useSettingsStore from "@/store/store";
 import { FormEvent } from "react";
 
@@ -53,19 +53,19 @@ const SettingPanel = ({ handleCloseCallback }: SettingsFormProps) => {
     <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-8 text-white font-bold">
       <div>
         <label htmlFor="numberOne">1st Number Range (Max: 50)</label>
-        <SettingDualSlider minValue={numOneRange.min} maxValue={numOneRange.max} name="numberOne" minStepsBetween={1} />
+        <DualSlider__ minValue={numOneRange.min} maxValue={numOneRange.max} name="numberOne" minStepsBetween={1} />
       </div>
       <div>
         <label htmlFor="numberTwo">2nd Number Range (Max: 50)</label>
-        <SettingDualSlider minValue={numTwoRange.min} maxValue={numTwoRange.max} name="numberTwo" minStepsBetween={1} />
+        <DualSlider__ minValue={numTwoRange.min} maxValue={numTwoRange.max} name="numberTwo" minStepsBetween={1} />
       </div>
       <div>
         <label htmlFor="questions"># of Questions (Max: 50)</label>
-        <SettingSlider value={numOfQuestions} name="questions" min={5} max={50} step={5} />
+        <Slider__ value={numOfQuestions} name="questions" min={5} max={50} step={5} />
       </div>
       <div>
         <label htmlFor="attempts"># of Attempts (Max: 10)</label>
-        <SettingSlider value={numOfAttempts} name="attempts" min={1} max={10} />
+        <Slider__ value={numOfAttempts} name="attempts" min={1} max={10} />
       </div>
       <button type="submit" className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 px-4 py-2 rounded-full">
         Update Settings

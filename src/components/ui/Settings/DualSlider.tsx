@@ -38,13 +38,13 @@ const DualSlider = ({ name, minValue, maxValue, min = 1, max = 50, step = 1, min
       </Track>
 
       {/* Minimum Value Thumb */}
-      <Thumb className="SliderThumb" aria-label="Volume">
-        <TooltipSlider value={thumbValueMin} />
+      <Thumb className="SliderThumb" aria-label={`${name}-range`} data-testid={`${name}-thumb-min`}>
+        <TooltipSlider value={thumbValueMin} name={`${name}-1`} />
       </Thumb>
 
       {/* Maximum Value Thumb */}
-      <Thumb className="SliderThumb" aria-label="Volume">
-        <TooltipSlider value={thumbValueMax} />
+      <Thumb className="SliderThumb" aria-label={`${name}-range`} data-testid={`${name}-thumb-max`}>
+        <TooltipSlider value={thumbValueMax} name={`${name}-2`} />
       </Thumb>
     </Root>
   );

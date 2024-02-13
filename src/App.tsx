@@ -23,6 +23,7 @@ function App() {
       {/* NAVBAR does not rerender, we only rerender wthin the Routes component */}
       <Navbar />
 
+      {/* TODO - add Skeleton Component for fallback */}
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/" element={<Home />} />
