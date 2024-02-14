@@ -58,7 +58,7 @@ describe("Settings", () => {
     render(<Settings />);
 
     // OPEN SETTINGS POPUP
-    const settingsButton = screen.getByTestId("settings-btn");
+    const settingsButton = screen.getByTestId("settings-open-btn");
     await user.click(settingsButton);
 
     // Find the slider element
@@ -82,7 +82,7 @@ describe("Settings", () => {
     render(<Settings />);
 
     // OPEN SETTINGS POPUP
-    const settingsButton = screen.getByTestId("settings-btn");
+    const settingsButton = screen.getByTestId("settings-open-btn");
     await user.click(settingsButton);
 
     // Find the slider element
@@ -111,7 +111,7 @@ describe("Settings", () => {
     render(<Settings />);
 
     // OPEN SETTINGS POPUP
-    const settingsButton = screen.getByTestId("settings-btn");
+    const settingsButton = screen.getByTestId("settings-open-btn");
     await user.click(settingsButton);
 
     // Find the slider element
@@ -139,7 +139,7 @@ describe("Settings", () => {
     render(<Settings />);
 
     // OPEN SETTINGS POPUP
-    const settingsButton = screen.getByTestId("settings-btn");
+    const settingsButton = screen.getByTestId("settings-open-btn");
     await user.click(settingsButton);
 
     // DUAL SLIDER THUMBS
@@ -157,7 +157,7 @@ describe("Settings", () => {
 
   test("should have the Settings Button visible on app start", () => {
     render(<Settings />);
-    const settingsButton = screen.getByTestId("settings-btn");
+    const settingsButton = screen.getByTestId("settings-open-btn");
     expect(settingsButton).toBeInTheDocument();
   });
 
@@ -175,7 +175,7 @@ describe("Settings", () => {
     render(<Settings />);
 
     //we get the settings button by its test id
-    const settingsButton = screen.getByTestId("settings-btn");
+    const settingsButton = screen.getByTestId("settings-open-btn");
 
     // click on it to open the popover
     await userEvent.click(settingsButton);
@@ -185,9 +185,26 @@ describe("Settings", () => {
     expect(updateButton).toBeVisible();
   });
 
-  it.todo("closes the popover when Update Settings button is clicked", () => {});
+  // it("closes the popover when Update Settings button is clicked", async () => {
+  it("should close panel when the Close Button inside panel is clicked", async () => {
+    const user = userEvent.setup();
+    render(<Settings />);
 
-  it.todo("should close panel when the Close Button is clicked", () => {});
+    // OPEN SETTINGS POPUP
+    const settingsButton = screen.getByTestId("settings-open-btn");
+    await user.click(settingsButton);
+
+    // CLOSE SETTINGS POPUP
+    const closeBtnElement = screen.getByTestId("settings-close-btn");
+    await user.click(closeBtnElement);
+
+    const updateButton = screen.queryByRole("button", { name: /update settings/i });
+
+    // ASSERT THAT THE UPDATE BUTTON IS NOT VISIBLE
+    expect(updateButton).toBeNull();
+  });
+
+  it.todo("closes the popover when Update Settings button is clicked", () => {});
 
   it.todo("closes the popover when user clicks outside the content area", () => {});
 

@@ -27,11 +27,10 @@ const Settings = () => {
       {/* POPOVER TRIGGER W/ TOOLTIP MESSAGE */}
       <TooltipProvider delayDuration={500}>
         <Tooltip>
-          <TooltipTrigger asChild data-testid="settings-btn">
+          <TooltipTrigger asChild data-testid="settings-open-btn">
             <PopoverTrigger
               className="bg-blue-500 hover:bg-blue-600 hover:ring ring-slate-200 focus:bg-blue-700 px-4 py-2 rounded-full hover:text-white transition-all duration-300 hover:shadow-xl group"
               role="button"
-              data-testid="settings-btn"
             >
               <IoSettingsSharp className="text-2xl transition-all duration-700 group-hover:rotate-180" />
             </PopoverTrigger>
@@ -49,10 +48,12 @@ const Settings = () => {
         {/* CONTAINS OUR SETTING CONFIGURATIONS */}
         <SettingPanel__ handleCloseCallback={handleClose} />
 
+        {/* TODO - target this button */}
         {/* CLOSE BTN */}
         <PopoverClose
           className="absolute text-white top-2 right-2 transition-color duration-100 ease-in bg-gray-500 hover:bg-blue-500 p-1"
           onClick={handleClose}
+          data-testid="settings-close-btn"
         >
           <FaTimes size={22} />
         </PopoverClose>
