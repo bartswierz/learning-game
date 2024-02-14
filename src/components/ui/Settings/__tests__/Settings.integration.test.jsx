@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { describe, it, test, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import Settings from "../Settings";
 import userEvent from "@testing-library/user-event";
 import { time } from "console";
@@ -204,7 +204,7 @@ describe("Settings", () => {
     expect(updateButton).toBeNull();
   });
 
-  it("should not update settings without any changes", async () => {
+  it("Update settings button should be disabled when theres no changes ", async () => {
     const user = userEvent.setup();
     render(<Settings />);
 
@@ -219,9 +219,22 @@ describe("Settings", () => {
     expect(updateButton).toBeDisabled();
   });
 
-  it.todo("closes the popover when Update Settings button is clicked", () => {});
+  it.todo("closes the popover when Update Settings button is clicked", async () => {});
 
-  it.todo("closes the popover when user clicks outside the content area", () => {});
+  it("closes the popover when user clicks outside the content area", async () => {
+    const user = userEvent.setup();
+    render(<Settings />);
+
+    // OPEN SETTINGS POPUP
+    const settingsOpenButton = screen.getByTestId("settings-open-btn");
+    await user.click(settingsOpenButton);
+
+    // CLICK OUTSIDE THE POPUP TO CLOSE IT
+    await user.click(document.body);
+
+    const updateButton = screen.queryByRole("button", { name: /update settings/i });
+    expect(updateButton).not.toBeInTheDocument();
+  });
 
   test.todo("update the settings values when user clicks update settings button");
 });

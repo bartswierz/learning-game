@@ -10,11 +10,7 @@ import { useState } from "react";
 
 // Settings Component that allows the user to update the value settings(numberOne, numberTwo, # of questions, # of Attempts)
 const Settings = () => {
-  // const { settings } = useSettingsStore();
-  // const settings = useSettingsStore((state) => state.settings);
-  // console.log("settings from store: ", settings);
   const [isOpen, setIsOpen] = useState(false);
-  // const { settings } = useSettingsStore();
 
   // USER CLICKED "CLOSE" OR "UPDATE SETTINGS"
   const handleClose = () => {
@@ -23,7 +19,6 @@ const Settings = () => {
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
-      {/* <Popover open={isOpen} onOpenChange={setIsOpen} data-testid="settings-btn"> */}
       {/* POPOVER TRIGGER W/ TOOLTIP MESSAGE */}
       <TooltipProvider delayDuration={500}>
         <Tooltip>
@@ -45,7 +40,6 @@ const Settings = () => {
         className="bg-transparent/70x bg-black/25X bg-black/90 border-blue-500 border-4 rounded-md w-full relative"
       >
         <p className="text-white text-center mb-4 font-bold text-xl">Settings</p>
-        {/* TODO - make this button disabled if there has been no changes made */}
         {/* CONTAINS OUR SETTING CONFIGURATIONS */}
         <SettingPanel__ handleCloseCallback={handleClose} />
 
