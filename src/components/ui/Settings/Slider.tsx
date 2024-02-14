@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Root, Track, Range, Thumb } from "@radix-ui/react-slider";
 import TooltipSlider__ from "./TooltipSlider";
 import debounce from "lodash.debounce";

@@ -16,20 +16,14 @@ const SettingPanel = ({ handleCloseCallback }: SettingsFormProps) => {
   const numOfQuestions = useSettingsStore((state) => state.settings.numOfQuestions);
   const setSettings = useSettingsStore((state) => state.setSettings);
 
-  // USED TO DISABLE THE UPDATE SETTINGS BUTTON IF NO CHANGES HAVE BEEN MADE
-  const [initialSettings, setInitialSettings] = useState({
-    numOneRange: numOneRange,
-    numTwoRange: numTwoRange,
-    numOfAttempts,
-    numOfQuestions,
-  });
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
-  console.log("initialSettings: ", initialSettings);
 
+  // Enable the submit button when the user makes a change to the settings
   const enableSubmitBtn = () => {
-    console.log("iside enableSubmitBtn");
+    console.log("Settings changed, enabling update button...");
     setIsDisabled(false);
   };
+
   // Updates the settings state in our SettingsStore
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     console.log("Settings Panel user submitted form e: ", e);
