@@ -48,15 +48,10 @@ describe("Settings", () => {
     numOfQuestions: 5,
   }
   */
-  /*
-   * Render settings
-   * Find the slider for questions
-   * Move the slider
-   * Check if the value has changed
-   */
   // DONT TEST THE FLOW OF THE SLIDER AS THE COMPONENTS ARE FROM A EXTERNAL LIBRARY - INSTEAD TEST THE VALUES MATCH THE ONES FROM THE STORE & WHEN USER SUBMITS THE FORM, CHECK IF THE GAME HAS RESTARTED
   //CHECK IF SUBMISSION DISPLAYS A POPUP WITH A MESSAGE, "UPDATING SETTINGS WILL RESTART THE GAME, ARE YOU SURE?"
   it("Question should use the initial value from store", async () => {
+    const user = userEvent.setup();
     const {
       settings: { numOfQuestions },
     } = useSettingsStore.getState();
@@ -64,7 +59,7 @@ describe("Settings", () => {
 
     // OPEN SETTINGS POPUP
     const settingsButton = screen.getByTestId("settings-btn");
-    await userEvent.click(settingsButton);
+    await user.click(settingsButton);
 
     // Find the slider element
     const sliderThumbElement = screen.getByRole("slider", { name: /questions-thumb/i });
@@ -80,6 +75,7 @@ describe("Settings", () => {
   });
 
   it("Attempts should use the initial value from store", async () => {
+    const user = userEvent.setup();
     const {
       settings: { numOfAttempts },
     } = useSettingsStore.getState();
@@ -87,7 +83,7 @@ describe("Settings", () => {
 
     // OPEN SETTINGS POPUP
     const settingsButton = screen.getByTestId("settings-btn");
-    await userEvent.click(settingsButton);
+    await user.click(settingsButton);
 
     // Find the slider element
     const sliderThumbElement = screen.getByRole("slider", { name: /attempts-thumb/i });
@@ -103,6 +99,7 @@ describe("Settings", () => {
   });
 
   it("1st Number Range should use the initial value from store", async () => {
+    const user = userEvent.setup();
     // DESTRUCTURING MIN & MAX FROM STORE
     const {
       settings: {
@@ -115,7 +112,7 @@ describe("Settings", () => {
 
     // OPEN SETTINGS POPUP
     const settingsButton = screen.getByTestId("settings-btn");
-    await userEvent.click(settingsButton);
+    await user.click(settingsButton);
 
     // Find the slider element
     const sliderThumbMinElement = screen.getByRole("slider", { name: /numberOne-min-range/i });
@@ -125,13 +122,37 @@ describe("Settings", () => {
     const ariaValueNowMin = sliderThumbMinElement.getAttribute("aria-valuenow");
     const ariaValueNowMax = sliderThumbMaxElement.getAttribute("aria-valuenow");
 
-    // CONVERT STORE VALUE FROM NUMBER TO STRING - BECAUSE getAttribute RETURNS A STRING
-    const numOneRangeMinString = String(min);
-    const numOneRangeMaxString = String(max);
-
     // Assert that the value of aria-valuenow is '10'
-    expect(ariaValueNowMin).toBe(numOneRangeMinString);
-    expect(ariaValueNowMax).toBe(numOneRangeMaxString);
+    expect(Number(ariaValueNowMin)).toBe(min);
+    expect(Number(ariaValueNowMax)).toBe(max);
+  });
+
+  it("2nd Number Range should use the initial value from store", async () => {
+    const user = userEvent.setup();
+    // DESTRUCTURING MIN & MAX FROM STORE
+    const {
+      settings: {
+        numTwoRange: { min, max },
+      },
+    } = useSettingsStore.getState();
+
+    render(<Settings />);
+
+    // OPEN SETTINGS POPUP
+    const settingsButton = screen.getByTestId("settings-btn");
+    await user.click(settingsButton);
+
+    // DUAL SLIDER THUMBS
+    const sliderThumbMinElement = screen.getByRole("slider", { name: /numberTwo-min-range/i });
+    const sliderThumbMaxElement = screen.getByRole("slider", { name: /numberTwo-max-range/i });
+
+    // MIN VALUE
+    const ariaValueNowMin = sliderThumbMinElement.getAttribute("aria-valuenow");
+    expect(Number(ariaValueNowMin)).toBe(min);
+
+    // MAX VALUE
+    const ariaValueNowMax = sliderThumbMaxElement.getAttribute("aria-valuenow");
+    expect(Number(ariaValueNowMax)).toBe(max);
   });
 
   test("should have the Settings Button visible on app start", () => {
