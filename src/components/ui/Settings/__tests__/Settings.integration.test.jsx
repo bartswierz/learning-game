@@ -56,33 +56,7 @@ describe("Settings", () => {
    */
   // DONT TEST THE FLOW OF THE SLIDER AS THE COMPONENTS ARE FROM A EXTERNAL LIBRARY - INSTEAD TEST THE VALUES MATCH THE ONES FROM THE STORE & WHEN USER SUBMITS THE FORM, CHECK IF THE GAME HAS RESTARTED
   //CHECK IF SUBMISSION DISPLAYS A POPUP WITH A MESSAGE, "UPDATING SETTINGS WILL RESTART THE GAME, ARE YOU SURE?"
-  it.skip("found the value for questions range", async () => {
-    const user = userEvent.setup();
-    render(<Settings />);
-
-    // Find the settings button to click - this will open popover so we can then find the slider via data-testid
-    const settingsButton = screen.getByTestId("settings-btn");
-    await user.click(settingsButton);
-
-    // Needs to be open to be seen
-    // const sliderElement = screen.getByLabelText("questions-thumb");
-    const sliderElement = screen.getByRole("slider", { name: /questions-thumb/i });
-    expect(sliderElement).toBeInTheDocument(); // Passes
-
-    // ROLE = 'slider', aria-label='questions-thumb', aria-valuenow='5' -> need to change it to 10
-    // expect(screen.getByTestId("slider-questions")).toBeInTheDocument(); // Passes - found
-    // expect(screen.getByTestId("slider-questions")).toHaveTextContent(/5/i); // Passes - VALUE found
-    // const inputElement = await screen.findByRole("input", { name: /questions/i });
-    // Wait for the input element to become visible
-    const inputElement = screen.findByRole("input", { name: /questions/i, hidden: true });
-    console.log("inputElement: ", inputElement);
-
-    const ariaValueNow = sliderElement.getAttribute("aria-valuenow");
-
-    expect(ariaValueNow).toBe("25");
-  });
-
-  it("question should use the initial value from store", async () => {
+  it("Question should use the initial value from store", async () => {
     const {
       settings: { numOfQuestions },
     } = useSettingsStore.getState();
@@ -98,11 +72,66 @@ describe("Settings", () => {
     // Get the value of the aria-valuenow attribute
     const ariaValueNow = sliderThumbElement.getAttribute("aria-valuenow");
 
-    // Convert numOfQuestions from number to string because getAttribute returns a string
+    // Convert numOfQuestions(number=>string) because getAttribute returns a string
     const numOfQuestionsString = String(numOfQuestions);
 
     // Assert that the value of aria-valuenow is '10'
     expect(ariaValueNow).toBe(numOfQuestionsString);
+  });
+
+  it("Attempts should use the initial value from store", async () => {
+    const {
+      settings: { numOfAttempts },
+    } = useSettingsStore.getState();
+    render(<Settings />);
+
+    // OPEN SETTINGS POPUP
+    const settingsButton = screen.getByTestId("settings-btn");
+    await userEvent.click(settingsButton);
+
+    // Find the slider element
+    const sliderThumbElement = screen.getByRole("slider", { name: /attempts-thumb/i });
+
+    // Get the value of the aria-valuenow attribute
+    const ariaValueNow = sliderThumbElement.getAttribute("aria-valuenow");
+
+    // Convert numOfQuestions(number=>string) because getAttribute returns a string
+    const numOfAttemptsString = String(numOfAttempts);
+
+    // Assert that the value of aria-valuenow is '10'
+    expect(ariaValueNow).toBe(numOfAttemptsString);
+  });
+
+  it("1st Number Range should use the initial value from store", async () => {
+    // DESTRUCTURING MIN & MAX FROM STORE
+    const {
+      settings: {
+        numOneRange: { min, max },
+      },
+    } = useSettingsStore.getState();
+    console.log("Number One Range: ", min, max);
+
+    render(<Settings />);
+
+    // OPEN SETTINGS POPUP
+    const settingsButton = screen.getByTestId("settings-btn");
+    await userEvent.click(settingsButton);
+
+    // Find the slider element
+    const sliderThumbMinElement = screen.getByRole("slider", { name: /numberOne-min-range/i });
+    const sliderThumbMaxElement = screen.getByRole("slider", { name: /numberOne-max-range/i });
+
+    // Get the value of the aria-valuenow attribute
+    const ariaValueNowMin = sliderThumbMinElement.getAttribute("aria-valuenow");
+    const ariaValueNowMax = sliderThumbMaxElement.getAttribute("aria-valuenow");
+
+    // CONVERT STORE VALUE FROM NUMBER TO STRING - BECAUSE getAttribute RETURNS A STRING
+    const numOneRangeMinString = String(min);
+    const numOneRangeMaxString = String(max);
+
+    // Assert that the value of aria-valuenow is '10'
+    expect(ariaValueNowMin).toBe(numOneRangeMinString);
+    expect(ariaValueNowMax).toBe(numOneRangeMaxString);
   });
 
   test("should have the Settings Button visible on app start", () => {
@@ -135,24 +164,7 @@ describe("Settings", () => {
     expect(updateButton).toBeVisible();
   });
 
-  it.todo("opens the popover when Settings Button is clicked", () => {
-    render(<Settings />);
-
-    const settingsButtonElement = screen.getByTestId("settings-btn");
-    userEvent.click(settingsButtonElement);
-
-    expect(screen.getByText("Settings")).toBeInTheDocument();
-
-    userEvent.click(screen.getByText("Settings"));
-
-    expect(screen.queryByText("Settings")).toBeNull();
-  });
-
-  it.todo("closes the popover when Update Settings button is clicked", () => {
-    render(<Settings />);
-
-    userEvent.click(screen.getByTestId("settings-btn"));
-  });
+  it.todo("closes the popover when Update Settings button is clicked", () => {});
 
   it.todo("should close panel when the Close Button is clicked", () => {});
 
