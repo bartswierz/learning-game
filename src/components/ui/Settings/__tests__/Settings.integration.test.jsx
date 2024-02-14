@@ -58,8 +58,8 @@ describe("Settings", () => {
     render(<Settings />);
 
     // OPEN SETTINGS POPUP
-    const settingsButton = screen.getByTestId("settings-open-btn");
-    await user.click(settingsButton);
+    const settingsOpenButton = screen.getByTestId("settings-open-btn");
+    await user.click(settingsOpenButton);
 
     // Find the slider element
     const sliderThumbElement = screen.getByRole("slider", { name: /questions-thumb/i });
@@ -82,8 +82,8 @@ describe("Settings", () => {
     render(<Settings />);
 
     // OPEN SETTINGS POPUP
-    const settingsButton = screen.getByTestId("settings-open-btn");
-    await user.click(settingsButton);
+    const settingsOpenButton = screen.getByTestId("settings-open-btn");
+    await user.click(settingsOpenButton);
 
     // Find the slider element
     const sliderThumbElement = screen.getByRole("slider", { name: /attempts-thumb/i });
@@ -111,8 +111,8 @@ describe("Settings", () => {
     render(<Settings />);
 
     // OPEN SETTINGS POPUP
-    const settingsButton = screen.getByTestId("settings-open-btn");
-    await user.click(settingsButton);
+    const settingsOpenButton = screen.getByTestId("settings-open-btn");
+    await user.click(settingsOpenButton);
 
     // Find the slider element
     const sliderThumbMinElement = screen.getByRole("slider", { name: /numberOne-min-range/i });
@@ -139,8 +139,8 @@ describe("Settings", () => {
     render(<Settings />);
 
     // OPEN SETTINGS POPUP
-    const settingsButton = screen.getByTestId("settings-open-btn");
-    await user.click(settingsButton);
+    const settingsOpenButton = screen.getByTestId("settings-open-btn");
+    await user.click(settingsOpenButton);
 
     // DUAL SLIDER THUMBS
     const sliderThumbMinElement = screen.getByRole("slider", { name: /numberTwo-min-range/i });
@@ -175,10 +175,10 @@ describe("Settings", () => {
     render(<Settings />);
 
     //we get the settings button by its test id
-    const settingsButton = screen.getByTestId("settings-open-btn");
+    const settingsOpenButton = screen.getByTestId("settings-open-btn");
 
     // click on it to open the popover
-    await userEvent.click(settingsButton);
+    await userEvent.click(settingsOpenButton);
 
     // // we check if the "Update Settings" button is visible.
     const updateButton = await screen.findByText(/Update Settings/i);
@@ -191,8 +191,8 @@ describe("Settings", () => {
     render(<Settings />);
 
     // OPEN SETTINGS POPUP
-    const settingsButton = screen.getByTestId("settings-open-btn");
-    await user.click(settingsButton);
+    const settingsOpenButton = screen.getByTestId("settings-open-btn");
+    await user.click(settingsOpenButton);
 
     // CLOSE SETTINGS POPUP
     const closeBtnElement = screen.getByTestId("settings-close-btn");
@@ -202,6 +202,21 @@ describe("Settings", () => {
 
     // ASSERT THAT THE UPDATE BUTTON IS NOT VISIBLE
     expect(updateButton).toBeNull();
+  });
+
+  it("should not update settings without any changes", async () => {
+    const user = userEvent.setup();
+    render(<Settings />);
+
+    // OPEN SETTINGS POPUP
+    const settingsOpenButton = screen.getByTestId("settings-open-btn");
+    await user.click(settingsOpenButton);
+
+    // GET THE UPDATE SETTINGS BUTTON
+    const updateButton = screen.getByRole("button", { name: /update settings/i });
+
+    // EXPECT THE BUTTON TO BE DISABLED
+    expect(updateButton).toBeDisabled();
   });
 
   it.todo("closes the popover when Update Settings button is clicked", () => {});

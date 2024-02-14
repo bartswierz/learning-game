@@ -45,10 +45,10 @@ const Settings = () => {
         className="bg-transparent/70x bg-black/25X bg-black/90 border-blue-500 border-4 rounded-md w-full relative"
       >
         <p className="text-white text-center mb-4 font-bold text-xl">Settings</p>
+        {/* TODO - make this button disabled if there has been no changes made */}
         {/* CONTAINS OUR SETTING CONFIGURATIONS */}
         <SettingPanel__ handleCloseCallback={handleClose} />
 
-        {/* TODO - target this button */}
         {/* CLOSE BTN */}
         <PopoverClose
           className="absolute text-white top-2 right-2 transition-color duration-100 ease-in bg-gray-500 hover:bg-blue-500 p-1"

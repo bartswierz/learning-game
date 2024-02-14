@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Root, Track, Range, Thumb } from "@radix-ui/react-slider";
 import TooltipSlider from "./TooltipSlider";
+import debounce from "lodash.debounce";
 
 interface SettingsDualSliderProps {
   min?: number;
@@ -10,9 +11,19 @@ interface SettingsDualSliderProps {
   name: string;
   minValue: number;
   maxValue: number;
+  enableSubmitBtnCallback: () => void;
 }
 
-const DualSlider = ({ name, minValue, maxValue, min = 1, max = 50, step = 1, minStepsBetween = 1 }: SettingsDualSliderProps) => {
+const DualSlider = ({
+  name,
+  minValue,
+  maxValue,
+  min = 1,
+  max = 50,
+  step = 1,
+  minStepsBetween = 1,
+  enableSubmitBtnCallback,
+}: SettingsDualSliderProps) => {
   const [thumbValueMin, setThumbValueMin] = useState(minValue);
   const [thumbValueMax, setThumbValueMax] = useState(maxValue);
 
@@ -20,7 +31,14 @@ const DualSlider = ({ name, minValue, maxValue, min = 1, max = 50, step = 1, min
     // thumbArray = [min, max]
     setThumbValueMin(thumbArray[0]);
     setThumbValueMax(thumbArray[1]);
+
+    // SET UPDATE SETTINGS BUTTON TO ENABLED
+    debouncedCallback();
   };
+
+  // useCallback used to prevent debouncedCallback from being recreated on every render, without it, we would simply be calling all the debounced functions after the time has passed
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedCallback = useCallback(debounce(enableSubmitBtnCallback, 300), [enableSubmitBtnCallback]);
 
   return (
     <Root
