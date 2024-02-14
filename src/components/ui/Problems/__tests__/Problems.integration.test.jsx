@@ -37,6 +37,7 @@ describe("Problems - Integration", () => {
     await user.click(buttonCheckElement);
 
     const { score } = useSettingsStore.getState();
+    console.log("score from store: ", score);
     expect(score).toBe(1);
   });
 

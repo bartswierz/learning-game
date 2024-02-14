@@ -17,9 +17,9 @@ import useSettingsStore from "@/store/store";
 // }));
 
 // vi.stubGlobal("ResizeObserver", ResizeObserverMock);
-
-const store = useSettingsStore.getState();
-console.log("store: ", store);
+const { numOfQuestions } = useSettingsStore.getState();
+// const store = useSettingsStore.getState();
+console.log("numOfQuestions: ", numOfQuestions);
 
 describe("Settings", () => {
   /*
@@ -78,77 +78,31 @@ describe("Settings", () => {
     console.log("inputElement: ", inputElement);
 
     const ariaValueNow = sliderElement.getAttribute("aria-valuenow");
-    // fireEvent.change(getByTestId("slider"), { target: { value: 25 } });
-    // fireEvent.change(sliderElement, { target: { value: 25 } });
-    // fireEvent.change(inputElement, { target: { value: 25 } });
-    // fireEvent.change(ariaValueNow, { target: { value: 25 } });
-    // fireEvent.change(ariaValueNow, { ariaValueNow: { value: 25 } });
-    // fireEvent.change(sliderElement, { target: { value: 10 } });
-    // screen.getByRole("link", {name: /addition/i,});
-    // fireEvent.change(inputElement, { target: { value: 10 } });
-    // fireEvent.change(inputElement, { target: { value: 10, hidden: true } });
 
-    // Get the value of the aria-valuenow attribute
-    // expect(inputElement.value).toBe("10");
     expect(ariaValueNow).toBe("25");
-    // expect(await screen.findByTestId("slider-questions")).toHaveTextContent(/10/i); // Passes - found
   });
 
-  it("question starting value should use value from store", async () => {
-    const { numOfQuestions } = useSettingsStore.getState();
-    console.log("numOfQuestions: ", numOfQuestions);
+  it("question should use the initial value from store", async () => {
+    const {
+      settings: { numOfQuestions },
+    } = useSettingsStore.getState();
     render(<Settings />);
-    // const numOfQuestions = await useSettingsStore.getState().numOfQuestions;
-    // console.log("NUM OF QUESTIONS: ", numOfQuestions);
+
     // OPEN SETTINGS POPUP
     const settingsButton = screen.getByTestId("settings-btn");
     await userEvent.click(settingsButton);
 
     // Find the slider element
-    const sliderElement = screen.getByRole("slider", { name: /questions-thumb/i });
-    expect(sliderElement).toBeInTheDocument();
-
-    // USER MOVES VALUE TO 10 - Fire a change event on the slider element
-    // fireEvent.change(sliderElement, { target: { value: "10" } });
+    const sliderThumbElement = screen.getByRole("slider", { name: /questions-thumb/i });
 
     // Get the value of the aria-valuenow attribute
-    const ariaValueNow = sliderElement.getAttribute("aria-valuenow");
+    const ariaValueNow = sliderThumbElement.getAttribute("aria-valuenow");
+
+    // Convert numOfQuestions from number to string because getAttribute returns a string
+    const numOfQuestionsString = String(numOfQuestions);
 
     // Assert that the value of aria-valuenow is '10'
-    // Update to equal the value from our store
-    // TODO - update it to be the value from the store
-    // expect(ariaValueNow).toBe("5");
-    expect(ariaValueNow).toBe(numOfQuestions);
-    // expect(ariaValueNow).toBe(useSettingsStore.getState().numOfQuestions);
-  });
-
-  it.skip("value changes when slider is moved", () => {
-    // Render the component with an initial value
-    // const { rerender } = render(<Slider name="volume" value={30} />);
-    const { rerender } = render(<Settings name="volume" value={30} />);
-
-    /*
-    use the data-testid we placed on the slider value to check if the getByText method returns the correct value
-    */
-    // Find the slider
-    // const slider = screen.getByTestId("tooltip-slider");
-    // const sliderElement = screen.getAllByRole("input", "numberOne[]");
-    // Find the hidden input element
-    // console.log("sliderElement: ", sliderElement);
-    // const inputElement = screen.getByLabelText("numberOne[]", { selector: 'input[name="numberOne[]"]', hidden: true });
-    // console.log("inputElement: ", inputElement);
-
-    const sliderElement = screen.getByTestId("slider-questions");
-    expect(sliderElement).toBeInTheDocument();
-    // Fire a change event on the slider
-    fireEvent.change(sliderElement, { target: { value: 40 } });
-
-    // Re-render the component with the new value
-    // rerender(<Slider value={40} />);
-    // rerender(<Settings value={40} />);
-
-    // Assert that the value has changed
-    expect(sliderElement).toHaveTextContent(40);
+    expect(ariaValueNow).toBe(numOfQuestionsString);
   });
 
   test("should have the Settings Button visible on app start", () => {
@@ -200,19 +154,9 @@ describe("Settings", () => {
     userEvent.click(screen.getByTestId("settings-btn"));
   });
 
-  it.todo("closes the popover when the Close button is clicked", () => {
-    render(<Settings />);
+  it.todo("should close panel when the Close Button is clicked", () => {});
 
-    userEvent.click(screen.getByTestId("settings-btn"));
-  });
+  it.todo("closes the popover when user clicks outside the content area", () => {});
 
-  it.todo("closes the popover when user clicks outside the content area", () => {
-    render(<Settings />);
-
-    userEvent.click(screen.getByTestId("settings-btn"));
-  });
-
-  test.todo("if user clicks the button, it should open the settings panel(PopoverContent)");
-
-  test.todo("should update the settings values when user clicks update settings button");
+  test.todo("update the settings values when user clicks update settings button");
 });
