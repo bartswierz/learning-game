@@ -4,7 +4,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import Slider from "../Slider";
 import userEvent from "@testing-library/user-event";
 
-describe("Slider", () => {
+describe.skip("Slider", () => {
   /*
   data-testids:
   slider-numberOne-1

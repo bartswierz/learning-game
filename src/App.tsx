@@ -2,6 +2,7 @@ import "./globals.css";
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/ui/Navbar/Navbar.tsx";
+import NavbarNew from "./components/ui/Navbar/NavbarNew.tsx";
 // import Home from "./pages/Home.jsx";
 // import Addition from "./pages/Addition.js";
 // import Subtraction from "./pages/Subtraction.jsx";
@@ -21,7 +22,8 @@ function App() {
   return (
     <>
       {/* NAVBAR does not rerender, we only rerender wthin the Routes component */}
-      <Navbar />
+      {/* <Navbar /> */}
+      <NavbarNew />
 
       {/* TODO - add Skeleton Component for fallback */}
       <Suspense fallback={<div>Loading...</div>}>

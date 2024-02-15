@@ -2,6 +2,7 @@ import Settings from "../Settings/Settings";
 import { Link } from "react-router-dom";
 import { IoHome } from "react-icons/io5";
 import TooltipButton from "../TooltipButton";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const NavbarMobile = () => {
   // Link information for our four operations along with custom button colors
@@ -56,6 +57,11 @@ const NavbarMobile = () => {
     );
   };
 
+  /*
+  - Move the navbar links hidden on mobile
+  - To see them, would require clicking a hamburger menu
+  - The hamburger menu would then display the links
+  */
   return (
     <nav data-testid="navbar" className="md:hidden flex flex-col justify-content items-center p-2 z-[10] gap-4 mb-[2vh]">
       {/* <div className="b flex-colx"> */}
@@ -64,10 +70,13 @@ const NavbarMobile = () => {
           MOBILE
         </span>
         <div className="flex justify-between items-center gap-4">
+          <GiHamburgerMenu size={36} />
+          {/* TODO - move homepage link into menu dropdown */}
           <HomepageLink />
           <Settings />
         </div>
       </div>
+      {/* TODO Hidden on mobile - use a button click to display */}
       <NavbarLinks />
     </nav>
   );

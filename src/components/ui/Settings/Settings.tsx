@@ -24,7 +24,7 @@ const Settings = () => {
         <Tooltip>
           <TooltipTrigger asChild data-testid="settings-open-btn">
             <PopoverTrigger
-              className="bg-blue-500 hover:bg-blue-600 hover:ring ring-slate-200 focus:bg-blue-700 px-4 py-2 rounded-full hover:text-white transition-all duration-300 hover:shadow-xl group"
+              className="bg-blue-500 hover:bg-blue-600 hover:ring ring-slate-200 focus:bg-blue-700 px-4 py-2 rounded-full hover:text-white transition-all duration-300 hover:shadow-xl group h-max"
               role="button"
             >
               <IoSettingsSharp className="text-2xl transition-all duration-700 group-hover:rotate-180" />

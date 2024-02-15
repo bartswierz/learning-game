@@ -219,8 +219,6 @@ describe("Settings", () => {
     expect(updateButton).toBeDisabled();
   });
 
-  it.todo("closes the popover when Update Settings button is clicked", async () => {});
-
   it("closes the popover when user clicks outside the content area", async () => {
     const user = userEvent.setup();
     render(<Settings />);
@@ -233,6 +231,26 @@ describe("Settings", () => {
     await user.click(document.body);
 
     const updateButton = screen.queryByRole("button", { name: /update settings/i });
+    expect(updateButton).not.toBeInTheDocument();
+  });
+
+  it.todo("closes the popover when Update Settings button is clicked", async () => {
+    const user = userEvent.setup();
+    render(<Settings />);
+
+    // OPEN SETTINGS POPUP
+    const settingsOpenButton = screen.getByTestId("settings-open-btn");
+    await user.click(settingsOpenButton);
+
+    // CLICK OUTSIDE THE POPUP TO CLOSE IT
+    // await user.click(document.body);
+    // TODO - CHANGE ONE OF THE VALUES TO ENABLE THE UPDATE BUTTON
+
+    // CLICK THE UPDATE SETTINGS BUTTON
+    const updateButton = screen.queryByRole("button", { name: /update settings/i });
+    await user.click(updateButton);
+
+    // EXPECT THE POPUP TO BE CLOSED AFTER A SUCCESSFUL UPDATE
     expect(updateButton).not.toBeInTheDocument();
   });
 
