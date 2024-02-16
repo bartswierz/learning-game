@@ -8,14 +8,11 @@ export default {
     container: {
       center: true,
       padding: "2rem",
-      // screens: {
-      //   xsm: "400px",
-      //   "2xl": "1400px",
-      // },
     },
     extend: {
       screens: {
-        xsm: "400px",
+        xxsm: "400px",
+        xsm: "560px",
         "2xl": "1400px",
       },
       container: {

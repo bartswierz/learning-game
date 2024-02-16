@@ -1,85 +1,94 @@
-import Settings from "../Settings/Settings";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { IoHome } from "react-icons/io5";
-import TooltipButton from "../TooltipButton";
-import NavbarMobile from "./NavbarMobile";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { IoMdClose } from "react-icons/io";
+
+import Settings from "../Settings/Settings";
+import NavigationMenu from "./NavigationMenu";
 
 const Navbar = () => {
-  // Link information for our four operations along with custom button colors
-  const navbarLinks = [
-    { link: "Addition", bgColor: "bg-green-500 hover:bg-green-600" },
-    { link: "Subtraction", bgColor: "bg-red-500 hover:bg-red-600" },
-    { link: "Multiplication", bgColor: "bg-blue-500 hover:bg-blue-600" },
-    { link: "Division", bgColor: "bg-yellow-500 hover:bg-yellow-600" },
-  ];
+  const [isOpen, setIsOpen] = useState(false);
 
-  interface NavbarLinkProps {
-    link: string;
-    btnColor: string;
-  }
+  const openMenu = () => setIsOpen(true);
+  const closeMenu = () => setIsOpen(false);
 
-  // Link Buttons for Addition, Subtraction, Multiplication, and Division Pages
-  const NavbarLinks = () => {
-    // TODO - display on mobile
+  const MenuButton = () => {
     return (
-      <ul className="flex flex-row flex-wrap items-center gap-3">
-        {/* // <ul className="b w-[500px] grid grid-cols-4 place-items-center flex-wrap items-centerx gap-3"> */}
-        {navbarLinks.map(({ link, bgColor }) => {
-          return <NavbarLink link={link} btnColor={bgColor} key={link} />;
-        })}
-      </ul>
+      <button onClick={openMenu} className="xsm:hidden cursor-pointer align-middle">
+        <GiHamburgerMenu size={36} />
+      </button>
     );
   };
 
-  // Individual Link
-  const NavbarLink = ({ link, btnColor }: NavbarLinkProps) => {
+  // INDIVIDUAL LINK
+  const ListItemLink = ({ route, text, className }: { route: string; text: string; className: string }) => {
     return (
-      <li className="cursor-pointer" key={link}>
-        <Link
-          to={`/${link.toLowerCase()}`}
-          // to={`/`} // TODO - remove this once the routes are set up
-          className={`${btnColor} hover:text-white hover:shadow-xl hover:ring ring-slate-200 px-4 py-2 rounded-full transition-all duration-300 text-gray-100 font-bold`}
-          data-tooltip-target="tooltip-default"
-        >
-          <TooltipButton trigger={link} popup={link} />
+      <li>
+        <Link to={`/${route}`} className={`px-4 py-2 rounded-full cursor-pointer ${className}`}>
+          {text}
         </Link>
       </li>
     );
   };
 
-  // Redirect to Homepage
-  const HomepageLink = () => {
+  // Navbar links component
+  const NavbarLinks = () => {
     return (
-      <Link to="/" className="flex justify-center item-center">
-        <TooltipButton
-          trigger={<IoHome size={36} className="text-white hover:text-gray-400 transition-color duration-200" />}
-          popup={"home"}
-        />
-      </Link>
+      <ul className="flex items-center flex-col gap-12 mt-4 mb-6 text-base">
+        <ListItemLink route="addition" text="Addition Problems" className="bg-green-500" />
+        <ListItemLink route="subtraction" text="Subtraction Problems" className="bg-red-500" />
+        <ListItemLink route="multiplication" text="Multiplication Problems" className="bg-blue-500" />
+        <ListItemLink route="division" text="Division Problems" className="bg-yellow-500" />
+        <ListItemLink route="pdf" text="Take Home Worksheets" className="bg-teal-500" />
+      </ul>
     );
   };
 
-  const NavbarDesktop = () => {
+  // MOBILE DISPLAY WHEN USER CLICKS THE MENU BUTTON
+  const MobileMenu = ({ isOpen, closeMenu }: { isOpen: boolean; closeMenu: () => void }) => {
     return (
-      <nav data-testid="navbar" className="hidden md:flex justify-between items-center p-2 z-[10]">
-        <span className="text-2xl font-bold" id="navbar-title">
-          Desktop
-        </span>
-        {/* TODO - setup a desktop and mobile navbar */}
-        <NavbarLinks />
-        <div className="flex justify-between items-center gap-4">
-          <HomepageLink />
-          <Settings />
+      <div
+        className={`fixed xsm:hidden z-[10] inset-0 bg-gray-500x bg-black/90 bg-opacity-75 transition-all duration-300 ${
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div
+          className={`fixed inset-y-0 left-0 bg-gray-900 w-full max-w-xsx transition-all transform transition-transformX duration-300 ease-in-out ${
+            isOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
+          <div className="p-4">
+            <h1 className="text-xl text-white mb-4">Problem Solvers</h1>
+            <button onClick={closeMenu} className="absolute top-0 right-0 m-4 text-white">
+              <IoMdClose size={36} />
+            </button>
+            <div className="pt-[3vh]">
+              <NavbarLinks />
+            </div>
+          </div>
         </div>
-      </nav>
+      </div>
     );
   };
 
   return (
-    <>
-      <NavbarDesktop />
-      <NavbarMobile />
-    </>
+    <nav className="flex justify-between p-2 relative">
+      <div className="self-center">
+        <Link to="/">Problem Solvers</Link>
+      </div>
+
+      <div className="flex gap-2">
+        {/* HIDDEN ON MOBILE SCREEN */}
+        <div className="hidden xsm:block gap-2">
+          <NavigationMenu />
+        </div>
+        <MenuButton />
+        <Settings />
+      </div>
+
+      {/* OPENS WHEN USER CLICKS MENU BUTTON */}
+      {isOpen && <MobileMenu isOpen={isOpen} closeMenu={closeMenu} />}
+    </nav>
   );
 };
 

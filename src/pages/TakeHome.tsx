@@ -1,6 +1,6 @@
 export default function TakeHome() {
   return (
-    <div>
+    <div className="pt-4">
       <h1>TakeHome</h1>
     </div>
   );
