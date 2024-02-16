@@ -1,10 +1,4 @@
-// "use client"
-
-// import * as React from "react"
-// import Link from "next/link"
-
 import { cn } from "@/lib/utils";
-// import { Icons } from "@/components/icons"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,7 +6,6 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
   NavigationMenuViewport,
 } from "@/components/ui/shadcn/navigation-menu";
 import { Link } from "react-router-dom";

@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/ui/Navbar/Navbar.tsx";
 import NavbarNew from "./components/ui/Navbar/NavbarNew.tsx";
+import NavMenu from "./components/ui/Navbar/NavMenu.tsx";
 // import Home from "./pages/Home.jsx";
 // import Addition from "./pages/Addition.js";
 // import Subtraction from "./pages/Subtraction.jsx";
