@@ -210,10 +210,10 @@ const NavbarNew = () => {
     // </nav>
     <nav className="flex bb justify-between p-2">
       <div>
-        <span>Problem Solvers</span>
+        <Link to="/">Problem Solvers</Link>
       </div>
 
-      <div className="bb flex">
+      <div className="bb flex gap-4">
         <NavMenu />
         <Settings />
       </div>
