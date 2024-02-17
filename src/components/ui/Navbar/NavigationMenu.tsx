@@ -47,22 +47,25 @@ const NavigationMenu__ = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const restartGame = useSettingsStore((state) => state.restartGame);
-  const [newRoute, setNewRoute] = useState("/");
+  const [newRoute, setNewRoute] = useState("");
   // TODO - reset question to 1, reset score to 0, reset attempts to settings.numOfAttempts
 
   const handleModal = () => {
-    console.log("inside handleModal");
+    console.log("inside handleModal - newRoute: ", newRoute);
     setIsModalOpen(false);
 
     // redirect("/addition");
     // TODO - redirect to the new route
-    navigate("/addition");
+    // navigate("/addition");
+    navigate(newRoute);
+    setNewRoute("");
   };
 
   return (
     <>
       {/* RESTART MODAL POPUP WHEN USER CLICKS ON A LINK */}
-      {isModalOpen && <RestartModal handleModalCallback={handleModal} />}
+      {/* {isModalOpen && <RestartModal handleModalCallback={handleModal} />} */}
+      {newRoute && <RestartModal handleModalCallback={handleModal} />}
       <NavigationMenu>
         <NavigationMenuList className="flex gap-2">
           {/* PROBLEMS MENU ITEM */}
@@ -77,6 +80,7 @@ const NavigationMenu__ = () => {
                     route={route}
                     className={className}
                     setIsModalOpen={setIsModalOpen}
+                    setNewRoute={setNewRoute}
                     // restartGame={restartGame}
                   >
                     {description}
@@ -91,7 +95,13 @@ const NavigationMenu__ = () => {
             <NavigationMenuTrigger className="bg-blue-500">Extras</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="flex flex-col p-4 gap-3 w-[280px]">
-                <ListItemLink route="/pdf" title="Take Home Worksheets" className="bg-teal-500 hover:bg-teal-600 hover:text-white">
+                <ListItemLink
+                  route="/pdf"
+                  title="Take Home Worksheets"
+                  className="bg-teal-500 hover:bg-teal-600 hover:text-white"
+                  setIsModalOpen={setIsModalOpen}
+                  setNewRoute={setNewRoute}
+                >
                   Generate PDF worksheets for practice (45 Problems)
                 </ListItemLink>
               </ul>
@@ -111,27 +121,14 @@ interface ListItemProps {
   title: string;
   children: React.ReactNode;
   // restartGame: (newNumberOne: number, newNumberTwo: number) => void;
-  setIsModalOpen: (isModalOpen: boolean) => void;
+  setIsModalOpen?: (isModalOpen: boolean) => void;
+  setNewRoute: (route: string) => void;
 }
-const ListItemLink = ({ className, route, title, children, setIsModalOpen }: ListItemProps) => {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const resetProgress = useSettingsStore((state) => state.resetProgress);
-
-  // Reset game progress to start fresh, user has decided to start a different types of problems, we don't want to continue with the current progress
-  // const resetGameProgress = () => {
-  //   resetProgress();
-  // };
-  // const handleClick = () => {
-  //   // resetGameProgress();
-  //   // restartGame();
-  //   // setIsModalOpen(true);
-  //   setIsModalOpen(true);
-  // };
+const ListItemLink = ({ className, route, title, children, setIsModalOpen, setNewRoute }: ListItemProps) => {
   // USER CLICK OPENS THE RESTART MODAL - USING A CALLBACK
   const handleClick = () => {
     console.log("user clicked one of the links");
-    // setNewRoute(route);
-    setIsModalOpen(true);
+    setNewRoute(route);
   };
 
   return (
