@@ -24,7 +24,10 @@ const Navbar = () => {
   const ListItemNavLink = ({ route, text, className }: { route: string; text: string; className: string }) => {
     return (
       <li>
-        <Link to={`${route}`} className={`px-4 py-2 rounded-fullx rounded-md border-[3px] cursor-pointer shadow-xl ${className}`}>
+        <Link
+          to={`${route}`}
+          className={`px-4 py-2 rounded-fullx rounded-md border-[3px] cursor-pointer shadow-xl transition-color duration-200 ease-in ${className}`}
+        >
           {text}
         </Link>
       </li>
@@ -35,12 +38,12 @@ const Navbar = () => {
   const MobileNavLinks = () => {
     return (
       <ul className="flex items-center flex-col gap-12 mt-4 mb-6 text-base">
-        <ListItemNavLink route="/" text="Home" className="bg-white text-black" />
-        <ListItemNavLink route="/addition" text="Addition Problems" className="bg-green-500" />
-        <ListItemNavLink route="/subtraction" text="Subtraction Problems" className="bg-red-500" />
-        <ListItemNavLink route="/multiplication" text="Multiplication Problems" className="bg-blue-500" />
-        <ListItemNavLink route="/division" text="Division Problems" className="bg-yellow-500" />
-        <ListItemNavLink route="/pdf" text="Take Home Worksheets" className="bg-teal-500" />
+        <ListItemNavLink route="/" text="Home" className="bg-white hover:bg-white/90 text-black" />
+        <ListItemNavLink route="/addition" text="Addition Problems" className="bg-green-500 hover:bg-green-600" />
+        <ListItemNavLink route="/subtraction" text="Subtraction Problems" className="bg-red-500 hover:bg-red-600" />
+        <ListItemNavLink route="/multiplication" text="Multiplication Problems" className="bg-blue-500 hover:bg-blue-600" />
+        <ListItemNavLink route="/division" text="Division Problems" className="bg-yellow-500 hover:bg-yellow-600" />
+        <ListItemNavLink route="/pdf" text="Take Home Worksheets" className="bg-teal-500 hover:bg-teal-600" />
       </ul>
     );
   };
