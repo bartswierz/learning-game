@@ -62,7 +62,7 @@ const NavigationMenu__ = () => {
           <NavigationMenuTrigger className="bg-blue-500">Extras</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="flex flex-col p-4 gap-3 w-[280px]">
-              <ListItem route="pdf" title="Take Home Worksheets" className="bg-teal-500 hover:bg-teal-600 hover:text-white">
+              <ListItem route="/pdf" title="Take Home Worksheets" className="bg-teal-500 hover:bg-teal-600 hover:text-white">
                 Generate PDF worksheets for practice (45 Problems)
               </ListItem>
             </ul>
@@ -86,7 +86,7 @@ const ListItem = ({ className, route, title, children, ...props }: ListItemProps
     <li>
       {/* <NavigationMenuLink asChild> */}
       <Link
-        to={`/${route}`}
+        to={`${route}`}
         className={cn(
           "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground group",
           className
