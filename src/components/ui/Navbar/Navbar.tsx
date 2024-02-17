@@ -12,7 +12,7 @@ const Navbar = () => {
   const openMenu = () => setIsOpen(true);
   const closeMenu = () => setIsOpen(false);
 
-  const MenuButton = () => {
+  const MenuOpenButton = () => {
     return (
       <button onClick={openMenu} className="xsm:hidden cursor-pointer align-middle">
         <GiHamburgerMenu size={36} />
@@ -20,13 +20,32 @@ const Navbar = () => {
     );
   };
 
+  const MenuCloseButton = () => {
+    return (
+      <button onClick={closeMenu} className="absolute top-0 right-0 m-4 text-white">
+        <IoMdClose size={36} />
+      </button>
+    );
+  };
+
   // INDIVIDUAL LINK
-  const ListItemNavLink = ({ route, text, className }: { route: string; text: string; className: string }) => {
+  const ListItemNavLink = ({
+    route,
+    text,
+    className,
+    closeMenu,
+  }: {
+    route: string;
+    text: string;
+    className: string;
+    closeMenu?: () => void;
+  }) => {
     return (
       <li>
         <Link
           to={`${route}`}
           className={`px-4 py-2 rounded-fullx rounded-md border-[3px] cursor-pointer shadow-xl transition-color duration-200 ease-in ${className}`}
+          onClick={closeMenu}
         >
           {text}
         </Link>
@@ -38,21 +57,41 @@ const Navbar = () => {
   const MobileNavLinks = () => {
     return (
       <ul className="flex items-center flex-col gap-12 mt-4 mb-6 text-base">
-        <ListItemNavLink route="/" text="Home" className="bg-white hover:bg-white/90 text-black" />
-        <ListItemNavLink route="/addition" text="Addition Problems" className="bg-green-500 hover:bg-green-600" />
-        <ListItemNavLink route="/subtraction" text="Subtraction Problems" className="bg-red-500 hover:bg-red-600" />
-        <ListItemNavLink route="/multiplication" text="Multiplication Problems" className="bg-blue-500 hover:bg-blue-600" />
-        <ListItemNavLink route="/division" text="Division Problems" className="bg-yellow-500 hover:bg-yellow-600" />
-        <ListItemNavLink route="/pdf" text="Take Home Worksheets" className="bg-teal-500 hover:bg-teal-600" />
+        <ListItemNavLink route="/" text="Home" className="bg-white hover:bg-white/90 text-black" closeMenu={closeMenu} />
+        <ListItemNavLink
+          route="/addition"
+          text="Addition Problems"
+          className="bg-green-500 hover:bg-green-600"
+          closeMenu={closeMenu}
+        />
+        <ListItemNavLink
+          route="/subtraction"
+          text="Subtraction Problems"
+          className="bg-red-500 hover:bg-red-600"
+          closeMenu={closeMenu}
+        />
+        <ListItemNavLink
+          route="/multiplication"
+          text="Multiplication Problems"
+          className="bg-blue-500 hover:bg-blue-600"
+          closeMenu={closeMenu}
+        />
+        <ListItemNavLink
+          route="/division"
+          text="Division Problems"
+          className="bg-yellow-500 hover:bg-yellow-600"
+          closeMenu={closeMenu}
+        />
+        <ListItemNavLink route="/pdf" text="Take Home Worksheets" className="bg-teal-500 hover:bg-teal-600" closeMenu={closeMenu} />
       </ul>
     );
   };
 
   // MOBILE DISPLAY WHEN USER CLICKS THE MENU BUTTON
-  const MobileMenu = ({ isOpen, closeMenu }: { isOpen: boolean; closeMenu: () => void }) => {
+  const MobileMenu = ({ isOpen }: { isOpen: boolean }) => {
     return (
       <div
-        className={`fixed xsm:hidden z-[10] inset-0 bg-gray-500x bg-black/90 bg-opacity-75 transition-all duration-300 ${
+        className={`fixed xsm:hidden z-[10] inset-0 bg-black/90 bg-opacity-75 transition-all duration-300 ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
@@ -63,9 +102,7 @@ const Navbar = () => {
         >
           <div className="p-4">
             <h1 className="text-xl text-white mb-4">Problem Solvers</h1>
-            <button onClick={closeMenu} className="absolute top-0 right-0 m-4 text-white">
-              <IoMdClose size={36} />
-            </button>
+            <MenuCloseButton />
             <div className="pt-[3vh]">
               <MobileNavLinks />
             </div>
@@ -86,12 +123,12 @@ const Navbar = () => {
         <div className="hidden xsm:block gap-2">
           <NavigationMenu />
         </div>
-        <MenuButton />
+        <MenuOpenButton />
         <Settings />
       </div>
 
       {/* OPENS WHEN USER CLICKS MENU BUTTON */}
-      {isOpen && <MobileMenu isOpen={isOpen} closeMenu={closeMenu} />}
+      {isOpen && <MobileMenu isOpen={isOpen} />}
     </nav>
   );
 };
