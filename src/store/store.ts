@@ -31,8 +31,7 @@ type Action = {
   updateIsGameOver: (isGameOver: boolean) => void;
   updateNewNumbers: (newNumberOne: number, newNumberTwo: number) => void;
   restartGame: (newNumberOne: number, newNumberTwo: number) => void;
-  // TESTING PURPOSES - ZustandCounter unit testing with vitest
-  increment: () => void;
+  resetProgress: () => void;
 };
 
 const initialState: State = {
@@ -96,6 +95,10 @@ const useSettingsStore = create<State & Action>((set) => ({
       score: 0,
       questionNumber: 1,
     }));
+  },
+  resetProgress: () => {
+    set(() => ({ score: 0, questionNumber: 1, attemptsLeft: 3 }));
+    console.log("RESET PROGRESS CALLED");
   },
   increment: () => set((state) => ({ count: state.count + 1 })),
 }));

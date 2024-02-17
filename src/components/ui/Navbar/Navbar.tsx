@@ -44,7 +44,7 @@ const Navbar = () => {
       <li>
         <Link
           to={`${route}`}
-          className={`px-4 py-2 rounded-fullx rounded-md border-[3px] cursor-pointer shadow-xl transition-color duration-200 ease-in ${className}`}
+          className={`px-4 py-2 rounded-md border-[3px] cursor-pointer shadow-xl transition-color duration-200 ease-in ${className}`}
           onClick={closeMenu}
         >
           {text}
