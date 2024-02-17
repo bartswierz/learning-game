@@ -12,9 +12,8 @@ import {
 // import { Link } from "react-router-dom";
 import React from "react";
 import { Link } from "react-router-dom";
-import useSettingsStore from "@/store/store";
 import RestartModal from "../RestartModal";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const pageLinks: { title: string; route: string; description: string; className?: string }[] = [
   {
@@ -45,19 +44,17 @@ const pageLinks: { title: string; route: string; description: string; className?
 
 const NavigationMenu__ = () => {
   const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const restartGame = useSettingsStore((state) => state.restartGame);
   const [newRoute, setNewRoute] = useState("");
-  // TODO - reset question to 1, reset score to 0, reset attempts to settings.numOfAttempts
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModal = () => {
     console.log("inside handleModal - newRoute: ", newRoute);
-    setIsModalOpen(false);
+    // setIsModalOpen(false);
 
-    // redirect("/addition");
-    // TODO - redirect to the new route
-    // navigate("/addition");
+    // Redirect user to new route
     navigate(newRoute);
+
+    // Reset route to empty string to close modal
     setNewRoute("");
   };
 
@@ -79,7 +76,7 @@ const NavigationMenu__ = () => {
                     title={title}
                     route={route}
                     className={className}
-                    setIsModalOpen={setIsModalOpen}
+                    // setIsModalOpen={setIsModalOpen}
                     setNewRoute={setNewRoute}
                     // restartGame={restartGame}
                   >
@@ -99,7 +96,7 @@ const NavigationMenu__ = () => {
                   route="/pdf"
                   title="Take Home Worksheets"
                   className="bg-teal-500 hover:bg-teal-600 hover:text-white"
-                  setIsModalOpen={setIsModalOpen}
+                  // setIsModalOpen={setIsModalOpen}
                   setNewRoute={setNewRoute}
                 >
                   Generate PDF worksheets for practice (45 Problems)

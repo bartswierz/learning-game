@@ -33,10 +33,10 @@ const RestartModal = ({ handleModalCallback }: { handleModalCallback: () => void
   return (
     <>
       {/* BACKGROUND - FULL SCREEN */}
-      <div className="bb absolute z-[20] inset-0 bg-black/80 w-screen h-screen">
+      <div className="absolute z-[20] inset-0 bg-black/80 w-screen h-screen">
         {/* MODAL CONTENT */}
-        <div className="bb flex items-center justify-center h-full">
-          <div className="bb w-[300px] p-4 text-center bg-gray-200 rounded-md">
+        <div className="flex items-center justify-center h-full">
+          <div className="w-[300px] p-4 text-center bg-gray-200 rounded-md">
             <div className="mb-4 mt-2 text-gray-800 ">
               <p>This will reset progress</p>
               <p>Are you sure?</p>
