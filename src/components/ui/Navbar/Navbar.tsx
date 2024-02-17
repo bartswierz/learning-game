@@ -21,10 +21,10 @@ const Navbar = () => {
   };
 
   // INDIVIDUAL LINK
-  const ListItemLink = ({ route, text, className }: { route: string; text: string; className: string }) => {
+  const ListItemNavLink = ({ route, text, className }: { route: string; text: string; className: string }) => {
     return (
       <li>
-        <Link to={`/${route}`} className={`px-4 py-2 rounded-full cursor-pointer ${className}`}>
+        <Link to={`${route}`} className={`px-4 py-2 rounded-fullx rounded-md border-[3px] cursor-pointer shadow-xl ${className}`}>
           {text}
         </Link>
       </li>
@@ -32,14 +32,15 @@ const Navbar = () => {
   };
 
   // Navbar links component
-  const NavbarLinks = () => {
+  const MobileNavLinks = () => {
     return (
       <ul className="flex items-center flex-col gap-12 mt-4 mb-6 text-base">
-        <ListItemLink route="addition" text="Addition Problems" className="bg-green-500" />
-        <ListItemLink route="subtraction" text="Subtraction Problems" className="bg-red-500" />
-        <ListItemLink route="multiplication" text="Multiplication Problems" className="bg-blue-500" />
-        <ListItemLink route="division" text="Division Problems" className="bg-yellow-500" />
-        <ListItemLink route="pdf" text="Take Home Worksheets" className="bg-teal-500" />
+        <ListItemNavLink route="/" text="Home" className="bg-white text-black" />
+        <ListItemNavLink route="/addition" text="Addition Problems" className="bg-green-500" />
+        <ListItemNavLink route="/subtraction" text="Subtraction Problems" className="bg-red-500" />
+        <ListItemNavLink route="/multiplication" text="Multiplication Problems" className="bg-blue-500" />
+        <ListItemNavLink route="/division" text="Division Problems" className="bg-yellow-500" />
+        <ListItemNavLink route="/pdf" text="Take Home Worksheets" className="bg-teal-500" />
       </ul>
     );
   };
@@ -63,7 +64,7 @@ const Navbar = () => {
               <IoMdClose size={36} />
             </button>
             <div className="pt-[3vh]">
-              <NavbarLinks />
+              <MobileNavLinks />
             </div>
           </div>
         </div>

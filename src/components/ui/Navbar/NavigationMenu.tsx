@@ -12,7 +12,7 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 
-const components: { title: string; route: string; description: string; className?: string }[] = [
+const pageLinks: { title: string; route: string; description: string; className?: string }[] = [
   {
     title: "Addition",
     route: "/addition",
@@ -48,7 +48,7 @@ const NavigationMenu__ = () => {
           <NavigationMenuTrigger className="bg-blue-500">New Problems</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="flex flex-col p-4 gap-3 w-[280px]">
-              {components.map(({ title, route, className, description }) => (
+              {pageLinks.map(({ title, route, className, description }) => (
                 <ListItem key={title} title={title} route={route} className={className}>
                   {description}
                 </ListItem>
@@ -84,51 +84,25 @@ interface ListItemProps {
 const ListItem = ({ className, route, title, children, ...props }: ListItemProps) => {
   return (
     <li>
-      {/* <NavigationMenuLink asChild> */}
-      <Link
-        to={`${route}`}
-        className={cn(
-          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground group",
-          className
-        )}
-        {...props}
-      >
-        <div className="text-sm font-medium leading-none">{title}</div>
-        <p className="line-clamp-2 text-sm leading-snug text-muted-foregroundx text-whitex text-gray-800 group-hover:text-white transition-color duration-300">
-          {children}
-        </p>
-      </Link>
-      {/* </NavigationMenuLink> */}
+      <NavigationMenuLink asChild>
+        <Link
+          to={`${route}`}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground group",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foregroundx text-whitex text-gray-800 group-hover:text-white transition-color duration-300">
+            {children}
+          </p>
+        </Link>
+      </NavigationMenuLink>
     </li>
   );
 };
 
 ListItem.displayName = "ListItem";
-
-// PREVIOUS VERSION FROM SHADCN DOCS
-// const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRef<"a">>(
-//   ({ className, title, children, ...props }, ref) => {
-//     return (
-//       <li>
-//         <NavigationMenuLink asChild>
-//           <a
-//             ref={ref}
-//             className={cn(
-//               "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground group",
-//               className
-//             )}
-//             {...props}
-//           >
-//             <div className="text-sm font-medium leading-none">{title}</div>
-//             <p className="line-clamp-2 text-sm leading-snug text-muted-foregroundx text-whitex text-gray-800 group-hover:text-white transition-color duration-300">
-//               {children}
-//             </p>
-//           </a>
-//         </NavigationMenuLink>
-//       </li>
-//     );
-//   }
-// );
-// ListItem.displayName = "ListItem";
 
 export default NavigationMenu__;
