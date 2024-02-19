@@ -19,7 +19,7 @@ interface DisabledLinkButtonProps {
 const ListItemLink = ({ className, route, title, children, setRedirectRoute }: ListItemProps) => {
   // GET THE CURRENT ROUTE USER IS ON, TO DISABLE THE LINK - (i.e '/addition')
   const location = useLocation();
-  const isUserAlreadyOnRoute = location.pathname === route;
+  const isCurrentRoute = location.pathname === route;
 
   // USER CLICK OPENS THE RESTART MODAL - USING A CALLBACK
   const handleClick = () => {
@@ -27,12 +27,13 @@ const ListItemLink = ({ className, route, title, children, setRedirectRoute }: L
     setRedirectRoute(route);
   };
 
+  // DISABLED BUTTON FOR THE CURRENT ROUTE => (i.e 'locahost:3000/addition -> disabled button for /addition')
   const DisabledLinkButton = ({ title, children }: DisabledLinkButtonProps) => {
     return (
       <li>
-        <button className="rounded-md bg-gray-400 h-[80px] w-full cursor-not-allowed ">
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-gray-800 group-hover:text-white transition-color duration-300">
+        <button className={`rounded-md  h-[80px] w-full cursor-not-allowed p-3  bg-gray-400/30 hover:bg-gray-400/30`}>
+          <div className="text-sm font-medium leading-none text-gray-300">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-gray-300 group-hover:text-white transition-color duration-300">
             {children}
           </p>
         </button>
@@ -40,7 +41,7 @@ const ListItemLink = ({ className, route, title, children, setRedirectRoute }: L
     );
   };
 
-  if (isUserAlreadyOnRoute) return <DisabledLinkButton title={title} children={children} />;
+  if (isCurrentRoute) return <DisabledLinkButton title={title} children={children} />;
 
   return (
     <li>
@@ -62,6 +63,6 @@ const ListItemLink = ({ className, route, title, children, setRedirectRoute }: L
   );
 };
 
-ListItemLink.displayName = "ListItem";
+// ListItemLink.displayName = "ListItem";
 
 export default ListItemLink;
