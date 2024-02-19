@@ -5,10 +5,8 @@ import Header from "./Header";
 import Question from "./Question";
 import InputDisplay from "./InputDisplay";
 import DisplayResults from "./DisplayResults";
-// import DebugHelper from "../DebugHelper";
 
 interface OperationProps {
-  // settings: Settings;
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
 }
 
@@ -21,12 +19,9 @@ const Problems = ({ operationType }: OperationProps) => {
   const numberTwo = useSettingsStore((state) => state.numberTwo);
   const disabled: boolean = userInput === "" ? true : false;
 
-  // TESTING PURPOSES, SET TO TRUE AFTER WE RESOLVE REFACTORING
   if (isGameOver) {
-    // if (!isGameOver) {
     return (
       <>
-        {/* <DebugHelper /> */}
         <DisplayResults score={score} numOfQuestions={numOfQuestions} operationType={operationType} />
       </>
     );

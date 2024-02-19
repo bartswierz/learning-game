@@ -1,35 +1,30 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useSettingsStore from "@/store/store";
-// import { randomTwoNumbers, randomTwoNumbersForDivision } from "@/utils";
+import { Route } from "@/types/types";
 
-const RestartModal = ({ handleModalCallback }: { handleModalCallback: () => void }) => {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
+interface RedirectUserModalProps {
+  redirectRoute: Route;
+  closeModalCallback: () => void;
+}
+
+const RedirectUserModal = ({ redirectRoute, closeModalCallback }: RedirectUserModalProps) => {
+  const navigate = useNavigate();
   const resetProgress = useSettingsStore((state) => state.resetProgress);
   console.log("INSIDE RESTART MODAL");
-  // const restartGame = useSettingsStore((state) => state.restartGame);
-  // NEED FUNCTIONS FOR NEW NUMBERS
-  // const updateNewNumbers = useSettingsStore((state) => state.updateNewNumbers);
 
-  // TODO - first just wire it up to the random number, then update to checking whether it is division type or not
-  // const newNumbers = randomTwoNumbers({ min: 1, max: 10 }, { min: 1, max: 10 });
-  // console.log("RestartModal: newNumbers: ", newNumbers);
+  // Close the modal
+  const handleCancel = () => closeModalCallback();
 
-  const handleCancel = () => {
-    // setIsModalOpen(false);
-    handleModalCallback();
-  };
-
+  // Reset user progress, closes modal, & redirects user to new route
   const handleReset = () => {
     console.log("INSIDE MODAL - HANDLE RESET");
     resetProgress();
-    // setIsModalOpen(false);
-    handleModalCallback();
+    closeModalCallback();
+
+    // Redirect user to new route i.e. '/addition'
+    navigate(redirectRoute);
   };
 
-  // MODAL IS CLOSED
-  // if (!isModalOpen) return <div className="bg-blue-500">MODAL IS CLOSED</div>;
-
-  // MODAL IS OPEN
   return (
     <>
       {/* BACKGROUND - FULL SCREEN */}
@@ -64,4 +59,4 @@ const RestartModal = ({ handleModalCallback }: { handleModalCallback: () => void
   );
 };
 
-export default RestartModal;
+export default RedirectUserModal;
