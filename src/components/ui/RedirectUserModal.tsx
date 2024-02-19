@@ -10,7 +10,7 @@ interface RedirectUserModalProps {
 const RedirectUserModal = ({ redirectRoute, closeModalCallback }: RedirectUserModalProps) => {
   const navigate = useNavigate();
   const resetProgress = useSettingsStore((state) => state.resetProgress);
-  console.log("INSIDE RESTART MODAL");
+  console.log("INSIDE REDIRECT MODAL");
 
   // Close the modal
   const handleCancel = () => closeModalCallback();
