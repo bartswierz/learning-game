@@ -10,6 +10,8 @@ const Header = ({ operationType, numOfQuestions, score }: HeaderProps) => {
   const questionNumber = useSettingsStore((state) => state.questionNumber);
   const attemptsLeft = useSettingsStore((state) => state.attemptsLeft);
 
+  const oneAttemptLeft = attemptsLeft === 1 ? "text-red-500" : "";
+
   return (
     <div className="flex flex-col gap-2 text-center mb-4">
       <h2 className="text-2xl">{operationType}</h2>
@@ -17,7 +19,7 @@ const Header = ({ operationType, numOfQuestions, score }: HeaderProps) => {
         Question: {questionNumber} / {numOfQuestions}
       </span>
       <span className="text-xl">Score: {score}</span>
-      <p className="text-xl">Attempts Left: {attemptsLeft}</p>
+      <p className={`text-xl ${oneAttemptLeft}`}>Attempts Left: {attemptsLeft}</p>
     </div>
   );
 };

@@ -19,8 +19,8 @@ const Problems = ({ operationType }: OperationProps) => {
   const numberTwo = useSettingsStore((state) => state.numberTwo);
   const disabled: boolean = userInput === "" ? true : false;
 
-  if (isGameOver) {
-    // if (!isGameOver) {
+  // if (isGameOver) {
+  if (!isGameOver) {
     return (
       // <div className="flex justify-center items-center">
       <>
@@ -30,7 +30,6 @@ const Problems = ({ operationType }: OperationProps) => {
   }
 
   return (
-    // <div className="bb">
     <div className="">
       <Header operationType={operationType} numOfQuestions={numOfQuestions} score={score} />
       <div className="flex justify-centerx items-centerx flex-col gap-4 text-center">
@@ -39,9 +38,7 @@ const Problems = ({ operationType }: OperationProps) => {
         <CheckAnswerBtn disabled={disabled} operationType={operationType} text="Check Answer" userInput={userInput} />
         <NumberPad operationType={operationType} />
       </div>
-      {/* </div> */}
     </div>
-    // </div>
   );
 };
 

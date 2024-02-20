@@ -24,16 +24,16 @@ const DisplayResults = ({ score, numOfQuestions, operationType }: DisplayResults
 
     return (
       <button
-        className="bg-gray-400 hover:bg-gray-500 transition-color duration-200 ease-in px-4 py-2 rounded-full"
+        className="bg-gray-400 hover:bg-gray-500 transition-color duration-200 ease-in px-4 py-2 rounded-full w-[140px] w-fullx"
         onClick={redirectBackToHome}
       >
-        Back to Home
+        No
       </button>
     );
   };
 
   return (
-    <div className="flex justify-center gap-2 items-center flex-col bg-red-500x bb h-full py-[25vh]x">
+    <div className="flex justify-center gap-2 items-center flex-col h-[50vh]">
       <p className="text-xl">Game Over</p>
       <p className="text-lg">
         Questions: {score} / {numOfQuestions}
@@ -42,7 +42,7 @@ const DisplayResults = ({ score, numOfQuestions, operationType }: DisplayResults
         Score: <span className="text-blue-500 font-bold">{percentage}%</span>
       </p>
       <p>Do you want to try again?</p>
-      <div className="flex flex-wrap justify-center px-2 gap-2">
+      <div className="flex flex-wrap justify-center px-2 gap-2 mt-3">
         <HomeButton />
         <RestartBtn operationType={operationType} />
       </div>
