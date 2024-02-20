@@ -5,7 +5,7 @@ import { PDFViewer } from "@react-pdf/renderer";
 import { generateAdditionProblemsForPDF } from "../../utils/index";
 
 //TODO - add a button to generate a pdf of the take home problems, currently there is an issue with the View PDF and exiting the pdf causing a new pdf to be generated. Set it to a generate button, and keep the view pdf button separate
-const TakeHomeProblems = () => {
+const PDFWorksheetGenerator = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [problemsArray, setProblemsArray] = useState<string[]>([]);
   const [isPdfCreated, setIsPdfCreated] = useState(false);
@@ -13,20 +13,12 @@ const TakeHomeProblems = () => {
   // Create styles
   const styles = StyleSheet.create({
     document: {
-      // width: "100vw",
-      // height: "100%",
-      width: "2500px",
+      width: "100vw",
       height: "100%",
     },
     body: {
-      // width: "800px",
-      // height: "800px",
-      // display: "flex",
-      // flexDirection: "column",
-      // backgroundColor: "#ffffff",
-      // color: "#333333",
-      width: "2000px",
-      height: "100vh",
+      width: "800px",
+      height: "800px",
       display: "flex",
       flexDirection: "column",
       backgroundColor: "#ffffff",
@@ -102,7 +94,7 @@ const TakeHomeProblems = () => {
     if (!isOpen || !problemsArray || !isPdfCreated) return null;
 
     return (
-      <div className="flex justify-center pt-2 bb">
+      <div className="flex justify-center pt-2">
         <PDFViewer style={{ width: "70%", maxHeight: "100vh", height: "100%", zIndex: 900, top: 0, position: "absolute" }}>
           <GeneratePdf />
         </PDFViewer>
@@ -112,12 +104,14 @@ const TakeHomeProblems = () => {
 
   // CREATES A PDF ON CLICK
   const CreatePdfButton = () => {
+    const buttonText = isPdfCreated ? "Create New PDF" : "Create PDF";
+
     return (
       <button
         className="bg-blue-500 hover:bg-blue-600 transition-all duration-300 text-xl px-4 py-2 h-max m-2"
         onClick={handleCreatePdf}
       >
-        {isPdfCreated ? "Create New PDF" : "Create PDF"}
+        {buttonText}
       </button>
     );
   };
@@ -136,23 +130,31 @@ const TakeHomeProblems = () => {
     );
   };
 
+  // BLACK BACKGROUND DISPLAY WHEN MODAL IS OPEN
+  const ModalBackground = () => {
+    if (!isOpen) return null;
+
+    return <div onClick={handleClose} className="absolute top-0 left-0 right-0 bottom-0 bg-black/70 z-[1]"></div>;
+  };
+
   return (
     <div className="h-[90vh] relative">
       {/* BACKGROUND - USER CLICK WILL CLOSE THE MODAL */}
-      {isOpen && <div onClick={handleClose} className="absolute top-0 left-0 right-0 bottom-0 bg-black/70 z-[1]"></div>}
-
+      <ModalBackground />
       <PDFView />
 
-      <div>
+      <div className="flex flex-col items-center justify-start mt-4 h-full">
         <h1 className="text-2xl underline underline-offset-[5px] text-center">Generate Take Home Problems</h1>
-        <CreatePdfButton />
-        <ViewPdfButton />
+        <div>
+          <CreatePdfButton />
+          <ViewPdfButton />
+        </div>
       </div>
     </div>
   );
 };
 
-export default TakeHomeProblems;
+export default PDFWorksheetGenerator;
 
 {
   /* <div>

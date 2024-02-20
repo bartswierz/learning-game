@@ -9,7 +9,7 @@ const Addition = lazy(() => import("./pages/Addition.js"));
 const Subtraction = lazy(() => import("./pages/Subtraction.jsx"));
 const Multiplication = lazy(() => import("./pages/Multiplication.jsx"));
 const Division = lazy(() => import("./pages/Division.jsx"));
-const TakeHomeProblems = lazy(() => import("./components/ui/TakeHomeProblems.jsx"));
+const TakeHomeProblems = lazy(() => import("./pages/TakeHomeProblems.tsx"));
 
 function App() {
   return (
@@ -25,7 +25,8 @@ function App() {
           <Route path="/subtraction" element={<Subtraction />} />
           <Route path="/multiplication" element={<Multiplication />} />
           <Route path="/division" element={<Division />} />
-          <Route path="/pdf" element={<TakeHomeProblems />} />
+          {/* <Route path="/pdf" element={<TakeHomeProblems />} /> */}
+          <Route path="/take-home-worksheets" element={<TakeHomeProblems />} />
         </Routes>
       </Suspense>
     </div>

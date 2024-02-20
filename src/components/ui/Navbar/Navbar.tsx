@@ -82,7 +82,12 @@ const Navbar = () => {
           className="bg-yellow-500 hover:bg-yellow-600"
           closeMenu={closeMenu}
         />
-        <ListItemNavLink route="/pdf" text="Take Home Worksheets" className="bg-teal-500 hover:bg-teal-600" closeMenu={closeMenu} />
+        <ListItemNavLink
+          route="/take-home-worksheets"
+          text="Take Home Worksheets"
+          className="bg-teal-500 hover:bg-teal-600"
+          closeMenu={closeMenu}
+        />
       </ul>
     );
   };

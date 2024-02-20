@@ -79,7 +79,7 @@ const NavigationMenu__ = () => {
             <NavigationMenuContent>
               <ul className="flex flex-col p-4 gap-3 w-[280px]">
                 <ListItemLink
-                  route="/pdf"
+                  route="/take-home-worksheets"
                   title="Take Home Worksheets"
                   className="bg-teal-500 hover:bg-teal-600 hover:text-white"
                   setRedirectRoute={setRedirectRoute}

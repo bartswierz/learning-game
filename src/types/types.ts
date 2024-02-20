@@ -37,4 +37,4 @@ export interface CheckAnswer {
   operationType: string;
 }
 
-export type Route = "/addition" | "/subtraction" | "/multiplication" | "/division" | "/pdf" | "";
+export type Route = "/addition" | "/subtraction" | "/multiplication" | "/division" | "/take-home-worksheets" | "";
