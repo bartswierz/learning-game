@@ -14,7 +14,7 @@ const equations = [];
 for (let i = 0; i < 30; i++) {
   const num1 = random.int(1, 20);
   const num2 = random.int(1, 20);
-  const sum = num1 + num2;
+  // const sum = num1 + num2;
   equations.push(`${num1} + ${num2} = ________`);
 }
 

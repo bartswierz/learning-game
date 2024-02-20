@@ -13,22 +13,20 @@ const TakeHomeProblems = lazy(() => import("./components/ui/TakeHomeProblems.jsx
 
 function App() {
   return (
-    <div className="h-full pb-[200px]">
+    <div className="h-full pb-[5vh]">
       {/* NAVBAR does not rerender, we only rerender wthin the Routes component */}
       <Navbar />
 
       {/* TODO - add Skeleton Component for fallback */}
       <Suspense fallback={<div>Loading...</div>}>
-        <div className="flex justify-center h-full mt-[56px] container">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/addition" element={<Addition />} />
-            <Route path="/subtraction" element={<Subtraction />} />
-            <Route path="/multiplication" element={<Multiplication />} />
-            <Route path="/division" element={<Division />} />
-            <Route path="/pdf" element={<TakeHomeProblems />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/addition" element={<Addition />} />
+          <Route path="/subtraction" element={<Subtraction />} />
+          <Route path="/multiplication" element={<Multiplication />} />
+          <Route path="/division" element={<Division />} />
+          <Route path="/pdf" element={<TakeHomeProblems />} />
+        </Routes>
       </Suspense>
     </div>
   );

@@ -13,12 +13,20 @@ const TakeHomeProblems = () => {
   // Create styles
   const styles = StyleSheet.create({
     document: {
-      width: "100vw",
+      // width: "100vw",
+      // height: "100%",
+      width: "2500px",
       height: "100%",
     },
     body: {
-      width: "800px",
-      height: "800px",
+      // width: "800px",
+      // height: "800px",
+      // display: "flex",
+      // flexDirection: "column",
+      // backgroundColor: "#ffffff",
+      // color: "#333333",
+      width: "2000px",
+      height: "100vh",
       display: "flex",
       flexDirection: "column",
       backgroundColor: "#ffffff",
@@ -89,44 +97,67 @@ const TakeHomeProblems = () => {
     );
   };
 
+  // DISPLAYS OUR PDF IF IT HAS BEEN CREATED
+  const PDFView = () => {
+    if (!isOpen || !problemsArray || !isPdfCreated) return null;
+
+    return (
+      <div className="flex justify-center pt-2 bb">
+        <PDFViewer style={{ width: "70%", maxHeight: "100vh", height: "100%", zIndex: 900, top: 0, position: "absolute" }}>
+          <GeneratePdf />
+        </PDFViewer>
+      </div>
+    );
+  };
+
+  // CREATES A PDF ON CLICK
+  const CreatePdfButton = () => {
+    return (
+      <button
+        className="bg-blue-500 hover:bg-blue-600 transition-all duration-300 text-xl px-4 py-2 h-max m-2"
+        onClick={handleCreatePdf}
+      >
+        {isPdfCreated ? "Create New PDF" : "Create PDF"}
+      </button>
+    );
+  };
+
+  const ViewPdfButton = () => {
+    return (
+      <button
+        onClick={handleOpen}
+        className={`${
+          isPdfCreated ? "bg-blue-500 hover:bg-blue-600" : "disabled:cursor-not-allowed disabled:bg-gray-500"
+        } h-max px-4 py-2 m-2 transition-all duration-300 text-xl`}
+        disabled={!isPdfCreated}
+      >
+        View Pdf
+      </button>
+    );
+  };
+
   return (
-    // <div className=" h-full w-full relative">
-    <div className="h-[90vh] w-full relative">
-      <div className="text-center">
-        <h1 className="text-2xl underline underline-offset-[5px]">Generate Take Home Problems</h1>
-      </div>
-      {/* Outside Modal */}
+    <div className="h-[90vh] relative">
+      {/* BACKGROUND - USER CLICK WILL CLOSE THE MODAL */}
       {isOpen && <div onClick={handleClose} className="absolute top-0 left-0 right-0 bottom-0 bg-black/70 z-[1]"></div>}
-      {/* Inside Modal */}
-      <div className="h-full w-[100%] flex justify-center pt-2">
-        {isOpen && problemsArray && isPdfCreated && (
-          <PDFViewer style={{ width: "70%", maxHeight: "100vh", height: "100%", zIndex: 900, top: 0, position: "absolute" }}>
-            <GeneratePdf />
-          </PDFViewer>
-        )}
-        <button
-          className="bg-blue-500 hover:bg-blue-600 transition-all duration-300 text-xl px-4 py-2 h-max m-2"
-          onClick={handleCreatePdf}
-        >
-          {isPdfCreated ? "Create New PDF" : "Create PDF"}
-        </button>
-        <button
-          onClick={handleOpen}
-          className={`${
-            isPdfCreated ? "bg-blue-500 hover:bg-blue-600" : "disabled:cursor-not-allowed disabled:bg-gray-500"
-          } h-max px-4 py-2 m-2 transition-all duration-300 text-xl`}
-          disabled={!isPdfCreated}
-        >
-          View Pdf
-        </button>
+
+      <PDFView />
+
+      <div>
+        <h1 className="text-2xl underline underline-offset-[5px] text-center">Generate Take Home Problems</h1>
+        <CreatePdfButton />
+        <ViewPdfButton />
       </div>
-      {/* <div>
-        <PDFDownloadLink document={<TakeHomeProblems />} fileName="PracticeProblems.pdf">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600">Download</button>
-        </PDFDownloadLink>
-      </div> */}
     </div>
   );
 };
 
 export default TakeHomeProblems;
+
+{
+  /* <div>
+  <PDFDownloadLink document={<TakeHomeProblems />} fileName="PracticeProblems.pdf">
+    <button className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600">Download</button>
+  </PDFDownloadLink>
+</div> */
+}

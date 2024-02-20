@@ -33,7 +33,7 @@ const DisplayResults = ({ score, numOfQuestions, operationType }: DisplayResults
   };
 
   return (
-    <div className="flex justify-center gap-2 items-center flex-col h-[50vh]">
+    <div className="flex justify-center gap-2 items-center flex-col h-[50vh] mt-[56px]">
       <p className="text-xl">Game Over</p>
       <p className="text-lg">
         Questions: {score} / {numOfQuestions}

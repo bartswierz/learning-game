@@ -28,7 +28,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="container mt-8 pb-12">
+    <div className="container mt-8x pb-12 mt-[56px]">
       <h1 className="text-3xl font-bold text-center mb-6">Choose a practice problem</h1>
       <ul className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {homepageLinks.map(({ link, listItemStyle, linkStyle }) => {

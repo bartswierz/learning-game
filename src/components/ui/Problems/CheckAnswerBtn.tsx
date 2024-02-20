@@ -91,7 +91,7 @@ const CheckAnswerBtn = ({ disabled, operationType, text, userInput }: CheckAnswe
 
   return (
     <button
-      className={`relative flex items-center justify-center w-full h-full transition-all duration-700 ease-in-out`}
+      className={`relative flex items-center justify-center max-w-[300px] w-full h-full transition-all duration-700 ease-in-out`}
       onClick={handleClick}
       disabled={disabled}
       aria-label="button-equal"
