@@ -56,7 +56,6 @@ const NavigationMenu__ = () => {
     <>
       {/* RESTART MODAL POPUP WHEN USER CLICKS ON A LINK */}
       {redirectRoute && <RedirectUserModal redirectRoute={redirectRoute} closeModalCallback={closeModal} />}
-      {/* {newRoute && <RedirectModal handleModalCallback={handleModal} />} */}
       <NavigationMenu>
         <NavigationMenuList className="flex gap-2">
           {/* NEW PROBLEMS MENU ITEM */}

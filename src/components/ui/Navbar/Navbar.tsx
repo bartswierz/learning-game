@@ -113,7 +113,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex justify-between p-2 relative">
+    <nav className="fixed top-0 inset-x-0 z-[100] flex justify-between p-2 bg-gradient-to-r from-blue-600/80 to-black/40 shadow-2xl">
       <div className="self-center">
         <Link to="/">Problem Solvers</Link>
       </div>
