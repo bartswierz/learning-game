@@ -22,7 +22,7 @@ function App() {
 
       {/* TODO - add Skeleton Component for fallback */}
       <Suspense fallback={<div>Loading...</div>}>
-        <div className="flex items-center justify-center border-4x h-full ">
+        <div className="flex justify-center border-4x h-full pt-[56px] container">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/addition" element={<Addition />} />
