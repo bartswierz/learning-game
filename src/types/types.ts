@@ -40,3 +40,11 @@ export interface CheckAnswer {
 }
 
 export type Route = "/addition" | "/subtraction" | "/multiplication" | "/division" | "/take-home-worksheets" | "";
+
+export interface ProblemDetails {
+  numberOneMinimum: string;
+  numberOneMaximum: string;
+  numberTwoMinimum: string;
+  numberTwoMaximum: string;
+  problemType: OperationType;
+}

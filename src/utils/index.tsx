@@ -3,14 +3,12 @@ import { FaTimes } from "react-icons/fa";
 import { FaDivide } from "react-icons/fa6";
 import { RiSubtractFill } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
-import { renderToString } from "react-dom/server";
-import { Text, View, Svg, Path } from "@react-pdf/renderer";
+import { Svg, Path } from "@react-pdf/renderer";
 
 // Random number generator function using passed minimum and maximum values
 export const randomNumber = (min: number, max: number): number => {
   const number = Math.floor(Math.random() * (max - min + 1) + min);
 
-  // return Math.floor(Math.random() * (max - min + 1) + min);
   return number;
 };
 
@@ -38,9 +36,6 @@ export const randomTwoNumbersForDivision = (numberOne: NumberMinMax, numberTwo: 
   }
 };
 
-// Usage example:
-
-// TODO - pass in the operationType to generate the correct problems
 // Generates random problems to be displayed in a pdf file for download and printing
 export const generateProblemsForPDF = (numProblems: number, numberOneRange: NumberMinMax, numberTwoRange: NumberMinMax) => {
   const problems = [];
@@ -54,6 +49,7 @@ export const generateProblemsForPDF = (numProblems: number, numberOneRange: Numb
   return problems;
 };
 
+// TODO - Create a seperate function OR conditional for division to use randomTwoNumbersForDivision
 export const generateProblems = (
   numProblems: number,
   numberOneRange: NumberMinMax,
@@ -61,40 +57,13 @@ export const generateProblems = (
   problemType: OperationType
 ) => {
   const problems = [];
-  // const operationIcon = getOperationIconForPDF(problemType);
   const operationIcon = getOperationIconForPDF(problemType);
-  // const operationIcon = renderToString(getOperationIcon(problemType));
-  console.log("ADDITION: ", renderToString(<IoMdAdd />));
-  console.log("MULTIPLICATION: ", renderToString(<FaTimes />));
-  console.log("SUBTRACTION: ", renderToString(<RiSubtractFill />));
-  // return <RiSubtractFill data-testid="subtract-icon" />;
-  //   case "MULTIPLICATION":
-  //     return <FaTimes data-testid="multiply-icon" />;
-  // console.log("operationIcon: ", operationIcon);
+
   for (let i = 0; i < numProblems; i++) {
     const { num1, num2 } = randomTwoNumbers(numberOneRange, numberTwoRange);
 
-    // problems.push(`${num1} + ${num2} = ________`);
-    // const operationIconHtml = renderToString(operationIcon);
-    // problems.push(`${num1} ${operationIconHtml} ${num2} = ________`);
-    // problems.push(`${num1} ${operationIcon} ${num2} = ________`);
-    // problems.push(`${num1} _ ${num2} = ________`);
+    // Will pass an object with three properties which will be rearranged in our PDFWorksheetGenerator file
     problems.push({ num1: num1, num2: num2, operationIcon: operationIcon });
-    // problems.push(`${num1} ${(<FaDivide />)} ${num2} = ________`);
-  }
-
-  console.log("problems generated: ", problems);
-
-  return problems;
-};
-
-export const generateDivisionProblemsForPDF = (numProblems: number, numberOneRange: NumberMinMax, numberTwoRange: NumberMinMax) => {
-  const problems = [];
-
-  for (let i = 0; i < numProblems; i++) {
-    const { num1, num2 } = randomTwoNumbersForDivision(numberOneRange, numberTwoRange);
-
-    problems.push(`${num1} /+ ${num2} = ________`);
   }
 
   return problems;
@@ -146,7 +115,7 @@ export const getOperationIcon = (operationType: OperationType): JSX.Element => {
   }
 };
 
-// TODO - once divide icon is implemented, add the path for the remaining icons
+// Returns an icon for the PDF file - Needs to be created in this manner to be compatible with react-pdf
 export const getOperationIconForPDF = (operationType: OperationType): JSX.Element => {
   switch (operationType) {
     case "ADDITION":
@@ -157,7 +126,6 @@ export const getOperationIconForPDF = (operationType: OperationType): JSX.Elemen
       );
     case "SUBTRACTION":
       return (
-        // <Svg viewBox="0 0 24 24" stroke="black" fill="black" width={16} height={16}>
         <Svg viewBox="0 0 24 24" stroke="black" fill="black" width={16} height={16}>
           <Path d={"M19 11H5V13H19V11Z"} />
         </Svg>
@@ -186,34 +154,3 @@ export const getOperationIconForPDF = (operationType: OperationType): JSX.Elemen
       throw new Error(`Unsupported operation: ${operationType}`);
   }
 };
-// export const getOperationIconForPDF = (operationType: OperationType): JSX.Element => {
-//   switch (operationType) {
-//     case "ADDITION":
-//       return (
-//         <Svg viewBox="0 0 24 24" width={24} height={24} style={{ fill: "currentColor" }}>
-//           {/* <Path d={IoMdAdd.toString()} /> */}
-//           <Path d={IoMdAdd} />
-//         </Svg>
-//       );
-//     case "SUBTRACTION":
-//       return (
-//         <Svg viewBox="0 0 24 24" width={24} height={24} style={{ fill: "currentColor" }}>
-//           <Path d={RiSubtractFill.toString()} />
-//         </Svg>
-//       );
-//     case "MULTIPLICATION":
-//       return (
-//         <Svg viewBox="0 0 24 24" width={24} height={24} style={{ fill: "currentColor" }}>
-//           <Path d={FaTimes.toString()} />
-//         </Svg>
-//       );
-//     case "DIVISION":
-//       return (
-//         <Svg viewBox="0 0 24 24" width={24} height={24} style={{ fill: "currentColor" }}>
-//           <Path d={FaDivide.toString()} />
-//         </Svg>
-//       );
-//     default:
-//       throw new Error(`Unsupported operation: ${operationType}`);
-//   }
-// };
