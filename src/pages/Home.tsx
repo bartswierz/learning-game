@@ -1,8 +1,5 @@
 import { Link } from "react-router-dom";
-import "../globals.css";
-// import ZustandCounter from "@/components/ui/sampleTests/ZustandCounter";
 
-// TODO
 export default function Home() {
   const homepageLinks = [
     {
@@ -48,7 +45,6 @@ export default function Home() {
           );
         })}
       </ul>
-      {/* <ZustandCounter /> */}
     </div>
   );
 }

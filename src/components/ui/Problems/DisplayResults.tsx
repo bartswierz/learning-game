@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-
+import useSettingsStore from "@/store/store";
 import RestartBtn from "../RestartBtn";
 
 interface DisplayResultsProps {
@@ -11,6 +11,7 @@ interface DisplayResultsProps {
 // Display the game over message and restart button with user results
 const DisplayResults = ({ score, numOfQuestions, operationType }: DisplayResultsProps) => {
   const navigate = useNavigate();
+  const resetProgress = useSettingsStore((state) => state.resetProgress);
 
   const calculatePercentage = (score: number, numOfQuestions: number) => {
     return (score / numOfQuestions) * 100;
@@ -20,7 +21,11 @@ const DisplayResults = ({ score, numOfQuestions, operationType }: DisplayResults
 
   // Redirect user back to home page
   const HomeButton = () => {
-    const redirectBackToHome = () => navigate("/");
+    const redirectBackToHome = () => {
+      resetProgress();
+      navigate("/");
+      // redirect("/");
+    };
 
     return (
       <button
@@ -44,7 +49,7 @@ const DisplayResults = ({ score, numOfQuestions, operationType }: DisplayResults
       <p>Do you want to try again?</p>
       <div className="flex flex-wrap justify-center px-2 gap-2 mt-3">
         <HomeButton />
-        <RestartBtn operationType={operationType} />
+        <RestartBtn operationType={operationType} text="Restart Game" />
       </div>
     </div>
   );

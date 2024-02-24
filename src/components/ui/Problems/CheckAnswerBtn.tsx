@@ -18,6 +18,7 @@ const CheckAnswerBtn = ({ disabled, operationType, text, userInput }: CheckAnswe
   const updateForMoreAttempts = useSettingsStore((state) => state.updateForMoreAttempts);
   const updateIsGameOver = useSettingsStore((state) => state.updateIsGameOver);
   const attemptsLeft = useSettingsStore((state) => state.attemptsLeft);
+  const incrementScore = useSettingsStore((state) => state.incrementScore);
   const numberOne = useSettingsStore((state) => state.numberOne);
   const numberTwo = useSettingsStore((state) => state.numberTwo);
   const numOfQuestions = useSettingsStore((state) => state.settings.numOfQuestions);
@@ -46,14 +47,18 @@ const CheckAnswerBtn = ({ disabled, operationType, text, userInput }: CheckAnswe
     console.log("user input: ", userInput);
     console.log("numberOne & numberTwo: ", numberOne, numberTwo);
     // Passed as an object to ensure the order of the arguments doesn't matter
-    const isCorrect = checkAnswer({ userInput, numberOne, numberTwo, operationType });
+    const isUserCorrect = checkAnswer({ userInput, numberOne, numberTwo, operationType });
 
     // IF correct, score + 1, new question
-    if (isCorrect) {
+    if (isUserCorrect) {
       console.log("value is correct");
+      // BUG - game is being marked as over before the last score is added
+
       // FINAL QUESTIONS HAS BEEN ANSWERED - GAME OVER
-      if (questionNumber === numOfQuestions) updateIsGameOver(true);
-      else {
+      if (questionNumber === numOfQuestions) {
+        incrementScore();
+        updateIsGameOver(true);
+      } else {
         const { newNum1, newNum2 } = getNumbersForNextQuestion(operationType);
         console.log("inside update for new question");
         // USER ANSWERED CORRECTLY - UPDATES: numberOne = newNum1, numberTwo = newNum2, userInput = '', score + 1

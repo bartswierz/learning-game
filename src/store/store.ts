@@ -17,13 +17,11 @@ type State = {
   progress: "Success" | "InProgress" | "Failed" | null;
   isGameOver: boolean;
   questionNumber: number;
-  // TESTING PURPOSES
-  count: number;
 };
 
 type Action = {
   setSettings: (settings: Settings) => void;
-  incrementScore: (score: number) => void;
+  incrementScore: () => void;
   updateUserInput: (userInput: string) => void;
   updateForCorrectAnswer: (newNumOne: number, newNumTwo: number) => void;
   updateForIncorrectAnswer: () => void;
@@ -49,17 +47,14 @@ const initialState: State = {
   userInput: "",
   progress: null,
   isGameOver: false,
-  count: 0, //Used for our ZustandCounter testing example
 };
 
 // const useSettingsStore = create<SettingsStore>((set) => ({
 const useSettingsStore = create<State & Action>((set) => ({
   ...initialState,
   setSettings: (settings: Settings) => set(() => ({ settings })),
-  incrementScore: (score: number) => set(() => ({ score: score + 1 })),
-  // updateUserInput: (userInputValue: string) => set(() => ({ userInputValue })),
+  incrementScore: () => set((state) => ({ score: state.score + 1 })),
   updateNewNumbers: (newNumberOne: number, newNumberTwo: number) => set(() => ({ numberOne: newNumberOne, numberTwo: newNumberTwo })),
-  // updateUserInput: (userInputValue: string) => set(() => ({ userInput: userInputValue })),
   updateUserInput: (userInputValue: string) => set(() => ({ userInput: userInputValue })),
   // APPEND USER INPUT TO THE END OF THE CURRENT USER INPUT
   updateIsGameOver: (isGameOver: boolean) => set(() => ({ isGameOver })),
@@ -97,10 +92,9 @@ const useSettingsStore = create<State & Action>((set) => ({
     }));
   },
   resetProgress: () => {
-    set(() => ({ score: 0, questionNumber: 1, attemptsLeft: 3 }));
+    set(() => ({ score: 0, questionNumber: 1, attemptsLeft: 3, isGameOver: false, userInput: "" }));
     console.log("RESET PROGRESS CALLED");
   },
-  increment: () => set((state) => ({ count: state.count + 1 })),
 }));
 
 export default useSettingsStore;

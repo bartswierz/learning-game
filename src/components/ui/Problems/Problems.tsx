@@ -1,10 +1,11 @@
 import NumberPad from "./NumberPad";
-import useSettingsStore from "@/store/store";
 import CheckAnswerBtn from "./CheckAnswerBtn";
 import Header from "./Header";
 import Question from "./Question";
 import InputDisplay from "./InputDisplay";
 import DisplayResults from "./DisplayResults";
+
+import useSettingsStore from "@/store/store";
 
 interface OperationProps {
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
@@ -19,7 +20,9 @@ const Problems = ({ operationType }: OperationProps) => {
   const numberTwo = useSettingsStore((state) => state.numberTwo);
   const disabled: boolean = userInput === "" ? true : false;
 
+  // User will see this after game is complete
   if (isGameOver) {
+    console.log("game is over inside if statement of problems: score: ", score);
     // if (!isGameOver) {
     return (
       // <div className="flex justify-center items-center">
