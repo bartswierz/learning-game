@@ -3,10 +3,9 @@ import useSettingsStore from "@/store/store";
 
 interface RestartBtnProps {
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
-  text: string;
 }
 
-const RestartBtn = ({ operationType, text }: RestartBtnProps) => {
+const RestartBtn = ({ operationType }: RestartBtnProps) => {
   const numOneRange = useSettingsStore((state) => state.settings.numOneRange);
   const numTwoRange = useSettingsStore((state) => state.settings.numTwoRange);
   const restartGame = useSettingsStore((state) => state.restartGame);
@@ -32,7 +31,7 @@ const RestartBtn = ({ operationType, text }: RestartBtnProps) => {
       data-testid="restart-btn"
       role="button"
     >
-      {text}
+      Restart Game
     </button>
   );
 };

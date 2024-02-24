@@ -49,7 +49,7 @@ const DisplayResults = ({ score, numOfQuestions, operationType }: DisplayResults
       <p>Do you want to try again?</p>
       <div className="flex flex-wrap justify-center px-2 gap-2 mt-3">
         <HomeButton />
-        <RestartBtn operationType={operationType} text="Restart Game" />
+        <RestartBtn operationType={operationType} />
       </div>
     </div>
   );
