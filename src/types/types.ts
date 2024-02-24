@@ -19,8 +19,8 @@ export interface Globals {
 }
 
 export interface NumberMinMax {
-  min: number;
-  max: number;
+  min: number | string;
+  max: number | string;
 }
 
 // NumberPad.tsx
@@ -30,11 +30,13 @@ export interface ButtonInfo {
   className: string;
 }
 
+export type OperationType = "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
+
 export interface CheckAnswer {
   numberOne: number;
   numberTwo: number;
   userInput: string;
-  operationType: string;
+  operationType: OperationType;
 }
 
 export type Route = "/addition" | "/subtraction" | "/multiplication" | "/division" | "/take-home-worksheets" | "";

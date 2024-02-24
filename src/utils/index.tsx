@@ -1,4 +1,4 @@
-import { NumberMinMax, CheckAnswer } from "../types/types";
+import { NumberMinMax, CheckAnswer, OperationType } from "../types/types";
 import { FaTimes } from "react-icons/fa";
 import { FaDivide } from "react-icons/fa6";
 import { RiSubtractFill } from "react-icons/ri";
@@ -14,8 +14,8 @@ export const randomNumber = (min: number, max: number): number => {
 
 // Creates two random numbers between passed minimum and maximum values
 export const randomTwoNumbers = (numberOne: NumberMinMax, numberTwo: NumberMinMax): { num1: number; num2: number } => {
-  const randomNum1 = randomNumber(numberOne.min, numberOne.max);
-  const randomNum2 = randomNumber(numberTwo.min, numberTwo.max);
+  const randomNum1 = randomNumber(Number(numberOne.min), Number(numberOne.max));
+  const randomNum2 = randomNumber(Number(numberTwo.min), Number(numberTwo.max));
 
   return { num1: randomNum1, num2: randomNum2 };
 };
@@ -23,8 +23,8 @@ export const randomTwoNumbers = (numberOne: NumberMinMax, numberTwo: NumberMinMa
 // TODO - Optimize this function to generate a new number in one call
 export const randomTwoNumbersForDivision = (numberOne: NumberMinMax, numberTwo: NumberMinMax): { num1: number; num2: number } => {
   // Generate two random numbers between min and max
-  const randomNum1 = randomNumber(numberOne.min, numberOne.max);
-  const randomNum2 = randomNumber(numberTwo.min, numberTwo.max);
+  const randomNum1 = randomNumber(Number(numberOne.min), Number(numberOne.max));
+  const randomNum2 = randomNumber(Number(numberTwo.min), Number(numberTwo.max));
 
   // CALCULATE RESULT TO CHECK IF IT IS A WHOLE NUMBER
   const result = randomNum1 / randomNum2;
@@ -48,6 +48,27 @@ export const generateProblemsForPDF = (numProblems: number, numberOneRange: Numb
 
     problems.push(`${num1} + ${num2} = ________`);
   }
+
+  return problems;
+};
+
+export const generateProblems = (
+  numProblems: number,
+  numberOneRange: NumberMinMax,
+  numberTwoRange: NumberMinMax,
+  problemType: OperationType
+) => {
+  const problems = [];
+  const operationIcon = getOperationIcon(problemType);
+  console.log("operationIcon: ", operationIcon);
+  for (let i = 0; i < numProblems; i++) {
+    const { num1, num2 } = randomTwoNumbers(numberOneRange, numberTwoRange);
+
+    // problems.push(`${num1} + ${num2} = ________`);
+    problems.push(`${num1} ${operationIcon} ${num2} = ________`);
+  }
+
+  console.log("problems generated: ", problems);
 
   return problems;
 };
@@ -94,7 +115,7 @@ export const isNumberOrDecimal = (input: string): boolean => {
   else return false;
 };
 
-export const getOperationIcon = (operationType: string): JSX.Element => {
+export const getOperationIcon = (operationType: OperationType): JSX.Element => {
   switch (operationType) {
     case "ADDITION":
       return <IoMdAdd data-testid="add-icon" />;
