@@ -4,6 +4,38 @@ import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 import { PDFViewer } from "@react-pdf/renderer";
 import { generateProblemsForPDF, generateDivisionProblemsForPDF } from "../../utils/index";
 
+// TODO - move to separate file
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+  SelectSeparator,
+} from "@/components/ui/shadcn/select";
+
+export function SelectDemo() {
+  return (
+    <Select>
+      <SelectTrigger className="w-[180px]">
+        <SelectValue placeholder="Select a fruit" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Fruits</SelectLabel>
+          <SelectItem value="apple">Apple</SelectItem>
+          <SelectItem value="banana">Banana</SelectItem>
+          <SelectItem value="blueberry">Blueberry</SelectItem>
+          <SelectItem value="grapes">Grapes</SelectItem>
+          <SelectItem value="pineapple">Pineapple</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  );
+}
+
 //TODO - add a button to generate a pdf of the take home problems, currently there is an issue with the View PDF and exiting the pdf causing a new pdf to be generated. Set it to a generate button, and keep the view pdf button separate
 const PDFWorksheetGenerator = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -150,6 +182,7 @@ const PDFWorksheetGenerator = () => {
         <h1 className="text-2xl underline underline-offset-[5px] text-center">Generate Take Home Problems</h1>
         <form onSubmit={handleCreatePdf}>
           <p>Number One Ranges (1-50)</p>
+          {/* NUMBER TWO MINIMUM VALUE */}
           <label htmlFor="number-one-minimum" className="">
             Minimum Value:
           </label>
@@ -164,6 +197,7 @@ const PDFWorksheetGenerator = () => {
             required
           />
 
+          {/* NUMBER ONE MAXIMUM VALUE */}
           <label htmlFor="number-one-maximum" className="">
             Maximum Value:
           </label>
@@ -178,15 +212,15 @@ const PDFWorksheetGenerator = () => {
             required
           />
 
-          {/* NUMBER TWO MIN-MAX RANGES */}
+          {/* NUMBER TWO MININUM VALUE */}
           <p className="mt-4">Number Two Ranges (1-50)</p>
-          <label htmlFor="number-one-minimum" className="">
+          <label htmlFor="number-two-minimum" className="">
             Minimum Value:
           </label>
           <input
             type="number"
-            id="number-one-minimum"
-            name="number-one-minimum"
+            id="number-two-minimum"
+            name="number-two-minimum"
             className="p-2 m-2 block w-full text-gray-800"
             placeholder="Enter a minimum value"
             min="1"
@@ -194,13 +228,14 @@ const PDFWorksheetGenerator = () => {
             required
           />
 
-          <label htmlFor="number-one-maximum" className="">
+          {/* NUMBER TWO MAXIMUM VALUE */}
+          <label htmlFor="number-two-maximum" className="">
             Maximum Value:
           </label>
           <input
             type="number"
-            id="number-one-maximum"
-            name="number-one-maximum"
+            id="number-two-maximum"
+            name="number-two-maximum"
             className="p-2 m-2 block w-full text-gray-800"
             placeholder="Enter a maximum value"
             min="1"
@@ -209,6 +244,41 @@ const PDFWorksheetGenerator = () => {
           />
 
           {/* OPERATION TYPE */}
+          <label htmlFor="operation-type" className="">
+            Problem Type:
+          </label>
+          <Select>
+            <SelectTrigger className="w-[160px] text-gray-900">
+              <SelectValue placeholder="Select Problem Type" className="" />
+            </SelectTrigger>
+
+            <SelectContent className="">
+              <SelectGroup className="">
+                {/* <SelectLabel>Problem Types</SelectLabel>
+                <SelectSeparator className="bg-gray-300" /> */}
+
+                <SelectItem value="addition" className="text-gray-900 cursor-pointer">
+                  Addition
+                </SelectItem>
+                <SelectSeparator className="bg-gray-300" />
+
+                <SelectItem value="subtraction" className="text-gray-900 cursor-pointer">
+                  Subtraction
+                </SelectItem>
+                <SelectSeparator className="bg-gray-300" />
+
+                <SelectItem value="multiplication" className="text-gray-900 cursor-pointer">
+                  Multiplication
+                </SelectItem>
+                <SelectSeparator className="bg-gray-300" />
+
+                <SelectItem value="division" className="text-gray-900 cursor-pointer">
+                  Division
+                </SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+
           <CreatePdfButton />
         </form>
 
