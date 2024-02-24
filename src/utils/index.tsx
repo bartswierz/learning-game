@@ -20,6 +20,7 @@ export const randomTwoNumbers = (numberOne: NumberMinMax, numberTwo: NumberMinMa
   return { num1: randomNum1, num2: randomNum2 };
 };
 
+// TODO - Optimize this function to generate a new number in one call
 export const randomTwoNumbersForDivision = (numberOne: NumberMinMax, numberTwo: NumberMinMax): { num1: number; num2: number } => {
   // Generate two random numbers between min and max
   const randomNum1 = randomNumber(numberOne.min, numberOne.max);
@@ -37,8 +38,9 @@ export const randomTwoNumbersForDivision = (numberOne: NumberMinMax, numberTwo: 
 
 // Usage example:
 
+// TODO - pass in the operationType to generate the correct problems
 // Generates random problems to be displayed in a pdf file for download and printing
-export const generateAdditionProblemsForPDF = (numProblems: number, numberOneRange: NumberMinMax, numberTwoRange: NumberMinMax) => {
+export const generateProblemsForPDF = (numProblems: number, numberOneRange: NumberMinMax, numberTwoRange: NumberMinMax) => {
   const problems = [];
 
   for (let i = 0; i < numProblems; i++) {
@@ -50,11 +52,21 @@ export const generateAdditionProblemsForPDF = (numProblems: number, numberOneRan
   return problems;
 };
 
-// TODO
+export const generateDivisionProblemsForPDF = (numProblems: number, numberOneRange: NumberMinMax, numberTwoRange: NumberMinMax) => {
+  const problems = [];
+
+  for (let i = 0; i < numProblems; i++) {
+    const { num1, num2 } = randomTwoNumbersForDivision(numberOneRange, numberTwoRange);
+
+    problems.push(`${num1} /+ ${num2} = ________`);
+  }
+
+  return problems;
+};
+
 export const checkAnswer = ({ numberOne, numberTwo, userInput, operationType }: CheckAnswer): boolean => {
   let correctAnswer;
 
-  console.log("checkAnswer: ", numberOne, numberTwo, userInput, operationType);
   switch (operationType) {
     case "ADDITION":
       correctAnswer = numberOne + numberTwo;

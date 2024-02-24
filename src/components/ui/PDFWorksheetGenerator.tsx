@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 // import {  PDFDownloadLink } from "@react-pdf/renderer";
 import { PDFViewer } from "@react-pdf/renderer";
-import { generateAdditionProblemsForPDF } from "../../utils/index";
+import { generateProblemsForPDF, generateDivisionProblemsForPDF } from "../../utils/index";
 
 //TODO - add a button to generate a pdf of the take home problems, currently there is an issue with the View PDF and exiting the pdf causing a new pdf to be generated. Set it to a generate button, and keep the view pdf button separate
 const PDFWorksheetGenerator = () => {
@@ -61,9 +61,11 @@ const PDFWorksheetGenerator = () => {
     setIsOpen(false);
   };
 
-  const handleCreatePdf = () => {
+  //TODO - add a button for generating the pdf type - pass in the operationType to the generator
+  const handleCreatePdf = (e) => {
+    e.preventDefault();
     console.log("Creating pdf...");
-    const problemsArray = generateAdditionProblemsForPDF(45, { min: 10, max: 20 }, { min: 10, max: 20 });
+    const problemsArray = generateProblemsForPDF(45, { min: 10, max: 20 }, { min: 10, max: 20 });
     setProblemsArray(problemsArray);
     setIsPdfCreated(true);
     // GeneratePdf(problemsArray);
@@ -102,6 +104,7 @@ const PDFWorksheetGenerator = () => {
     );
   };
 
+  //TODO - this will become the submit button for a form to generate the pdf, we will collect the TYPE of operation, numberOne Range, numberTwo Range. We will then pass those values to the generator
   // CREATES A PDF ON CLICK
   const CreatePdfButton = () => {
     const buttonText = isPdfCreated ? "Create New PDF" : "Create PDF";
@@ -145,8 +148,71 @@ const PDFWorksheetGenerator = () => {
 
       <div className="flex flex-col items-center justify-start mt-4 h-full">
         <h1 className="text-2xl underline underline-offset-[5px] text-center">Generate Take Home Problems</h1>
-        <div>
+        <form onSubmit={handleCreatePdf}>
+          <p>Number One Ranges (1-50)</p>
+          <label htmlFor="number-one-minimum" className="">
+            Minimum Value:
+          </label>
+          <input
+            type="number"
+            id="number-one-minimum"
+            name="number-one-minimum"
+            className="p-2 m-2 block w-full text-gray-800"
+            placeholder="Enter a minimum value"
+            min="1"
+            max="50"
+            required
+          />
+
+          <label htmlFor="number-one-maximum" className="">
+            Maximum Value:
+          </label>
+          <input
+            type="number"
+            id="number-one-maximum"
+            name="number-one-maximum"
+            className="p-2 m-2 block w-full text-gray-800"
+            placeholder="Enter a maximum value"
+            min="1"
+            max="50"
+            required
+          />
+
+          {/* NUMBER TWO MIN-MAX RANGES */}
+          <p className="mt-4">Number Two Ranges (1-50)</p>
+          <label htmlFor="number-one-minimum" className="">
+            Minimum Value:
+          </label>
+          <input
+            type="number"
+            id="number-one-minimum"
+            name="number-one-minimum"
+            className="p-2 m-2 block w-full text-gray-800"
+            placeholder="Enter a minimum value"
+            min="1"
+            max="50"
+            required
+          />
+
+          <label htmlFor="number-one-maximum" className="">
+            Maximum Value:
+          </label>
+          <input
+            type="number"
+            id="number-one-maximum"
+            name="number-one-maximum"
+            className="p-2 m-2 block w-full text-gray-800"
+            placeholder="Enter a maximum value"
+            min="1"
+            max="50"
+            required
+          />
+
+          {/* OPERATION TYPE */}
           <CreatePdfButton />
+        </form>
+
+        <div>
           <ViewPdfButton />
         </div>
       </div>
