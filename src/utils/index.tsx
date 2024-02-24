@@ -3,6 +3,8 @@ import { FaTimes } from "react-icons/fa";
 import { FaDivide } from "react-icons/fa6";
 import { RiSubtractFill } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
+import { renderToString } from "react-dom/server";
+import { Text, View, Svg, Path } from "@react-pdf/renderer";
 
 // Random number generator function using passed minimum and maximum values
 export const randomNumber = (min: number, max: number): number => {
@@ -59,13 +61,26 @@ export const generateProblems = (
   problemType: OperationType
 ) => {
   const problems = [];
-  const operationIcon = getOperationIcon(problemType);
-  console.log("operationIcon: ", operationIcon);
+  // const operationIcon = getOperationIconForPDF(problemType);
+  const operationIcon = getOperationIconForPDF(problemType);
+  // const operationIcon = renderToString(getOperationIcon(problemType));
+  console.log("ADDITION: ", renderToString(<IoMdAdd />));
+  console.log("MULTIPLICATION: ", renderToString(<FaTimes />));
+  console.log("SUBTRACTION: ", renderToString(<RiSubtractFill />));
+  // return <RiSubtractFill data-testid="subtract-icon" />;
+  //   case "MULTIPLICATION":
+  //     return <FaTimes data-testid="multiply-icon" />;
+  // console.log("operationIcon: ", operationIcon);
   for (let i = 0; i < numProblems; i++) {
     const { num1, num2 } = randomTwoNumbers(numberOneRange, numberTwoRange);
 
     // problems.push(`${num1} + ${num2} = ________`);
-    problems.push(`${num1} ${operationIcon} ${num2} = ________`);
+    // const operationIconHtml = renderToString(operationIcon);
+    // problems.push(`${num1} ${operationIconHtml} ${num2} = ________`);
+    // problems.push(`${num1} ${operationIcon} ${num2} = ________`);
+    // problems.push(`${num1} _ ${num2} = ________`);
+    problems.push({ num1: num1, num2: num2, operationIcon: operationIcon });
+    // problems.push(`${num1} ${(<FaDivide />)} ${num2} = ________`);
   }
 
   console.log("problems generated: ", problems);
@@ -130,3 +145,75 @@ export const getOperationIcon = (operationType: OperationType): JSX.Element => {
       throw new Error(`Unsupported operation: ${operationType}`);
   }
 };
+
+// TODO - once divide icon is implemented, add the path for the remaining icons
+export const getOperationIconForPDF = (operationType: OperationType): JSX.Element => {
+  switch (operationType) {
+    case "ADDITION":
+      return (
+        <Svg viewBox="0 0 512 512" stroke="black" fill="black" width={16} height={16}>
+          <Path d={"M416 277.333H277.333V416h-42.666V277.333H96v-42.666h138.667V96h42.666v138.667H416v42.666z"} />
+        </Svg>
+      );
+    case "SUBTRACTION":
+      return (
+        // <Svg viewBox="0 0 24 24" stroke="black" fill="black" width={16} height={16}>
+        <Svg viewBox="0 0 24 24" stroke="black" fill="black" width={16} height={16}>
+          <Path d={"M19 11H5V13H19V11Z"} />
+        </Svg>
+      );
+    case "MULTIPLICATION":
+      return (
+        <Svg viewBox="0 0 352 512" stroke="black" fill="black" width={16} height={16}>
+          <Path
+            d={
+              "M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+            }
+          />
+        </Svg>
+      );
+    case "DIVISION":
+      return (
+        <Svg viewBox="0 0 448 512" stroke="black" fill="black" width={16} height={16}>
+          <Path
+            d={
+              "M224 352c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64-28.65-64-64-64zm0-192c35.35 0 64-28.65 64-64s-28.65-64-64-64-64 28.65-64 64 28.65 64 64 64zm192 48H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+            }
+          />
+        </Svg>
+      );
+    default:
+      throw new Error(`Unsupported operation: ${operationType}`);
+  }
+};
+// export const getOperationIconForPDF = (operationType: OperationType): JSX.Element => {
+//   switch (operationType) {
+//     case "ADDITION":
+//       return (
+//         <Svg viewBox="0 0 24 24" width={24} height={24} style={{ fill: "currentColor" }}>
+//           {/* <Path d={IoMdAdd.toString()} /> */}
+//           <Path d={IoMdAdd} />
+//         </Svg>
+//       );
+//     case "SUBTRACTION":
+//       return (
+//         <Svg viewBox="0 0 24 24" width={24} height={24} style={{ fill: "currentColor" }}>
+//           <Path d={RiSubtractFill.toString()} />
+//         </Svg>
+//       );
+//     case "MULTIPLICATION":
+//       return (
+//         <Svg viewBox="0 0 24 24" width={24} height={24} style={{ fill: "currentColor" }}>
+//           <Path d={FaTimes.toString()} />
+//         </Svg>
+//       );
+//     case "DIVISION":
+//       return (
+//         <Svg viewBox="0 0 24 24" width={24} height={24} style={{ fill: "currentColor" }}>
+//           <Path d={FaDivide.toString()} />
+//         </Svg>
+//       );
+//     default:
+//       throw new Error(`Unsupported operation: ${operationType}`);
+//   }
+// };

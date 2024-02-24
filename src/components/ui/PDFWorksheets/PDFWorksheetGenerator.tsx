@@ -1,15 +1,22 @@
 import { useState } from "react";
-import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+import { Page, Text, View, Document, StyleSheet, Svg, Path } from "@react-pdf/renderer";
 // import {  PDFDownloadLink } from "@react-pdf/renderer";
 import { PDFViewer } from "@react-pdf/renderer";
 import { generateProblemsForPDF, generateDivisionProblemsForPDF, generateProblems } from "../../../utils/index";
 import ProblemsForm from "./ProblemsForm";
 import { OperationType } from "@/types/types";
+import { FaDivide } from "react-icons/fa";
 
+interface ProblemsArray {
+  num1: number;
+  num2: number;
+  OperationIcon: JSX.Element;
+}
 //TODO - add a button to generate a pdf of the take home problems, currently there is an issue with the View PDF and exiting the pdf causing a new pdf to be generated. Set it to a generate button, and keep the view pdf button separate
 const PDFWorksheetGenerator = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [problemsArray, setProblemsArray] = useState<string[]>([]);
+  // const [problemsArray, setProblemsArray] = useState<string[]>([]);
+  const [problemsArray, setProblemsArray] = useState<ProblemsArray[]>([]);
   const [isPdfCreated, setIsPdfCreated] = useState(false);
 
   // Create styles
@@ -40,17 +47,54 @@ const PDFWorksheetGenerator = () => {
       padding: 10,
       flexGrow: 1,
     },
-    problems: {
+    allProblemsContainer: {
       display: "flex",
       flexWrap: "wrap",
       justifyContent: "space-between",
       flexDirection: "row",
       rowGap: "5rem",
+      border: "1px solid red",
     },
     problem: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
       width: "33%",
+      // width: "160px",
+      // width: "160px",
       paddingVertical: "15px",
+      border: "1px solid black",
+      // width: "max-content",
     },
+    // problem: {
+    //   display: "flex",
+    //   flexDirection: "row",
+    //   justifyContent: "space-between",
+    //   alignItems: "center",
+    //   width: "33%",
+    //   paddingVertical: "15px",
+    //   border: "1px solid blackx",
+    // },
+    number: {
+      textAlign: "center",
+      border: "1px solid black",
+    },
+    equals: {
+      textAlign: "center",
+      border: "1px solid black",
+    },
+    underline: {
+      textAlign: "center",
+      border: "1px solid black",
+    },
+    // problems: {
+    //   display: "flex",
+    //   flexWrap: "wrap",
+    //   justifyContent: "space-between",
+    //   flexDirection: "row",
+    //   rowGap: "5rem",
+    // },
   });
 
   // 45 is the max to fit on the page(3 per row, 15 rows)
@@ -65,18 +109,59 @@ const PDFWorksheetGenerator = () => {
 
   //Reference for creating a pdf - https://react-pdf.org/repl
   const GeneratePdf = () => {
+    console.log("FaDive: ", FaDivide);
+
+    // const OperationIcon = () => (
+    //   <Svg viewBox="0 0 448 512" stroke="black" fill="black" width={16} height={16}>
+    //     <Path
+    //       d={
+    //         "M224 352c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64-28.65-64-64-64zm0-192c35.35 0 64-28.65 64-64s-28.65-64-64-64-64 28.65-64 64 28.65 64 64 64zm192 48H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+    //       }
+    //     />
+    //   </Svg>
+    // );
+
     return (
       <Document style={styles.document}>
         <Page size="A4" style={styles.body}>
           <Text style={styles.title}>Take Home Problems</Text>
           <View style={styles.section}>
-            <View style={styles.problems}>
-              {problemsArray.map((problem, index) => (
-                <Text key={index} style={styles.problem}>
-                  {problem}
-                </Text>
+            {/* PROBLEMS CONTAINER */}
+            <View style={styles.allProblemsContainer}>
+              {problemsArray.map(({ num1, num2, operationIcon }, index) => (
+                // INDIVIDIAL PROBLEMS
+                // <div key={index}>
+                <View style={styles.problem}>
+                  {/* // <div className="bb flexx" key={index}> */}
+                  {/* Number One */}
+                  <Text key={index} style={styles.number}>
+                    {num1}
+                  </Text>
+
+                  {/* OPERATION TYPES (add, sub, mult., div.)*/}
+                  {operationIcon}
+
+                  {/* Number Two */}
+                  <Text key={index} style={styles.number}>
+                    {num2}
+                  </Text>
+                  <Text key={index} style={styles.equals}>
+                    =
+                  </Text>
+                  <Text key={index} style={styles.underline}>
+                    ______
+                  </Text>
+                </View>
               ))}
             </View>
+            {/* {problemsArray.map((problem, index) => (
+                <div className="bb flex">
+                  <Text key={index} style={styles.problem}>
+                    {problem} <OperationIcon />
+                  </Text>
+                  <OperationIcon />
+                </div>
+              ))} */}
           </View>
         </Page>
       </Document>
@@ -124,13 +209,15 @@ const PDFWorksheetGenerator = () => {
     numberTwoMaximum: string;
     problemType: OperationType;
   };
-  // Form from our ProblemsForm - need to pass the form data here as a callback from the ProblemsForm
+  // Data passed from the ProblemsForm
   const handleFormData = (formData: ProblemDetails) => {
     console.log("form data passed: ", formData);
     const { numberOneMinimum, numberOneMaximum, numberTwoMinimum, numberTwoMaximum, problemType } = formData;
 
+    // TODO - switch back to 45 problems once we resolve the svg issue within the pdf
     const problemsArray = generateProblems(
-      45,
+      // 45,
+      2,
       { min: numberOneMinimum, max: numberOneMaximum },
       { min: numberTwoMinimum, max: numberTwoMaximum },
       problemType
