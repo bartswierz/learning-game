@@ -11,7 +11,7 @@ The website is primarily built using:
 - Tailwind CSS (CSS Framework)
 - Zustand (State Management Library)
 - Shadcn/ui (Unstyled Re-usable Components)
-- Vitest (Unit Testing)
+- Vitest (Unit Testing & Integration Testing)
 
 ## Features
 
