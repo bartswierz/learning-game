@@ -22,7 +22,7 @@ This application contains the following features(and many more to come in the fu
 - **Multiplication Problems**: Multiplication problems that are customizable to by utilizing the Settings Component in the Navigation Menu. Values 1-50 can be set for both numbers catered to your student's/child's learning.
 - **Division Problems**: Division problems that are customizable to by utilizing the Settings Component in the Navigation Menu. Values 1-50 can be set for both numbers catered to your student's/child's learning.
 - **Settings**: Useful tool to customize both values for your randomized problems, slider components are used to make the user experience (UX) enjoyable.
-- **Take Home Problem Worksheet Generator**: Create a customizable worksheet containing 48 problems with the ability to customize both value ranges to your needs in UNDER 10 SECONDS.
+- **PDF Worksheet Generator**: Create a customizable worksheet containing 48 problems with the ability to customize both value ranges to your needs in UNDER 10 SECONDS.
 
   ## Future Features
 
