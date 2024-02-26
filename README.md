@@ -1,6 +1,6 @@
 # Problem Solvers
 
-Learning Game and useful resource application that helps Students, Teachers, and Parents enrich their children's education. 
+Learning Game and useful resource application that helps **Students**, **Teachers**, and **Parents** enrich their children's education. 
 
 ## Technologies Used
 
