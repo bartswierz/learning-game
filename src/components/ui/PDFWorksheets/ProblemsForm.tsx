@@ -55,7 +55,7 @@ const ProblemsForm = ({ handleFormData }: ProblemsFormProps) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <p>Number One Ranges (1-50)</p>
+      <p className="mt-2">Number One Ranges (1-50)</p>
       {/* NUMBER TWO MINIMUM VALUE */}
       <label htmlFor="number-one-minimum" className="">
         Minimum Value:
@@ -116,11 +116,11 @@ const ProblemsForm = ({ handleFormData }: ProblemsFormProps) => {
         max="50"
         required
       />
+      <div></div>
 
       {/* OPERATION TYPE */}
-      <label htmlFor="operation-type" className="">
-        Problem Type:
-      </label>
+      <div className="mt-4"></div>
+      <label htmlFor="operation-type">Problem Type:</label>
       <Select required>
         <SelectTrigger className="w-[160px] text-gray-900" name="operation-type">
           <SelectValue placeholder="Select Problem Type" className="" />
@@ -153,6 +153,7 @@ const ProblemsForm = ({ handleFormData }: ProblemsFormProps) => {
         </SelectContent>
       </Select>
 
+      <div className="mt-4"></div>
       <SubmitButton />
     </form>
   );

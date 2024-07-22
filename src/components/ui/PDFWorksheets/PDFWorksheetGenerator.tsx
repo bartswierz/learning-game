@@ -174,7 +174,7 @@ const PDFWorksheetGenerator = () => {
       <ModalBackground />
       <PDFView />
 
-      <div className="flex flex-col items-center justify-start mt-4 h-full">
+      <div className="flex flex-col items-center justify-start mt-8">
         <h1 className="text-2xl underline underline-offset-[5px] text-center">Generate Take Home Problems</h1>
         {/* The form should return back the user config choices */}
         <ProblemsForm handleFormData={handleFormData} />
