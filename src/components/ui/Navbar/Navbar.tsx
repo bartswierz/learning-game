@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
 
@@ -7,8 +7,17 @@ import Settings from "../Settings/Settings";
 import NavigationMenu from "./NavigationMenu";
 
 const Navbar = () => {
+  const params = useParams();
+  const location = useLocation();
+  console.log("location.pathname: ", location.pathname);
+  console.log("params: ", params);
   const [isOpen, setIsOpen] = useState(false);
-
+  const isOnGameRoute =
+    location.pathname.includes("addition") ||
+    location.pathname.includes("subtraction") ||
+    location.pathname.includes("multiplication") ||
+    location.pathname.includes("division");
+  console.log("isOnGameRoute: ", isOnGameRoute);
   const openMenu = () => setIsOpen(true);
   const closeMenu = () => setIsOpen(false);
 
@@ -126,10 +135,10 @@ const Navbar = () => {
       <div className="flex gap-2">
         {/* HIDDEN ON MOBILE SCREEN */}
         <div className="hidden xsm:block gap-2">
-          <NavigationMenu />
+          <NavigationMenu currentRoute={location.pathname} />
         </div>
         <MenuOpenButton />
-        <Settings />
+        {isOnGameRoute && <Settings />}
       </div>
 
       {/* OPENS WHEN USER CLICKS MENU BUTTON */}

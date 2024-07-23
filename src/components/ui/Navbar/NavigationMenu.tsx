@@ -44,9 +44,14 @@ const pageLinks: {
   },
 ];
 
-const NavigationMenu__ = () => {
-  const [redirectRoute, setRedirectRoute] = useState<Route>("");
+type currentRouteType = "/" | "/take-home-worksheets" | "/addition" | "/subtraction" | "/multiplication" | "/division";
+interface NavigationMenuProps {
+  currentRoute: currentRouteType;
+}
 
+const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
+  const [redirectRoute, setRedirectRoute] = useState<Route>("");
+  const isNotOnHomeOrExtraRoute = currentRoute !== "/" && currentRoute !== "/take-home-worksheets";
   // Modal relies on the redirectRoute to be set via user clicking a link. Canceling or redirect will reset the redirectRoute
   const closeModal = () => {
     setRedirectRoute("");
@@ -56,28 +61,30 @@ const NavigationMenu__ = () => {
     <>
       {/* RESTART MODAL POPUP WHEN USER CLICKS ON A LINK */}
       {redirectRoute && <RedirectUserModal redirectRoute={redirectRoute} closeModalCallback={closeModal} />}
-      <NavigationMenu>
+      {/* <NavigationMenu orientation="vertical" className="pr-12"> */}
+      {/* <NavigationMenu orientation="horizontal" className="pr-12"> */}
+      <NavigationMenu className="pr-4">
         <NavigationMenuList className="flex gap-2">
-          {/* NEW PROBLEMS MENU ITEM */}
-          <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-blue-500">New Problems</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="flex flex-col p-4 gap-3 w-[280px]">
-                {pageLinks.map(({ title, route, className, description }) => (
-                  <ListItemLink key={title} title={title} route={route} className={className} setRedirectRoute={setRedirectRoute}>
-                    {description}
-                  </ListItemLink>
-                ))}
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          {/* END OF NEW PROBLEMS MENU BUTTON */}
-
-          {/* EXTRA MENU BUTTON */}
+          {/* NEW PROBLEMS MENU ITEM - NOT DISPLAYD ON HOME ROUTE*/}
+          {isNotOnHomeOrExtraRoute && (
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="bg-blue-500">New Problems</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="flex flex-col p-4 gap-3 w-[280px]x  w-[200px]">
+                  {pageLinks.map(({ title, route, className, description }) => (
+                    <ListItemLink key={title} title={title} route={route} className={className} setRedirectRoute={setRedirectRoute}>
+                      {description}
+                    </ListItemLink>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          )}
           <NavigationMenuItem>
             <NavigationMenuTrigger className="bg-blue-500">Extras</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="flex flex-col p-4 gap-3 w-[280px]">
+              {/* <NavigationMenuContent className="absolute top-full left-0 mt-2 w-72x bg-white shadow-lg rounded-md z-50 overflow-hiddenx"> */}
+              <ul className="flex flex-col p-4 gap-3 w-[280px]x w-[200px]">
                 <ListItemLink
                   route="/take-home-worksheets"
                   title="Take Home Worksheets"
@@ -89,7 +96,6 @@ const NavigationMenu__ = () => {
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          {/* END OF EXTRA MENU BUTTON */}
         </NavigationMenuList>
         <NavigationMenuViewport />
       </NavigationMenu>
