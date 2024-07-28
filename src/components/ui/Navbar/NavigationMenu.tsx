@@ -11,6 +11,8 @@ import { Route } from "@/types/types";
 
 import RedirectUserModal from "../RedirectUserModal";
 import ListItemLink from "./ListItemLink";
+import LanguageList from "./LanguageList";
+import { useTranslation } from "react-i18next";
 
 const pageLinks: {
   title: string;
@@ -50,6 +52,7 @@ interface NavigationMenuProps {
 }
 
 const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
+  const { t } = useTranslation();
   const [redirectRoute, setRedirectRoute] = useState<Route>("");
   const isNotOnHomeOrExtraRoute = currentRoute !== "/" && currentRoute !== "/take-home-worksheets";
   // Modal relies on the redirectRoute to be set via user clicking a link. Canceling or redirect will reset the redirectRoute
@@ -61,16 +64,15 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
     <>
       {/* RESTART MODAL POPUP WHEN USER CLICKS ON A LINK */}
       {redirectRoute && <RedirectUserModal redirectRoute={redirectRoute} closeModalCallback={closeModal} />}
-      {/* <NavigationMenu orientation="vertical" className="pr-12"> */}
-      {/* <NavigationMenu orientation="horizontal" className="pr-12"> */}
-      <NavigationMenu className="pr-4">
+
+      <NavigationMenu className="pr-1">
         <NavigationMenuList className="flex gap-2">
           {/* NEW PROBLEMS MENU ITEM - NOT DISPLAYD ON HOME ROUTE*/}
           {isNotOnHomeOrExtraRoute && (
             <NavigationMenuItem>
               <NavigationMenuTrigger className="bg-blue-500">New Problems</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="flex flex-col p-4 gap-3 w-[280px]x  w-[200px]">
+                <ul className="flex flex-col p-4 gap-3 w-[250px]">
                   {pageLinks.map(({ title, route, className, description }) => (
                     <ListItemLink key={title} title={title} route={route} className={className} setRedirectRoute={setRedirectRoute}>
                       {description}
@@ -84,20 +86,29 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
             <NavigationMenuTrigger className="bg-blue-500">Extras</NavigationMenuTrigger>
             <NavigationMenuContent>
               {/* <NavigationMenuContent className="absolute top-full left-0 mt-2 w-72x bg-white shadow-lg rounded-md z-50 overflow-hiddenx"> */}
-              <ul className="flex flex-col p-4 gap-3 w-[280px]x w-[200px]">
+              <ul className="flex flex-col p-4 gap-3 w-[250px]">
                 <ListItemLink
                   route="/take-home-worksheets"
-                  title="Take Home Worksheets"
+                  title={t("Take Home Worksheets")}
                   className="bg-teal-500 hover:bg-teal-600 hover:text-white"
                   setRedirectRoute={setRedirectRoute}
                 >
-                  Generate PDF worksheets for practice (45 Problems)
+                  {t("Generate PDF worksheets for practice (45 Problems)")}
                 </ListItemLink>
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
+
+          {/* LANGUAGE DROPDOWN */}
+          <NavigationMenuItem>
+            <NavigationMenuTrigger className="bg-blue-500">Languages</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <LanguageList />
+            </NavigationMenuContent>
+          </NavigationMenuItem>
         </NavigationMenuList>
-        <NavigationMenuViewport />
+
+        {/* <NavigationMenuViewport /> */}
       </NavigationMenu>
     </>
   );

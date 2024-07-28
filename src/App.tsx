@@ -16,7 +16,6 @@ function App() {
     <div className="h-full pb-[5vh]">
       {/* NAVBAR does not rerender, we only rerender wthin the Routes component */}
       <Navbar />
-
       {/* TODO - add Skeleton Component for fallback */}
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>

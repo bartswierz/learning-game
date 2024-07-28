@@ -33,7 +33,7 @@ const ListItemLink = ({ className, route, title, children, setRedirectRoute }: L
       <li>
         <button className={`rounded-md  h-[80px] w-full cursor-not-allowed p-3  bg-gray-400/30 hover:bg-gray-400/30`}>
           <div className="text-sm font-medium leading-none text-gray-300">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-gray-300 group-hover:text-white transition-color duration-300">
+          <p className="line-clamp-3 text-sm leading-snug text-gray-300 group-hover:text-white transition-color duration-300">
             {children}
           </p>
         </button>
@@ -54,7 +54,7 @@ const ListItemLink = ({ className, route, title, children, setRedirectRoute }: L
           onClick={handleClick}
         >
           <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug  text-gray-800 group-hover:text-white transition-color duration-300">
+          <p className="line-clamp-3 text-sm leading-snug  text-gray-800 group-hover:text-white transition-color duration-300">
             {children}
           </p>
         </button>
