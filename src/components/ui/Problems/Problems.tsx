@@ -22,10 +22,7 @@ const Problems = ({ operationType }: OperationProps) => {
 
   // User will see this after game is complete
   if (isGameOver) {
-    console.log("game is over inside if statement of problems: score: ", score);
-    // if (!isGameOver) {
     return (
-      // <div className="flex justify-center items-center">
       <>
         <DisplayResults score={score} numOfQuestions={numOfQuestions} operationType={operationType} />
       </>

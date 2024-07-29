@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 const languageList = [
   { id: "en", language: "English" },
   { id: "es", language: "Spanish" },
+  { id: "pl", language: "Polish" },
 ];
 
 const LanguageList = () => {
