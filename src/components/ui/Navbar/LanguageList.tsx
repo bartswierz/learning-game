@@ -6,6 +6,8 @@ const languageList = [
   { id: "en", language: "English" },
   { id: "es", language: "Spanish" },
   { id: "pl", language: "Polish" },
+  { id: "fr", language: "French" },
+  { id: "de", language: "German" },
 ];
 
 const LanguageList = () => {
