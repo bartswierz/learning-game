@@ -5,6 +5,7 @@ import { PDFViewer } from "@react-pdf/renderer";
 import { generateProblems } from "../../../utils/index";
 import ProblemsForm from "./ProblemsForm";
 import { ProblemDetails } from "@/types/types";
+import { useTranslation } from "react-i18next";
 
 interface ProblemsArray {
   num1: number;
@@ -14,6 +15,7 @@ interface ProblemsArray {
 
 // Creates a set of ~48 problems using the user's preferred values and problem type. Once generated, pdf will be available for viewing to print or download.
 const PDFWorksheetGenerator = () => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   // const [problemsArray, setProblemsArray] = useState<string[]>([]);
   const [problemsArray, setProblemsArray] = useState<ProblemsArray[]>([]);
@@ -86,7 +88,7 @@ const PDFWorksheetGenerator = () => {
     return (
       <Document style={styles.document}>
         <Page size="A4" style={styles.body}>
-          <Text style={styles.title}>Take Home Problems</Text>
+          <Text style={styles.title}>{t("Take Home Problems")}</Text>
           <View style={styles.section}>
             {/* PROBLEMS CONTAINER */}
             <View style={styles.allProblemsContainer}>
@@ -138,7 +140,7 @@ const PDFWorksheetGenerator = () => {
         } h-max px-4 py-2 m-2 transition-all duration-300 text-xl`}
         disabled={!isPdfCreated}
       >
-        View Pdf
+        {t("View PDF")}
       </button>
     );
   };
@@ -175,7 +177,7 @@ const PDFWorksheetGenerator = () => {
       <PDFView />
 
       <div className="flex flex-col items-center justify-start mt-8">
-        <h1 className="text-2xl underline underline-offset-[5px] text-center">Generate Take Home Problems</h1>
+        <h1 className="text-2xl underline underline-offset-[5px] text-center">{t("Generate Take Home Problems")}</h1>
         {/* The form should return back the user config choices */}
         <ProblemsForm handleFormData={handleFormData} />
 

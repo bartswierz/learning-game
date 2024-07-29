@@ -8,21 +8,20 @@ import {
   SelectSeparator,
 } from "@/components/ui/shadcn/select";
 import { OperationType, ProblemDetails } from "@/types/types";
+import { useTranslation } from "react-i18next";
 
 interface ProblemsFormProps {
   handleFormData: (problemDetails: ProblemDetails) => void;
 }
 
 const ProblemsForm = ({ handleFormData }: ProblemsFormProps) => {
+  const { t } = useTranslation();
+
   // CREATES A PDF ON CLICK
   const SubmitButton = () => {
     return (
-      <button
-        className="bg-blue-500 hover:bg-blue-600 transition-all duration-300 text-xl px-4 py-2 h-max m-2"
-        // onClick={handleCreatePdf}
-        type="submit"
-      >
-        Generate Worksheet
+      <button className="bg-blue-500 hover:bg-blue-600 transition-all duration-300 text-xl px-4 py-2 h-max m-2" type="submit">
+        {t("Generate Worksheet")}
       </button>
     );
   };
@@ -55,17 +54,17 @@ const ProblemsForm = ({ handleFormData }: ProblemsFormProps) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <p className="mt-2">Number One Ranges (1-50)</p>
+      <p className="mt-2">{t("Number One Ranges (1-50)")}</p>
       {/* NUMBER TWO MINIMUM VALUE */}
       <label htmlFor="number-one-minimum" className="">
-        Minimum Value:
+        {t("Minimum Value:")}
       </label>
       <input
         type="number"
         id="number-one-minimum"
         name="number-one-minimum"
         className="p-2 m-2 block w-full text-gray-800"
-        placeholder="Enter a minimum value"
+        placeholder={t("Enter a minimum value")}
         min="1"
         max="50"
         required
@@ -73,30 +72,30 @@ const ProblemsForm = ({ handleFormData }: ProblemsFormProps) => {
 
       {/* NUMBER ONE MAXIMUM VALUE */}
       <label htmlFor="number-one-maximum" className="">
-        Maximum Value:
+        {t("Maximum Value:")}
       </label>
       <input
         type="number"
         id="number-one-maximum"
         name="number-one-maximum"
         className="p-2 m-2 block w-full text-gray-800"
-        placeholder="Enter a maximum value"
+        placeholder={t("Enter a maximum value")}
         min="1"
         max="50"
         required
       />
 
       {/* NUMBER TWO MININUM VALUE */}
-      <p className="mt-4">Number Two Ranges (1-50)</p>
+      <p className="mt-4">{t("Number Two Ranges (1-50)")}</p>
       <label htmlFor="number-two-minimum" className="">
-        Minimum Value:
+        {t("Minimum Value:")}
       </label>
       <input
         type="number"
         id="number-two-minimum"
         name="number-two-minimum"
         className="p-2 m-2 block w-full text-gray-800"
-        placeholder="Enter a minimum value"
+        placeholder={t("Enter a minimum value")}
         min="1"
         max="50"
         required
@@ -104,14 +103,14 @@ const ProblemsForm = ({ handleFormData }: ProblemsFormProps) => {
 
       {/* NUMBER TWO MAXIMUM VALUE */}
       <label htmlFor="number-two-maximum" className="">
-        Maximum Value:
+        {t("Maximum Value:")}
       </label>
       <input
         type="number"
         id="number-two-maximum"
         name="number-two-maximum"
         className="p-2 m-2 block w-full text-gray-800"
-        placeholder="Enter a maximum value"
+        placeholder={t("Enter a maximum value")}
         min="1"
         max="50"
         required
@@ -120,34 +119,31 @@ const ProblemsForm = ({ handleFormData }: ProblemsFormProps) => {
 
       {/* OPERATION TYPE */}
       <div className="mt-4"></div>
-      <label htmlFor="operation-type">Problem Type:</label>
+      <label htmlFor="operation-type">{t("Problem Type:")}</label>
       <Select required>
         <SelectTrigger className="w-[160px] text-gray-900" name="operation-type">
-          <SelectValue placeholder="Select Problem Type" className="" />
+          <SelectValue placeholder={t("Select Problem Type")} className="" />
         </SelectTrigger>
 
         <SelectContent className="">
           <SelectGroup className="">
-            {/* <SelectLabel>Problem Types</SelectLabel>
-                <SelectSeparator className="bg-gray-300" /> */}
-
             <SelectItem value="ADDITION" className="text-gray-900 cursor-pointer">
-              Addition
+              {t("Addition")}
             </SelectItem>
             <SelectSeparator className="bg-gray-300" />
 
             <SelectItem value="SUBTRACTION" className="text-gray-900 cursor-pointer">
-              Subtraction
+              {t("Subtraction")}
             </SelectItem>
             <SelectSeparator className="bg-gray-300" />
 
             <SelectItem value="MULTIPLICATION" className="text-gray-900 cursor-pointer">
-              Multiplication
+              {t("Multiplication")}
             </SelectItem>
             <SelectSeparator className="bg-gray-300" />
 
             <SelectItem value="DIVISION" className="text-gray-900 cursor-pointer">
-              Division
+              {t("Division")}
             </SelectItem>
           </SelectGroup>
         </SelectContent>

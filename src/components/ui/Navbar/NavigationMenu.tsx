@@ -83,7 +83,7 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
             </NavigationMenuItem>
           )}
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-blue-500">Extras</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="bg-blue-500">{t("Extras")}</NavigationMenuTrigger>
             <NavigationMenuContent>
               {/* <NavigationMenuContent className="absolute top-full left-0 mt-2 w-72x bg-white shadow-lg rounded-md z-50 overflow-hiddenx"> */}
               <ul className="flex flex-col p-4 gap-3 w-[250px]">
@@ -101,7 +101,7 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
 
           {/* LANGUAGE DROPDOWN */}
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-blue-500">Languages</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="bg-blue-500">{t("Languages")}</NavigationMenuTrigger>
             <NavigationMenuContent>
               <LanguageList />
             </NavigationMenuContent>
