@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import useSettingsStore from "@/store/store";
 import { Route } from "@/types/types";
+import { useTranslation } from "react-i18next";
 
 interface RedirectUserModalProps {
   redirectRoute: Route;
@@ -8,6 +9,7 @@ interface RedirectUserModalProps {
 }
 
 const RedirectUserModal = ({ redirectRoute, closeModalCallback }: RedirectUserModalProps) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const resetProgress = useSettingsStore((state) => state.resetProgress);
 
@@ -32,8 +34,8 @@ const RedirectUserModal = ({ redirectRoute, closeModalCallback }: RedirectUserMo
         <div className="flex items-center justify-center h-full">
           <div className="w-[300px] p-4 text-center bg-gray-200 rounded-md">
             <div className="mb-4 mt-2 text-gray-800 ">
-              <p>This will reset progress</p>
-              <p>Are you sure?</p>
+              <p>{t("This will reset progress")}</p>
+              <p>{t("Are you sure?")}</p>
             </div>
 
             {/* BUTTONS CONTAINER */}
@@ -42,13 +44,13 @@ const RedirectUserModal = ({ redirectRoute, closeModalCallback }: RedirectUserMo
                 className="bg-gray-500 hover:bg-gray-600 hover:text-white duration-200 ease-in px-4 py-2 rounded-md"
                 onClick={handleCancel}
               >
-                No
+                {t("No")}
               </button>
               <button
                 className="bg-red-500 hover:bg-red-600 hover:text-white duration-200 ease-in px-4 py-2 rounded-md"
                 onClick={handleReset}
               >
-                Yes
+                {t("Yes")}
               </button>
             </div>
           </div>

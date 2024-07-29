@@ -22,6 +22,10 @@ const resources = {
       Question: "Question",
       Score: "Score",
       "Attempts Left": "Attempts Left",
+      "This will reset progress": "This will reset progress",
+      "Are you sure?": "Are you sure?",
+      No: "No",
+      Yes: "Yes",
     },
   },
   es: {
@@ -41,6 +45,10 @@ const resources = {
       Question: "Pregunta",
       Score: "Puntuación",
       "Attempts Left": "Intentos restantes",
+      "This will reset progress": "Esto restablecerá el progreso",
+      "Are you sure?": "¿Estás seguro?",
+      No: "No",
+      Yes: "Sí",
     },
   },
   pl: {
@@ -60,6 +68,10 @@ const resources = {
       Question: "Pytanie",
       Score: "Wynik",
       "Attempts Left": "Pozostałe próby",
+      "This will reset progress": "To zresetuje postęp",
+      "Are you sure?": "Jesteś pewny?",
+      No: "Nie",
+      Yes: "Tak",
     },
   },
 };
