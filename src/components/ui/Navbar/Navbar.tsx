@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
+import { currentRouteType } from "./NavigationMenu";
 
 import Settings from "../Settings/Settings";
 import NavigationMenu from "./NavigationMenu";
@@ -142,7 +143,7 @@ const Navbar = () => {
       <div className="flex gap-2">
         {/* HIDDEN ON MOBILE SCREEN */}
         <div className="hidden xsm:block gap-2">
-          <NavigationMenu currentRoute={location.pathname} />
+          <NavigationMenu currentRoute={location.pathname as currentRouteType} />
         </div>
         <MenuOpenButton />
         {isOnGameRoute && <Settings />}

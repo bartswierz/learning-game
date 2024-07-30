@@ -1,5 +1,3 @@
-// import { ReactComponent as EnglishFlagSvg } from "../../../assets/EnglishFlag.svg";
-import EnglishFlagSvg from "../../../assets/EnglishFlag";
 import { useTranslation } from "react-i18next";
 
 const languageList = [

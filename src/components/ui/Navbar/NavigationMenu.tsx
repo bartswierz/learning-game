@@ -5,7 +5,7 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
+  // NavigationMenuViewport,
 } from "@/components/ui/shadcn/navigation-menu";
 import { Route } from "@/types/types";
 
@@ -13,7 +13,6 @@ import RedirectUserModal from "../RedirectUserModal";
 import ListItemLink from "./ListItemLink";
 import LanguageList from "./LanguageList";
 import { useTranslation } from "react-i18next";
-import useSettingsStore from "@/store/store";
 
 const pageLinks: {
   title: string;
@@ -47,7 +46,7 @@ const pageLinks: {
   },
 ];
 
-type currentRouteType = "/" | "/take-home-worksheets" | "/addition" | "/subtraction" | "/multiplication" | "/division";
+export type currentRouteType = "/" | "/take-home-worksheets" | "/addition" | "/subtraction" | "/multiplication" | "/division";
 interface NavigationMenuProps {
   currentRoute: currentRouteType;
 }
