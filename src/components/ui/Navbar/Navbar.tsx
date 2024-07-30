@@ -1,23 +1,22 @@
 import { useState } from "react";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
 
 import Settings from "../Settings/Settings";
 import NavigationMenu from "./NavigationMenu";
+import useSettingsStore from "@/store/store";
 
 const Navbar = () => {
-  const params = useParams();
   const location = useLocation();
-  console.log("location.pathname: ", location.pathname);
-  console.log("params: ", params);
+  const resetProgressOnRedirectToHome = useSettingsStore((state) => state.resetProgress);
   const [isOpen, setIsOpen] = useState(false);
   const isOnGameRoute =
     location.pathname.includes("addition") ||
     location.pathname.includes("subtraction") ||
     location.pathname.includes("multiplication") ||
     location.pathname.includes("division");
-  console.log("isOnGameRoute: ", isOnGameRoute);
+
   const openMenu = () => setIsOpen(true);
   const closeMenu = () => setIsOpen(false);
 
@@ -129,7 +128,15 @@ const Navbar = () => {
   return (
     <nav className="stickyx top-0x inset-x-0 z-[100] flex justify-between p-2 bg-gradient-to-r from-blue-700/80 to-transparent shadow-2xl">
       <div className="self-center">
-        <Link to="/">Problem Solvers</Link>
+        <Link
+          to="/"
+          onClick={() => {
+            console.log("user clicked home button");
+            resetProgressOnRedirectToHome();
+          }}
+        >
+          Problem Solvers
+        </Link>
       </div>
 
       <div className="flex gap-2">

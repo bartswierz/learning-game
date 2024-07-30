@@ -13,6 +13,7 @@ import RedirectUserModal from "../RedirectUserModal";
 import ListItemLink from "./ListItemLink";
 import LanguageList from "./LanguageList";
 import { useTranslation } from "react-i18next";
+import useSettingsStore from "@/store/store";
 
 const pageLinks: {
   title: string;
