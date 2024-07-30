@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
 import { currentRouteType } from "./NavigationMenu";
+
 import Settings from "../Settings/Settings";
 import NavigationMenu from "./NavigationMenu";
 import useSettingsStore from "@/store/store";
