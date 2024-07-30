@@ -27,9 +27,9 @@ const LanguageList = () => {
             key={id}
           >
             <button onClick={() => switchLanguage(id)}>
-              <span className="self-center">
+              {/* <span className="self-center">
                 <EnglishFlagSvg />
-              </span>
+              </span> */}
               {language}
             </button>
           </li>

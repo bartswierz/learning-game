@@ -14,6 +14,7 @@ const SettingPanel = ({ handleCloseCallback }: SettingsFormProps) => {
   const numTwoRange = useSettingsStore((state) => state.settings.numTwoRange);
   const numOfAttempts = useSettingsStore((state) => state.settings.numOfAttempts);
   const numOfQuestions = useSettingsStore((state) => state.settings.numOfQuestions);
+  const resetProgress = useSettingsStore((state) => state.resetProgress);
   const setSettings = useSettingsStore((state) => state.setSettings);
 
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
@@ -54,6 +55,7 @@ const SettingPanel = ({ handleCloseCallback }: SettingsFormProps) => {
 
     // TODO - add a toast message to let the user know the settings have been updated
     setSettings(newSettings); // RESTARTS THE GAME WITH NEW SETTINGS
+    resetProgress(); // Resets progress back to the beginning
     handleCloseCallback(); // CLOSES SETTINGS POPUP
   };
 
