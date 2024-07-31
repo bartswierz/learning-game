@@ -54,7 +54,7 @@ const ListItemLink = ({ className, route, title, children, setRedirectRoute }: L
           onClick={handleClick}
         >
           <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-3 text-sm leading-snug  text-gray-800 group-hover:text-white transition-color duration-300">
+          <p className="line-clamp-3 text-sm leading-snug text-gray-800 group-hover:text-white transition-color duration-300">
             {children}
           </p>
         </button>
@@ -62,7 +62,5 @@ const ListItemLink = ({ className, route, title, children, setRedirectRoute }: L
     </li>
   );
 };
-
-// ListItemLink.displayName = "ListItem";
 
 export default ListItemLink;

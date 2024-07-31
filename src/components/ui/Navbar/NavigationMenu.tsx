@@ -55,6 +55,7 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
   const { t } = useTranslation();
   const [redirectRoute, setRedirectRoute] = useState<Route>("");
   const isNotOnHomeOrExtraRoute = currentRoute !== "/" && currentRoute !== "/take-home-worksheets";
+
   // Modal relies on the redirectRoute to be set via user clicking a link. Canceling or redirect will reset the redirectRoute
   const closeModal = () => {
     setRedirectRoute("");
@@ -62,6 +63,8 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
 
   return (
     <>
+      {/* TODO - bug is here, we show this redirect modal asking user if they are sure they want to change pages. But this is an issue with the extra section when we are on home page
+      create a condition where it only display if we are not on '/' either */}
       {/* RESTART MODAL POPUP WHEN USER CLICKS ON A LINK */}
       {redirectRoute && <RedirectUserModal redirectRoute={redirectRoute} closeModalCallback={closeModal} />}
 
@@ -85,7 +88,6 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
           <NavigationMenuItem>
             <NavigationMenuTrigger className="bg-blue-500">{t("Extras")}</NavigationMenuTrigger>
             <NavigationMenuContent>
-              {/* <NavigationMenuContent className="absolute top-full left-0 mt-2 w-72x bg-white shadow-lg rounded-md z-50 overflow-hiddenx"> */}
               <ul className="flex flex-col p-4 gap-3 w-[250px]">
                 <ListItemLink
                   route="/take-home-worksheets"
@@ -94,6 +96,14 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
                   setRedirectRoute={setRedirectRoute}
                 >
                   {t("Generate PDF worksheets for practice (45 Problems)")}
+                </ListItemLink>
+                <ListItemLink
+                  route="/analog-clock"
+                  title={t("Analog Clock")}
+                  className="bg-blue-500 hover:bg-blue-600 hover:text-white"
+                  setRedirectRoute={setRedirectRoute}
+                >
+                  {t("Practice reading the time on an analog clock")}
                 </ListItemLink>
               </ul>
             </NavigationMenuContent>

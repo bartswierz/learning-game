@@ -2,6 +2,7 @@ import "./globals.css";
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/ui/Navbar/Navbar.tsx";
+import AnalogClock from "./components/ui/AnalogClock/AnalogClock.tsx";
 
 // Lazy loading - only load the component when the user navigates to the page to decrease the initial load time when app is first loaded
 const Home = lazy(() => import("./pages/Home.jsx"));
@@ -26,6 +27,7 @@ function App() {
           <Route path="/division" element={<Division />} />
           {/* <Route path="/pdf" element={<TakeHomeProblems />} /> */}
           <Route path="/take-home-worksheets" element={<TakeHomeProblems />} />
+          <Route path="/analog-clock" element={<AnalogClock />} />
         </Routes>
       </Suspense>
     </div>
