@@ -1,25 +1,58 @@
 import { useState } from "react";
+import { shuffle } from "lodash";
 
+/** TODO
+ * Add 15 minute interval lines - 360 degrees / 48 = 7.5 degrees per line (15 minutes)
+ */
 const AnalogClock = () => {
   const [randomize, setRandomize] = useState(false);
 
   const getRandomPosition = (type: "minute" | "hour") => {
-    const max = type === "minute" ? 60 : 12;
-    return Math.floor(Math.random() * max) + 1;
+    // const max = type === "minute" ? 60 : 12; // Minutes: 0-60 | Hours: 1-12
+    const max = type === "minute" ? 59 : 12; // Minutes: 0-60 | Hours: 1-12
+
+    const randPosition = Math.floor(Math.random() * max) + 1;
+    console.log("randPosition: ", randPosition);
+    return randPosition;
+    // return Math.floor(Math.random() * max) + 1;
   };
 
   // TODO default time
-  const hour = randomize ? getRandomPosition("hour") : 3; // Default hour
-  const minute = randomize ? getRandomPosition("minute") : 15; // Default minute
+  const hour: number = randomize ? getRandomPosition("hour") : 3; // Default hour
+  const minute: number = randomize ? getRandomPosition("minute") : 15; // Default minute
 
-  const hourDegree = (hour % 12) * 30 + (minute / 60) * 30;
-  const minuteDegree = minute * 6;
+  const hourDegree: number = (hour % 12) * 30 + (minute / 60) * 30;
+  const minuteDegree: number = minute * 6;
 
-  const ClockCenter = () => {
-    return (
-      <div className="absolute top-1/2 left-1/2 bg-gray-800 w-2 h-2 rounded-full" style={{ transform: "translate(-50%, -50%)" }}></div>
-    );
+  console.log("hourDegree", hourDegree, "minuteDegree", minuteDegree, "hour", hour, "minute", minute); // 97.5, 90
+
+  // TODO add in a function to get two other random hours that are 1 or below as choices
+  // Minute is displayingas the degrees not the minutes
+  // Issue here is that we are passing in the degrees not the hour and minute
+  const createChoices = (hour: number, minute: number) => {
+    console.log("hour", hour, "minute", minute);
+    const choices = [];
+    for (let i = 0; i < 2; i++) {
+      const hr = getRandomPosition("hour");
+      const min = getRandomPosition("minute");
+      const formattedMinute = min < 10 ? `0${min}` : minute; //adds 0 in front of minute if less than 10
+      console.log("formattedMinute", formattedMinute, "hr", hr);
+      // choices.push({ hour: hr, minute: min ? min : 0 });
+      choices.push({ hour: hr, minute: formattedMinute });
+    }
+
+    choices.push({ hour: hour, minute: minute });
+
+    return choices;
   };
+
+  const choices = createChoices(hour, minute);
+  const shuffledChoices = shuffle(choices);
+  // const choices = createChoices(hourDegree, minuteDegree);
+
+  const ClockCenter = () => (
+    <div className="absolute top-1/2 left-1/2 bg-gray-800 w-2 h-2 rounded-full" style={{ transform: "translate(-50%, -50%)" }}></div>
+  );
 
   const HourHand = () => {
     return (
@@ -35,7 +68,7 @@ const AnalogClock = () => {
   const MinuteHand = () => {
     return (
       <div
-        className="absolute top-1/2x left-1/2 bg-red-600 w-1 h-36x h-24x h-[50%] rounded-full origin-bottom"
+        className="absolute left-1/2 bg-red-600 w-1 h-[50%] rounded-full origin-bottom"
         style={{
           transform: `rotate(${minuteDegree}deg)`,
         }}
@@ -69,7 +102,7 @@ const AnalogClock = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[90%] bg-gray-100x">
-      <div className="relative w-[380px] h-[380px] border-4 border-gray-800x border-white rounded-full">
+      <div className="relative w-[380px] h-[380px] border-[3px] border-white rounded-full">
         <HourIndicators />
         <ClockCenter />
         <HourHand />
@@ -78,11 +111,26 @@ const AnalogClock = () => {
       <button onClick={() => setRandomize(!randomize)} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
         {randomize ? "Reset" : "Randomize"}
       </button>
-      <div className="w-64 text-2xl text-center mt-12">
+      <div className="text-2xl text-center mt-4">
         <h2>Time</h2>
         <p>
-          {hour}:{minute < 10 ? `0${minute}` : minute}
+          {hour}:{minute < 10 ? `0${minute}` : minute} P.M.
         </p>
+        <p>Blue: Hour | Red: Minute</p>
+      </div>
+
+      {/* TODO - add in three random choices with hours that are 1 or below */}
+      <div>
+        <h2 className="text-center mb-2">Choices</h2>
+        <ul className="bb flex gap-4 mx-4">
+          {shuffledChoices.map((choice, index) => (
+            <li key={index}>
+              <div className="bb w-full max-w-[200px] px-2 py-6 hover:bg-blue-500/30 cursor-pointer">
+                {choice.hour}:{choice.minute} P.M.
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
