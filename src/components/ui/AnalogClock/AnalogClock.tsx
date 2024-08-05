@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { shuffle } from "lodash";
+import { Tier, EASY, MEDIUM, HARD } from "@/types/types";
 
 const ClockCenter = () => (
   <div className="absolute top-1/2 left-1/2 bg-gray-800 w-2 h-2 rounded-full" style={{ transform: "translate(-50%, -50%)" }}></div>
@@ -52,97 +53,171 @@ const HourIndicators = () => {
     </ul>
   );
 };
+
 /** TODO
  * Add 15 minute interval lines - 360 degrees / 48 = 7.5 degrees per line (15 minutes)
  * EASY TIER: Half Hour Increments
  * MED TIER: 15 Min Increments
  * HARD TIER - 5 Min Increments
+ *
+ * On click set the tier - easy, medium, hard
+ * Get three random minute choices
+ * display one of the choices as the correct answer
  */
 const AnalogClock = () => {
-  const [randomize, setRandomize] = useState(false);
+  // const [randomize, setRandomize] = useState(false);
+  const [tier, setTier] = useState<Tier>("");
+  const [minutes, setMinutes] = useState([]);
+  const [hour, setHour] = useState(0);
 
-  const getRandomPosition = (type: "minute" | "hour") => {
-    // const max = type === "minute" ? 60 : 12; // Minutes: 0-60 | Hours: 1-12
-    const max = type === "minute" ? 59 : 12; // Minutes: 0-60 | Hours: 1-12
-
-    const randPosition = Math.floor(Math.random() * max) + 1;
-    console.log("randPosition: ", randPosition);
-    return randPosition;
-    // return Math.floor(Math.random() * max) + 1;
+  const minuteTiers = {
+    EASY: [0, 30], // 0 1
+    MEDIUM: [0, 15, 30, 45], // 0, 1, 2, 3
+    HARD: [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55], // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
   };
 
-  // TODO default time
-  const hour: number = randomize ? getRandomPosition("hour") : 3; // Default hour
-  const minute: number = randomize ? getRandomPosition("minute") : 15; // Default minute
+  const handleTierChoice = (tier: Tier) => {
+    setTier(tier);
 
-  const hourDegree: number = (hour % 12) * 30 + (minute / 60) * 30;
-  const minuteDegree: number = minute * 6;
+    const randomHour = Math.floor(Math.random() * 12) + 1;
+    setHour(randomHour);
 
-  console.log("hourDegree", hourDegree, "minuteDegree", minuteDegree, "hour", hour, "minute", minute); // 97.5, 90
+    // gets a random direction in which we will collect three answers
+    const direction = ["below", "around", "above"];
+    const randomDirection = direction[Math.floor(Math.random() * direction.length)];
 
-  // TODO add in a function to get two other random hours that are 1 or below as choices
-  // Minute is displayingas the degrees not the minutes
-  // Issue here is that we are passing in the degrees not the hour and minute
-  const createChoices = (hour: number, minute: number) => {
-    console.log("hour", hour, "minute", minute);
-    // const choices: { hour: number; minute: number | string }[] = [];
-    const choices: string[] = [];
+    const randomMinutes = getRandomMinutes(tier, randomDirection);
+    console.log("randomMinutes", randomMinutes);
+    setMinutes(randomMinutes);
+  };
 
-    for (let i = 0; i < 2; i++) {
-      const hr = getRandomPosition("hour");
-      let min = getRandomPosition("minute");
+  // TODO - this works getting the random option - we need to make this function return THREE options not 1
+  // Will randomly choose one of the minute times from on of the three tiers available
+  const getRandomMinutes = (tier: Tier, direction: string) => {
+    if (!tier) return null;
+    const choices = [];
 
-      // Check if this minute is already in the choices array
-      // const exists = choices.some((choice) => choice.minute === formattedMinute);
-      // TODO check the time
-      const exists = choices.some((choice) => choice === `${hr}:${minute < 10 ? `0${min}` : minute}`);
-      if (exists) min = getRandomPosition("minute"); // If it exists, get a new random minute
-      // else {
-      const formattedMinute = min < 10 ? `0${min}` : minute; //adds 0 in front of minute if less than 10
-      choices.push(`${hr}:${formattedMinute}`);
-      // TODO  -change to a string
-      // choices.push({ hour: hr, minute: formattedMinute });
-      // }
+    // Get the index within the tier
+    console.log("direction", direction);
+    const minutes = minuteTiers[tier];
+    const randomIndex = Math.floor(Math.random() * minutes.length); // This will be the starting index
+
+    // easy - index 0, 1
+    // medium - index 0, 1, 2, 3
+    // hard - index 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+    choices.push(minutes[randomIndex]); // first number from array
+    console.log("choices", choices);
+
+    // TODO - get the other two indexes based on the random direction
+    if (direction === "below") {
+      // If the index below our randomIndex exists, push that into the choices array otherwise push the last element in the array
+      // First index
+      if (minutes[randomIndex - 1]) choices.push(minutes[randomIndex - 1]);
+      else choices.push(minutes[minutes.length - 1]); // Last element in the array
+
+      // Second index
+      if (minutes[randomIndex - 2]) choices.push(minutes[randomIndex - 2]);
+      else choices.push(minutes[minutes.length - 2]); // 2nd to last element in the array
     }
-    // OUTSIDE LOOP: Push our last minute into the choices array once we get our other two random hour/minutes
-    choices.push(`${hour}:${minute}`);
+
+    // If index is the LAST element, get the first two elements in array
+    else if (direction === "above") {
+      if (minutes[randomIndex + 1]) choices.push(minutes[randomIndex + 1]);
+      else choices.push(minutes[0]); // 1st element in array
+
+      if (minutes[randomIndex + 2]) choices.push(minutes[randomIndex + 2]);
+      else choices.push(minutes[1]); // 2nd element in array
+    }
+
+    // AROUND
+    else {
+      if (minutes[randomIndex + 1]) choices.push(minutes[randomIndex + 1]);
+      else choices.push(minutes[0]); // 1st element in array
+
+      if (minutes[randomIndex - 1]) choices.push(minutes[randomIndex - 1]);
+      else choices.push(minutes[minutes.length - 1]); // Last element in the array
+    }
+
+    // Get the next two indexes based on the random direction(if above, get the next two indexes above the randomIndex)
+    console.log("randomIndex & minutes[randomIndex]", randomIndex, minutes[randomIndex]);
+    // return minutes[randomIndex];
     const shuffledChoices = shuffle(choices);
     return shuffledChoices;
   };
 
-  const choicesArray = createChoices(hour, minute);
+  // TODO - undefined error happens here
+  const hourDegree: number = (parseInt(hour) % 12) * 30 + (parseInt(minutes[0]) / 60) * 30;
+  const minuteDegree: number = minutes[0] * 6; // minute * 6 because 360 / 60 minutes = 6 degrees per minute
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[90%] bg-gray-100x">
       <div className="relative w-[380px] h-[380px] border-[3px] border-white rounded-full">
         <HourIndicators />
         <ClockCenter />
-        <HourHand position={hourDegree} />
-        <MinuteHand position={minuteDegree} />
+        {/* {hourDegree && <HourHand position={hourDegree} />}
+        {minuteDegree && <MinuteHand position={minuteDegree} />} */}
       </div>
-      <button onClick={() => setRandomize(!randomize)} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
+      {/* <button onClick={() => setRandomize(!randomize)} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
         {randomize ? "Reset" : "Randomize"}
-      </button>
+      </button> */}
+
+      <h2>Current Tier: {tier}</h2>
+      <div>
+        Hour: {hour} - Minutes: {minutes.map((min) => `${min} mins `)}
+      </div>
+      {/* {!tier && ( */}
+      <div className="flex gap-4 my-4">
+        <button
+          onClick={() => handleTierChoice(EASY)}
+          className="cursor-pointer bg-green-600 hover:bg-green-700 px-4 py-2 text-center"
+        >
+          Easy
+          <br />
+          (30 mins)
+        </button>
+        <button
+          onClick={() => handleTierChoice(MEDIUM)}
+          className="cursor-pointer bg-yellow-600 hover:bg-yellow-700 px-4 py-2  text-center"
+        >
+          Medium <br />
+          (15 mins)
+        </button>
+        <button onClick={() => handleTierChoice(HARD)} className="cursor-pointer bg-red-600 hover:bg-red-700 px-4 py-2 text-center">
+          Hard
+          <br />
+          (5 mins)
+        </button>
+      </div>
+      {/* )} */}
+
       <div className="text-2xl text-center mt-4">
         <h2>Time</h2>
-        <p>
-          {hour}:{minute < 10 ? `0${minute}` : minute} P.M.
-        </p>
+        <p>{/* {hour}:{minute < 10 ? `0${minute}` : minute} P.M. */}</p>
         <p>Blue: Hour | Red: Minute</p>
       </div>
 
       {/* TODO - add in three random choices with hours that are 1 or below */}
-      <div>
-        <h2 className="text-center mb-2">Choices</h2>
-        <ul className="bb flex gap-4 mx-4">
-          {/* TODO - change this into an array of strings - we will format the minutes before pushing into the choices array */}
-          {choicesArray.map((choice, index) => (
-            <li key={index}>
-              <div className="bb w-full max-w-[200px] px-2 py-6 hover:bg-blue-500/30 cursor-pointer">{choice} P.M.</div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {tier && (
+        <div>
+          <h2 className="text-center mb-2">Choices</h2>
+          <ul className="bb flex gap-4 mx-4">
+            {/* TODO - change this into an array of strings - we will format the minutes before pushing into the choices array */}
+            {minutes &&
+              minutes.map((mins, index) => (
+                <li key={index}>
+                  <div className="bb w-full max-w-[200px] px-2 py-6 hover:bg-blue-500/30 cursor-pointer">
+                    {hour}:{mins < 10 ? `0${mins}` : mins} P.M.
+                  </div>
+                </li>
+              ))}
+            {/* {choicesArray.map((choice, index) => (
+              <li key={index}>
+                <div className="bb w-full max-w-[200px] px-2 py-6 hover:bg-blue-500/30 cursor-pointer">{choice} P.M.</div>
+              </li>
+            ))} */}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

@@ -48,3 +48,9 @@ export interface ProblemDetails {
   numberTwoMaximum: string;
   problemType: OperationType;
 }
+
+// Problem Tiers - Analog Clock
+export const EASY = "EASY";
+export const MEDIUM = "MEDIUM";
+export const HARD = "HARD";
+export type Tier = typeof EASY | typeof MEDIUM | typeof HARD | "";
