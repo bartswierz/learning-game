@@ -5,33 +5,44 @@ const ClockCenter = () => (
   <div className="absolute top-1/2 left-1/2 bg-gray-800 w-2 h-2 rounded-full" style={{ transform: "translate(-50%, -50%)" }}></div>
 );
 
-type handProps = {
-  position: number;
-};
-
-const HourHand = ({ position }: handProps) => {
-  console.log("hourHand - position", position);
+const HourHand = ({ time }: { time: string }) => {
+  console.log("hourHand - hour", time);
+  const hour = parseInt(time.split(":")[0]);
+  const minutes = parseInt(time.split(":")[1]);
+  console.log("hour", hour);
+  console.log("minutes", minutes);
+  const hourDegree: number = (hour % 12) * 30 + (minutes / 60) * 30;
+  console.log("hourDegree", hourDegree);
+  // TODO - hour logic here
   return (
     <div
       className="absolute top-1/2x left-1/2 bg-blue-800 w-1 h-[50%] rounded-full origin-bottom"
       style={{
-        transform: `rotate(${position}deg)`,
+        transform: `rotate(${hourDegree}deg)`,
       }}
     ></div>
   );
 };
 
-const MinuteHand = ({ position }: handProps) => {
-  console.log("minuteHand - position", position);
+// TODO - fix minute hand
+const MinuteHand = ({ minutes }: { minutes: string }) => {
+  console.log("minuteHand - minutes", minutes);
+  const minuteDegree = parseInt(minutes) * 6; // * 6 because 360 / 60 minutes = 6 degrees per minute
+  // TODO - minute logic here
   return (
     <div
       className="absolute left-1/2 bg-red-600 w-1 h-[50%] rounded-full origin-bottom"
       style={{
-        transform: `rotate(${position}deg)`,
+        transform: `rotate(${minuteDegree}deg)`,
       }}
     ></div>
   );
 };
+
+// const minuteDegree: number = minutes[0] * 6; // minute * 6 because 360 / 60 minutes = 6 degrees per minute
+// const minuteDegree: number = minutes[0] * 6; // minute * 6 because 360 / 60 minutes = 6 degrees per minute
+// const hourDegree: number = (hour % 12) * 30 + (minutes / 60) * 30;
+// const minuteDegree: number = minutes * 6;
 
 const HourIndicators = () => {
   return (
@@ -68,24 +79,33 @@ const HourIndicators = () => {
  * display one of the choices as the correct answer
  */
 const AnalogClock = () => {
-  // const [answer, setAnswer] = useState<string>("");
+  const [answer, setAnswer] = useState<string>("");
   const [choicesArray, setChoicesArray] = useState<string[]>([]);
   const hour = Math.floor(Math.random() * 12) + 1; // Random hour between 1 and 12
+  const shuffledArray = choicesArray && shuffle(choicesArray);
+  console.log("shuffledArray", shuffledArray);
+
+  // Picks a random answer from the choicesArray
+  useEffect(() => {
+    setAnswer(choicesArray[Math.floor(Math.random() * choicesArray.length)]);
+  }, [choicesArray]);
 
   // Easy tier will have two options - 0 and 30 minutes
-  const handleEasyTier = () => {
-    if (hour === 1) setChoicesArray(["1:00", "1:30", "2:00", "2:30"]);
-    else if (hour === 12) setChoicesArray(["12:00", "12:30", "1:00", "1:30"]);
-    else setChoicesArray([`${hour}:00`, `${hour}:30`, `${hour + 1}:00`, `${hour + 1}:30`]);
+  const handleEasyTier = (hour: number) => {
+    if (hour === 1) {
+      setChoicesArray(shuffle(["1:00", "1:30", "2:00", "2:30"]));
+      return;
+    } else if (hour === 12) setChoicesArray(shuffle(["12:00", "12:30", "1:00", "1:30"]));
+    else setChoicesArray(shuffle([`${hour}:00`, `${hour}:30`, `${hour + 1}:00`, `${hour + 1}:30`]));
   };
 
   // Medium Tier will have four options - 0, 15, 30, 45 minutes
-  const handleMediumTier = () => {
-    setChoicesArray([`${hour}:00`, `${hour}:15`, `${hour}:30`, `${hour}:45`]);
+  const handleMediumTier = (hour: number) => {
+    setChoicesArray(shuffle([`${hour}:00`, `${hour}:15`, `${hour}:30`, `${hour}:45`]));
   };
 
   // Hard Tier will have twelve options in increments of 5 minutes(0-55)
-  const handleHardTier = () => {
+  const handleHardTier = (hour: number) => {
     const hardMinutesArray = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
     const startingPointMinutes = hardMinutesArray[Math.floor(Math.random() * 12)]; // index 0-11
 
@@ -137,6 +157,15 @@ const AnalogClock = () => {
     }
   };
 
+  const handleUserChoice = (choice: string) => {
+    console.log("User Choice: ", choice);
+    if (choice === answer) {
+      console.log("CORRECT!");
+    } else {
+      console.log("INCORRECT! - answer is ", answer);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[90%]">
       <div>
@@ -146,27 +175,30 @@ const AnalogClock = () => {
             <span className="mx-1">{choice}</span>
           ))}
         </h2>
+        <h2>Answer: {answer}</h2>
       </div>
       <div className="relative w-[380px] h-[380px] border-[3px] border-white rounded-full">
         <HourIndicators />
         <ClockCenter />
-        {/* Hour and Minute hand are there but are defaulting to displaying at 0 0  */}
-        {/* <HourHand position={hourDegree} />
-        <MinuteHand position={minuteDegree} /> */}
+        {answer && <HourHand time={answer} />}
+        {answer && <MinuteHand minutes={answer.split(":")[1]} />}
       </div>
 
       {/* <h2>Current Tier: {tier}</h2> */}
       <div className="flex gap-4 my-4">
-        <button onClick={handleEasyTier} className="cursor-pointer bg-green-600 hover:bg-green-700 px-4 py-2 text-center">
+        <button onClick={() => handleEasyTier(hour)} className="cursor-pointer bg-green-600 hover:bg-green-700 px-4 py-2 text-center">
           Easy
           <br />
           (30 mins)
         </button>
-        <button onClick={handleMediumTier} className="cursor-pointer bg-yellow-600 hover:bg-yellow-700 px-4 py-2 text-center">
+        <button
+          onClick={() => handleMediumTier(hour)}
+          className="cursor-pointer bg-yellow-600 hover:bg-yellow-700 px-4 py-2 text-center"
+        >
           Medium <br />
           (15 mins)
         </button>
-        <button onClick={handleHardTier} className="cursor-pointer bg-red-600 hover:bg-red-700 px-4 py-2 text-center">
+        <button onClick={() => handleHardTier(hour)} className="cursor-pointer bg-red-600 hover:bg-red-700 px-4 py-2 text-center">
           Hard
           <br />
           (5 mins)
@@ -184,7 +216,12 @@ const AnalogClock = () => {
           {choicesArray &&
             choicesArray.map((choice, index) => (
               <li key={index}>
-                <button className="bb w-full max-w-[200px] px-2 py-6 hover:bg-blue-500/30 cursor-pointer">{choice} P.M.</button>
+                <button
+                  className="bb w-full max-w-[200px] px-2 py-6 hover:bg-blue-500/30 cursor-pointer"
+                  onClick={() => handleUserChoice(choice)}
+                >
+                  {choice} P.M.
+                </button>
               </li>
             ))}
         </ul>
