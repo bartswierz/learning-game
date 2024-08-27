@@ -47,20 +47,20 @@ const MinuteHand = ({ minutes }: { minutes: string }) => {
 const HourIndicators = () => {
   return (
     <ul className="text-white">
-      <li className="absolute top-0 left-[48%]">12</li>
-      <li className="absolute bottom-0 left-[48%]">6</li>
+      <li className="absolute top-0 left-[49%]">12</li>
+      <li className="absolute bottom-0 left-[49%]">6</li>
 
-      <li className="absolute top-[10%] left-[24%]">11</li>
-      <li className="absolute top-[10%] left-[75%]">1</li>
+      <li className="absolute top-[8%] left-[24%]">11</li>
+      <li className="absolute top-[8%] left-[73%]">1</li>
 
-      <li className="absolute top-[27%] left-[7%]">10</li>
-      <li className="absolute top-[27%] right-[8%]">2</li>
+      <li className="absolute top-[25%] left-[7%]">10</li>
+      <li className="absolute top-[25%] right-[8%]">2</li>
 
-      <li className="absolute top-[48%] left-[2%]">9</li>
-      <li className="absolute top-[48%] right-[2%]">3</li>
+      <li className="absolute top-[47%] left-[2%]">9</li>
+      <li className="absolute top-[47%] right-[2%]">3</li>
 
-      <li className="absolute bottom-[24%] left-[9%]">8</li>
-      <li className="absolute bottom-[24%] right-[8%]">4</li>
+      <li className="absolute bottom-[23%] left-[9%]">8</li>
+      <li className="absolute bottom-[23%] right-[8%]">4</li>
 
       <li className="absolute bottom-[7%] left-[27%]">7</li>
       <li className="absolute bottom-[7%] right-[25%]">5</li>
@@ -84,6 +84,32 @@ const AnalogClock = () => {
   const hour = Math.floor(Math.random() * 12) + 1; // Random hour between 1 and 12
   const shuffledArray = choicesArray && shuffle(choicesArray);
   console.log("shuffledArray", shuffledArray);
+
+  // Each tick is at every 6 degrees(6*60 = 360 degrees)
+  // Ticks for clock
+  // const ticks = [];
+  // const clockRadius = 190;
+  // for (let i = 0; i < 60; i++) {
+  //   const angle = i * 6;
+  //   ticks.push(
+  //     <div
+  //       key={i}
+  //       style={{
+  //         position: "absolute",
+  //         width: "2px", // thickness of the tick
+  //         height: i % 5 === 0 ? "10px" : "5px", // longer ticks for each 5th second
+  //         backgroundColor: i % 5 === 0 ? "red" : "white",
+  //         transformOrigin: "bottom center",
+  //         transform: `rotate(${angle}deg) translateY(-50%)`, // translateY centers the tick on the edge of the clock
+  //         // Translates it to the center of the clock
+  //         // top: "50%",
+  //         // left: "50%",
+  //         top: `${clockRadius}px`,
+  //         left: `${clockRadius}px`,
+  //       }}
+  //     />
+  //   );
+  // }
 
   // Picks a random answer from the choicesArray
   useEffect(() => {
@@ -180,6 +206,7 @@ const AnalogClock = () => {
       <div className="relative w-[380px] h-[380px] border-[3px] border-white rounded-full">
         <HourIndicators />
         <ClockCenter />
+        {/* {ticks} */}
         {answer && <HourHand time={answer} />}
         {answer && <MinuteHand minutes={answer.split(":")[1]} />}
       </div>
