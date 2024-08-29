@@ -1,6 +1,6 @@
 const Pin = () => (
   <div
-    className="absolute top-1/2 left-1/2 bg-gray-900 w-2 h-2 rounded-full z-[2]"
+    className="absolute top-1/2 left-1/2 bg-gray-900 w-3 h-3 rounded-full z-[3]"
     style={{ transform: "translate(-50%, -50%)" }}
   ></div>
 );

@@ -21,7 +21,7 @@ const ClockTicks = () => {
     );
   }
 
-  return <div className="p-4">{ticks}</div>;
+  return <div>{ticks}</div>;
 };
 
 export default ClockTicks;
