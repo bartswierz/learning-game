@@ -3,16 +3,8 @@ import { useEffect, useState } from "react";
 // TODO - fix minute hand
 const MinuteHand = ({ time }: { time: string }) => {
   const minutes = time.split(":")[1]; // '12:30' split -> '30' minutes
-  console.log("minuteHand - minutes", minutes);
   const minuteDegree = parseInt(minutes) * 6; // * 6 because 360 / 60 minutes = 6 degrees per minute
 
-  // console.log("minuteDegree", minuteDegree);
-  // let previousDegree = 0;
-  // let adjustedDegree = minuteDegree < 360 ? minuteDegree + 360 : minuteDegree;
-
-  // console.log("adjustedDegree", adjustedDegree);
-
-  // // Used to adjust the minute hand to rotate CLOCKWISE
   const [previousDegree, setPreviousDegree] = useState(0);
   const [adjustedDegree, setAdjustedDegree] = useState(minuteDegree);
 
@@ -33,15 +25,15 @@ const MinuteHand = ({ time }: { time: string }) => {
   return (
     <>
       <div
-        className="absolute left-[50%] top-[15px] w-0 h-0 border-l-[6px] border-r-[6px] border-b-[160px] border-b-red-600 border-l-transparent border-r-transparent origin-bottom transition-all duration-1000 ease-in-out"
+        className="absolute left-[49%] top-[15px] w-0 h-0 border-l-[6px] border-r-[6px] border-b-[160px] border-b-red-600 border-l-transparent border-r-transparent origin-bottom transition-all duration-1000 ease-in-out"
         style={{
           // transform: `rotate(${minuteDegree}deg)`,
           transform: `rotate(${adjustedDegree}deg)`,
         }}
       ></div>
-      <div className="absolute bb top-[-40%]">
+      <div className="absolute top-[-30%]">
         ADJUSTED DEGREE: {adjustedDegree} <br />
-        PREVIOUS DEGREE:{previousDegree}
+        PREVIOUS DEGREE: {previousDegree}
       </div>
     </>
   );

@@ -2,15 +2,16 @@ import "./globals.css";
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/ui/Navbar/Navbar.tsx";
-import AnalogClock from "./components/ui/AnalogClock/AnalogClock.tsx";
 
-// Lazy loading - only load the component when the user navigates to the page to decrease the initial load time when app is first loaded
-const Home = lazy(() => import("./pages/Home.jsx"));
-const Addition = lazy(() => import("./pages/Addition.js"));
-const Subtraction = lazy(() => import("./pages/Subtraction.jsx"));
-const Multiplication = lazy(() => import("./pages/Multiplication.jsx"));
-const Division = lazy(() => import("./pages/Division.jsx"));
-const TakeHomeProblems = lazy(() => import("./pages/TakeHomeProblems.tsx"));
+// Lazy Loading Pages
+const HomePage = lazy(() => import("./pages/Home.jsx"));
+const AdditionPage = lazy(() => import("./pages/Addition.js"));
+const SubtractionPage = lazy(() => import("./pages/Subtraction.jsx"));
+const MultiplicationPage = lazy(() => import("./pages/Multiplication.jsx"));
+const DivisionPage = lazy(() => import("./pages/Division.jsx"));
+const TakeHomeProblemsPage = lazy(() => import("./pages/TakeHomeProblems.tsx"));
+const AnalogClockPage = lazy(() => import("./pages/AnalogClock.tsx"));
+const AlphabeticalOrderPage = lazy(() => import("./pages/AlphabeticalOrder.tsx"));
 
 function App() {
   return (
@@ -20,14 +21,14 @@ function App() {
       {/* TODO - add Skeleton Component for fallback */}
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/addition" element={<Addition />} />
-          <Route path="/subtraction" element={<Subtraction />} />
-          <Route path="/multiplication" element={<Multiplication />} />
-          <Route path="/division" element={<Division />} />
-          {/* <Route path="/pdf" element={<TakeHomeProblems />} /> */}
-          <Route path="/take-home-worksheets" element={<TakeHomeProblems />} />
-          <Route path="/analog-clock" element={<AnalogClock />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/addition" element={<AdditionPage />} />
+          <Route path="/subtraction" element={<SubtractionPage />} />
+          <Route path="/multiplication" element={<MultiplicationPage />} />
+          <Route path="/division" element={<DivisionPage />} />
+          <Route path="/take-home-worksheets" element={<TakeHomeProblemsPage />} />
+          <Route path="/analog-clock" element={<AnalogClockPage />} />
+          <Route path="/alphabetical-order" element={<AlphabeticalOrderPage />} />
         </Routes>
       </Suspense>
     </div>

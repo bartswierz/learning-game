@@ -46,7 +46,15 @@ const pageLinks: {
   },
 ];
 
-export type currentRouteType = "/" | "/take-home-worksheets" | "/addition" | "/subtraction" | "/multiplication" | "/division";
+export type currentRouteType =
+  | "/"
+  | "/take-home-worksheets"
+  | "/addition"
+  | "/subtraction"
+  | "/multiplication"
+  | "/division"
+  | "/analog-clock"
+  | "/alphabetical-order";
 interface NavigationMenuProps {
   currentRoute: currentRouteType;
 }
@@ -104,6 +112,15 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
                   setRedirectRoute={setRedirectRoute}
                 >
                   {t("Practice reading the time on an analog clock")}
+                </ListItemLink>
+                {/* TODO - add language translation for alphabetical order */}
+                <ListItemLink
+                  route="/alphabetical-order"
+                  title={t("Alphabetical Order")}
+                  className="bg-indigo-500 hover:bg-indigo-600 hover:text-white"
+                  setRedirectRoute={setRedirectRoute}
+                >
+                  {t("Practice your alphabet by putting letters in order")}
                 </ListItemLink>
               </ul>
             </NavigationMenuContent>

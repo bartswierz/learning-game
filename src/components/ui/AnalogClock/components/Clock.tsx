@@ -8,8 +8,12 @@ const Clock = ({ time }: { time: string }) => {
       <HourIndicators />
       <ClockTicks />
       <Pin />
-      {time && <HourHand time={time} />}
-      {time && <MinuteHand time={time} />}
+      {time && (
+        <>
+          <HourHand time={time} />
+          <MinuteHand time={time} />
+        </>
+      )}
     </div>
   );
 };

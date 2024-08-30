@@ -39,7 +39,15 @@ export interface CheckAnswer {
   operationType: OperationType;
 }
 
-export type Route = "/addition" | "/subtraction" | "/multiplication" | "/division" | "/take-home-worksheets" | "/analog-clock" | "";
+export type Route =
+  | "/addition"
+  | "/subtraction"
+  | "/multiplication"
+  | "/division"
+  | "/take-home-worksheets"
+  | "/analog-clock"
+  | "/alphabetical-order"
+  | "";
 
 export interface ProblemDetails {
   numberOneMinimum: string;

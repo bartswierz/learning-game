@@ -1,9 +1,5 @@
 import PDFWorksheetGenerator from "../components/ui/PDFWorksheets/PDFWorksheetGenerator";
 
-export default function TakeHomeProblems() {
-  return (
-    <>
-      <PDFWorksheetGenerator />
-    </>
-  );
+export default function TakeHomeProblemsPage() {
+  return <PDFWorksheetGenerator />;
 }

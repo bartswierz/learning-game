@@ -50,7 +50,7 @@ const LinkLogoPosition = ({ link }: LinkLogoPositionProps) => {
   }
 };
 
-export default function Home() {
+export default function HomePage() {
   const { t } = useTranslation();
 
   const homepageLinks: homepageLinksType = [

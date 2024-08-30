@@ -19,6 +19,9 @@ export default {
         center: true, // Center the container content
         padding: "2rem", // Add padding to the container
       },
+      gridTemplateColumns: {
+        13: "repeat(13, minmax(0, 1fr))",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

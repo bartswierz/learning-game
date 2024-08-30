@@ -1,5 +1,5 @@
 import Problems from "@/components/ui/Problems/Problems";
 
-export default function Division() {
+export default function DivisionPage() {
   return <Problems operationType="DIVISION" />;
 }

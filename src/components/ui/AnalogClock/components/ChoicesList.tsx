@@ -16,7 +16,7 @@ const ChoicesList = ({ options, answer }: ChoicesListProps) => {
   if (!options) return null;
 
   return (
-    <ul className="grid grid-cols-2 gap-4 mx-4 bb max-w-[380px] w-full">
+    <ul className="grid grid-cols-2 gap-4 m-4 max-w-[380px] w-full">
       {options &&
         options.map((choice: string) => (
           <li key={choice}>
