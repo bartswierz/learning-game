@@ -6,9 +6,11 @@ const AlphabeticalOrder = () => {
       <h2 className="text-2xl">Arrange the Letters in Alphabetical Order</h2>
       <div className="flex flex-col gap-[100px]">
         {/* TODO - make this an empty grid of 13 col / 2 row grid */}
-        <AlphabetGrid />
+        {/* <AlphabetGrid /> */}
         {/* TODO - make this a shuffled list of letters */}
+        <AlphabetGrid isShuffled />
         <AlphabetGrid />
+        <AlphabetGrid isEmpty />
       </div>
     </div>
   );
