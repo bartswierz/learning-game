@@ -1,5 +1,9 @@
 import AnalogClock from "@/components/ui/AnalogClock/AnalogClock";
 
 export default function AnalogClockPage() {
-  return <AnalogClock />;
+  return (
+    <div className="py-[5vh]">
+      <AnalogClock />
+    </div>
+  );
 }

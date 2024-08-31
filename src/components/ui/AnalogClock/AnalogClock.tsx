@@ -12,10 +12,8 @@ const AnalogClock = () => {
   }, [choicesArray]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[90%] bbx mb-[100px]x">
-      <div>
-        <h2>DEV TESTING*: {answer}</h2>
-      </div>
+    <div className="flex flex-col items-center justify-center px-4">
+      {/* <h2>DEV TESTING*: {answer}</h2> */}
       <Clock time={answer} />
       <TierChoice hour={hour} setChoicesArray={setChoicesArray} />
       <ChoicesList options={choicesArray} answer={answer} />

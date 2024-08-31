@@ -57,8 +57,7 @@ export interface ProblemDetails {
   problemType: OperationType;
 }
 
-// Problem Tiers - Analog Clock
-export const EASY = "EASY";
+// Will be used for general size of components
+export const SMALL = "SMALL";
 export const MEDIUM = "MEDIUM";
-export const HARD = "HARD";
-export type Tier = typeof EASY | typeof MEDIUM | typeof HARD | "";
+export const LARGE = "LARGE";

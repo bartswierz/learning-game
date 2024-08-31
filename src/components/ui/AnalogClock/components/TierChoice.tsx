@@ -75,19 +75,18 @@ const TierChoice = ({ setChoicesArray, hour }: TierChoiceProps) => {
       <button onClick={() => handleEasyTier(hour)} className="cursor-pointer bg-green-600 hover:bg-green-700 px-4 py-2 text-center">
         Easy
         <br />
-        (30 mins)
+        30 mins
       </button>
       <button
         onClick={() => handleMediumTier(hour)}
         className="cursor-pointer bg-yellow-600 hover:bg-yellow-700 px-4 py-2 text-center"
       >
         Medium <br />
-        (15 mins)
+        15 mins
       </button>
       <button onClick={() => handleHardTier(hour)} className="cursor-pointer bg-red-600 hover:bg-red-700 px-4 py-2 text-center">
         Hard
-        <br />
-        (5 mins)
+        <br />5 mins
       </button>
     </div>
   );
