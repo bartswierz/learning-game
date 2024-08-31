@@ -2,11 +2,19 @@ import { shuffle } from "lodash";
 
 interface TierChoiceProps {
   setChoicesArray: (Timelist: string[]) => void;
+  setIsTierSelected: (isTierSelected: boolean) => void;
+  isTierSelected: boolean;
   hour: number;
 }
 
-const TierChoice = ({ setChoicesArray, hour }: TierChoiceProps) => {
+{
+  /* TODO - refactor the NEW PROBLEM - NEED TO SEPARATE THIS FROM THE TIER CHOICE COMPONENT 
+  - Once we set the tier, UNTIL it is changed again by the user, we can keep using the tier choice to generate a new set of four choices
+  */
+}
+const TierChoice = ({ setChoicesArray, hour, setIsTierSelected, isTierSelected }: TierChoiceProps) => {
   const handleEasyTier = (hour: number) => {
+    setIsTierSelected(true);
     if (hour === 1) {
       setChoicesArray(shuffle(["1:00", "1:30", "2:00", "2:30"]));
       return;
@@ -15,12 +23,15 @@ const TierChoice = ({ setChoicesArray, hour }: TierChoiceProps) => {
   };
 
   const handleMediumTier = (hour: number) => {
+    setIsTierSelected(true);
     setChoicesArray(shuffle([`${hour}:00`, `${hour}:15`, `${hour}:30`, `${hour}:45`]));
   };
 
   const handleHardTier = (hour: number) => {
     const hardMinutesArray = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
     const startingPointMinutes = hardMinutesArray[Math.floor(Math.random() * 12)]; // index 0-11
+
+    setIsTierSelected(true);
 
     switch (startingPointMinutes) {
       case 0:
@@ -72,22 +83,33 @@ const TierChoice = ({ setChoicesArray, hour }: TierChoiceProps) => {
 
   return (
     <div className="flex gap-4 my-4">
-      <button onClick={() => handleEasyTier(hour)} className="cursor-pointer bg-green-600 hover:bg-green-700 px-4 py-2 text-center">
-        Easy
-        <br />
-        30 mins
-      </button>
-      <button
-        onClick={() => handleMediumTier(hour)}
-        className="cursor-pointer bg-yellow-600 hover:bg-yellow-700 px-4 py-2 text-center"
-      >
-        Medium <br />
-        15 mins
-      </button>
-      <button onClick={() => handleHardTier(hour)} className="cursor-pointer bg-red-600 hover:bg-red-700 px-4 py-2 text-center">
-        Hard
-        <br />5 mins
-      </button>
+      {isTierSelected ? (
+        <button onClick={() => setIsTierSelected(false)} className="bg-blue-500 px-2 py-2">
+          Change Difficulty
+        </button>
+      ) : (
+        <>
+          <button
+            onClick={() => handleEasyTier(hour)}
+            className="cursor-pointer bg-green-600 hover:bg-green-700 px-4 py-2 text-center"
+          >
+            Easy
+            <br />
+            30 mins
+          </button>
+          <button
+            onClick={() => handleMediumTier(hour)}
+            className="cursor-pointer bg-yellow-600 hover:bg-yellow-700 px-4 py-2 text-center"
+          >
+            Medium <br />
+            15 mins
+          </button>
+          <button onClick={() => handleHardTier(hour)} className="cursor-pointer bg-red-600 hover:bg-red-700 px-4 py-2 text-center">
+            Hard
+            <br />5 mins
+          </button>
+        </>
+      )}
     </div>
   );
 };

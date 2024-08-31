@@ -1,7 +1,7 @@
 import { HourIndicators, ClockTicks, Pin, HourHand, MinuteHand } from "./index";
 import { SMALL } from "../../../../types/types";
 
-const Clock = ({ time }: { time: string }) => {
+const Clock = ({ time = "12:15" }: { time: string }) => {
   if (!time) return null;
 
   return (
@@ -14,18 +14,15 @@ const Clock = ({ time }: { time: string }) => {
         <ClockTicks />
       </div>
       <Pin />
-      {time && (
-        <>
-          <div className="sm:hidden">
-            <HourHand time={time} size={SMALL} />
-            <MinuteHand time={time} size={SMALL} />
-          </div>
-          <div className="hidden sm:block">
-            <HourHand time={time} />
-            <MinuteHand time={time} />
-          </div>
-        </>
-      )}
+
+      <div className="sm:hidden">
+        <HourHand time={time} size={SMALL} />
+        <MinuteHand time={time} size={SMALL} />
+      </div>
+      <div className="hidden sm:block">
+        <HourHand time={time} />
+        <MinuteHand time={time} />
+      </div>
     </div>
   );
 };
