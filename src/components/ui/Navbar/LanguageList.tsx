@@ -1,19 +1,22 @@
 import { useTranslation } from "react-i18next";
+import useTTSStore from "@/store/tts_store";
 
 const languageList = [
-  { id: "en", language: "English" },
-  { id: "es", language: "Spanish" },
-  { id: "pl", language: "Polish" },
-  { id: "fr", language: "French" },
-  { id: "de", language: "German" },
+  { id: "en-US", language: "English" },
+  { id: "es-ES", language: "Spanish" },
+  { id: "pl-PL", language: "Polish" },
+  { id: "fr-FR", language: "French" },
+  { id: "de-DE", language: "German" },
 ];
 
 const LanguageList = () => {
   const { i18n } = useTranslation();
+  const setLanguage = useTTSStore((state) => state.setLanguage);
 
   const switchLanguage = (languageId: string) => {
     console.log("switching language to: ", languageId);
     i18n.changeLanguage(languageId);
+    setLanguage(languageId); // Update our TTS Store with the new language to match the correct TTS Voice
   };
 
   return (

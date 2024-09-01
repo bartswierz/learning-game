@@ -4,6 +4,8 @@ import Header from "./Header";
 import Question from "./Question";
 import InputDisplay from "./InputDisplay";
 import DisplayResults from "./DisplayResults";
+import { TTS_DATA } from "@/constants/constants";
+import { DescriptionType } from "@/types/types";
 
 import useSettingsStore from "@/store/store";
 
@@ -20,6 +22,9 @@ const Problems = ({ operationType }: OperationProps) => {
   const numberTwo = useSettingsStore((state) => state.numberTwo);
   const disabled: boolean = userInput === "" ? true : false;
 
+  const { operations } = TTS_DATA;
+  const tts_description: DescriptionType = operations[operationType].description;
+
   // User will see this after game is complete
   if (isGameOver) {
     return (
@@ -31,7 +36,7 @@ const Problems = ({ operationType }: OperationProps) => {
 
   return (
     <div className="flex items-center flex-col justify-center mt-[56px]">
-      <Header operationType={operationType} numOfQuestions={numOfQuestions} score={score} />
+      <Header operationType={operationType} numOfQuestions={numOfQuestions} score={score} tts={tts_description} />
       <div className="flex justify-centerx items-centerx flex-col gap-4 text-center">
         <Question operationType={operationType} numberOne={numberOne} numberTwo={numberTwo} />
         <InputDisplay userInput={userInput} />
