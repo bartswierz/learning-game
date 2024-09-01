@@ -40,3 +40,14 @@ Text for the five current languages has been placed within the constants directo
   - const ttsLanguage: LanguageType = useTTSStore((state) => state.language); // Header.tsx - Line 19
     - LanguageType = "en-US" | "es" | "pl" | "de" | "fr"; // types.ts - Line 79
   - TextToSpeech text={tts[ttsLanguage]} language={ttsLanguage} // Header.tsx - Line 29
+
+  # To Implement TTS to new components(See AnalogClock Component for a simple example):
+  1. Import useTTSStore from "@/components/ui/TextToSpeech/TextToSpeech"
+  2. import TextToSpeech from "@/components/ui/TextToSpeech/TextToSpeech";
+  3. import { TTS_DATA } from "@/constants/constants";
+  4. const ttsLanguage = useTTSStore((state) => state.language);
+  5. const { CLOCK } = TTS_DATA;
+  6. const ttsDescription = CLOCK.description[ttsLanguage];
+  7. Pass ttsDescription and ttsLanguage as props to the TextToSpeech Component
+     a. <TextToSpeech text={ttsDescription} language={ttsLanguage} /
+  NOTE: Must add new Data into our TTS_DATA Object containing all of the five language text - See /constants/constants -> TTS_DATA Object
