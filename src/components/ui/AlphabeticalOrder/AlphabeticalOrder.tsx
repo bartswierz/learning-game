@@ -1,5 +1,4 @@
 import AlphabetGrid from "./AlphabetGrid";
-import { useEffect } from "react";
 import TextToSpeech from "../TextToSpeech/TextToSpeech";
 
 const AlphabeticalOrder = () => {

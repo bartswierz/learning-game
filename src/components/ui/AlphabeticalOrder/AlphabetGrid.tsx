@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { shuffle } from "lodash";
 
 const alphabetList = [
@@ -36,7 +35,7 @@ interface AlphabetGridProps {
 }
 
 const AlphabetGrid = ({ isShuffled = false, isEmpty = false }: AlphabetGridProps) => {
-  const [userChoice, setUserChoice] = useState<string[]>([]);
+  // const [userChoice, setUserChoice] = useState<string[]>([]);
 
   const LetterBox = ({ letter }: { letter?: string }) => {
     return <div className="flex justify-center items-center w-[60px] h-[60px] bb">{letter ? letter : null}</div>;
