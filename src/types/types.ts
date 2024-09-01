@@ -61,3 +61,8 @@ export interface ProblemDetails {
 export const SMALL = "SMALL";
 export const MEDIUM = "MEDIUM";
 export const LARGE = "LARGE";
+
+// Used for the AnalogClock component and future components that have a tier choice for difficulty
+export const EASY = "EASY";
+export const HARD = "HARD";
+export type DifficultyTierType = typeof EASY | typeof MEDIUM | typeof HARD | null;

@@ -23,7 +23,6 @@ const ListItemLink = ({ className, route, title, children, setRedirectRoute }: L
 
   // USER CLICK OPENS THE RESTART MODAL - USING A CALLBACK
   const handleClick = () => {
-    console.log("user clicked one of the links");
     setRedirectRoute(route);
   };
 

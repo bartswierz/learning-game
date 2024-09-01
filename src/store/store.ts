@@ -93,7 +93,7 @@ const useSettingsStore = create<State & Action>((set) => ({
   },
   resetProgress: () => {
     set(() => ({ score: 0, questionNumber: 1, attemptsLeft: 3, isGameOver: false, userInput: "" }));
-    console.log("RESET PROGRESS CALLED");
+    // console.log("RESET PROGRESS CALLED");
   },
 }));
 

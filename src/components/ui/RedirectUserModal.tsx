@@ -18,7 +18,6 @@ const RedirectUserModal = ({ redirectRoute, closeModalCallback }: RedirectUserMo
 
   // Reset user progress, closes modal, & redirects user to new route
   const handleReset = () => {
-    console.log("INSIDE MODAL - HANDLE RESET");
     resetProgress();
     closeModalCallback();
 

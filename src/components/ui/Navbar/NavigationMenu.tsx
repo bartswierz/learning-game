@@ -114,14 +114,14 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
                   {t("Practice reading the time on an analog clock")}
                 </ListItemLink>
                 {/* TODO - add language translation for alphabetical order */}
-                <ListItemLink
+                {/* <ListItemLink
                   route="/alphabetical-order"
                   title={t("Alphabetical Order")}
                   className="bg-indigo-500 hover:bg-indigo-600 hover:text-white"
                   setRedirectRoute={setRedirectRoute}
                 >
                   {t("Practice your alphabet by putting letters in order")}
-                </ListItemLink>
+                </ListItemLink> */}
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
