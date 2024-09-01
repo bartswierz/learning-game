@@ -1,7 +1,5 @@
 import { PiSpeakerHighBold } from "react-icons/pi";
-import useTTSStore from "@/store/tts_store";
 
-// TODO - should pass in REQUIRED TEXT and OPTIONAL LANGUAGE TYPE
 interface TextToSpeechProps {
   text: string;
   language?: string;
@@ -19,18 +17,11 @@ const TextToSpeech = ({ text, language }: TextToSpeechProps) => {
   sentence.text = text; // Text to be spoken
   sentence.lang = language ? language : "en-US"; // Voice to use - Default is English
 
-  // console.log("window.speechSynthesis: ", window.speechSynthesis.getVoices());
-  // console.log("window.speechSynthesis: ", window.speechSynthesis);
-
   return (
     <>
-      <button onClick={() => window.speechSynthesis.speak(sentence)} className="bg-blue-500 px-2 py-2 rounded-full">
-        <PiSpeakerHighBold />
+      <button onClick={() => window.speechSynthesis.speak(sentence)} className="bg-blue-500 p-2 rounded-full w-8x h-8x">
+        <PiSpeakerHighBold size={18} />
       </button>
-      {/* FOR REFERENCE ON HOW TO CREATE DIFFERENT LANGUAGES */}
-      {/* <button onClick={() => window.speechSynthesis.speak(polishSentence)} className="bg-blue-500 px-3 py-3 rounded-full">
-        <PiSpeakerHighBold />
-      </button> */}
     </>
   );
 };

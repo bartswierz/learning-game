@@ -70,10 +70,10 @@ export type DifficultyTierType = typeof EASY | typeof MEDIUM | typeof HARD | nul
 // Used for the TextToSpeech component
 export type DescriptionType = {
   "en-US": string;
-  es: string;
-  pl: string;
-  de: string;
-  fr: string;
+  "es-ES": string;
+  "pl-PL": string;
+  "de-DE": string;
+  "fr-FR": string;
 };
 
 export type LanguageType = "en-US" | "es-ES" | "pl-PL" | "de-DE" | "fr-FR";
