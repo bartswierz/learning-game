@@ -5,25 +5,16 @@ type State = {
   language: LanguageType;
 };
 
-// isPlaying: false,
-// isPaused: false,
-// isStopped: true,
-// isResumed: false,
-// isFinished: false,
-// text: "",
-// voice: "Google US English",
-// rate: 1.0,
-// pitch: 1.0,
-// volume: 1.0,
-// voices: [],
+type Action = {
+  setLanguage: (language: LanguageType) => void;
+};
+
 const initialTTSState: State = {
   language: "en-US",
 };
 
-const useTTSStore = create((set) => ({
+const useTTSStore = create<State & Action>((set) => ({
   ...initialTTSState,
-  // language: "en-US",
-  // setLanguage: (language: string) => set(() => ({ language })),
   setLanguage: (language: LanguageType) => set(() => ({ language })),
 }));
 

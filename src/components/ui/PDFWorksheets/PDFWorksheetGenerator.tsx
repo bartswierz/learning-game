@@ -26,7 +26,7 @@ const PDFWorksheetGenerator = () => {
   const [isPdfCreated, setIsPdfCreated] = useState(false);
 
   // Retrieve Language from our store
-  const ttsLanguage: string = useTTSStore((state) => state.language);
+  const ttsLanguage = useTTSStore((state) => state.language);
   const { TAKE_HOME_WORKSHEETS } = TTS_DATA;
   const ttsDescription = TAKE_HOME_WORKSHEETS.description[ttsLanguage];
 

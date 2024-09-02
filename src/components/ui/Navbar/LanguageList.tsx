@@ -1,9 +1,17 @@
 import { useTranslation } from "react-i18next";
 import useTTSStore from "@/store/tts_store";
 import { US, PL, MX, DE, FR } from "country-flag-icons/react/3x2";
+import { LanguageType } from "@/types/types";
 
 const flagStyle = "w-[33px] h-[22px]";
-const languageList = [
+
+type LanguageListType = {
+  id: LanguageType;
+  language: string;
+  flag: JSX.Element;
+};
+
+const languageList: LanguageListType[] = [
   { id: "en-US", language: "English", flag: <US className={flagStyle} /> },
   { id: "es-ES", language: "Spanish", flag: <MX className={flagStyle} /> },
   { id: "pl-PL", language: "Polish", flag: <PL className={flagStyle} /> },
@@ -16,8 +24,7 @@ const LanguageList = () => {
   const setLanguage = useTTSStore((state) => state.setLanguage);
   const activeLanguage = useTTSStore((state) => state.language);
 
-  const switchLanguage = (languageId: string) => {
-    console.log("switching language to: ", languageId);
+  const switchLanguage = (languageId: LanguageType) => {
     i18n.changeLanguage(languageId);
     setLanguage(languageId); // Update our TTS Store with the new language to match the correct TTS Voice
   };

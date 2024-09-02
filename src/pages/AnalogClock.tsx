@@ -6,7 +6,7 @@ import { TTS_DATA } from "@/constants/constants";
 export default function AnalogClockPage() {
   const ttsLanguage = useTTSStore((state) => state.language);
   const { CLOCK } = TTS_DATA;
-  const ttsDescription = CLOCK.description[ttsLanguage];
+  const ttsDescription: string = CLOCK.description[ttsLanguage];
 
   return (
     <div className="pt-[4vh] pb-[8vh]">
