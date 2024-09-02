@@ -11,7 +11,7 @@ const MultiplicationPage = lazy(() => import("./pages/Multiplication.jsx"));
 const DivisionPage = lazy(() => import("./pages/Division.jsx"));
 const TakeHomeProblemsPage = lazy(() => import("./pages/TakeHomeProblems.tsx"));
 const AnalogClockPage = lazy(() => import("./pages/AnalogClock.tsx"));
-// const AlphabeticalOrderPage = lazy(() => import("./pages/AlphabeticalOrder.tsx"));
+const AlphabeticalOrderPage = lazy(() => import("./pages/AlphabeticalOrder.tsx"));
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
           <Route path="/take-home-worksheets" element={<TakeHomeProblemsPage />} />
           <Route path="/analog-clock" element={<AnalogClockPage />} />
           {/* TODO - update design and functionality of the alphabet order feature */}
-          {/* <Route path="/alphabetical-order" element={<AlphabeticalOrderPage />} /> */}
+          <Route path="/alphabetical-order" element={<AlphabeticalOrderPage />} />
         </Routes>
       </Suspense>
     </div>
