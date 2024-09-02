@@ -83,18 +83,18 @@ const AlphabeticalOrder = () => {
       </h2>
       <div className="flex flex-col gap-[50px]">
         <AlphabetGrid isShuffled />
-        <AlphabetGrid />
-        <AlphabetGrid isEmpty />
+        {/* <AlphabetGrid /> */}
+        {/* <AlphabetGrid isEmpty /> */}
       </div>
       <div className="bb">
         <h2>DRAG - DROP AREA</h2>
         <div>
           <DragDropContext onDragEnd={handleDragEnd}>
-            <h1>Todo App</h1>
+            <h1>Alphabet Order</h1>
             <Droppable droppableId="AlphabetOrder">
               {(droppableProvider) => (
                 <ul ref={droppableProvider.innerRef} {...droppableProvider.droppableProps}>
-                  {initialStateAlphabetOrder.map((item, index) => (
+                  {alphabetOrder.map((item, index) => (
                     <Draggable index={index} key={item.id} draggableId={`${item.id}`}>
                       {(draggableProvider) => (
                         <li
