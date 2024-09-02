@@ -66,3 +66,40 @@ export const LARGE = "LARGE";
 export const EASY = "EASY";
 export const HARD = "HARD";
 export type DifficultyTierType = typeof EASY | typeof MEDIUM | typeof HARD | null;
+
+// Used for the TextToSpeech component
+export type DescriptionType = {
+  "en-US": string;
+  "es-ES": string;
+  "pl-PL": string;
+  "de-DE": string;
+  "fr-FR": string;
+};
+
+export type LanguageType = "en-US" | "es-ES" | "pl-PL" | "de-DE" | "fr-FR";
+
+export type TTSDataType = {
+  operations: {
+    ADDITION: {
+      description: DescriptionType;
+    };
+    SUBTRACTION: {
+      description: DescriptionType;
+    };
+    MULTIPLICATION: {
+      description: DescriptionType;
+    };
+    DIVISION: {
+      description: DescriptionType;
+    };
+  };
+  CLOCK: {
+    description: DescriptionType;
+  };
+  TAKE_HOME_WORKSHEETS: {
+    description: DescriptionType;
+  };
+  ALPHABETICAL_ORDER: {
+    description: DescriptionType;
+  };
+};

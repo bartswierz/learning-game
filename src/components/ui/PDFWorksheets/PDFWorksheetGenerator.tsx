@@ -7,6 +7,11 @@ import ProblemsForm from "./ProblemsForm";
 import { ProblemDetails } from "@/types/types";
 import { useTranslation } from "react-i18next";
 
+// Text-to-Speech Data, Component, and Store for current Language
+import { TTS_DATA } from "@/constants/constants";
+import TextToSpeech from "../TextToSpeech/TextToSpeech";
+import useTTSStore from "@/store/tts_store";
+
 interface ProblemsArray {
   num1: number;
   num2: number;
@@ -17,9 +22,13 @@ interface ProblemsArray {
 const PDFWorksheetGenerator = () => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-  // const [problemsArray, setProblemsArray] = useState<string[]>([]);
   const [problemsArray, setProblemsArray] = useState<ProblemsArray[]>([]);
   const [isPdfCreated, setIsPdfCreated] = useState(false);
+
+  // Retrieve Language from our store
+  const ttsLanguage = useTTSStore((state) => state.language);
+  const { TAKE_HOME_WORKSHEETS } = TTS_DATA;
+  const ttsDescription = TAKE_HOME_WORKSHEETS.description[ttsLanguage];
 
   // Create styles
   const styles = StyleSheet.create({
@@ -171,13 +180,18 @@ const PDFWorksheetGenerator = () => {
   };
 
   return (
-    <div className="h-[90vh] relative">
+    <div className="h-[90vh] relative overflow-x-hidden">
       {/* BACKGROUND - USER CLICK WILL CLOSE THE MODAL */}
       <ModalBackground />
       <PDFView />
 
       <div className="flex flex-col items-center justify-start mt-8">
-        <h1 className="text-2xl underline underline-offset-[5px] text-center">{t("Generate Take Home Problems")}</h1>
+        <h1 className="text-2xl underline underline-offset-[5px] text-center">
+          {t("Generate Take Home Problems")}
+          <span className="pl-2">
+            <TextToSpeech text={ttsDescription} language={ttsLanguage} />
+          </span>
+        </h1>
         {/* The form should return back the user config choices */}
         <ProblemsForm handleFormData={handleFormData} />
 
