@@ -1,29 +1,35 @@
 import AlphabetGrid from "./AlphabetGrid";
 import TextToSpeech from "../TextToSpeech/TextToSpeech";
-import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { useEffect, useState } from "react";
-
-// Place the following code in localStorage to retrieve later OR use the initialStateTodos - requires using useEffect
-// const initialStateTodos = JSON.parse(localStorage.getItem("todos")) || [
-//   {
-//     id: 1,
-//     title: "Ir de Juerga",
-//     completed: false,
-//   },
-//   {
-//     id: 2,
-//     title: "Ir al gimnasio",
-//     completed: false,
-//   },
-//   {
-//     id: 3,
-//     title: "Estudiar React",
-//     completed: true,
-//   },
-// ];
+import Droppable from "./Droppable";
+import Draggable from "./Draggable";
+import {
+  useDroppable,
+  DndContext,
+  closestCorners,
+  useSensors,
+  PointerSensor,
+  useSensor,
+  TouchSensor,
+  KeyboardSensor,
+} from "@dnd-kit/core";
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import AlphabetTile from "./AlphabetTile";
+/** Documentation - https://docs.dndkit.com/
+ *
+ * Possible YT overview video for setting up a simple vertical list: https://www.youtube.com/watch?v=wmk50PEsVrs
+ * Sandbox/Codepen from medium: https://codesandbox.io/p/sandbox/lucid-leaf-trsyw7?file=%2Fsrc%2Findex.tsx
+ */
 
 // const alphabetList = [
-const initialStateAlphabetOrder = JSON.parse(localStorage.getItem("Alphabet Order")) || [
+// const initialStateAlphabetOrder = JSON.parse(localStorage.getItem("Alphabet Order")) || [
+type AlphabetDataType = {
+  id: number;
+  letter: string;
+};
+
+const alphabetData: AlphabetDataType[] = [
   { id: 1, letter: "A" },
   { id: 2, letter: "B" },
   { id: 3, letter: "C" },
@@ -55,24 +61,53 @@ const initialStateAlphabetOrder = JSON.parse(localStorage.getItem("Alphabet Orde
 const AlphabeticalOrder = () => {
   // console.log("window.speechSynthesis: ", window.speechSynthesis.getVoices());
 
-  // const [alphabetOrder, setAlphabetOrder] = useState(initialStateTodos);
-  const [alphabetOrder, setAlphabetOrder] = useState(initialStateAlphabetOrder);
+  const [alphabetList, setAlphabetList] = useState(alphabetData);
+  // const [alphabetOrder, setAlphabetOrder] = useState(initialStateAlphabetOrder);
 
-  // Saves todo list order changes to localStorage. This will be retrieved on refresh/open if it was changed, otherwise we will use the initial state setup of the list
-  useEffect(() => {
-    localStorage.setItem("Alphabet Order", JSON.stringify(alphabetOrder));
-  }, [alphabetOrder]);
-
-  const handleDragEnd = (result) => {
-    console.log("result: ", result);
-    if (!result.destination) return;
-    const startIndex = result.source.index;
-    const endIndex = result.destination.index;
-    const copyAlphabetOrder = [...alphabetOrder];
-    const [reorderAlphabet] = copyAlphabetOrder.splice(startIndex, 1);
-    copyAlphabetOrder.splice(endIndex, 0, reorderAlphabet);
-    setAlphabetOrder(copyAlphabetOrder);
+  const getAlphabetPos = (id: number) => {
+    return alphabetList.findIndex((alphabet) => alphabet.id === id);
   };
+
+  // To ADD a new tile(i.e. adding a new task to a TODO list) - Important for the future when we have multiple lists
+  /*
+  const addAlphabetTile = (letter: string) => {
+    setAlphabetList((alphabetList) => {
+      const newAlphabet = {
+        id: alphabetList.length + 1,
+        letter,
+      };
+ 
+      // Adds the new tile to the end of the list
+      return [...alphabetList, newAlphabet];
+    });
+  };
+  */
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+
+    if (active.id !== over.id) {
+      const { active, over } = event;
+
+      if (active.id === over.id) return;
+
+      setAlphabetList((alphabetList) => {
+        const originalPos = getAlphabetPos(active.id);
+        const newPos = getAlphabetPos(over.id);
+
+        return arrayMove(alphabetList, originalPos, newPos);
+      });
+    }
+  };
+
+  // Used for Mobile as the drag and drop will not work without using sensors
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   return (
     <div className="bb flex flex-col justify-center items-center mx-6 my-[56px]">
@@ -83,37 +118,21 @@ const AlphabeticalOrder = () => {
       </h2>
       <div className="flex flex-col gap-[50px]">
         <AlphabetGrid isShuffled />
-        {/* <AlphabetGrid /> */}
-        {/* <AlphabetGrid isEmpty /> */}
       </div>
       <div className="bb">
         <h2>DRAG - DROP AREA</h2>
+        {/* TESTING DND Kit HERE */}
         <div>
-          <DragDropContext onDragEnd={handleDragEnd}>
-            <h1>Alphabet Order</h1>
-            <Droppable droppableId="AlphabetOrder">
-              {(droppableProvider) => (
-                <ul ref={droppableProvider.innerRef} {...droppableProvider.droppableProps}>
-                  {alphabetOrder.map((item, index) => (
-                    <Draggable index={index} key={item.id} draggableId={`${item.id}`}>
-                      {(draggableProvider) => (
-                        <li
-                          ref={draggableProvider.innerRef}
-                          {...draggableProvider.draggableProps}
-                          {...draggableProvider.dragHandleProps}
-                          className="bb px-2 py-2 my-2"
-                        >
-                          {item.letter}
-                        </li>
-                      )}
-                    </Draggable>
-                  ))}
-                  {/* Makes our section element where we can drag and drop our items */}
-                  {droppableProvider.placeholder}
-                </ul>
-              )}
-            </Droppable>
-          </DragDropContext>
+          <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd} sensors={sensors}>
+            {/* <SortableContext items={alphabetList} strategy={verticalListSortingStrategy}> */}
+            <SortableContext items={alphabetList}>
+              <div className="flex flex-row flex-wrap gap-2">
+                {alphabetList.map((alphabet) => (
+                  <AlphabetTile key={alphabet.id} id={alphabet.id} letter={alphabet.letter} />
+                ))}
+              </div>
+            </SortableContext>
+          </DndContext>
         </div>
       </div>
     </div>
