@@ -2,6 +2,8 @@
 
 Problem Solvers is a learning game and a useful resource application that helps not only **Students**, but also **Teachers**, and **Parents** enrich their children's education. This application has received the opportunity in the near future to be utilized by a second grade class, so future features are in the works! While we plan to build an MVP first, we will spare no expense on making it a great tool! Enjoy!
 
+- Note: Moving documentation over to Coda: https://coda.io/d/_dsBD7i-XcQR/Problems-Solvers_suktclY5
+
 ## Technologies Used
 
 The website is primarily built using:
