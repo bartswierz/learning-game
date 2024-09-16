@@ -9,6 +9,10 @@ function DragAndDropMultipleV2() {
   // Multiple containers for "A", "B", "C"
   const draggableLetters = ["A", "B", "C"];
   const droppableContainers = ["A", "B", "C"];
+
+  // TODO - refactor to use an object to track placements
+  // State to track placements dynamically using an object
+  const [placements, setPlacements] = useState({ A: null, B: null, C: null });
   const [letterA, setLetterA] = useState(null);
   const [letterB, setLetterB] = useState(null);
   const [letterC, setLetterC] = useState(null);
@@ -34,9 +38,16 @@ function DragAndDropMultipleV2() {
       ))} */}
       <div className="flex gap-4 mb-6">
         {/* Condition will remove the container from this location when we have a match */}
-        {letterA === null ? <Draggable id="A">A</Draggable> : null}
+        {/* {letterA === null ? <Draggable id="A">A</Draggable> : null}
         {letterB === null ? <Draggable id="B">B</Draggable> : null}
-        {letterC === null ? <Draggable id="C">C</Draggable> : null}
+        {letterC === null ? <Draggable id="C">C</Draggable> : null} */}
+        {draggableLetters.map((letter) =>
+          placements[letter] === null ? (
+            <Draggable key={letter} id={letter}>
+              {letter}
+            </Draggable>
+          ) : null
+        )}
       </div>
 
       {/* TODO - Add logic for rendering the correct Draggable within Droppable */}
@@ -48,6 +59,7 @@ function DragAndDropMultipleV2() {
             {/* {parent === id ? <Draggable id="A">A</Draggable>  : "Drop here"} */}
             {/* TODO - find logic to compare that our draggableContainer is of the same type as the container -> i.e. draggable container "A" === droppable container "A" */}
             {/* Drop ({letter}) */}
+            {placements[letter] ? `Contains: ${placements[letter]}` : "Drop here"}
           </Droppable>
         ))}
       </div>
@@ -57,10 +69,7 @@ function DragAndDropMultipleV2() {
   // Handle the drag and drop logic
   function handleDragEnd(event) {
     const { active, over } = event;
-    // console.log("handleDragEnd - Draggable - active:", active);
-    // console.log("handleDragEnd - Droppable - over:", over);
 
-    // TODO - add logic to check if the draggable item is of the same type as the droppable container. If it is UPDATE THE STATE
     // Only proceed if the item is dropped over a valid droppable area
     if (over) {
       const draggableContainer = active.id.replace("draggable-", "");
@@ -70,21 +79,26 @@ function DragAndDropMultipleV2() {
       console.log("draggableContainer:", draggableContainer);
       console.log("droppableContainer:", droppableContainer);
 
+      // TODO - refactor logic
       // Ensure the dragged item matches the droppable area
       if (draggableContainer === droppableContainer) {
-        switch (droppableContainer) {
-          case "A":
-            setLetterA(draggableContainer);
-            break;
-          case "B":
-            setLetterB(draggableContainer);
-            break;
-          case "C":
-            setLetterC(draggableContainer);
-            break;
-          default:
-            break;
-        }
+        setPlacements((prevPlacements) => ({
+          ...prevPlacements,
+          [droppableContainer]: draggableContainer, // Mark the letter as placed in the correct container
+        }));
+        // switch (droppableContainer) {
+        //   case "A":
+        //     setLetterA(draggableContainer);
+        //     break;
+        //   case "B":
+        //     setLetterB(draggableContainer);
+        //     break;
+        //   case "C":
+        //     setLetterC(draggableContainer);
+        //     break;
+        //   default:
+        //     break;
+        // }
       }
     }
   }
