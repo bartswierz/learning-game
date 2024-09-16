@@ -1,10 +1,15 @@
 import TextToSpeech from "../TextToSpeech/TextToSpeech";
-import DragAndDrop from "./DragAndDrop";
+import DragAndDrop from "./DragAndDrop3";
 /** Documentation - https://docs.dndkit.com/
  *
  * Possible YT overview video for setting up a simple vertical list: https://www.youtube.com/watch?v=wmk50PEsVrs
  * Sandbox/Codepen from medium: https://codesandbox.io/p/sandbox/lucid-leaf-trsyw7?file=%2Fsrc%2Findex.tsx
  */
+
+// import DragAndDropExample from "./test/DragAndDropExample.jsx";
+import DragAndDropExample from "./example/singleDroppable/DragAndDropExample.jsx";
+import DragAndDropMultiple from "./example/multipleDroppable/DragAndDropMultiple.jsx";
+import DragAndDropMultipleV2 from "./example/multipleDroppable/DragAndDropMultipleV2.jsx";
 
 type AlphabetDataType = {
   id: number;
@@ -49,7 +54,11 @@ const AlphabeticalOrder = () => {
         Arrange the Letters in Alphabetical Order
         <TextToSpeech text="Arrange the Letters in Alphabetical Order" />
       </h2>
-      <DragAndDrop list={alphabetData} correctOrder={alphabetData} />
+      {/* <DragAndDrop list={alphabetData} correctOrder={alphabetData} /> */}
+      {/* TODO - our example Draggable and Droppable from Docs */}
+      {/* <DragAndDropExample /> */}
+      {/* <DragAndDropMultiple /> */}
+      <DragAndDropMultipleV2 />
     </div>
   );
 };
