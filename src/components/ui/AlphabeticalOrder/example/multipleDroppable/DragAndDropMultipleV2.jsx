@@ -1,21 +1,110 @@
 import React, { useState } from "react";
-import { DndContext, closestCorners, useSensors, PointerSensor, useSensor, TouchSensor, KeyboardSensor } from "@dnd-kit/core";
-import { arrayMove, SortableContext, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import { DndContext, useSensors, PointerSensor, useSensor, TouchSensor, KeyboardSensor } from "@dnd-kit/core";
+import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 
 import Droppable from "./Droppable"; // Component for the droppable container
 import Draggable from "./Draggable"; // Component for the draggable items
 
-function DragAndDropMultipleV2() {
-  // Multiple containers for "A", "B", "C"
-  const draggableLetters = ["A", "B", "C"];
-  const droppableContainers = ["A", "B", "C"];
+const draggableLetters = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
+const droppableContainers = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
 
-  // TODO - refactor to use an object to track placements
+const initialStart = {
+  A: null,
+  B: null,
+  C: null,
+  D: null,
+  E: null,
+  F: null,
+  G: null,
+  H: null,
+  I: null,
+  J: null,
+  K: null,
+  L: null,
+  M: null,
+  N: null,
+  O: null,
+  P: null,
+  Q: null,
+  R: null,
+  S: null,
+  T: null,
+  U: null,
+  V: null,
+  W: null,
+  X: null,
+  Y: null,
+  Z: null,
+};
+
+/** TODO
+ * 1. Add conditional logic for the restart button to only appear once all letters are matched
+ * 2. Add a voice chat that will say the letter when it is picked up and dragged by the user -> i.e. if the user picks up "A" it will say "A" on drag start
+ * 3. Update layout of the draggable and droppable to be on 2 rows instead of 1
+ *  3a. Add a max width to the droppable and draggable containers to make it responsive on desktop to mobile
+ */
+function DragAndDropMultipleV2() {
   // State to track placements dynamically using an object
-  const [placements, setPlacements] = useState({ A: null, B: null, C: null });
-  const [letterA, setLetterA] = useState(null);
-  const [letterB, setLetterB] = useState(null);
-  const [letterC, setLetterC] = useState(null);
+  const [placements, setPlacements] = useState(initialStart);
+
+  const handleRestart = () => {
+    console.log("Restarting...");
+    setPlacements(initialStart);
+  };
 
   // Used for Mobile as the drag and drop will not work without using sensors
   const sensors = useSensors(
@@ -28,19 +117,15 @@ function DragAndDropMultipleV2() {
 
   return (
     <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
-      {/* TODO - Add logic to ONLY DISPLAY Draggable Containers OUTSIDE the droppable containers IF THEY HAVEN'T BEEN MATCHED YET */}
-      {/* Draggable components */}
-      {/* <div className="flex gap-4 mb-4"> */}
-      {/* {draggableLetters.map((letter) => (
-        <Draggable key={letter} id={`draggable-${letter}`}>
-          {letter}
-        </Draggable>
-      ))} */}
-      <div className="flex gap-4 mb-6">
-        {/* Condition will remove the container from this location when we have a match */}
-        {/* {letterA === null ? <Draggable id="A">A</Draggable> : null}
-        {letterB === null ? <Draggable id="B">B</Draggable> : null}
-        {letterC === null ? <Draggable id="C">C</Draggable> : null} */}
+      <div className="flex flex-wrap max-w-[950px] gap-4 mb-6">
+        {droppableContainers.map((letter) => (
+          <Droppable key={letter} id={`droppable-${letter}`}>
+            {placements[letter] ? <Draggable id={letter}>{placements[letter]}</Draggable> : "Drop here"}
+          </Droppable>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap gap-4 max-w-[950px] bb">
         {draggableLetters.map((letter) =>
           placements[letter] === null ? (
             <Draggable key={letter} id={letter}>
@@ -50,18 +135,11 @@ function DragAndDropMultipleV2() {
         )}
       </div>
 
-      {/* TODO - Add logic for rendering the correct Draggable within Droppable */}
-      {/* Droppable containers */}
-      <div className="flex gap-4">
-        {droppableContainers.map((letter) => (
-          <Droppable key={letter} id={`droppable-${letter}`}>
-            {/* {parent === id ? draggableMarkup : "Drop here"} */}
-            {/* {parent === id ? <Draggable id="A">A</Draggable>  : "Drop here"} */}
-            {/* TODO - find logic to compare that our draggableContainer is of the same type as the container -> i.e. draggable container "A" === droppable container "A" */}
-            {/* Drop ({letter}) */}
-            {placements[letter] ? `Contains: ${placements[letter]}` : "Drop here"}
-          </Droppable>
-        ))}
+      {/* TODO - add conditional logic to only render the restart button IF the user matches all letters */}
+      <div className="bb w-full flex justify-center items-center">
+        <button className="px-4 py-2" onClick={handleRestart}>
+          Restart
+        </button>
       </div>
     </DndContext>
   );
@@ -72,33 +150,16 @@ function DragAndDropMultipleV2() {
 
     // Only proceed if the item is dropped over a valid droppable area
     if (over) {
+      // Strips the "draggable-" and "droppable-" prefixes from the IDs
       const draggableContainer = active.id.replace("draggable-", "");
       const droppableContainer = over.id.replace("droppable-", "");
-      // const draggedLetter = active.id.strip("draggable-");
 
-      console.log("draggableContainer:", draggableContainer);
-      console.log("droppableContainer:", droppableContainer);
-
-      // TODO - refactor logic
-      // Ensure the dragged item matches the droppable area
+      // MATCHING DROPPABLE CONTAINER
       if (draggableContainer === droppableContainer) {
         setPlacements((prevPlacements) => ({
           ...prevPlacements,
-          [droppableContainer]: draggableContainer, // Mark the letter as placed in the correct container
+          [droppableContainer]: draggableContainer, // "A" => "A"
         }));
-        // switch (droppableContainer) {
-        //   case "A":
-        //     setLetterA(draggableContainer);
-        //     break;
-        //   case "B":
-        //     setLetterB(draggableContainer);
-        //     break;
-        //   case "C":
-        //     setLetterC(draggableContainer);
-        //     break;
-        //   default:
-        //     break;
-        // }
       }
     }
   }
