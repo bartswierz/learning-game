@@ -13,8 +13,7 @@ function Droppable({ id, children, className = "" }: DroppableProps) {
   });
 
   const style = {
-    color: isOver ? "green" : undefined,
-    backgroundColor: isOver ? "lightgreen" : undefined,
+    backgroundColor: isOver ? "#60A5FA" : undefined,
   };
 
   return (
