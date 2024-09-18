@@ -4,6 +4,7 @@ import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { shuffle } from "lodash";
 import Droppable from "./Droppable"; // Component for the droppable container
 import Draggable from "./Draggable"; // Component for the draggable items
+import { MdOutlineQuestionMark } from "react-icons/md";
 
 const alphabetList = [
   "A",
@@ -117,7 +118,11 @@ function DragAndDropMultiple({
       <div className={droppableLayoutClassName ? droppableLayoutClassName : className}>
         {droppableContainers.map((letter) => (
           <Droppable key={letter} id={`droppable-${letter}`}>
-            {placements[letter] !== null ? <Draggable id={letter}>{placements[letter]}</Draggable> : "Drop here"}
+            {placements[letter] !== null ? (
+              <Draggable id={letter}>{placements[letter]}</Draggable>
+            ) : (
+              <MdOutlineQuestionMark size={32} />
+            )}
           </Droppable>
         ))}
       </div>
