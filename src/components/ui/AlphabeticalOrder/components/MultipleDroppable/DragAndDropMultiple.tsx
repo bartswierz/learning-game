@@ -127,6 +127,7 @@ function DragAndDropMultiple({
         ))}
       </div>
 
+      {/* TODO - add text to speech ON DRAG */}
       {/* DRAGGABLE */}
       <div className={draggableLayoutClassName ? draggableLayoutClassName : className}>
         {shuffle(draggableLetters).map((letter) =>
