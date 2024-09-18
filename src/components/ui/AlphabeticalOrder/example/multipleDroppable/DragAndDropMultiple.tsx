@@ -1,39 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { DndContext, useSensors, PointerSensor, useSensor, TouchSensor, KeyboardSensor } from "@dnd-kit/core";
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
-
+import { shuffle } from "lodash";
 import Droppable from "./Droppable"; // Component for the droppable container
 import Draggable from "./Draggable"; // Component for the draggable items
 
-const draggableLetters = [
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z",
-];
-const droppableContainers = [
+const alphabetList = [
   "A",
   "B",
   "C",
@@ -62,7 +34,12 @@ const droppableContainers = [
   "Z",
 ];
 
-const initialStart = {
+// const draggableLetters = shuffle(alphabetList);
+const draggableLetters = alphabetList;
+const droppableContainers = alphabetList;
+
+//TODO pass in the draggable letters
+const initialPlacements = {
   A: null,
   B: null,
   C: null,
@@ -90,20 +67,31 @@ const initialStart = {
   Y: null,
   Z: null,
 };
-
 /** TODO
  * 1. Add conditional logic for the restart button to only appear once all letters are matched
  * 2. Add a voice chat that will say the letter when it is picked up and dragged by the user -> i.e. if the user picks up "A" it will say "A" on drag start
  * 3. Update layout of the draggable and droppable to be on 2 rows instead of 1
  *  3a. Add a max width to the droppable and draggable containers to make it responsive on desktop to mobile
  */
-function DragAndDropMultipleV2() {
+
+interface DragAndDropMultipleProps {
+  className?: string;
+  droppableLayoutClassName?: string;
+  draggableLayoutClassName?: string;
+}
+
+function DragAndDropMultiple({
+  className = "",
+  draggableLayoutClassName = "",
+  droppableLayoutClassName = "",
+}: DragAndDropMultipleProps) {
   // State to track placements dynamically using an object
-  const [placements, setPlacements] = useState(initialStart);
+  // const [placements, setPlacements] = useState(shuffle(initialStart));
+  const [placements, setPlacements] = useState(initialPlacements);
 
   const handleRestart = () => {
     console.log("Restarting...");
-    setPlacements(initialStart);
+    setPlacements(initialPlacements);
   };
 
   // Used for Mobile as the drag and drop will not work without using sensors
@@ -117,16 +105,16 @@ function DragAndDropMultipleV2() {
 
   return (
     <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
-      <div className="flex flex-wrap max-w-[950px] gap-4 mb-6">
+      <div className={droppableLayoutClassName ? droppableLayoutClassName : className}>
         {droppableContainers.map((letter) => (
           <Droppable key={letter} id={`droppable-${letter}`}>
-            {placements[letter] ? <Draggable id={letter}>{placements[letter]}</Draggable> : "Drop here"}
+            {placements[letter] !== null ? <Draggable id={letter}>{placements[letter]}</Draggable> : "Drop here"}
           </Droppable>
         ))}
       </div>
 
-      <div className="flex flex-wrap gap-4 max-w-[950px] bb">
-        {draggableLetters.map((letter) =>
+      <div className={draggableLayoutClassName ? draggableLayoutClassName : className}>
+        {shuffle(draggableLetters).map((letter) =>
           placements[letter] === null ? (
             <Draggable key={letter} id={letter}>
               {letter}
@@ -137,7 +125,7 @@ function DragAndDropMultipleV2() {
 
       {/* TODO - add conditional logic to only render the restart button IF the user matches all letters */}
       <div className="bb w-full flex justify-center items-center">
-        <button className="px-4 py-2" onClick={handleRestart}>
+        <button className="px-4 py-2 bg-blue-500" onClick={handleRestart}>
           Restart
         </button>
       </div>
@@ -165,4 +153,4 @@ function DragAndDropMultipleV2() {
   }
 }
 
-export default DragAndDropMultipleV2;
+export default DragAndDropMultiple;

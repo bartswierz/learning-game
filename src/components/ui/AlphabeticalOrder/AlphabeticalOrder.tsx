@@ -7,9 +7,9 @@ import DragAndDrop from "./DragAndDrop3";
  */
 
 // import DragAndDropExample from "./test/DragAndDropExample.jsx";
-import DragAndDropExample from "./example/singleDroppable/DragAndDropExample.jsx";
-import DragAndDropMultiple from "./example/multipleDroppable/DragAndDropMultiple.jsx";
-import DragAndDropMultipleV2 from "./example/multipleDroppable/DragAndDropMultipleV2.jsx";
+// import DragAndDropExample from "./example/singleDroppable/DragAndDropExample.jsx";
+// import DragAndDropMultiple from "./example/multipleDroppable/DragAndDropMultiple.jsx";
+import DragAndDropMultiple from "./example/multipleDroppable/DragAndDropMultiple.js";
 
 type AlphabetDataType = {
   id: number;
@@ -58,7 +58,7 @@ const AlphabeticalOrder = () => {
       {/* TODO - our example Draggable and Droppable from Docs */}
       {/* <DragAndDropExample /> */}
       {/* <DragAndDropMultiple /> */}
-      <DragAndDropMultipleV2 />
+      <DragAndDropMultiple className="flex flex-wrap max-w-[950px]x max-w-[1110px] gap-4 mb-6 bb" />
     </div>
   );
 };
