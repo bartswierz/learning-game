@@ -7,7 +7,7 @@ interface DroppableProps {
   className?: string;
 }
 
-function Droppable({ id, children, className }: DroppableProps) {
+function Droppable({ id, children, className = "" }: DroppableProps) {
   const { isOver, setNodeRef } = useDroppable({
     id: id ? id : "droppable",
   });
@@ -21,7 +21,7 @@ function Droppable({ id, children, className }: DroppableProps) {
     <div
       ref={setNodeRef}
       style={style}
-      className="border-2 border-blue-500 w-[70px] h-[70px] flex justify-center items-center text-center"
+      className={`border-2 border-blue-500 w-[70px] h-[70px] flex justify-center items-center text-center ${className}`}
     >
       {children}
     </div>

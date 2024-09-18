@@ -17,7 +17,7 @@ function Draggable({ children, id, className = "h-[70px] w-[70px] bg-blue-500" }
     : undefined;
 
   return (
-    <button ref={setNodeRef} style={style} {...listeners} {...attributes} className={`bb ${className}`}>
+    <button ref={setNodeRef} style={style} {...listeners} {...attributes} className={`${className}`}>
       {children}
     </button>
   );

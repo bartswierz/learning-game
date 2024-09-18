@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { DndContext, useSensors, PointerSensor, useSensor, TouchSensor, KeyboardSensor } from "@dnd-kit/core";
+import { useEffect, useState } from "react";
+import { DndContext, useSensors, PointerSensor, useSensor, TouchSensor, KeyboardSensor, DragEndEvent } from "@dnd-kit/core";
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { shuffle } from "lodash";
 import Droppable from "./Droppable"; // Component for the droppable container
@@ -38,8 +38,11 @@ const alphabetList = [
 const draggableLetters = alphabetList;
 const droppableContainers = alphabetList;
 
-//TODO pass in the draggable letters
-const initialPlacements = {
+type PlacementsType = {
+  [key: string]: string | null;
+};
+
+const initialPlacements: PlacementsType = {
   A: null,
   B: null,
   C: null,
@@ -68,12 +71,8 @@ const initialPlacements = {
   Z: null,
 };
 /** TODO
- * 1. Add conditional logic for the restart button to only appear once all letters are matched
- * 2. Add a voice chat that will say the letter when it is picked up and dragged by the user -> i.e. if the user picks up "A" it will say "A" on drag start
- * 3. Update layout of the draggable and droppable to be on 2 rows instead of 1
- *  3a. Add a max width to the droppable and draggable containers to make it responsive on desktop to mobile
+ * Add a voice chat that will say the letter when it is picked up and dragged by the user -> i.e. if the user picks up "A" it will say "A" on drag start
  */
-
 interface DragAndDropMultipleProps {
   className?: string;
   droppableLayoutClassName?: string;
@@ -88,10 +87,19 @@ function DragAndDropMultiple({
   // State to track placements dynamically using an object
   // const [placements, setPlacements] = useState(shuffle(initialStart));
   const [placements, setPlacements] = useState(initialPlacements);
+  const [isComplete, setIsComplete] = useState(false);
+
+  useEffect(() => {
+    const areAllPlacementsFilled = Object.values(placements).every((value) => value !== null);
+
+    if (areAllPlacementsFilled) {
+      setIsComplete(true);
+    }
+  }, [placements]);
 
   const handleRestart = () => {
-    console.log("Restarting...");
     setPlacements(initialPlacements);
+    setIsComplete(false);
   };
 
   // Used for Mobile as the drag and drop will not work without using sensors
@@ -105,6 +113,7 @@ function DragAndDropMultiple({
 
   return (
     <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
+      {/* DROPPABLE */}
       <div className={droppableLayoutClassName ? droppableLayoutClassName : className}>
         {droppableContainers.map((letter) => (
           <Droppable key={letter} id={`droppable-${letter}`}>
@@ -113,6 +122,7 @@ function DragAndDropMultiple({
         ))}
       </div>
 
+      {/* DRAGGABLE */}
       <div className={draggableLayoutClassName ? draggableLayoutClassName : className}>
         {shuffle(draggableLetters).map((letter) =>
           placements[letter] === null ? (
@@ -123,24 +133,24 @@ function DragAndDropMultiple({
         )}
       </div>
 
-      {/* TODO - add conditional logic to only render the restart button IF the user matches all letters */}
-      <div className="bb w-full flex justify-center items-center">
-        <button className="px-4 py-2 bg-blue-500" onClick={handleRestart}>
-          Restart
-        </button>
+      <div className="w-full flex justify-center items-center">
+        {isComplete && (
+          <button className="px-4 py-2 bg-blue-500" onClick={handleRestart}>
+            Reset
+          </button>
+        )}
       </div>
     </DndContext>
   );
 
   // Handle the drag and drop logic
-  function handleDragEnd(event) {
+  function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
 
     // Only proceed if the item is dropped over a valid droppable area
     if (over) {
-      // Strips the "draggable-" and "droppable-" prefixes from the IDs
-      const draggableContainer = active.id.replace("draggable-", "");
-      const droppableContainer = over.id.replace("droppable-", "");
+      const draggableContainer = String(active.id).replace("draggable-", ""); // "draggable-A" => "A"
+      const droppableContainer = String(over.id).replace("droppable-", ""); // "droppable-B" => "B"
 
       // MATCHING DROPPABLE CONTAINER
       if (draggableContainer === droppableContainer) {

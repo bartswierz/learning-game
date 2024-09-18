@@ -49,7 +49,7 @@ const alphabetData: AlphabetDataType[] = [
 
 const AlphabeticalOrder = () => {
   return (
-    <div className="bb flex flex-col justify-center items-center mx-6 my-[56px]">
+    <div className="flex flex-col justify-center items-center mx-6 my-[56px]">
       <h2 className="text-2xl">
         Arrange the Letters in Alphabetical Order
         <TextToSpeech text="Arrange the Letters in Alphabetical Order" />
@@ -58,7 +58,9 @@ const AlphabeticalOrder = () => {
       {/* TODO - our example Draggable and Droppable from Docs */}
       {/* <DragAndDropExample /> */}
       {/* <DragAndDropMultiple /> */}
-      <DragAndDropMultiple className="flex flex-wrap max-w-[950px]x max-w-[1110px] gap-4 mb-6 bb" />
+      <div className="mt-4">
+        <DragAndDropMultiple className="flex flex-wrap max-w-[950px]x max-w-[1110px] gap-4 mb-6" />
+      </div>
     </div>
   );
 };
