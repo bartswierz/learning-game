@@ -12,16 +12,12 @@ function Droppable({ id, children, className = "" }: DroppableProps) {
     id: id ? id : "droppable",
   });
 
-  const style = {
-    backgroundColor: isOver ? "#60A5FA" : undefined,
+  const styles = {
+    backgroundColor: isOver ? "#60A5FA" : "rgba(65, 114, 178, 0.7)",
   };
 
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      className={`border-2 border-blue-500 w-[70px] h-[70px] flex justify-center items-center text-center ${className}`}
-    >
+    <div ref={setNodeRef} style={styles} className={`flex justify-center items-center text-center ${className}`}>
       {children}
     </div>
   );

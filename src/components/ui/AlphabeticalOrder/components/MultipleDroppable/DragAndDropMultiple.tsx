@@ -35,10 +35,6 @@ const alphabetList = [
   "Z",
 ];
 
-// const draggableLetters = shuffle(alphabetList);
-const draggableLetters = alphabetList;
-const droppableContainers = alphabetList;
-
 type PlacementsType = {
   [key: string]: string | null;
 };
@@ -71,9 +67,10 @@ const initialPlacements: PlacementsType = {
   Y: null,
   Z: null,
 };
-/** TODO
- * Add a voice chat that will say the letter when it is picked up and dragged by the user -> i.e. if the user picks up "A" it will say "A" on drag start
- */
+
+const draggableLetters = alphabetList;
+const droppableContainers = alphabetList;
+
 interface DragAndDropMultipleProps {
   className?: string;
   droppableLayoutClassName?: string;
@@ -85,8 +82,6 @@ function DragAndDropMultiple({
   draggableLayoutClassName = "",
   droppableLayoutClassName = "",
 }: DragAndDropMultipleProps) {
-  // State to track placements dynamically using an object
-  // const [placements, setPlacements] = useState(shuffle(initialStart));
   const [placements, setPlacements] = useState(initialPlacements);
   const [isComplete, setIsComplete] = useState(false);
 
@@ -97,57 +92,6 @@ function DragAndDropMultiple({
       setIsComplete(true);
     }
   }, [placements]);
-
-  const handleRestart = () => {
-    setPlacements(initialPlacements);
-    setIsComplete(false);
-  };
-
-  // Used for Mobile as the drag and drop will not work without using sensors
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(TouchSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
-
-  return (
-    <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
-      {/* DROPPABLE */}
-      <div className={droppableLayoutClassName ? droppableLayoutClassName : className}>
-        {droppableContainers.map((letter) => (
-          <Droppable key={letter} id={`droppable-${letter}`}>
-            {placements[letter] !== null ? (
-              <Draggable id={letter}>{placements[letter]}</Draggable>
-            ) : (
-              <MdOutlineQuestionMark size={32} />
-            )}
-          </Droppable>
-        ))}
-      </div>
-
-      {/* TODO - add text to speech ON DRAG */}
-      {/* DRAGGABLE */}
-      <div className={draggableLayoutClassName ? draggableLayoutClassName : className}>
-        {shuffle(draggableLetters).map((letter) =>
-          placements[letter] === null ? (
-            <Draggable key={letter} id={letter}>
-              {letter}
-            </Draggable>
-          ) : null
-        )}
-      </div>
-
-      <div className="w-full flex justify-center items-center">
-        {isComplete && (
-          <button className="px-4 py-2 bg-blue-500" onClick={handleRestart}>
-            Reset
-          </button>
-        )}
-      </div>
-    </DndContext>
-  );
 
   // Handle the drag and drop logic
   function handleDragEnd(event: DragEndEvent) {
@@ -167,6 +111,60 @@ function DragAndDropMultiple({
       }
     }
   }
+
+  const handleRestart = () => {
+    setPlacements(initialPlacements);
+    setIsComplete(false);
+  };
+
+  // Used for Mobile as the drag and drop will not work without using sensors
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const boxStyles = "w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] lg:w-[70px] lg:h-[70px] border-[3px]";
+
+  return (
+    <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
+      {/* DROPPABLE */}
+      <div className={`${droppableLayoutClassName ? droppableLayoutClassName : className} mb-12`}>
+        {droppableContainers.map((letter) => (
+          <Droppable key={letter} id={`droppable-${letter}`} className={boxStyles}>
+            {placements[letter] !== null ? (
+              <Draggable id={letter} className={`text-2xl bg-green-500 w-full h-full`}>
+                {placements[letter]}
+              </Draggable>
+            ) : (
+              <MdOutlineQuestionMark size={32} />
+            )}
+          </Droppable>
+        ))}
+      </div>
+
+      {/* DRAGGABLE */}
+      <div className={`${draggableLayoutClassName ? draggableLayoutClassName : className}`}>
+        {shuffle(draggableLetters).map((letter) =>
+          placements[letter] === null ? (
+            <Draggable key={letter} id={letter} className={`${boxStyles} bg-blue-500`}>
+              {letter}
+            </Draggable>
+          ) : null
+        )}
+      </div>
+
+      <div className="w-full flex justify-center items-center">
+        {isComplete && (
+          <button className="px-4 py-2 bg-blue-500" onClick={handleRestart}>
+            Reset
+          </button>
+        )}
+      </div>
+    </DndContext>
+  );
 }
 
 export default DragAndDropMultiple;

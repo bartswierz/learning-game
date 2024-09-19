@@ -1,10 +1,7 @@
 import TextToSpeech from "../TextToSpeech/TextToSpeech";
 import DragAndDropMultiple from "./components/MultipleDroppable/DragAndDropMultiple.js";
-/** Documentation - https://docs.dndkit.com/
- *
- * Possible YT overview video for setting up a simple vertical list: https://www.youtube.com/watch?v=wmk50PEsVrs
- * Sandbox/Codepen from medium: https://codesandbox.io/p/sandbox/lucid-leaf-trsyw7?file=%2Fsrc%2Findex.tsx
- */
+
+const dndMultipleStyles = "flex flex-wrap justify-center max-w-[1110px] gap-4 mb-6";
 
 const AlphabeticalOrder = () => {
   return (
@@ -16,7 +13,7 @@ const AlphabeticalOrder = () => {
         </span>
       </h2>
       <div className="mt-4">
-        <DragAndDropMultiple className="flex flex-wrap max-w-[950px]x max-w-[1110px] gap-4 mb-6" />
+        <DragAndDropMultiple className={dndMultipleStyles} />
       </div>
     </div>
   );

@@ -13,9 +13,7 @@ function Draggable({ children, id, className = "h-[70px] w-[70px] bg-blue-500" }
   });
 
   // Say the letter when dragging starts
-  const handleDragStart = () => {
-    speakText(id);
-  };
+  const handleDragStart = () => speakText(id);
 
   const style = transform
     ? {
