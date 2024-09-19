@@ -1,5 +1,6 @@
 import { isNumberOrDecimal } from "@/utils";
 import useSettingsStore from "@/store/store";
+import Button from "../Button/Button";
 
 interface NumberBtnProps {
   value: string;
@@ -15,7 +16,6 @@ const NumberBtn = ({ value, reactIcon, userInput }: NumberBtnProps) => {
 
   // Updates userInput state in the parent component via callback functions
   const handleClick = (input: string) => {
-    console.log("Clicked: ", input);
     // NUMBER 0 through 9 - APPEND TO THE USERINPUT STRING AND UPDATE THE STATE
     if (isNumberOrDecimal(input)) {
       const isDecimal = input === ".";
@@ -47,26 +47,17 @@ const NumberBtn = ({ value, reactIcon, userInput }: NumberBtnProps) => {
         updateUserInput(newInput);
       } else {
         // NO NEGATIVE SIGN FOUND, ADD IT TO THE FRONT OF THE USERINPUT STRING
-        console.log("No negative sign found, applying to user input...", "-" + userInput);
         updateUserInput("-" + userInput);
       }
     } else return;
   };
 
   return (
-    <button
-      className={`relative flex items-center justify-center w-full h-full transition-all duration-700 ease-in-out`}
-      onClick={() => handleClick(value)}
-      aria-label={ariaLabel}
-    >
-      {/* BACKGROUND*/}
-      <div className="absolute inset-x-0 h-full -bottom-2 bg-blue-600 rounded-lg"></div>
-
-      {/* TEXT CONTAINER */}
-      <div className="relative flex items-center justify-center w-full h-full bg-blue-500 border-[1.5px] border-blue-600 rounded-lg py-2 transition transform duration-600 active:translate-y-2">
+    <>
+      <Button onClick={() => handleClick(value)} ariaLabel={ariaLabel}>
         {buttonContent}
-      </div>
-    </button>
+      </Button>
+    </>
   );
 };
 

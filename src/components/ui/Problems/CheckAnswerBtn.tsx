@@ -114,8 +114,6 @@ const CheckAnswerBtn = ({ disabled, operationType, text, userInput }: CheckAnswe
         className={`relative flex items-center justify-center w-full h-full  border-2 border-blue-600 rounded-lg py-2 transition transform duration-600 
         ${disabled ? "bg-gray-500 border-gray-600 cursor-not-allowed" : "bg-blue-500 active:translate-y-2"}`}
       >
-        {/* {text} */}
-        {/* {t("Check Answer")} */}
         {t(text)}
       </div>
     </button>

@@ -41,7 +41,7 @@ const NumberPad = ({ operationType }: NumberPadProps) => {
 export default NumberPad;
 
 const buttonInfoList: ButtonInfo[] = [
-  { value: "undo", reactIcon: <FaUndoAlt size={26} />, className: "bg-red-500x hover:bg-red-600x" },
+  { value: "undo", reactIcon: <FaUndoAlt size={26} />, className: "" },
   { value: "divide", reactIcon: <FaDivide size={26} />, className: "h-[48px]" },
   { value: "multiply", reactIcon: <FaTimes size={26} />, className: "h-[48px]" },
   { value: "subtract", reactIcon: <RiSubtractFill size={26} />, className: "h-[48px]" },
