@@ -10,19 +10,25 @@ interface TextToSpeechProps {
  * Each voice object has a name, lang, and voiceURI property.
  */
 
-// TODO - Add different languages and voices for the current 5 languages
 const TextToSpeech = ({ text, language }: TextToSpeechProps) => {
-  const sentence = new SpeechSynthesisUtterance();
-  console.log("textToSpeech - language: ", language);
-  sentence.text = text; // Text to be spoken
-  sentence.lang = language ? language : "en-US"; // Voice to use - Default is English
+  const handleSpeak = () => {
+    // Cancel any ongoing speech - Prevents overlapping speech
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+    }
+
+    const sentence = new SpeechSynthesisUtterance();
+
+    sentence.text = text; // Text to be spoken
+    sentence.lang = language ? language : "en-US"; // Voice to use - Default is English
+
+    window.speechSynthesis.speak(sentence);
+  };
 
   return (
-    <>
-      <button onClick={() => window.speechSynthesis.speak(sentence)} className="bg-blue-500 p-2 rounded-full w-8x h-8x">
-        <PiSpeakerHighBold size={18} />
-      </button>
-    </>
+    <button onClick={handleSpeak} className="bg-blue-500 p-2 rounded-full">
+      <PiSpeakerHighBold size={18} />
+    </button>
   );
 };
 
