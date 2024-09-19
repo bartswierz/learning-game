@@ -2,6 +2,7 @@
 import useSettingsStore from "@/store/store";
 import { checkAnswer, randomTwoNumbers, randomTwoNumbersForDivision } from "@/utils";
 import { useTranslation } from "react-i18next";
+import Button from "../Button/Button";
 
 interface CheckAnswerBtnProps {
   disabled: boolean;
@@ -45,16 +46,12 @@ const CheckAnswerBtn = ({ disabled, operationType, text, userInput }: CheckAnswe
   };
 
   const handleClick = () => {
-    console.log("Check Answer Button Clicked");
-    console.log("user input: ", userInput);
-    console.log("numberOne & numberTwo: ", numberOne, numberTwo);
     // Passed as an object to ensure the order of the arguments doesn't matter
     const isUserCorrect = checkAnswer({ userInput, numberOne, numberTwo, operationType });
 
     // IF correct, score + 1, new question
     if (isUserCorrect) {
       console.log("value is correct");
-      // BUG - game is being marked as over before the last score is added
 
       // FINAL QUESTIONS HAS BEEN ANSWERED - GAME OVER
       if (questionNumber === numOfQuestions) {
@@ -97,26 +94,9 @@ const CheckAnswerBtn = ({ disabled, operationType, text, userInput }: CheckAnswe
   };
 
   return (
-    <button
-      className={`relative flex items-center justify-center max-w-[300px] w-full h-full transition-all duration-700 ease-in-out`}
-      onClick={handleClick}
-      disabled={disabled}
-      aria-label="button-equal"
-    >
-      {/* BACKGROUND*/}
-      <div
-        className={`absolute inset-x-0 h-full -bottom-2 rounded-lg 
-        ${disabled ? "bg-gray-500 cursor-not-allowed" : "bg-blue-600"}`}
-      ></div>
-
-      {/* TEXT CONTAINER */}
-      <div
-        className={`relative flex items-center justify-center w-full h-full  border-2 border-blue-600 rounded-lg py-2 transition transform duration-600 
-        ${disabled ? "bg-gray-500 border-gray-600 cursor-not-allowed" : "bg-blue-500 active:translate-y-2"}`}
-      >
-        {t(text)}
-      </div>
-    </button>
+    <Button onClick={handleClick} disabled={disabled} ariaLabel="button-equal">
+      {t(text)}
+    </Button>
   );
 };
 

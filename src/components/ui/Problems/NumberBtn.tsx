@@ -53,11 +53,9 @@ const NumberBtn = ({ value, reactIcon, userInput }: NumberBtnProps) => {
   };
 
   return (
-    <>
-      <Button onClick={() => handleClick(value)} ariaLabel={ariaLabel}>
-        {buttonContent}
-      </Button>
-    </>
+    <Button onClick={() => handleClick(value)} ariaLabel={ariaLabel}>
+      {buttonContent}
+    </Button>
   );
 };
 
