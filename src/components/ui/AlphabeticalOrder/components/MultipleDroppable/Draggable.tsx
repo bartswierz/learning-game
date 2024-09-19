@@ -5,11 +5,13 @@ interface DraggableProps {
   id: string;
   children: React.ReactNode;
   className?: string;
+  isDisabled?: boolean;
 }
 
-function Draggable({ children, id, className = "h-[70px] w-[70px] bg-blue-500" }: DraggableProps) {
+function Draggable({ children, id, isDisabled = false, className = "h-[70px] w-[70px] bg-blue-500" }: DraggableProps) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: `draggable-${id}`,
+    disabled: isDisabled,
   });
 
   // Say the letter when dragging starts

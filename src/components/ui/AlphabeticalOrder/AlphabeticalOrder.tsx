@@ -1,7 +1,7 @@
 import TextToSpeech from "../TextToSpeech/TextToSpeech";
 import DragAndDropMultiple from "./components/MultipleDroppable/DragAndDropMultiple.js";
 
-const dndMultipleStyles = "flex flex-wrap justify-center max-w-[1110px] gap-4 mb-6";
+const dndMultipleStyles = "flex flex-wrap justify-center max-w-[1110px] gap-4 mb-6 text-2xl";
 
 const AlphabeticalOrder = () => {
   return (
