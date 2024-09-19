@@ -135,7 +135,7 @@ function DragAndDropMultiple({
         {droppableContainers.map((letter) => (
           <Droppable key={letter} id={`droppable-${letter}`} className={boxStyles}>
             {placements[letter] !== null ? (
-              <Draggable id={letter} className={`bg-green-500 w-full h-full`} isDisabled>
+              <Draggable id={letter} className={`bg-green-500 w-full h-full cursor-default`} isDisabled>
                 {placements[letter]}
               </Draggable>
             ) : (
