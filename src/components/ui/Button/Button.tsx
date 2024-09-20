@@ -1,4 +1,4 @@
-import { PRIMARY, SECONDARY, DANGER, DISABLED, ROUNDED } from "@/types/types";
+import { PRIMARY, SECONDARY, DANGER } from "@/types/types";
 
 interface ButtonProps {
   children: React.ReactNode;

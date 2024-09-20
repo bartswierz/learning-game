@@ -5,10 +5,9 @@ import Question from "./Question";
 import InputDisplay from "./InputDisplay";
 import DisplayResults from "./DisplayResults";
 import { TTS_DATA } from "@/constants/constants";
-import { DANGER, DescriptionType, SECONDARY } from "@/types/types";
+import { DescriptionType } from "@/types/types";
 
 import useSettingsStore from "@/store/store";
-import Button from "../Button/Button";
 
 interface OperationProps {
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
