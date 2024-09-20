@@ -1,4 +1,6 @@
 import { PiSpeakerHighBold } from "react-icons/pi";
+import Button from "../Button/Button";
+import { ROUNDED } from "@/types/types";
 
 interface TextToSpeechProps {
   text: string;
@@ -26,10 +28,23 @@ const TextToSpeech = ({ text, language }: TextToSpeechProps) => {
   };
 
   return (
-    <button onClick={handleSpeak} className="bg-blue-500 p-2 rounded-full">
-      <PiSpeakerHighBold size={18} />
-    </button>
+    <div className="w-10 h-7">
+      <Button onClick={handleSpeak} ariaLabel="text-to-speech">
+        <PiSpeakerHighBold size={18} />
+      </Button>
+    </div>
   );
+  {
+    /*
+    // <>
+         <button onClick={handleSpeak} className="bg-blue-500 p-2 rounded-full">
+        <PiSpeakerHighBold size={18} />
+      </button> */
+  }
+  {
+    /* </> */
+  }
+  // );
 };
 
 export default TextToSpeech;

@@ -23,7 +23,7 @@ const Header = ({ operationType, numOfQuestions, score, tts }: HeaderProps) => {
 
   return (
     <div className="flex flex-col gap-2 text-center mb-4">
-      <h2>
+      <h2 className="flex gap-2 items-centerx justify-center items-baseline">
         <span className="text-2xl">{t(operationType)} </span>
         <TextToSpeech text={tts[ttsLanguage]} language={ttsLanguage} />
       </h2>
