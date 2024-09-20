@@ -1,6 +1,8 @@
+import { SUCCESS, IN_PROGRESS, FAILED } from "@/types/types";
+
 interface GameOverProps {
   isGameOver: boolean;
-  progress: "Success" | "InProgress" | "Failed" | null;
+  progress: typeof SUCCESS | typeof IN_PROGRESS | typeof FAILED | null;
   numberOne: number;
   numberTwo: number;
 }
@@ -34,10 +36,10 @@ const GameOverMessage = ({ isGameOver, progress, numberOne, numberTwo }: GameOve
   if (!isGameOver) return null;
 
   // USER ANSWERED ALL QUESTIONS CORRECTLY
-  if (progress === "Success") return <SuccessMessage />;
+  if (progress === SUCCESS) return <SuccessMessage />;
 
   // USER RAN OUT OF ATTEMPTS
-  if (progress === "Failed") return <FailedMessage numberOne={numberOne} numberTwo={numberTwo} />;
+  if (progress === FAILED) return <FailedMessage numberOne={numberOne} numberTwo={numberTwo} />;
 };
 
 export default GameOverMessage;

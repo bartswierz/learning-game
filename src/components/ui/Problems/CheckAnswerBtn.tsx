@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import useSettingsStore from "@/store/store";
 import { checkAnswer, randomTwoNumbers, randomTwoNumbersForDivision } from "@/utils";
 import { useTranslation } from "react-i18next";

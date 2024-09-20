@@ -1,50 +1,64 @@
-/** TODO
- * 1. Create a button component that accepts props for:
- *   - text as CHILDREN
- *  - onClick function
- *  - className for styling
- * DO NOT HARDCODE ANY PADDING-WIDTHS-HEIGHTS-COLORS - this should be passed from className. we can however set a default className if not given
- */
+import { PRIMARY, SECONDARY, DANGER, DISABLED, ROUNDED } from "@/types/types";
 
 interface ButtonProps {
   children: React.ReactNode;
-  onClick: (value?: string) => void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
   ariaLabel?: string;
   disabled?: boolean;
-  variant?: string; // TODO - add variants once we refactor NumberBtn and CheckAnswerBtn
+  variant?: typeof PRIMARY | typeof SECONDARY | typeof DANGER;
 }
 
-const Button = ({ children, onClick, variant = "primary", className = "", ariaLabel, disabled }: ButtonProps) => {
-  // TODO - move the disabled button version outside of the return statement for readability
-  // if(disabled) {
-  // return (
+const Button = ({ children, onClick = () => {}, variant = PRIMARY, className = "", ariaLabel, disabled }: ButtonProps) => {
+  //  Base styles for button elements
+  const baseButtonStyles = "relative flex items-center justify-center w-full h-full";
+  const baseContentStyles = "relative flex items-center justify-center w-full h-full py-2 rounded-lg border-[1.5px]";
+  const transitionStyles = "transition transform duration-600 active:translate-y-2";
 
-  // )}
+  const getVariantClasses = (variant: string) => {
+    switch (variant) {
+      case PRIMARY:
+        return {
+          topSection: "bg-blue-500 border-blue-600",
+          bottomSection: "bg-blue-600",
+        };
+      case SECONDARY:
+        return {
+          topSection: "bg-gray-500 border-gray-600",
+          bottomSection: "bg-gray-600",
+        };
+      case DANGER:
+        return {
+          topSection: "bg-red-500 border-red-600",
+          bottomSection: "bg-red-600",
+        };
+      default:
+        return {
+          topSection: "",
+          bottomSection: "",
+        };
+    }
+  };
+
+  const { topSection, bottomSection } = getVariantClasses(variant);
+
+  if (disabled) {
+    return (
+      <button className={`${baseButtonStyles} cursor-not-allowed ${className}`} aria-label={ariaLabel} disabled>
+        <div className="absolute inset-x-0 h-full -bottom-2 bg-gray-500 rounded-lg "></div>
+        <div className={`${baseContentStyles} bg-gray-500 border-gray-600`}>{children}</div>
+      </button>
+    );
+  }
+
   return (
     <button
-      // className={`relative flex items-center justify-center w-full h-full transition-all duration-700 ease-in-out`}
-      className={`relative flex items-center justify-center w-full h-full transition-all duration-700 ease-in-out ${className}`}
+      className={`${baseButtonStyles} transition-all duration-700 ease-in-out ${className}`}
       onClick={onClick}
-      disabled={disabled}
-      // onClick={() => handleClick(value)}
       aria-label={ariaLabel}
     >
-      {/* BACKGROUND*/}
-      <div
-        className={`absolute inset-x-0 h-full -bottom-2 bg-blue-600 rounded-lg ${
-          disabled ? "bg-gray-500 cursor-not-allowed" : "bg-blue-600"
-        }`}
-      ></div>
-
-      {/* TEXT CONTAINER */}
-      <div
-        className={`relative flex items-center justify-center w-full h-full bg-blue-500 border-[1.5px] border-blue-600 rounded-lg py-2 transition transform duration-600 active:translate-y-2x ${
-          disabled ? "bg-gray-500 border-gray-600 cursor-not-allowed" : "bg-blue-500 active:translate-y-2"
-        }`}
-      >
-        {children}
-      </div>
+      <div className={`absolute inset-x-0 h-full -bottom-2 rounded-lg ${bottomSection}`}></div>
+      <div className={`${transitionStyles} ${baseContentStyles} ${topSection}`}>{children}</div>
     </button>
   );
 };

@@ -11,7 +11,7 @@ export interface Globals {
   numOfAttempts: number;
   numOfQuestions: number;
   score: number;
-  progress: "Success" | "InProgress" | "Failed" | null;
+  progress: typeof SUCCESS | typeof IN_PROGRESS | typeof FAILED | null;
   isGameOver: boolean;
   userInput: string;
   numberOne: number;
@@ -61,6 +61,20 @@ export interface ProblemDetails {
 export const SMALL = "SMALL";
 export const MEDIUM = "MEDIUM";
 export const LARGE = "LARGE";
+
+// Used for button variants but can be extended for other components too
+export const PRIMARY = "PRIMARY";
+export const SECONDARY = "SECONDARY";
+export const DANGER = "DANGER";
+export const ROUNDED = "ROUNDED";
+export const OUTLINE = "OUTLINE";
+export const DISABLED = "DISABLED";
+
+// Used for the progress of the games - currently only used in the Problems component but can be extended to other components
+export const SUCCESS = "SUCCESS";
+export const IN_PROGRESS = "IN_PROGRESS";
+export const INCOMPLETE = "INCOMPLETE";
+export const FAILED = "FAILED";
 
 // Used for the AnalogClock component and future components that have a tier choice for difficulty
 export const EASY = "EASY";
