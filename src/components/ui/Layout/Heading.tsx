@@ -8,7 +8,7 @@ interface HeadingProps {
   className?: string;
 }
 
-const Heading = ({ text, voiceText, language, className = "" }: HeadingProps) => {
+const Heading = ({ text, voiceText, language = "en-US", className = "" }: HeadingProps) => {
   if (voiceText && language) {
     return (
       <h2 className={`flex gap-2 justify-center items-baseline flex-wrap text-2xl text-center ${className}`}>

@@ -1,6 +1,5 @@
 import { PiSpeakerHighBold } from "react-icons/pi";
 import Button from "../Button/Button";
-import { ROUNDED } from "@/types/types";
 
 interface TextToSpeechProps {
   text: string;
@@ -12,7 +11,7 @@ interface TextToSpeechProps {
  * Each voice object has a name, lang, and voiceURI property.
  */
 
-const TextToSpeech = ({ text, language }: TextToSpeechProps) => {
+const TextToSpeech = ({ text, language = "en-US" }: TextToSpeechProps) => {
   const handleSpeak = () => {
     // Cancel any ongoing speech - Prevents overlapping speech
     if (window.speechSynthesis.speaking) {
