@@ -1,7 +1,7 @@
 import AnalogClock from "@/components/ui/AnalogClock/AnalogClock";
 import useTTSStore from "@/store/tts_store";
-import TextToSpeech from "@/components/ui/TextToSpeech/TextToSpeech";
 import { TTS_DATA } from "@/constants/constants";
+import Heading from "@/components/ui/Layout/Heading";
 
 export default function AnalogClockPage() {
   const ttsLanguage = useTTSStore((state) => state.language);
@@ -10,12 +10,7 @@ export default function AnalogClockPage() {
 
   return (
     <div className="pt-[4vh] pb-[8vh]">
-      <h1 className="text-center text-2xl font-bold mb-4">
-        Around the Clock{" "}
-        <span>
-          <TextToSpeech text={ttsDescription} language={ttsLanguage} />
-        </span>
-      </h1>
+      <Heading text="Around the Clock" voiceText={ttsDescription} language={ttsLanguage} className="font-bold" />
       <AnalogClock />
     </div>
   );

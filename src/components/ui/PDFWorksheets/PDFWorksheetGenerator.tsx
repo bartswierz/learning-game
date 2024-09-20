@@ -9,8 +9,9 @@ import { useTranslation } from "react-i18next";
 
 // Text-to-Speech Data, Component, and Store for current Language
 import { TTS_DATA } from "@/constants/constants";
-import TextToSpeech from "../TextToSpeech/TextToSpeech";
 import useTTSStore from "@/store/tts_store";
+import Heading from "../Layout/Heading";
+import Button from "../Button/Button";
 
 interface ProblemsArray {
   num1: number;
@@ -29,6 +30,14 @@ const PDFWorksheetGenerator = () => {
   const ttsLanguage = useTTSStore((state) => state.language);
   const { TAKE_HOME_WORKSHEETS } = TTS_DATA;
   const ttsDescription = TAKE_HOME_WORKSHEETS.description[ttsLanguage];
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
 
   // Create styles
   const styles = StyleSheet.create({
@@ -84,14 +93,6 @@ const PDFWorksheetGenerator = () => {
     },
   });
 
-  const handleOpen = () => {
-    setIsOpen(true);
-  };
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
   //Reference for creating a pdf - https://react-pdf.org/repl
   const GeneratePdf = () => {
     return (
@@ -140,17 +141,11 @@ const PDFWorksheetGenerator = () => {
 
   const ViewPdfButton = () => {
     return (
-      <button
-        onClick={handleOpen}
-        className={`${
-          isPdfCreated
-            ? "bg-blue-500 hover:bg-blue-600"
-            : "disabled:cursor-not-allowed disabled:bg-gray-500/30 disablied:text-gray-500/30"
-        } h-max px-4 py-2 m-2 transition-all duration-300 text-xl`}
-        disabled={!isPdfCreated}
-      >
-        {t("View PDF")}
-      </button>
+      <div className="max-w-[120px]">
+        <Button onClick={handleOpen} disabled={!isPdfCreated}>
+          {t("View PDF")}
+        </Button>
+      </div>
     );
   };
 
@@ -186,18 +181,16 @@ const PDFWorksheetGenerator = () => {
       <PDFView />
 
       <div className="flex flex-col items-center justify-start mt-8">
-        <h1 className="text-2xl underline underline-offset-[5px] text-center">
-          {t("Generate Take Home Problems")}
-          <span className="pl-2">
-            <TextToSpeech text={ttsDescription} language={ttsLanguage} />
-          </span>
-        </h1>
+        <Heading
+          text={t("Generate Take Home Problems")}
+          voiceText={ttsDescription}
+          language={ttsLanguage}
+          className="underline underline-offset-[5px]"
+        />
         {/* The form should return back the user config choices */}
         <ProblemsForm handleFormData={handleFormData} />
 
-        <div>
-          <ViewPdfButton />
-        </div>
+        <ViewPdfButton />
       </div>
     </div>
   );

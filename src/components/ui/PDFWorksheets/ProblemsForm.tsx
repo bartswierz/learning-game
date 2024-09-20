@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/shadcn/select";
 import { OperationType, ProblemDetails } from "@/types/types";
 import { useTranslation } from "react-i18next";
+import Button from "../Button/Button";
 
 interface ProblemsFormProps {
   handleFormData: (problemDetails: ProblemDetails) => void;
@@ -20,9 +21,9 @@ const ProblemsForm = ({ handleFormData }: ProblemsFormProps) => {
   // CREATES A PDF ON CLICK
   const SubmitButton = () => {
     return (
-      <button className="bg-blue-500 hover:bg-blue-600 transition-all duration-300 text-xl px-4 py-2 h-max m-2" type="submit">
+      <Button onClick={() => {}} className="" type="submit">
         {t("Generate Worksheet")}
-      </button>
+      </Button>
     );
   };
 
@@ -53,7 +54,7 @@ const ProblemsForm = ({ handleFormData }: ProblemsFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="mb-5">
       <p className="mt-2">{t("Number One Ranges (1-50)")}</p>
       {/* NUMBER TWO MINIMUM VALUE */}
       <label htmlFor="number-one-minimum" className="">

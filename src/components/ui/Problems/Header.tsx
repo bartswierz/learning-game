@@ -1,8 +1,8 @@
 import useSettingsStore from "@/store/store";
 import { useTranslation } from "react-i18next";
-import TextToSpeech from "@/components/ui/TextToSpeech/TextToSpeech";
 import { DescriptionType, LanguageType } from "@/types/types";
 import useTTSStore from "@/store/tts_store";
+import Heading from "../Layout/Heading";
 
 interface HeaderProps {
   operationType: string;
@@ -23,10 +23,7 @@ const Header = ({ operationType, numOfQuestions, score, tts }: HeaderProps) => {
 
   return (
     <div className="flex flex-col gap-2 text-center mb-4">
-      <h2 className="flex gap-2 items-centerx justify-center items-baseline">
-        <span className="text-2xl">{t(operationType)} </span>
-        <TextToSpeech text={tts[ttsLanguage]} language={ttsLanguage} />
-      </h2>
+      <Heading text={t(operationType)} voiceText={tts[ttsLanguage]} language={ttsLanguage} />
       <span className="text-xl">
         {t("Question")}: {questionNumber} / {numOfQuestions}
       </span>
