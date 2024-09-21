@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Button from "../../Button/Button";
+import Button from "../../Buttons/Button";
 import { GREEN, RED } from "@/types/types";
 
 interface ChoicesListProps {

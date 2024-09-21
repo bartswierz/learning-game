@@ -1,5 +1,5 @@
 import { EASY, MEDIUM, HARD, DifficultyTierType, GREEN, YELLOW, RED } from "../../../../types/types";
-import Button from "../../Button/Button";
+import Button from "../../Buttons/Button";
 
 interface TierChoiceProps {
   isTierSelected: boolean;

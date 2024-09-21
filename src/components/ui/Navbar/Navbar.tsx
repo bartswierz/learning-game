@@ -12,11 +12,9 @@ const Navbar = () => {
   const location = useLocation();
   const resetProgressOnRedirectToHome = useSettingsStore((state) => state.resetProgress);
   const [isOpen, setIsOpen] = useState(false);
-  const isOnGameRoute =
-    location.pathname.includes("addition") ||
-    location.pathname.includes("subtraction") ||
-    location.pathname.includes("multiplication") ||
-    location.pathname.includes("division");
+  const isOnGameRoute = ["addition", "subtraction", "multiplication", "division"].some((operationsTypeRoute) =>
+    location.pathname.includes(operationsTypeRoute)
+  );
 
   const openMenu = () => setIsOpen(true);
   const closeMenu = () => setIsOpen(false);

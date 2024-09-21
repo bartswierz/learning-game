@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import { TTS_DATA } from "@/constants/constants";
 import useTTSStore from "@/store/tts_store";
 import Heading from "../Layout/Heading";
-import Button from "../Button/Button";
+import Button from "../Buttons/Button";
 
 interface ProblemsArray {
   num1: number;

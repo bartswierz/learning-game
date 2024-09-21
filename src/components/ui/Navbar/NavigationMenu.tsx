@@ -44,6 +44,18 @@ const pageLinks: {
     description: "Set of Division problems (5-50 Questions)",
     className: "bg-yellow-500 hover:bg-yellow-600 hover:text-white",
   },
+  {
+    title: "Alphabetical Order",
+    route: "/alphabetical-order",
+    description: "Practice your alphabet by putting letters in order",
+    className: "bg-indigo-500 hover:bg-indigo-600 hover:text-white",
+  },
+  {
+    title: "Analog Clock",
+    route: "/analog-clock",
+    description: "Practice reading the time on an analog clock",
+    className: "bg-blue-500 hover:bg-blue-600 hover:text-white",
+  },
 ];
 
 export type currentRouteType =
@@ -62,7 +74,14 @@ interface NavigationMenuProps {
 const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
   const { t } = useTranslation();
   const [redirectRoute, setRedirectRoute] = useState<Route>("");
-  const isNotOnHomeOrExtraRoute = currentRoute !== "/" && currentRoute !== "/take-home-worksheets";
+  const isOnProblemsRoute = [
+    "/addition",
+    "/subtraction",
+    "/multiplication",
+    "/division",
+    "/analog-clock",
+    "alphabetical-order",
+  ].includes(currentRoute);
 
   // Modal relies on the redirectRoute to be set via user clicking a link. Canceling or redirect will reset the redirectRoute
   const closeModal = () => {
@@ -78,14 +97,20 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
 
       <NavigationMenu className="pr-1">
         <NavigationMenuList className="flex gap-2">
-          {/* NEW PROBLEMS MENU ITEM - NOT DISPLAYD ON HOME ROUTE*/}
-          {isNotOnHomeOrExtraRoute && (
+          {isOnProblemsRoute && (
             <NavigationMenuItem>
               <NavigationMenuTrigger className="bg-blue-500">New Problems</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="flex flex-col p-4 gap-3 w-[250px]">
+                <ul className={`flex flex-wrap p-4 gap-3 ${isOnProblemsRoute ? "w-[428px]" : "w-[263px]"}`}>
                   {pageLinks.map(({ title, route, className, description }) => (
-                    <ListItemLink key={title} title={title} route={route} className={className} setRedirectRoute={setRedirectRoute}>
+                    <ListItemLink
+                      key={title}
+                      title={title}
+                      route={route}
+                      className={`${className}`}
+                      setRedirectRoute={setRedirectRoute}
+                      width="48%"
+                    >
                       {description}
                     </ListItemLink>
                   ))}
@@ -94,9 +119,10 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
             </NavigationMenuItem>
           )}
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-blue-500">{t("Extras")}</NavigationMenuTrigger>
+            {/* TODO - update our i18n translation for "Resources" -> currently it is using the old version of "Extras" for the keyword */}
+            <NavigationMenuTrigger className="bg-blue-500">{t("Resources")}</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="flex flex-col p-4 gap-3 w-[250px]">
+              <ul className={`flex flex-col p-4 gap-3 ${isOnProblemsRoute ? "w-[288px]" : "w-[263px]"}`}>
                 <ListItemLink
                   route="/take-home-worksheets"
                   title={t("Take Home Worksheets")}
@@ -104,23 +130,6 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
                   setRedirectRoute={setRedirectRoute}
                 >
                   {t("Generate PDF worksheets for practice (45 Problems)")}
-                </ListItemLink>
-                <ListItemLink
-                  route="/analog-clock"
-                  title={t("Analog Clock")}
-                  className="bg-blue-500 hover:bg-blue-600 hover:text-white"
-                  setRedirectRoute={setRedirectRoute}
-                >
-                  {t("Practice reading the time on an analog clock")}
-                </ListItemLink>
-                {/* TODO - add language translation for alphabetical order */}
-                <ListItemLink
-                  route="/alphabetical-order"
-                  title={t("Alphabetical Order")}
-                  className="bg-indigo-500 hover:bg-indigo-600 hover:text-white"
-                  setRedirectRoute={setRedirectRoute}
-                >
-                  {t("Practice your alphabet by putting letters in order")}
                 </ListItemLink>
               </ul>
             </NavigationMenuContent>
@@ -130,7 +139,9 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
           <NavigationMenuItem>
             <NavigationMenuTrigger className="bg-blue-500">{t("Languages")}</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <LanguageList />
+              <div className={`${isOnProblemsRoute ? "w-[426px]" : "w-[263px]"}`}>
+                <LanguageList width={`${isOnProblemsRoute ? "48%" : "100%"}`} />
+              </div>
             </NavigationMenuContent>
           </NavigationMenuItem>
         </NavigationMenuList>

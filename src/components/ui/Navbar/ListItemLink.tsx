@@ -9,6 +9,7 @@ interface ListItemProps {
   title: string;
   children: React.ReactNode;
   setRedirectRoute: (route: Route) => void;
+  width?: string;
 }
 
 interface DisabledLinkButtonProps {
@@ -16,10 +17,12 @@ interface DisabledLinkButtonProps {
   children: ListItemProps["children"];
 }
 
-const ListItemLink = ({ className, route, title, children, setRedirectRoute }: ListItemProps) => {
+const ListItemLink = ({ className, route, title, children, width = "100%", setRedirectRoute }: ListItemProps) => {
   // GET THE CURRENT ROUTE USER IS ON, TO DISABLE THE LINK - (i.e '/addition')
   const location = useLocation();
   const isCurrentRoute = location.pathname === route;
+
+  const LinkWidth = `w-[${width}]`;
 
   // USER CLICK OPENS THE RESTART MODAL - USING A CALLBACK
   const handleClick = () => {
@@ -29,8 +32,8 @@ const ListItemLink = ({ className, route, title, children, setRedirectRoute }: L
   // DISABLED BUTTON FOR THE CURRENT ROUTE => (i.e 'locahost:3000/addition -> disabled button for /addition')
   const DisabledLinkButton = ({ title, children }: DisabledLinkButtonProps) => {
     return (
-      <li>
-        <button className={`rounded-md  h-[80px] w-full cursor-not-allowed p-3  bg-gray-400/30 hover:bg-gray-400/30`}>
+      <li className={LinkWidth}>
+        <button className={`rounded-md  h-[80px]x h-full w-full cursor-not-allowed p-3 bg-gray-400/30 hover:bg-gray-400/30`}>
           <div className="text-sm font-medium leading-none text-gray-300">{title}</div>
           <p className="line-clamp-3 text-sm leading-snug text-gray-300 group-hover:text-white transition-color duration-300">
             {children}
@@ -43,7 +46,7 @@ const ListItemLink = ({ className, route, title, children, setRedirectRoute }: L
   if (isCurrentRoute) return <DisabledLinkButton title={title} children={children} />;
 
   return (
-    <li>
+    <li className={LinkWidth}>
       <NavigationMenuLink asChild>
         <button
           className={cn(

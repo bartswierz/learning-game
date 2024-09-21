@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/shadcn/select";
 import { OperationType, ProblemDetails } from "@/types/types";
 import { useTranslation } from "react-i18next";
-import Button from "../Button/Button";
+import Button from "../Buttons/Button";
 
 interface ProblemsFormProps {
   handleFormData: (problemDetails: ProblemDetails) => void;

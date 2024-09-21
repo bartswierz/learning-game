@@ -1,5 +1,5 @@
 import { PiSpeakerHighBold } from "react-icons/pi";
-import Button from "../Button/Button";
+import Button from "../Buttons/Button";
 
 interface TextToSpeechProps {
   text: string;

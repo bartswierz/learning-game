@@ -3,7 +3,7 @@ import { Clock, TierChoice, ChoicesList } from "./components";
 import { DifficultyTierType } from "@/types/types";
 import { EASY, MEDIUM, HARD } from "@/types/types";
 import { createEasyTierArray, createMediumTierArray, createHardTierArray } from "@/utils/createTierChoiceArray";
-import Button from "../Button/Button";
+import Button from "../Buttons/Button";
 
 const AnalogClock = () => {
   const [answer, setAnswer] = useState<string>("");
