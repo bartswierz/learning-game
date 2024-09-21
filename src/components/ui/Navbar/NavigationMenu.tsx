@@ -83,6 +83,8 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
     "alphabetical-order",
   ].includes(currentRoute);
 
+  console.log("isOnProblemsRoute", isOnProblemsRoute);
+
   // Modal relies on the redirectRoute to be set via user clicking a link. Canceling or redirect will reset the redirectRoute
   const closeModal = () => {
     setRedirectRoute("");
@@ -101,13 +103,13 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
             <NavigationMenuItem>
               <NavigationMenuTrigger className="bg-blue-500">New Problems</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className={`flex flex-wrap p-4 gap-3 ${isOnProblemsRoute ? "w-[428px]" : "w-[263px]"}`}>
+                <ul className={"flex flex-wrap p-4 gap-3 w-[428px]"}>
                   {pageLinks.map(({ title, route, className, description }) => (
                     <ListItemLink
                       key={title}
                       title={title}
                       route={route}
-                      className={`${className}`}
+                      className={className}
                       setRedirectRoute={setRedirectRoute}
                       width="48%"
                     >
@@ -140,7 +142,7 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
             <NavigationMenuTrigger className="bg-blue-500">{t("Languages")}</NavigationMenuTrigger>
             <NavigationMenuContent>
               <div className={`${isOnProblemsRoute ? "w-[426px]" : "w-[263px]"}`}>
-                <LanguageList width={`${isOnProblemsRoute ? "48%" : "100%"}`} />
+                <LanguageList width="48%" />
               </div>
             </NavigationMenuContent>
           </NavigationMenuItem>

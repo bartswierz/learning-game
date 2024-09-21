@@ -28,9 +28,6 @@ const LanguageList = ({ width = "100%" }: LanguageListProps) => {
   const setLanguage = useTTSStore((state) => state.setLanguage);
   const activeLanguage = useTTSStore((state) => state.language);
 
-  const listItemWidth = `w-[${width}]`;
-  console.log("listItemWidth", listItemWidth);
-
   const switchLanguage = (languageId: LanguageType) => {
     i18n.changeLanguage(languageId);
     setLanguage(languageId); // Update our TTS Store with the new language to match the correct TTS Voice
@@ -40,7 +37,8 @@ const LanguageList = ({ width = "100%" }: LanguageListProps) => {
     // <ul className="flex flex-col p-4 gap-3">
     <ul className="flex flex-wrap p-4 gap-3">
       {languageList.map(({ id, language, flag }) => (
-        <li key={id} className={`w-full ${listItemWidth}`}>
+        // TODO - issue is here with the width not being correctly applied to the list Item
+        <li key={id} style={{ width }}>
           <button
             onClick={() => switchLanguage(id)}
             className={`${
