@@ -9,7 +9,7 @@ interface ChoicesListProps {
   isCorrect: boolean;
 }
 
-const ChoicesList = ({ options, answer, setIsCorrect, isCorrect }: ChoicesListProps) => {
+const ChoicesList = ({ options, answer, setIsCorrect }: ChoicesListProps) => {
   const [incorrectChoices, setIncorrectChoices] = useState<string[]>([]);
   const [isSolved, setIsSolved] = useState(false);
 
