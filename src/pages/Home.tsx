@@ -4,6 +4,8 @@ import { MdAdd } from "react-icons/md";
 import { FaDivide } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { GrSubtract } from "react-icons/gr";
+import { TiSortAlphabeticallyOutline } from "react-icons/ti";
+import { PiClockClockwiseFill } from "react-icons/pi";
 
 export default function HomePage() {
   const { t } = useTranslation();
@@ -18,7 +20,7 @@ export default function HomePage() {
               key={link}
               className={`relative group flex items-center justify-center h-[20vh] md:h-[30vh] min-h-[100px] transition-all duration-200 hover:border-[12px] hover:border-white ${listItemStyle}`}
             >
-              <LinkLogoPosition title={title} />
+              <LogoPlacement title={title} />
               <Link
                 to={link}
                 className="flex justify-center items-center w-full h-full font-bold text-2xl transition-all duration-300 shadow-2xl"
@@ -73,51 +75,70 @@ const homepageLinks: homepageLinksType = [
   },
 ];
 
-const LinkLogoPosition = ({ title }: { title: string }) => {
+interface LinkLogosProps {
+  title: string;
+  size: number;
+}
+
+const LinkLogos = ({ title, size = 64 }: LinkLogosProps) => {
   switch (title) {
     case "Addition":
       return (
         <>
-          <MdAdd className="absolute bottom-5 left-5" size={64} />
-          <MdAdd className="absolute top-5 right-5" size={64} />
+          <MdAdd className="absolute bottom-5 left-5" size={size} />
+          <MdAdd className="absolute top-5 right-5" size={size} />
         </>
       );
     case "Subtraction":
       return (
         <>
-          <GrSubtract className="absolute top-5 left-5" size={64} />
-          <GrSubtract className="absolute bottom-5 right-5" size={64} />
+          <GrSubtract className="absolute top-5 left-5" size={size} />
+          <GrSubtract className="absolute bottom-5 right-5" size={size} />
         </>
       );
     case "Multiplication":
       return (
         <>
-          <IoMdClose className="absolute top-5 left-5" size={64} />
-          <IoMdClose className="absolute bottom-5 right-5" size={64} />
+          <IoMdClose className="absolute top-5 left-5" size={size} />
+          <IoMdClose className="absolute bottom-5 right-5" size={size} />
         </>
       );
     case "Division":
       return (
         <>
-          <FaDivide className="absolute bottom-5 left-5" size={64} />
-          <FaDivide className="absolute top-5 right-5" size={64} />
+          <FaDivide className="absolute bottom-5 left-5" size={size} />
+          <FaDivide className="absolute top-5 right-5" size={size} />
         </>
       );
     case "Alphabet":
       return (
         <>
-          <FaDivide className="absolute bottom-5 left-5" size={64} />
-          <FaDivide className="absolute top-5 right-5" size={64} />
+          <TiSortAlphabeticallyOutline className="absolute bottom-5 left-5" size={size} />
+          <TiSortAlphabeticallyOutline className="absolute top-5 right-5" size={size} />
         </>
       );
     case "Time":
       return (
         <>
-          <FaDivide className="absolute top-5 left-5" size={64} />
-          <FaDivide className="absolute bottom-5 right-5" size={64} />
+          <PiClockClockwiseFill className="absolute top-5 left-5" size={size} />
+          <PiClockClockwiseFill className="absolute bottom-5 right-5" size={size} />
         </>
       );
     default:
       return null;
   }
+};
+
+// Adjusts the size of the logos based on the screen size
+const LogoPlacement = ({ title }: { title: string }) => {
+  return (
+    <>
+      <div className="hidden sm:block">
+        <LinkLogos title={title} size={48} />
+      </div>
+      <div className="block sm:hidden">
+        <LinkLogos title={title} size={32} />
+      </div>
+    </>
+  );
 };
