@@ -69,7 +69,7 @@ const homepageLinks: homepageLinksType = [
   {
     link: "/analog-clock",
     title: "Time",
-    listItemStyle: "bg-blue-500 hover:bg-blue-600 rounded-tr-[50px] rounded-bl-[50px]",
+    listItemStyle: "bg-cyan-500 hover:bg-cyan-600 rounded-tr-[50px] rounded-bl-[50px]",
   },
 ];
 
