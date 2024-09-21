@@ -1,4 +1,5 @@
-import { EASY, MEDIUM, HARD, DifficultyTierType } from "../../../../types/types";
+import { EASY, MEDIUM, HARD, DifficultyTierType, GREEN, YELLOW, RED } from "../../../../types/types";
+import Button from "../../Button/Button";
 
 interface TierChoiceProps {
   isTierSelected: boolean;
@@ -12,29 +13,22 @@ const TierChoice = ({ setIsTierSelected, isTierSelected, setTier }: TierChoicePr
   };
 
   return (
-    <div className="flex gap-4 my-4">
+    <div className="flex flex-col gap-6 my-4 w-full max-w-[75%]">
       {isTierSelected ? (
-        <button onClick={() => setIsTierSelected(false)} className="bg-blue-500 px-2 py-2">
+        <Button onClick={() => setIsTierSelected(false)} className="bg-blue-500 px-2 py-2">
           Change Difficulty
-        </button>
+        </Button>
       ) : (
         <>
-          <button onClick={() => handleTier(EASY)} className="cursor-pointer bg-green-600 hover:bg-green-700 px-4 py-2 text-center">
-            Easy
-            <br />
-            30 mins
-          </button>
-          <button
-            onClick={() => handleTier(MEDIUM)}
-            className="cursor-pointer bg-yellow-600 hover:bg-yellow-700 px-4 py-2 text-center"
-          >
-            Medium <br />
-            15 mins
-          </button>
-          <button onClick={() => handleTier(HARD)} className="cursor-pointer bg-red-600 hover:bg-red-700 px-4 py-2 text-center">
-            Hard
-            <br />5 mins
-          </button>
+          <Button onClick={() => handleTier(EASY)} variant={GREEN}>
+            Easy (30 mins)
+          </Button>
+          <Button onClick={() => handleTier(MEDIUM)} variant={YELLOW}>
+            Medium (15 mins)
+          </Button>
+          <Button onClick={() => handleTier(HARD)} variant={RED}>
+            Hard (5 mins)
+          </Button>
         </>
       )}
     </div>

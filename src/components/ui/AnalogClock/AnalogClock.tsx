@@ -3,6 +3,7 @@ import { Clock, TierChoice, ChoicesList } from "./components";
 import { DifficultyTierType } from "@/types/types";
 import { EASY, MEDIUM, HARD } from "@/types/types";
 import { createEasyTierArray, createMediumTierArray, createHardTierArray } from "@/utils/createTierChoiceArray";
+import Button from "../Button/Button";
 
 const AnalogClock = () => {
   const [answer, setAnswer] = useState<string>("");
@@ -60,7 +61,7 @@ const AnalogClock = () => {
   return (
     <div className="flex flex-col md:flex-row items-center justify-center p-4 gap-[30px]">
       <Clock time={answer} />
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center min-w-[280px]">
         {!tier && (
           <>
             <h2 className="pt-6">Please select a difficulty below:</h2>
@@ -69,16 +70,17 @@ const AnalogClock = () => {
         )}
         {tier && (
           <>
-            <button onClick={handleResetDifficulty} className="bg-blue-500 px-4 py-2 mb-4">
-              Change Difficulty
-            </button>
-            <h2 className="text-xl">What is the correct time?</h2>
-            {isCorrect && <h3 className="text-green-500 text-xl ">Correct!</h3>}
+            <div className="mb-6 w-full">
+              <Button onClick={handleResetDifficulty}>Change Difficulty</Button>
+            </div>
+            <h2 className="text-xl min-w-full">What is the correct time?</h2>
+            {isCorrect && <h3 className="text-green-500 text-xl mb-2">Good Job!</h3>}
+            {/* {isCorrect && <h3 className="text-green-500 text-xl mb-2 ">{isCorrect && Good Job!}</h3>} */}
             <ChoicesList options={choicesArray} answer={answer} setIsCorrect={setIsCorrect} isCorrect={isCorrect} />
             {isCorrect && (
-              <button onClick={() => handleNewProblem(tier)} className="bg-blue-500 px-2 py-3 w-full">
+              <Button onClick={() => handleNewProblem(tier)} className="my-4">
                 New Problem
-              </button>
+              </Button>
             )}
           </>
         )}

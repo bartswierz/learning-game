@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import Button from "../../Button/Button";
+import { GREEN, RED } from "@/types/types";
 
 interface ChoicesListProps {
   options: string[];
@@ -17,7 +19,6 @@ const ChoicesList = ({ options, answer, setIsCorrect, isCorrect }: ChoicesListPr
   }, [answer]);
 
   const resetSelectedChoices = () => setIncorrectChoices([]);
-  // TODO - make a list of incorrect answers to make the button disabled/ or changed in color to visually show the user that they selected the wrong answer
   const handleUserChoice = (userChoice: string) => {
     if (userChoice === answer) {
       setIsCorrect(true);
@@ -33,34 +34,32 @@ const ChoicesList = ({ options, answer, setIsCorrect, isCorrect }: ChoicesListPr
 
   if (isSolved)
     return (
-      <ul className="grid grid-cols-2 gap-4 m-4 max-w-[300px] w-full">
+      <ul className="grid grid-cols-2 gap-x-4 gap-y-6 max-w-[300px] w-full mb-4">
         {options.map((choice: string) => (
           <li key={choice}>
-            <button
-              className={`w-full max-w-[150px] px-2 py-4 ${choice === answer ? "bg-green-500" : "bg-gray-500"}`}
+            <Button
+              className={`w-full max-w-[150px]`}
               onClick={() => handleUserChoice(choice)}
-              disabled={true}
+              variant={choice === answer ? GREEN : RED}
             >
               {choice}
-            </button>
+            </Button>
           </li>
         ))}
       </ul>
     );
 
   return (
-    <ul className="grid grid-cols-2 gap-4 m-4 max-w-[300px] w-full">
+    <ul className="grid grid-cols-2 gap-x-4 gap-y-6 mt-4 mb-6 max-w-[300px] w-full">
       {options.map((choice: string) => (
         <li key={choice}>
-          <button
-            className={`w-full max-w-[150px] px-2 py-4 ${
-              incorrectChoices.includes(choice) ? "bg-red-500" : "bg-blue-500 hover:bg-blue-600 cursor-pointer"
-            }`}
-            onClick={() => handleUserChoice(choice)}
-            disabled={incorrectChoices.includes(choice) || isCorrect}
-          >
-            {choice}
-          </button>
+          {incorrectChoices.includes(choice) ? (
+            <Button onClick={() => handleUserChoice(choice)} variant={RED}>
+              {choice}
+            </Button>
+          ) : (
+            <Button onClick={() => handleUserChoice(choice)}>{choice}</Button>
+          )}
         </li>
       ))}
     </ul>

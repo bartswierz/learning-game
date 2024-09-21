@@ -1,4 +1,4 @@
-import { PRIMARY, SECONDARY, DANGER } from "@/types/types";
+import { PRIMARY, SECONDARY, GREEN, YELLOW, RED } from "@/types/types";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -7,7 +7,7 @@ interface ButtonProps {
   ariaLabel?: string;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
-  variant?: typeof PRIMARY | typeof SECONDARY | typeof DANGER;
+  variant?: typeof PRIMARY | typeof SECONDARY | typeof RED | typeof GREEN | typeof YELLOW;
 }
 
 const Button = ({ children, onClick = () => {}, variant = PRIMARY, className = "", ariaLabel, type, disabled }: ButtonProps) => {
@@ -28,7 +28,17 @@ const Button = ({ children, onClick = () => {}, variant = PRIMARY, className = "
           topSection: "bg-gray-500 border-gray-600",
           bottomSection: "bg-gray-600",
         };
-      case DANGER:
+      case GREEN:
+        return {
+          topSection: "bg-green-500 border-green-600",
+          bottomSection: "bg-green-600",
+        };
+      case YELLOW:
+        return {
+          topSection: "bg-yellow-500 border-yellow-600",
+          bottomSection: "bg-yellow-600",
+        };
+      case RED:
         return {
           topSection: "bg-red-500 border-red-600",
           bottomSection: "bg-red-600",

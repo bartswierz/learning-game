@@ -69,6 +69,12 @@ export const DANGER = "DANGER";
 export const ROUNDED = "ROUNDED";
 export const OUTLINE = "OUTLINE";
 export const DISABLED = "DISABLED";
+export const CORRECT = "CORRECT";
+export const INCORRECT = "INCORRECT";
+export const GREEN = "GREEN";
+export const RED = "RED";
+export const YELLOW = "YELLOW";
+export const BLUE = "BLUE";
 
 // Used for the progress of the games - currently only used in the Problems component but can be extended to other components
 export const SUCCESS = "SUCCESS";
