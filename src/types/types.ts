@@ -99,6 +99,9 @@ export type DescriptionType = {
 export type LanguageType = "en-US" | "es-ES" | "pl-PL" | "de-DE" | "fr-FR";
 
 export type TTSDataType = {
+  HOME: {
+    description: DescriptionType;
+  };
   operations: {
     ADDITION: {
       description: DescriptionType;

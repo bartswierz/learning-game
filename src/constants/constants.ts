@@ -2,6 +2,15 @@ import { TTSDataType } from "../types/types";
 
 // Text-To-Speech data object for each operation / page
 export const TTS_DATA: TTSDataType = {
+  HOME: {
+    description: {
+      "en-US": "Choose a practice problem",
+      "es-ES": "Elige un problema de práctica",
+      "pl-PL": "Wybierz problem do praktyki",
+      "de-DE": "Wählen Sie ein Übungsproblem aus",
+      "fr-FR": "Choisissez un problème de pratique",
+    },
+  },
   operations: {
     ADDITION: {
       description: {
