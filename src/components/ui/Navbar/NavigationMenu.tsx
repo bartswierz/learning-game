@@ -141,9 +141,15 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
           <NavigationMenuItem>
             <NavigationMenuTrigger className="bg-blue-500">{t("Languages")}</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <div className={`${isOnProblemsRoute ? "w-[426px]" : "w-[263px]"}`}>
-                <LanguageList width="48%" />
-              </div>
+              {isOnProblemsRoute ? (
+                <div className="w-[426px]">
+                  <LanguageList width="48%" />
+                </div>
+              ) : (
+                <div className="w-[263px]">
+                  <LanguageList width="100%" />
+                </div>
+              )}
             </NavigationMenuContent>
           </NavigationMenuItem>
         </NavigationMenuList>
