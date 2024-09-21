@@ -22,9 +22,6 @@ const ListItemLink = ({ className, route, title, children, width = "100%", setRe
   const location = useLocation();
   const isCurrentRoute = location.pathname === route;
 
-  const linkWidth = `w-[${width}]`;
-  console.log("linkWidth", linkWidth);
-
   // USER CLICK OPENS THE RESTART MODAL - USING A CALLBACK
   const handleClick = () => {
     setRedirectRoute(route);
@@ -33,7 +30,7 @@ const ListItemLink = ({ className, route, title, children, width = "100%", setRe
   // DISABLED BUTTON FOR THE CURRENT ROUTE => (i.e 'locahost:3000/addition -> disabled button for /addition')
   const DisabledLinkButton = ({ title, children }: DisabledLinkButtonProps) => {
     return (
-      <li className={`${linkWidth}`}>
+      <li style={{ width }}>
         <button className={`rounded-md  h-[80px]x h-full w-full cursor-not-allowed p-3 bg-gray-400/30 hover:bg-gray-400/30`}>
           <div className="text-sm font-medium leading-none text-gray-300">{title}</div>
           <p className="line-clamp-3 text-sm leading-snug text-gray-300 group-hover:text-white transition-color duration-300">
@@ -47,7 +44,7 @@ const ListItemLink = ({ className, route, title, children, width = "100%", setRe
   if (isCurrentRoute) return <DisabledLinkButton title={title} children={children} />;
 
   return (
-    <li className={`${linkWidth}`}>
+    <li style={{ width }}>
       <NavigationMenuLink asChild>
         <button
           className={cn(
