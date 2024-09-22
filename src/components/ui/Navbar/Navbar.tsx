@@ -130,7 +130,6 @@ const Navbar = () => {
         <Link
           to="/"
           onClick={() => {
-            // console.log("user clicked home button");
             resetProgressOnRedirectToHome();
           }}
         >

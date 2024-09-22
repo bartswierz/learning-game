@@ -24,7 +24,6 @@ const MinuteHand = ({ time, size }: MinuteHandProps) => {
 
     setAdjustedDegree(newDegree);
     setPreviousDegree(newDegree % 360); // modulo 360 removes 360 each time render to keep track of the previous degree better otherwise the degree would grow indefinitely -> ex. 480 % 360 = 120 degrees for previous degree
-    // console.log("previousDegree", previousDegree);
   }, [minuteDegree, previousDegree]);
 
   // TODO - refactor

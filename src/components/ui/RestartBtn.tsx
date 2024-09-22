@@ -12,7 +12,6 @@ const RestartBtn = ({ operationType }: RestartBtnProps) => {
 
   // Restart the game with new random numbers passed to update our store
   const handleGlobalReset = (operationType: RestartBtnProps["operationType"]) => {
-    console.log("RESTART BUTTON CLICKED...");
     // DIVISION PROBLEM RESET
     if (operationType === "DIVISION") {
       const { num1, num2 } = randomTwoNumbersForDivision(numOneRange, numTwoRange);

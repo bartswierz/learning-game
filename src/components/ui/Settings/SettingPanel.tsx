@@ -21,15 +21,12 @@ const SettingPanel = ({ handleCloseCallback }: SettingsFormProps) => {
 
   // Enable the submit button when the user makes a change to the settings
   const enableSubmitBtn = () => {
-    console.log("Settings changed, enabling update button...");
     setIsDisabled(false);
   };
 
   // Updates the settings state in our SettingsStore
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    console.log("Settings Panel user submitted form e: ", e);
     e.preventDefault();
-    console.log("Updating settings...");
     const formData = new FormData(e.target as HTMLFormElement); // Capture the form data
 
     // Dual Thumb Slider - returns an array of string values - ex. ['1', '10']

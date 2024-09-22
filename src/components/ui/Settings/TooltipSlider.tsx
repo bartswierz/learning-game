@@ -7,7 +7,6 @@ interface TooltipSliderProps {
 
 // Display useful text for the user on hover
 const TooltipSlider = ({ value, name }: TooltipSliderProps) => {
-  // console.log("TooltipSlider name: ", name);
   return (
     <TooltipProvider delayDuration={0}>
       <Tooltip>

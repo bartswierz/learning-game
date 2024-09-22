@@ -50,15 +50,12 @@ const CheckAnswerBtn = ({ disabled, operationType, text, userInput }: CheckAnswe
 
     // IF correct, score + 1, new question
     if (isUserCorrect) {
-      console.log("value is correct");
-
       // FINAL QUESTIONS HAS BEEN ANSWERED - GAME OVER
       if (questionNumber === numOfQuestions) {
         incrementScore();
         updateIsGameOver(true);
       } else {
         const { newNum1, newNum2 } = getNumbersForNextQuestion(operationType);
-        console.log("inside update for new question");
         // USER ANSWERED CORRECTLY - UPDATES: numberOne = newNum1, numberTwo = newNum2, userInput = '', score + 1
         updateForCorrectAnswer(newNum1, newNum2);
       }
@@ -66,7 +63,6 @@ const CheckAnswerBtn = ({ disabled, operationType, text, userInput }: CheckAnswe
 
     // INCORRECT ANSWER
     else {
-      console.log("incorrect answer, user input: ", userInput);
       // INCORRECT ANSWER - DECREASE the attemptsLeft by 1 & reset userInput
       updateForIncorrectAnswer();
 
@@ -76,15 +72,14 @@ const CheckAnswerBtn = ({ disabled, operationType, text, userInput }: CheckAnswe
         // USER RAN OUT OF ATTEMPTS, FETCH MORE HERE IF THERE IS MORE QUESTIONS TO BE ASKED
         const hasMoreQuestions: boolean = questionNumber < numOfQuestions;
         const outOfQuestions: boolean = questionNumber === numOfQuestions;
+
         // USER HASN'T ANSWERED ALL QUESTIONS YET - FETCH MORE NUMBERS
         if (hasMoreQuestions) {
-          console.log("Question #", questionNumber);
           const { newNum1, newNum2 } = getNumbersForNextQuestion(operationType);
           updateForMoreAttempts(newNum1, newNum2);
         } else if (outOfQuestions) {
-          // USER RAN OUT OF ATTEMPTS & NO MORE QUESTIONS
+          // USER RAN OUT OF ATTEMPTS & NO MORE QUESTIONS - END GAME
           if (questionNumber === numOfQuestions) {
-            console.log("Out of attempts & no more questions, ending game...");
             updateIsGameOver(true);
           }
         }

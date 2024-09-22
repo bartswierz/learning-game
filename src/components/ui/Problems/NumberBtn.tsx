@@ -10,7 +10,6 @@ interface NumberBtnProps {
 
 const NumberBtn = ({ value, reactIcon, userInput }: NumberBtnProps) => {
   const updateUserInput = useSettingsStore((state) => state.updateUserInput);
-  // console.log("inside NumberBtn component");
   const buttonContent = reactIcon ? reactIcon : value;
   const ariaLabel = `button-${value}`;
 

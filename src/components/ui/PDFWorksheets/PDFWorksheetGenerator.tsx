@@ -158,7 +158,6 @@ const PDFWorksheetGenerator = () => {
 
   // Data passed from the ProblemsForm
   const handleFormData = (formData: ProblemDetails) => {
-    // console.log("Form data passed: ", formData);
     const { numberOneMinimum, numberOneMaximum, numberTwoMinimum, numberTwoMaximum, problemType } = formData;
 
     // Creates an array of problems based on the user's input

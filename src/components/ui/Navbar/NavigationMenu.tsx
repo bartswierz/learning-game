@@ -83,8 +83,6 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
     "alphabetical-order",
   ].includes(currentRoute);
 
-  console.log("isOnProblemsRoute", isOnProblemsRoute);
-
   // Modal relies on the redirectRoute to be set via user clicking a link. Canceling or redirect will reset the redirectRoute
   const closeModal = () => {
     setRedirectRoute("");
