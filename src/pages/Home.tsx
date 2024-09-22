@@ -13,7 +13,7 @@ import useTTSStore from "@/store/tts_store";
 export default function HomePage() {
   const { t } = useTranslation();
 
-  // TODO - add TTS_DATA to the project - update the file path
+  // TODO - add TTS_DATA to the project - update the file path -> show an example in code of adding the HOME key for the first time
   /** ADD TO DOCS ON HOW TO ADD MORE LANGUAGE TRANSLATIONS TO A HEADER
    * 1. Add a new key to the TTS_DATA object in /constants/constants.ts
    * 2. Update the TTSDataType with our new key
