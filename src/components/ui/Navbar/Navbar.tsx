@@ -90,6 +90,13 @@ const Navbar = () => {
           closeMenu={closeMenu}
         />
         <ListItemNavLink
+          route="/alphabetical-order"
+          text="Alphabetical Order"
+          className="bg-indigo-500 hover:bg-indigo-600"
+          closeMenu={closeMenu}
+        />
+        <ListItemNavLink route="/analog-clock" text="Time Problems" className="bg-cyan-500 hover:bg-cyan-600" closeMenu={closeMenu} />
+        <ListItemNavLink
           route="/take-home-worksheets"
           text="Take Home Worksheets"
           className="bg-teal-500 hover:bg-teal-600"
