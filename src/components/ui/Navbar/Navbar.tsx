@@ -3,6 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
 import { currentRouteType } from "./NavigationMenu";
+// import LearningAppLogo from "/logos/LearningAppLogo.webp";
+// import LearningAppLogo2 from "/logos/LearningAppLogo2.webp";
+// import LearningAppLogo3 from "/logos/LearningAppLogo3.svg";
+import LearnAppLogo from "/logos/LearningAppLogo.png";
+import LearningAppSVG from "/LearningAppIcon.svg";
 
 import Settings from "../Settings/Settings";
 import NavigationMenu from "./NavigationMenu";
@@ -132,14 +137,16 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="inset-x-0 z-[100] flex justify-between p-2 bg-gradient-to-r from-blue-700/80 to-transparent shadow-2xl">
+    <nav className="inset-x-0 z-[100] flex justify-between items-center p-2 bg-gradient-to-r from-blue-700/80 to-transparent shadow-2xl">
       <div className="self-center">
         <Link
           to="/"
           onClick={() => {
             resetProgressOnRedirectToHome();
           }}
+          className="flex gap-2 items-center text-lg"
         >
+          <img src={LearningAppSVG} alt="Problem Solvers Logo" className="w-12 h-12" />
           Problem Solvers
         </Link>
       </div>
