@@ -1,26 +1,25 @@
 import { Link } from "react-router-dom";
-import { MenuCloseButton } from "./Navbar";
 import LearningAppSVG from "/LearningAppIcon.svg";
+import { IoMdClose } from "react-icons/io";
 
-interface MobileNavigationProps {
+interface MobileNavigationMenuProps {
   isOpen: boolean;
   openMenu?: () => void;
   closeMenu: () => void;
 }
 
-// This is the Opened Mobile Navigation Menu
-const MobileNavigationMenu = ({ isOpen, closeMenu }: MobileNavigationProps) => {
+const NavigationMenuMobile = ({ isOpen, closeMenu }: MobileNavigationMenuProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed xsm:hiddenx md:hidden z-[10] inset-0 bg-black/90 bg-opacity-75 transition-all duration-300">
+    <div className="fixed md:hidden z-[10] inset-0 bg-black/90 bg-opacity-75 transition-all duration-300 bg-gradient-to-r from-blue-700/80 to-transparent shadow-2xl">
       <div className="h-full bg-gray-900 transition-all transform duration-300 ease-in-out">
         <div className="p-4">
           <h1 className="flex items-center gap-2 text-xl text-white mb-4">
             <img src={LearningAppSVG} alt="Problem Solvers Logo" className="w-12 h-12" />
             Problem Solvers
           </h1>
-          {/* TODO - turn Menu Button into one component */}
+
           <MenuCloseButton closeMenu={closeMenu} />
           <ul className="flex flex-col items-center justify-center gap-y-5 mt-6">
             {mobileLinkInfo.map(({ route, text, className }) => (
@@ -41,9 +40,8 @@ const MobileNavigationMenu = ({ isOpen, closeMenu }: MobileNavigationProps) => {
   );
 };
 
-export default MobileNavigationMenu;
+export default NavigationMenuMobile;
 
-// LINKS FOR MOBILE NAVIGATION
 const mobileLinkInfo = [
   { route: "/", text: "Home", className: "bg-white hover:bg-white/90 text-black" },
   { route: "/addition", text: "Addition Problems", className: "bg-green-500 hover:bg-green-600" },
@@ -54,3 +52,11 @@ const mobileLinkInfo = [
   { route: "/analog-clock", text: "Time Problems", className: "bg-cyan-500 hover:bg-cyan-600" },
   { route: "/take-home-worksheets", text: "Take Home Worksheets", className: "bg-teal-500 hover:bg-teal-600" },
 ];
+
+export const MenuCloseButton = ({ closeMenu }: { closeMenu: () => void }) => {
+  return (
+    <button onClick={closeMenu} className="absolute top-0 right-0 m-4 text-white">
+      <IoMdClose size={36} />
+    </button>
+  );
+};

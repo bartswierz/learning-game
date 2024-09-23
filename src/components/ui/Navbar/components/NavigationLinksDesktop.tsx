@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/shadcn/navigation-menu";
 import { Route } from "@/types/types";
 
-import RedirectUserModal from "../RedirectUserModal";
+import RedirectUserModal from "../../RedirectUserModal";
 import ListItemLink from "./ListItemLink";
 import LanguageList from "./LanguageList";
 import { useTranslation } from "react-i18next";
@@ -27,7 +27,7 @@ interface NavigationMenuProps {
   currentRoute: currentRouteType;
 }
 
-const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
+const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
   const { t } = useTranslation();
   const [redirectRoute, setRedirectRoute] = useState<Route>("");
   const isOnProblemsRoute = [
@@ -51,7 +51,7 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
       {/* RESTART MODAL POPUP WHEN USER CLICKS ON A LINK */}
       {redirectRoute && <RedirectUserModal redirectRoute={redirectRoute} closeModalCallback={closeModal} />}
 
-      <NavigationMenu className="pr-1">
+      <NavigationMenu className="pr-1 hidden md:block">
         <NavigationMenuList className="flex gap-2">
           {isOnProblemsRoute && (
             <NavigationMenuItem>
@@ -114,7 +114,7 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
   );
 };
 
-export default NavigationMenu__;
+export default DesktopNavigationLinks;
 
 const pageLinks: {
   title: string;
