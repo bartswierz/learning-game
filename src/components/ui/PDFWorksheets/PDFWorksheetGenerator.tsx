@@ -184,7 +184,7 @@ const PDFWorksheetGenerator = () => {
           text={t("Generate Take Home Problems")}
           voiceText={ttsDescription}
           language={ttsLanguage}
-          className="underline underline-offset-[5px]"
+          className="underline underline-offset-[5px] px-4"
         />
         {/* The form should return back the user config choices */}
         <ProblemsForm handleFormData={handleFormData} />

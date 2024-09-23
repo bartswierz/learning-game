@@ -8,6 +8,7 @@ import HomePageSkeleton from "./components/ui/Skeletons/HomePageSkeleton.tsx";
 import OperationsSkeleton from "./components/ui/Skeletons/OperationsSkeleton.tsx";
 import AlphabeticalOrderSkeleton from "./components/ui/Skeletons/AlphabeticalOrderSkeleton.tsx";
 import AnalogClockSkeleton from "./components/ui/Skeletons/AnalogClockSkeleton.tsx";
+import TakeHomeProblemsSkeleton from "./components/ui/Skeletons/TakeHomeProblemsSkeleton.tsx";
 
 // LAZY LOADED PAGES
 const HomePage = lazy(() => import("./pages/Home.jsx"));
@@ -66,7 +67,14 @@ function App() {
             </Suspense>
           }
         />
-        <Route path="/take-home-worksheets" element={<TakeHomeProblemsPage />} />
+        <Route
+          path="/take-home-worksheets"
+          element={
+            <Suspense fallback={<TakeHomeProblemsSkeleton />}>
+              <TakeHomeProblemsPage />
+            </Suspense>
+          }
+        />
         <Route
           path="/analog-clock"
           element={
