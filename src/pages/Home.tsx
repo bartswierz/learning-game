@@ -13,16 +13,6 @@ import useTTSStore from "@/store/tts_store";
 export default function HomePage() {
   const { t } = useTranslation();
 
-  // TODO - add TTS_DATA to the project - update the file path -> show an example in code of adding the HOME key for the first time
-  /** ADD TO DOCS ON HOW TO ADD MORE LANGUAGE TRANSLATIONS TO A HEADER
-   * 1. Add a new key to the TTS_DATA object in /constants/constants.ts
-   * 2. Update the TTSDataType with our new key
-   * 3. In the file where you want to use the new translation, import the TTS_DATA object -> import { TTS_DATA } from "@/constants/constants";
-   * 4. import the DescriptionType -> import { DescriptionType } from "@/types/types";
-   * 5. import our TTS Store -> import useTTSStore from "@/store/tts_store"; -> this will be used to fetch the current language set -> this will be passed down to our heading as the language prop
-   * 6. Inside the component, destructure the key we added into the TTS_DATA -> i.e. const { CLOCK } = TTS_DATA; -> this will give us access to the description object for our CLOCK key
-   * 6a. to get appropriate description from the key, we will grab the value of the that specific language with the language key -> i.e. const ttsDescription: string = CLOCK.description[ttsLanguage];
-   */
   const ttsLanguage = useTTSStore((state) => state.language);
   const { HOME } = TTS_DATA;
   const tts_description: string = HOME.description[ttsLanguage];

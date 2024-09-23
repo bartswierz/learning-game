@@ -2,6 +2,7 @@ import "./globals.css";
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/ui/Navbar/Navbar.tsx";
+import HomePageSkeleton from "./components/ui/Skeletons/HomePageSkeleton.tsx";
 
 // Lazy Loading Pages
 const HomePage = lazy(() => import("./pages/Home.jsx"));
@@ -16,22 +17,27 @@ const AlphabeticalOrderPage = lazy(() => import("./pages/AlphabeticalOrder.tsx")
 function App() {
   return (
     <div className="h-full pb-[5vh]">
-      {/* NAVBAR does not rerender, we only rerender wthin the Routes component */}
+      {/* NAVBAR does not rerender, we only rerender within the Routes component */}
       <Navbar />
-      {/* TODO - add Skeleton Component for fallback */}
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/addition" element={<AdditionPage />} />
-          <Route path="/subtraction" element={<SubtractionPage />} />
-          <Route path="/multiplication" element={<MultiplicationPage />} />
-          <Route path="/division" element={<DivisionPage />} />
-          <Route path="/take-home-worksheets" element={<TakeHomeProblemsPage />} />
-          <Route path="/analog-clock" element={<AnalogClockPage />} />
-          {/* TODO - update design and functionality of the alphabet order feature */}
-          <Route path="/alphabetical-order" element={<AlphabeticalOrderPage />} />
-        </Routes>
-      </Suspense>
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<HomePageSkeleton />}>
+              <HomePage />
+            </Suspense>
+          }
+        />
+        <Route path="/addition" element={<AdditionPage />} />
+        <Route path="/subtraction" element={<SubtractionPage />} />
+        <Route path="/multiplication" element={<MultiplicationPage />} />
+        <Route path="/division" element={<DivisionPage />} />
+        <Route path="/take-home-worksheets" element={<TakeHomeProblemsPage />} />
+        <Route path="/analog-clock" element={<AnalogClockPage />} />
+        {/* TODO - update design and functionality of the alphabet order feature */}
+        <Route path="/alphabetical-order" element={<AlphabeticalOrderPage />} />
+      </Routes>
     </div>
   );
 }
