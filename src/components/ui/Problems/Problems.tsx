@@ -37,7 +37,7 @@ const Problems = ({ operationType }: OperationProps) => {
   return (
     <div className="flex items-center flex-col justify-center mt-[56px]">
       <Header operationType={operationType} numOfQuestions={numOfQuestions} score={score} tts={tts_description} />
-      <div className="flex justify-centerx items-centerx flex-col gap-4 text-center">
+      <div className="flex flex-col gap-4 text-center">
         <Question operationType={operationType} numberOne={numberOne} numberTwo={numberTwo} />
         <InputDisplay userInput={userInput} />
         <CheckAnswerBtn disabled={disabled} operationType={operationType} text="Check Answer" userInput={userInput} />
