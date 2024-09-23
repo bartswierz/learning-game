@@ -14,50 +14,6 @@ import ListItemLink from "./ListItemLink";
 import LanguageList from "./LanguageList";
 import { useTranslation } from "react-i18next";
 
-const pageLinks: {
-  title: string;
-  route: Route;
-  description: string;
-  className?: string;
-}[] = [
-  {
-    title: "Addition",
-    route: "/addition",
-    description: "Set of Addition problems (5-50 Questions)",
-    className: "bg-green-500 hover:bg-green-600 hover:text-white",
-  },
-  {
-    title: "Subtraction",
-    route: "/subtraction",
-    description: "Set of Subtraction problems (5-50 Questions)",
-    className: "bg-red-500 hover:bg-red-600 hover:text-white",
-  },
-  {
-    title: "Multiplication",
-    route: "/multiplication",
-    description: "Set of Multiplication problems (5-50 Questions)",
-    className: "bg-blue-500 hover:bg-blue-600 hover:text-white",
-  },
-  {
-    title: "Division",
-    route: "/division",
-    description: "Set of Division problems (5-50 Questions)",
-    className: "bg-yellow-500 hover:bg-yellow-600 hover:text-white",
-  },
-  {
-    title: "Alphabetical Order",
-    route: "/alphabetical-order",
-    description: "Practice your alphabet by putting letters in order",
-    className: "bg-indigo-500 hover:bg-indigo-600 hover:text-white",
-  },
-  {
-    title: "Analog Clock",
-    route: "/analog-clock",
-    description: "Practice reading the time on an analog clock",
-    className: "bg-blue-500 hover:bg-blue-600 hover:text-white",
-  },
-];
-
 export type currentRouteType =
   | "/"
   | "/take-home-worksheets"
@@ -159,3 +115,47 @@ const NavigationMenu__ = ({ currentRoute }: NavigationMenuProps) => {
 };
 
 export default NavigationMenu__;
+
+const pageLinks: {
+  title: string;
+  route: Route;
+  description: string;
+  className?: string;
+}[] = [
+  {
+    title: "Addition",
+    route: "/addition",
+    description: "Set of Addition problems (5-50 Questions)",
+    className: "bg-green-500 hover:bg-green-600 hover:text-white",
+  },
+  {
+    title: "Subtraction",
+    route: "/subtraction",
+    description: "Set of Subtraction problems (5-50 Questions)",
+    className: "bg-red-500 hover:bg-red-600 hover:text-white",
+  },
+  {
+    title: "Multiplication",
+    route: "/multiplication",
+    description: "Set of Multiplication problems (5-50 Questions)",
+    className: "bg-blue-500 hover:bg-blue-600 hover:text-white",
+  },
+  {
+    title: "Division",
+    route: "/division",
+    description: "Set of Division problems (5-50 Questions)",
+    className: "bg-yellow-500 hover:bg-yellow-600 hover:text-white",
+  },
+  {
+    title: "Alphabetical Order",
+    route: "/alphabetical-order",
+    description: "Practice your alphabet by putting letters in order",
+    className: "bg-indigo-500 hover:bg-indigo-600 hover:text-white",
+  },
+  {
+    title: "Analog Clock",
+    route: "/analog-clock",
+    description: "Practice reading the time on an analog clock",
+    className: "bg-blue-500 hover:bg-blue-600 hover:text-white",
+  },
+];
