@@ -30,7 +30,8 @@ function Draggable({ children, id, isDisabled = false, className = "h-[70px] w-[
       {...listeners}
       {...attributes}
       className={`${className} touch-none`}
-      onMouseDown={handleDragStart}
+      onMouseDown={handleDragStart} // For desktop
+      onTouchStart={handleDragStart} // For mobile
     >
       {children}
     </button>
