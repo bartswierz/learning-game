@@ -24,7 +24,14 @@ function Draggable({ children, id, isDisabled = false, className = "h-[70px] w-[
     : undefined;
 
   return (
-    <button ref={setNodeRef} style={style} {...listeners} {...attributes} className={`${className}`} onMouseDown={handleDragStart}>
+    <button
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      {...attributes}
+      className={`${className} touch-none`}
+      onMouseDown={handleDragStart}
+    >
       {children}
     </button>
   );
