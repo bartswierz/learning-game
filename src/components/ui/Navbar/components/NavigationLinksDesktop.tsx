@@ -55,7 +55,7 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
         <NavigationMenuList className="flex gap-2">
           {isOnProblemsRoute && (
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-blue-500">New Problems</NavigationMenuTrigger>
+              <NavigationMenuTrigger className="bg-blue-500">{t("New Problems")}</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className={"flex flex-wrap p-4 gap-3 w-[428px]"}>
                   {pageLinks.map(({ title, route, className, description }) => (

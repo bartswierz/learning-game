@@ -37,7 +37,6 @@ const LanguageList = ({ width = "100%" }: LanguageListProps) => {
     // <ul className="flex flex-col p-4 gap-3">
     <ul className="flex flex-wrap p-4 gap-3">
       {languageList.map(({ id, language, flag }) => (
-        // TODO - issue is here with the width not being correctly applied to the list Item
         <li key={id} style={{ width }}>
           <button
             onClick={() => switchLanguage(id)}
