@@ -8,6 +8,7 @@ import {
   // NavigationMenuViewport,
 } from "@/components/ui/shadcn/navigation-menu";
 import { Route } from "@/types/types";
+import useTTSStore from "@/store/tts_store";
 
 import RedirectUserModal from "../../RedirectUserModal";
 import ListItemLink from "./ListItemLink";
@@ -27,8 +28,20 @@ interface NavigationMenuProps {
   currentRoute: currentRouteType;
 }
 
+// To prevent the dropdown from being cut off, we need to set a custom width for the content based on the language
+const contentWidths = {
+  "en-US": "w-[263px]",
+  "es-ES": "w-[238px]",
+  "pl-PL": "w-[209px]",
+  "de-DE": "w-[263px]",
+  "fr-FR": "w-[263px]",
+};
+
 const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
   const { t } = useTranslation();
+  const currentLanguage = useTTSStore((state) => state.language);
+  console.log("currentLanguage: ", currentLanguage);
+  console.log("contentWidths: ", contentWidths[currentLanguage]);
   const [redirectRoute, setRedirectRoute] = useState<Route>("");
   const isOnProblemsRoute = [
     "/addition",
@@ -62,7 +75,6 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
                     <ListItemLink
                       key={title}
                       title={t(title)}
-                      // title={title}
                       route={route}
                       className={className}
                       setRedirectRoute={setRedirectRoute}
@@ -76,9 +88,9 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
             </NavigationMenuItem>
           )}
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-blue-500">{t("Resources")}</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="bg-blue-500 bb">{t("Resources")}</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className={`flex flex-col p-4 gap-3 ${isOnProblemsRoute ? "w-[288px]" : "w-[263px]"}`}>
+              <ul className={`flex flex-col p-4 gap-3 ${isOnProblemsRoute ? "w-[288px]" : contentWidths[currentLanguage]}`}>
                 <ListItemLink
                   route="/take-home-worksheets"
                   title={t("Take Home Worksheets")}
@@ -94,13 +106,13 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
           {/* LANGUAGE DROPDOWN */}
           <NavigationMenuItem>
             <NavigationMenuTrigger className="bg-blue-500">{t("Languages")}</NavigationMenuTrigger>
-            <NavigationMenuContent>
+            <NavigationMenuContent className="right-50 left-0x">
               {isOnProblemsRoute ? (
                 <div className="w-[426px]">
                   <LanguageList width="48%" />
                 </div>
               ) : (
-                <div className="w-[263px]">
+                <div className={contentWidths[currentLanguage]}>
                   <LanguageList width="100%" />
                 </div>
               )}
