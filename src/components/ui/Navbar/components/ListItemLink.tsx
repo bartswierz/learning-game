@@ -31,7 +31,7 @@ const ListItemLink = ({ className, route, title, children, width = "100%", setRe
   const DisabledLinkButton = ({ title, children }: DisabledLinkButtonProps) => {
     return (
       <li style={{ width }}>
-        <button className={`rounded-md  h-[80px]x h-full w-full cursor-not-allowed p-3 bg-gray-400/30 hover:bg-gray-400/30`}>
+        <button className={`rounded-md h-full w-full cursor-not-allowed p-3 bg-gray-400/30 hover:bg-gray-400/30`}>
           <div className="text-sm font-medium leading-none text-gray-300">{title}</div>
           <p className="line-clamp-3 text-sm leading-snug text-gray-300 group-hover:text-white transition-color duration-300">
             {children}
@@ -48,7 +48,7 @@ const ListItemLink = ({ className, route, title, children, width = "100%", setRe
       <NavigationMenuLink asChild>
         <button
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground group cursor-pointer",
+            "block h-full w-full select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground group cursor-pointer",
             className
           )}
           onClick={handleClick}

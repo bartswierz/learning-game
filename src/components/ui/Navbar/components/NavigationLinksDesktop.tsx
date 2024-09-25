@@ -67,7 +67,7 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
                       setRedirectRoute={setRedirectRoute}
                       width="48%"
                     >
-                      {description}
+                      {t(description)}
                     </ListItemLink>
                   ))}
                 </ul>
@@ -75,7 +75,6 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
             </NavigationMenuItem>
           )}
           <NavigationMenuItem>
-            {/* TODO - update our i18n translation for "Resources" -> currently it is using the old version of "Extras" for the keyword */}
             <NavigationMenuTrigger className="bg-blue-500">{t("Resources")}</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className={`flex flex-col p-4 gap-3 ${isOnProblemsRoute ? "w-[288px]" : "w-[263px]"}`}>
@@ -156,6 +155,6 @@ const pageLinks: {
     title: "Analog Clock",
     route: "/analog-clock",
     description: "Practice reading the time on an analog clock",
-    className: "bg-blue-500 hover:bg-blue-600 hover:text-white",
+    className: "bg-cyan-500 hover:bg-cyan-600 hover:text-white",
   },
 ];
