@@ -61,7 +61,8 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
                   {pageLinks.map(({ title, route, className, description }) => (
                     <ListItemLink
                       key={title}
-                      title={title}
+                      title={t(title)}
+                      // title={title}
                       route={route}
                       className={className}
                       setRedirectRoute={setRedirectRoute}
