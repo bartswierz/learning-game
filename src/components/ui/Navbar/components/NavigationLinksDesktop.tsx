@@ -88,7 +88,7 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
             </NavigationMenuItem>
           )}
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-blue-500 bb">{t("Resources")}</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="bg-blue-500">{t("Resources")}</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className={`flex flex-col p-4 gap-3 ${isOnProblemsRoute ? "w-[288px]" : contentWidths[currentLanguage]}`}>
                 <ListItemLink
