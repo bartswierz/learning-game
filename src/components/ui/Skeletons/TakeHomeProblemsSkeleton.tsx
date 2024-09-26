@@ -25,7 +25,7 @@ const TakeHomeProblemsSkeleton = () => {
 
           {/* VIEW PDF BTN */}
           <div className="flex justify-center">
-            <Skeleton className="w-[94px] h-[48px]" />
+            <Skeleton className="w-[130px] h-[48px]" />
           </div>
         </div>
       </div>
