@@ -141,7 +141,7 @@ const PDFWorksheetGenerator = () => {
 
   const ViewPdfButton = () => {
     return (
-      <div className="max-w-[120px]">
+      <div className="w-[130px]">
         <Button onClick={handleOpen} disabled={!isPdfCreated}>
           {t("View PDF")}
         </Button>
