@@ -27,7 +27,7 @@ const NavigationMenuMobile = ({ isOpen, closeMenu }: MobileNavigationMenuProps) 
           <MenuCloseButton closeMenu={closeMenu} />
           <ul className="flex flex-col items-center justify-center gap-y-5 mt-6">
             {mobileLinkInfo.map(({ route, text, className }) => (
-              <li className="flex max-w-[234px] w-full text-center" key={route}>
+              <li className="flex max-w-[296px] w-full text-center" key={route}>
                 <Link
                   to={`${route}`}
                   className={`px-4 py-2 rounded-md border-[3px] cursor-pointer shadow-xl transition-color duration-200 ease-in w-full ${className}`}
@@ -37,7 +37,7 @@ const NavigationMenuMobile = ({ isOpen, closeMenu }: MobileNavigationMenuProps) 
                 </Link>
               </li>
             ))}
-            <li key="language_combobox" className="flex max-w-[234px] w-full text-center">
+            <li key="language_combobox" className="flex max-w-[296px] w-full text-center">
               <LanguageCombobox />
             </li>
           </ul>
