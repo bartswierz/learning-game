@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import useSettingsStore from "@/store/store";
 import RestartBtn from "../RestartBtn";
+import Button from "../Buttons/Button";
+import { SECONDARY } from "@/types/types";
 
 interface DisplayResultsProps {
   score: number;
@@ -24,16 +26,12 @@ const DisplayResults = ({ score, numOfQuestions, operationType }: DisplayResults
     const redirectBackToHome = () => {
       resetProgress();
       navigate("/");
-      // redirect("/");
     };
 
     return (
-      <button
-        className="bg-gray-400 hover:bg-gray-500 transition-color duration-200 ease-in px-4 py-2 rounded-full w-[140px] w-fullx"
-        onClick={redirectBackToHome}
-      >
+      <Button onClick={redirectBackToHome} variant={SECONDARY}>
         No
-      </button>
+      </Button>
     );
   };
 
@@ -47,9 +45,13 @@ const DisplayResults = ({ score, numOfQuestions, operationType }: DisplayResults
         Score: <span className="text-blue-500 font-bold">{percentage}%</span>
       </p>
       <p>Do you want to try again?</p>
-      <div className="flex flex-wrap justify-center px-2 gap-2 mt-3">
-        <HomeButton />
-        <RestartBtn operationType={operationType} />
+      <div className="flex flex-wrap justify-center gap-5 mt-3 h-[50px] mx-4">
+        <div className="w-[150px]">
+          <HomeButton />
+        </div>
+        <div className="w-[150px]">
+          <RestartBtn operationType={operationType} />
+        </div>
       </div>
     </div>
   );

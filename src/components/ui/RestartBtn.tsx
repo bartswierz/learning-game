@@ -1,5 +1,6 @@
 import { randomTwoNumbers, randomTwoNumbersForDivision } from "@/utils";
 import useSettingsStore from "@/store/store";
+import Button from "./Buttons/Button";
 
 interface RestartBtnProps {
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
@@ -24,14 +25,9 @@ const RestartBtn = ({ operationType }: RestartBtnProps) => {
   };
 
   return (
-    <button
-      className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 hover:text-white hover:ring ring-slate-200 px-4 py-2 rounded-full hover:shadow-xl transition-all duration-300"
-      onClick={() => handleGlobalReset(operationType)}
-      data-testid="restart-btn"
-      role="button"
-    >
+    <Button className="" onClick={() => handleGlobalReset(operationType)} data-testid="restart-btn" role="button">
       Restart Game
-    </button>
+    </Button>
   );
 };
 

@@ -40,8 +40,6 @@ const contentWidths = {
 const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
   const { t } = useTranslation();
   const currentLanguage = useTTSStore((state) => state.language);
-  console.log("currentLanguage: ", currentLanguage);
-  console.log("contentWidths: ", contentWidths[currentLanguage]);
   const [redirectRoute, setRedirectRoute] = useState<Route>("");
   const isOnProblemsRoute = [
     "/addition",

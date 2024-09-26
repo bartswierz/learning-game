@@ -7,10 +7,20 @@ interface ButtonProps {
   ariaLabel?: string;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
+  role?: string;
   variant?: typeof PRIMARY | typeof SECONDARY | typeof RED | typeof GREEN | typeof YELLOW;
 }
 
-const Button = ({ children, onClick = () => {}, variant = PRIMARY, className = "", ariaLabel, type, disabled }: ButtonProps) => {
+const Button = ({
+  children,
+  onClick = () => {},
+  variant = PRIMARY,
+  className = "",
+  ariaLabel,
+  type,
+  role = "button",
+  disabled,
+}: ButtonProps) => {
   //  Base styles for button elements
   const baseButtonStyles = "relative flex items-center justify-center w-full h-full";
   const baseContentStyles = "relative flex items-center justify-center w-full h-full py-2 px-2 rounded-lg border-[1.5px]";
@@ -55,7 +65,7 @@ const Button = ({ children, onClick = () => {}, variant = PRIMARY, className = "
 
   if (disabled) {
     return (
-      <button className={`${baseButtonStyles} cursor-not-allowed ${className}`} aria-label={ariaLabel} disabled>
+      <button className={`${baseButtonStyles} cursor-not-allowed ${className}`} aria-label={ariaLabel} role={role} disabled>
         <div className="absolute inset-x-0 h-full -bottom-2 bg-gray-500 rounded-lg"></div>
         <div className={`${baseContentStyles} bg-gray-500 border-gray-600`}>{children}</div>
       </button>
@@ -68,6 +78,7 @@ const Button = ({ children, onClick = () => {}, variant = PRIMARY, className = "
       onClick={onClick}
       aria-label={ariaLabel}
       type={type}
+      role={role}
     >
       <div className={`absolute inset-x-0 h-full -bottom-2 rounded-lg ${bottomSection}`}></div>
       <div className={`${transitionStyles} ${baseContentStyles} ${topSection}`}>{children}</div>
