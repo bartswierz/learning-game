@@ -31,10 +31,10 @@ interface NavigationMenuProps {
 // To prevent the dropdown from being cut off, we need to set a custom width for the content based on the language
 const contentWidths = {
   "en-US": "w-[263px]",
-  "es-ES": "w-[238px]",
-  "pl-PL": "w-[209px]",
+  "es-ES": "w-[233px]",
+  "pl-PL": "w-[206px]",
   "de-DE": "w-[263px]",
-  "fr-FR": "w-[263px]",
+  "fr-FR": "w-[253px]",
 };
 
 const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
