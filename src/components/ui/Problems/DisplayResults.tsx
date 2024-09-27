@@ -8,10 +8,11 @@ interface DisplayResultsProps {
   score: number;
   numOfQuestions: number;
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
+  time: number;
 }
 
 // Display the game over message and restart button with user results
-const DisplayResults = ({ score, numOfQuestions, operationType }: DisplayResultsProps) => {
+const DisplayResults = ({ score, numOfQuestions, operationType, time }: DisplayResultsProps) => {
   const navigate = useNavigate();
   const resetProgress = useSettingsStore((state) => state.resetProgress);
 
@@ -44,6 +45,7 @@ const DisplayResults = ({ score, numOfQuestions, operationType }: DisplayResults
       <p className="text-lg">
         Score: <span className="text-blue-500 font-bold">{percentage}%</span>
       </p>
+      <p className="text-lg">Time: {time} seconds</p>
       <p>Do you want to try again?</p>
       <div className="flex flex-wrap justify-center gap-5 mt-3 h-[50px] mx-4">
         <div className="w-[150px]">
