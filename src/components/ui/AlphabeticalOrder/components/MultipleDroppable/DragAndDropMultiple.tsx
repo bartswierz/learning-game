@@ -75,22 +75,24 @@ interface DragAndDropMultipleProps {
   className?: string;
   droppableLayoutClassName?: string;
   draggableLayoutClassName?: string;
+  setIsComplete?: (isComplete: boolean) => void;
 }
 
 function DragAndDropMultiple({
   className = "",
   draggableLayoutClassName = "",
   droppableLayoutClassName = "",
+  setIsComplete = () => {},
 }: DragAndDropMultipleProps) {
   const [placements, setPlacements] = useState(initialPlacements);
-  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
     const areAllPlacementsFilled = Object.values(placements).every((value) => value !== null);
 
     if (areAllPlacementsFilled) {
-      setIsComplete(true);
+      setIsComplete(true); // Stops the timer on completion
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [placements]);
 
   // Handle the drag and drop logic
@@ -111,11 +113,6 @@ function DragAndDropMultiple({
       }
     }
   }
-
-  const handleRestart = () => {
-    setPlacements(initialPlacements);
-    setIsComplete(false);
-  };
 
   // Used for Mobile as the drag and drop will not work without using sensors
   const sensors = useSensors(
@@ -153,14 +150,6 @@ function DragAndDropMultiple({
               {letter}
             </Draggable>
           ) : null
-        )}
-      </div>
-
-      <div className="w-full flex justify-center items-center">
-        {isComplete && (
-          <button className="px-4 py-2 bg-blue-500" onClick={handleRestart}>
-            Reset
-          </button>
         )}
       </div>
     </DndContext>
