@@ -28,7 +28,16 @@ interface NavigationMenuProps {
   currentRoute: currentRouteType;
 }
 
-// To prevent the dropdown from being cut off, we need to set a custom width for the content based on the language
+// While on a problem route, we need to adjust the width of the content to fit the screen based on the current language
+const problemRoutesContentWidths = {
+  "en-US": { problemsWidth: "w-[426px]", resourcesWidth: "w-[288px]", languagesWidth: "w-[426px]" }, //DONE
+  "es-ES": { problemsWidth: "w-[428px]", resourcesWidth: "w-[311px]", languagesWidth: "w-[428px]" },
+  "pl-PL": { problemsWidth: "w-[378px]", resourcesWidth: "w-[274px]", languagesWidth: "w-[380px]" },
+  "de-DE": { problemsWidth: "w-[432px]", resourcesWidth: "w-[302px]", languagesWidth: "w-[432px]" },
+  "fr-FR": { problemsWidth: "w-[463px]", resourcesWidth: "w-[344px]", languagesWidth: "w-[463px]" },
+};
+
+// Non problem route page - i.e. Home page, Take Home Worksheets page, etc. No "new problems" button on these pages, so we can use a fixed width per language
 const contentWidths = {
   "en-US": "w-[263px]",
   "es-ES": "w-[233px]",
@@ -50,6 +59,8 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
     "alphabetical-order",
   ].includes(currentRoute);
 
+  const { problemsWidth, resourcesWidth, languagesWidth } = problemRoutesContentWidths[currentLanguage];
+
   // Modal relies on the redirectRoute to be set via user clicking a link. Canceling or redirect will reset the redirectRoute
   const closeModal = () => {
     setRedirectRoute("");
@@ -68,7 +79,7 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
             <NavigationMenuItem>
               <NavigationMenuTrigger className="bg-blue-500">{t("New Problems")}</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className={"flex flex-wrap p-4 gap-3 w-[428px]"}>
+                <ul className={`flex flex-wrap p-4 gap-3 ${problemsWidth}`}>
                   {pageLinks.map(({ title, route, className, description }) => (
                     <ListItemLink
                       key={title}
@@ -88,7 +99,7 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
           <NavigationMenuItem>
             <NavigationMenuTrigger className="bg-blue-500">{t("Resources")}</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className={`flex flex-col p-4 gap-3 ${isOnProblemsRoute ? "w-[288px]" : contentWidths[currentLanguage]}`}>
+              <ul className={`flex flex-col p-4 gap-3 ${isOnProblemsRoute ? resourcesWidth : contentWidths[currentLanguage]}`}>
                 <ListItemLink
                   route="/take-home-worksheets"
                   title={t("Take Home Worksheets")}
@@ -106,10 +117,11 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
             <NavigationMenuTrigger className="bg-blue-500">{t("Languages")}</NavigationMenuTrigger>
             <NavigationMenuContent className="right-50 left-0x">
               {isOnProblemsRoute ? (
-                <div className="w-[426px]">
+                <div className={languagesWidth}>
                   <LanguageList width="48%" />
                 </div>
               ) : (
+                // HOME PAGE/TAKE HOME WORKSHEET PAGE/ETC.
                 <div className={contentWidths[currentLanguage]}>
                   <LanguageList width="100%" />
                 </div>
@@ -117,8 +129,6 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
             </NavigationMenuContent>
           </NavigationMenuItem>
         </NavigationMenuList>
-
-        {/* <NavigationMenuViewport /> */}
       </NavigationMenu>
     </>
   );
