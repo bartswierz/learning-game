@@ -68,6 +68,34 @@ body {
     --radius: 0.5rem;
   }
 
+  /* Custom themes */
+  [data-theme="theme1"] {
+    --primary: #ff6347; /* Example: Tomato */
+    --primary-foreground: #ffffff;
+    --secondary: #ffd700; /* Example: Gold */
+    --secondary-foreground: #000000;
+    --background: #f8fafc; /* Example: Light background */
+    --foreground: #0f172a;
+  }
+
+  [data-theme="theme2"] {
+    --primary: #008080; /* Teal */
+    --primary-foreground: #ffffff;
+    --secondary: #ff4500; /* OrangeRed */
+    --secondary-foreground: #ffffff;
+    --background: #1a202c; /* Darker background */
+    --foreground: #f8fafc;
+  }
+
+  [data-theme="theme3"] {
+    --primary: #4caf50; /* Green */
+    --primary-foreground: #ffffff;
+    --secondary: #ffeb3b; /* Yellow */
+    --secondary-foreground: #000000;
+    --background: #ffffff; /* White background */
+    --foreground: #333333;
+  }
+
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;

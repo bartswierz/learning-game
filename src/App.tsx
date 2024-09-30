@@ -2,6 +2,7 @@ import "./globals.css";
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/ui/Navbar/Navbar.tsx";
+import { ThemeProvider } from "./contexts/ThemeContext.jsx";
 
 // SKELETONS
 import HomePageSkeleton from "./components/ui/Skeletons/HomePageSkeleton.tsx";
@@ -22,10 +23,10 @@ const AlphabeticalOrderPage = lazy(() => import("./pages/AlphabeticalOrder.tsx")
 
 function App() {
   return (
-    <>
+    <ThemeProvider>
       {/* Navbar is outside the Routes component to prevent unnecessary re-renders of our navbar */}
       <Navbar />
-
+      <button className="bg-themeGreen-primary">TESTING BUTTON</button>
       <Routes>
         <Route
           path="/"
@@ -92,7 +93,7 @@ function App() {
           }
         />
       </Routes>
-    </>
+    </ThemeProvider>
   );
 }
 

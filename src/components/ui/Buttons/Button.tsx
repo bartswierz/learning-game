@@ -31,6 +31,7 @@ const Button = ({
       case PRIMARY:
         return {
           topSection: "bg-blue-500 border-blue-600",
+          // topSection: "bg-primary border-blue-600",
           bottomSection: "bg-blue-600",
         };
       case SECONDARY:
