@@ -28,15 +28,20 @@ const Problems = ({ operationType }: OperationProps) => {
   const tts_description: DescriptionType = operations[operationType].description;
 
   const [finishTime, setFinishTime] = useState(0);
-
   const handleCompletionTime = (finishedTime: number) => {
     setFinishTime(finishedTime);
   };
 
-  if (isGameOver && finishTime) {
+  if (isGameOver && finishTime && score === numOfQuestions) {
     return (
       <>
-        <DisplayResults score={score} numOfQuestions={numOfQuestions} operationType={operationType} time={finishTime} />
+        <DisplayResults
+          score={score}
+          numOfQuestions={numOfQuestions}
+          operationType={operationType}
+          time={finishTime}
+          resetTimer={() => setFinishTime(0)}
+        />
       </>
     );
   }
@@ -45,7 +50,7 @@ const Problems = ({ operationType }: OperationProps) => {
     <div className="flex items-center flex-col justify-center mt-[56px]">
       <Header operationType={operationType} numOfQuestions={numOfQuestions} score={score} tts={tts_description} />
       <div className="flex flex-col gap-4 text-center">
-        <Timer onCompletion={handleCompletionTime} stopTimer={isGameOver} />
+        <Timer onCompletion={handleCompletionTime} stopTimer={isGameOver} displayText />
         <Question operationType={operationType} numberOne={numberOne} numberTwo={numberTwo} />
         <InputDisplay userInput={userInput} />
         <CheckAnswerBtn disabled={userInput === ""} operationType={operationType} userInput={userInput} text="Check Answer" />

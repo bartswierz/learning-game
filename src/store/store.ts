@@ -37,9 +37,7 @@ const initialState: State = {
     numOneRange: { min: 1, max: 10 },
     numTwoRange: { min: 1, max: 10 },
     numOfAttempts: 3,
-    numOfQuestions: 1,
-    // TODO - reset once we finish testing
-    // numOfQuestions: 5,
+    numOfQuestions: 5,
   },
   attemptsLeft: 3,
   numberOne: 0,

@@ -3,16 +3,18 @@ import useSettingsStore from "@/store/store";
 import RestartBtn from "../RestartBtn";
 import Button from "../Buttons/Button";
 import { SECONDARY } from "@/types/types";
+import formatTime from "@/utils/formatTime";
 
 interface DisplayResultsProps {
   score: number;
   numOfQuestions: number;
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
   time: number;
+  resetTimer: () => void;
 }
 
 // Display the game over message and restart button with user results
-const DisplayResults = ({ score, numOfQuestions, operationType, time }: DisplayResultsProps) => {
+const DisplayResults = ({ score, numOfQuestions, operationType, time, resetTimer }: DisplayResultsProps) => {
   const navigate = useNavigate();
   const resetProgress = useSettingsStore((state) => state.resetProgress);
 
@@ -45,14 +47,15 @@ const DisplayResults = ({ score, numOfQuestions, operationType, time }: DisplayR
       <p className="text-lg">
         Score: <span className="text-blue-500 font-bold">{percentage}%</span>
       </p>
-      <p className="text-lg">Time: {time} seconds</p>
+      {/* <p className="text-lg">Time: {time} seconds</p> */}
+      <p className="text-lg">Time: {formatTime(time)}</p>
       <p>Do you want to try again?</p>
       <div className="flex flex-wrap justify-center gap-5 mt-3 h-[50px] mx-4">
         <div className="w-[150px]">
           <HomeButton />
         </div>
         <div className="w-[150px]">
-          <RestartBtn operationType={operationType} />
+          <RestartBtn operationType={operationType} resetTimer={resetTimer} />
         </div>
       </div>
     </div>
