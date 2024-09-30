@@ -47,7 +47,7 @@ const Problems = ({ operationType }: OperationProps) => {
   }
 
   return (
-    <div className="flex items-center flex-col justify-center mt-[56px]">
+    <div className="flex items-center flex-col justify-center pt-[40px] pb-[56px]">
       <Header operationType={operationType} numOfQuestions={numOfQuestions} score={score} tts={tts_description} />
       <div className="flex flex-col gap-4 text-center">
         <Timer onCompletion={handleCompletionTime} stopTimer={isGameOver} displayText />

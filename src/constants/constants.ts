@@ -72,7 +72,7 @@ export const TTS_DATA: TTSDataType = {
   },
   ALPHABETICAL_ORDER: {
     description: {
-      "en-US": "Arrange the letters in Alphabetical Order",
+      "en-US": "Arrange the letters in alphabetical order",
       "es-ES": "Organiza las letras en orden alfabético",
       "pl-PL": "Ułóż litery w porządku alfabetycznym",
       "de-DE": "Ordnen Sie die Buchstaben in alphabetischer Reihenfolge an",

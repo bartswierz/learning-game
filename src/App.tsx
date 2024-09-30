@@ -22,7 +22,7 @@ const AlphabeticalOrderPage = lazy(() => import("./pages/AlphabeticalOrder.tsx")
 
 function App() {
   return (
-    <div className="h-full pb-[5vh]">
+    <>
       {/* Navbar is outside the Routes component to prevent unnecessary re-renders of our navbar */}
       <Navbar />
 
@@ -92,7 +92,7 @@ function App() {
           }
         />
       </Routes>
-    </div>
+    </>
   );
 }
 
