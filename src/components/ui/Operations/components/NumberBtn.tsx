@@ -1,6 +1,6 @@
 import { isNumberOrDecimal } from "@/utils";
 import useSettingsStore from "@/store/store";
-import Button from "../Buttons/Button";
+import Button from "../../Buttons/Button";
 
 interface NumberBtnProps {
   value: string;

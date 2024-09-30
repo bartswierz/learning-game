@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import useSettingsStore from "@/store/store";
-import RestartBtn from "../RestartBtn";
-import Button from "../Buttons/Button";
+import RestartBtn from "../../RestartBtn";
+import Button from "../../Buttons/Button";
 import { SECONDARY } from "@/types/types";
 import formatTime from "@/utils/formatTime";
 

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import NumberPad from "./NumberPad";
-import CheckAnswerBtn from "./CheckAnswerBtn";
-import Header from "./Header";
-import Question from "./Question";
-import InputDisplay from "./InputDisplay";
-import DisplayResults from "./DisplayResults";
+import NumberPad from "./components/NumberPad";
+import CheckAnswerBtn from "./components/CheckAnswerBtn";
+import Header from "./components/Header";
+import Question from "./components/Question";
+import InputDisplay from "./components/InputDisplay";
+import DisplayResults from "./components/DisplayResults";
 import Timer from "../Timer/Timer";
 
 import { TTS_DATA } from "@/constants/constants";

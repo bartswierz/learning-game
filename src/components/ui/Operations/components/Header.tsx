@@ -2,7 +2,7 @@ import useSettingsStore from "@/store/store";
 import { useTranslation } from "react-i18next";
 import { DescriptionType, LanguageType } from "@/types/types";
 import useTTSStore from "@/store/tts_store";
-import Heading from "../Layout/Heading";
+import Heading from "../../Layout/Heading";
 
 interface HeaderProps {
   operationType: string;

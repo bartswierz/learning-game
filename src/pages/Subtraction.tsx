@@ -1,5 +1,5 @@
-import Problems from "@/components/ui/Problems/Problems";
+import Operations from "@/components/ui/Operations/Operations";
 
 export default function SubtractionPage() {
-  return <Problems operationType="SUBTRACTION" />;
+  return <Operations operationType="SUBTRACTION" />;
 }

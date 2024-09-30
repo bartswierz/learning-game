@@ -4,7 +4,6 @@ import Button from "./Buttons/Button";
 
 interface RestartBtnProps {
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
-  // resetTime: (time: number) => void;
   resetTimer: () => void;
 }
 

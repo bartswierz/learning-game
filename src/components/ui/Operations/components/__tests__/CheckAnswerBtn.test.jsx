@@ -1,12 +1,9 @@
-import { describe, it, test, expect, vi } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { screen, render, waitFor } from "@testing-library/react";
 import CheckAnswerBtn from "../CheckAnswerBtn";
 import userEvent from "@testing-library/user-event";
-// import { checkAnswer } from "../../../../utils/index";
-import * as utils from "../../../../utils/index";
+import * as utils from "../../../../../utils/index";
 
-//logTestingPlaygroundURL() for debugging to the browser console
-// console.log("checkAnswer: ", checkAnswer);
 describe("CheckAnswer", () => {
   it("should invoke checkAnswer function when user clicks button", async () => {
     const checkAnswerSpy = vi.spyOn(utils, "checkAnswer");
