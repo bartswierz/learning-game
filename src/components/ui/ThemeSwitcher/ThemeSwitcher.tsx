@@ -1,12 +1,9 @@
-import { useTheme } from "../../../contexts/ThemeContext";
-import { Popover, PopoverContent, PopoverTrigger } from "../shadcn/Popover";
+import { useTheme } from "../../../contexts/ThemeContext.tsx";
+import { Popover, PopoverContent, PopoverTrigger } from "../shadcn/popover";
 import { IoMdColorPalette } from "react-icons/io";
 
 const ThemeSwitcher = () => {
-  const { toggleTheme, theme } = useTheme();
-
-  // Note - following video, only bg-themeRed-primary is used, but bg-themeRed-secondary is also available
-  const buttonClasses = `text-color-${theme} bg-${theme}-primary hover:bg-color-${theme}`;
+  const { toggleTheme } = useTheme();
 
   return (
     <Popover>
@@ -17,7 +14,6 @@ const ThemeSwitcher = () => {
       </PopoverTrigger>
       <PopoverContent className="max-w-[218px] w-full">
         <h4 className={`font-xl text-center mb-3`}>Theme Colors</h4>
-        <span className={`bg-${theme}-primary`}>{theme}</span>
         <ColorPaletteOptions toggleTheme={toggleTheme} />
       </PopoverContent>
     </Popover>
@@ -26,7 +22,11 @@ const ThemeSwitcher = () => {
 
 export default ThemeSwitcher;
 
-const ColorPaletteOptions = ({ toggleTheme }) => {
+interface ColorPaletteOptionsProps {
+  toggleTheme: (themeColor: string) => void;
+}
+
+const ColorPaletteOptions = ({ toggleTheme }: ColorPaletteOptionsProps) => {
   const themeColorsList = [
     "themeBlue",
     "themeIndigo",
@@ -47,7 +47,7 @@ const ColorPaletteOptions = ({ toggleTheme }) => {
     "themeRed",
   ];
 
-  const handleThemeChange = (themeColor) => {
+  const handleThemeChange = (themeColor: string) => {
     toggleTheme(themeColor);
   };
 

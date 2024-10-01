@@ -5,10 +5,10 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
   NavigationMenuTrigger,
-  // NavigationMenuViewport,
 } from "@/components/ui/shadcn/navigation-menu";
 import { Route } from "@/types/types";
 import useTTSStore from "@/store/tts_store";
+import { useTheme } from "@/contexts/ThemeContext";
 
 import RedirectUserModal from "../../RedirectUserModal";
 import ListItemLink from "./ListItemLink";
@@ -48,6 +48,7 @@ const contentWidths = {
 
 const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
   const currentLanguage = useTTSStore((state) => state.language);
   const [redirectRoute, setRedirectRoute] = useState<Route>("");
   const isOnProblemsRoute = [
@@ -77,7 +78,7 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
         <NavigationMenuList className="flex gap-2">
           {isOnProblemsRoute && (
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-blue-500">{t("New Problems")}</NavigationMenuTrigger>
+              <NavigationMenuTrigger className={`bg-${theme}-primary`}>{t("New Problems")}</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className={`flex flex-wrap p-4 gap-3 ${problemsWidth}`}>
                   {pageLinks.map(({ title, route, className, description }) => (
@@ -97,7 +98,7 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
             </NavigationMenuItem>
           )}
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-blue-500">{t("Resources")}</NavigationMenuTrigger>
+            <NavigationMenuTrigger className={`bg-${theme}-primary`}>{t("Resources")}</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className={`flex flex-col p-4 gap-3 ${isOnProblemsRoute ? resourcesWidth : contentWidths[currentLanguage]}`}>
                 <ListItemLink
@@ -114,7 +115,7 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
 
           {/* LANGUAGE DROPDOWN */}
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-blue-500">{t("Languages")}</NavigationMenuTrigger>
+            <NavigationMenuTrigger className={`bg-${theme}-primary`}>{t("Languages")}</NavigationMenuTrigger>
             <NavigationMenuContent className="right-50 left-0x">
               {isOnProblemsRoute ? (
                 <div className={languagesWidth}>
