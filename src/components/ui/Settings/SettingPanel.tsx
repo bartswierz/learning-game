@@ -4,12 +4,14 @@ import Slider__ from "./Slider";
 import useSettingsStore from "@/store/store";
 import { FormEvent } from "react";
 import { useState } from "react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface SettingsFormProps {
   handleCloseCallback: () => void;
 }
 
 const SettingPanel = ({ handleCloseCallback }: SettingsFormProps) => {
+  const { theme } = useTheme();
   const numOneRange = useSettingsStore((state) => state.settings.numOneRange);
   const numTwoRange = useSettingsStore((state) => state.settings.numTwoRange);
   const numOfAttempts = useSettingsStore((state) => state.settings.numOfAttempts);
@@ -90,9 +92,7 @@ const SettingPanel = ({ handleCloseCallback }: SettingsFormProps) => {
       <button
         type="submit"
         disabled={isDisabled}
-        className={`bg-blue-500x hover:bg-blue-600x focus:bg-blue-700 px-4 py-2 rounded-full ${
-          isDisabled ? "bg-gray-500" : "bg-blue-500 hover:bg-blue-600"
-        }`}
+        className={`px-4 py-2 rounded-full ${isDisabled ? "bg-gray-500" : `bg-${theme}-primary hover:bg-${theme}-secondary`}`}
       >
         Update Settings
       </button>
