@@ -5,8 +5,8 @@ import { currentRouteType } from "./components/NavigationLinksDesktop";
 import LearningAppSVG from "/LearningAppIcon.svg";
 import NavigationMenuMobile from "./components/NavigationMenuMobile";
 
-import { useTheme } from "../../../contexts/ThemeContext";
-import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
+import { useTheme } from "../../../contexts/ThemeContext.tsx";
+import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher.tsx";
 
 import Settings from "../Settings/Settings";
 import NavigationLinksDesktop from "./components/NavigationLinksDesktop";

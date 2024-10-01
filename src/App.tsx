@@ -2,7 +2,7 @@ import "./globals.css";
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/ui/Navbar/Navbar.tsx";
-import { ThemeProvider } from "./contexts/ThemeContext.jsx";
+import { ThemeProvider } from "./contexts/ThemeContext.tsx";
 
 // SKELETONS
 import HomePageSkeleton from "./components/ui/Skeletons/HomePageSkeleton.tsx";
