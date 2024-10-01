@@ -9,6 +9,7 @@ import {
 import { Route } from "@/types/types";
 import useTTSStore from "@/store/tts_store";
 import { useTheme } from "@/contexts/ThemeContext";
+import ThemeSwitcher from "../../ThemeSwitcher/ThemeSwitcher";
 
 import RedirectUserModal from "../../RedirectUserModal";
 import ListItemLink from "./ListItemLink";

@@ -4,6 +4,7 @@ import RestartBtn from "../../RestartBtn";
 import Button from "../../Buttons/Button";
 import { SECONDARY } from "@/types/types";
 import formatTime from "@/utils/formatTime";
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface DisplayResultsProps {
   score: number;
@@ -17,6 +18,7 @@ interface DisplayResultsProps {
 const DisplayResults = ({ score, numOfQuestions, operationType, time, resetTimer }: DisplayResultsProps) => {
   const navigate = useNavigate();
   const resetProgress = useSettingsStore((state) => state.resetProgress);
+  const { theme } = useTheme();
 
   const calculatePercentage = (score: number, numOfQuestions: number) => {
     return (score / numOfQuestions) * 100;
@@ -45,10 +47,11 @@ const DisplayResults = ({ score, numOfQuestions, operationType, time, resetTimer
         Questions: {score} / {numOfQuestions}
       </p>
       <p className="text-lg">
-        Score: <span className="text-blue-500 font-bold">{percentage}%</span>
+        Score: <span className={`text-${theme}-primary font-bold`}>{percentage}%</span>
       </p>
-      {/* <p className="text-lg">Time: {time} seconds</p> */}
-      <p className="text-lg">Time: {formatTime(time)}</p>
+      <p className="text-lg">
+        Time: <span className={`text-${theme}-primary font-bold`}>{formatTime(time)}</span>
+      </p>
       <p>Do you want to try again?</p>
       <div className="flex flex-wrap justify-center gap-5 mt-3 h-[50px] mx-4">
         <div className="w-[150px]">

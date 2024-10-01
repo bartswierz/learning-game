@@ -166,6 +166,10 @@ export default {
       pattern:
         /border-(themeRed|themeOrange|themeAmber|themeYellow|themeLime|themeGreen|themeEmerald|themeTeal|themeCyan|themeSky|themeBlue|themeIndigo|themeViolet|themePurple|themeFuchsia|themePink|themeRose)-(primary|secondary)/,
     },
+    {
+      pattern:
+        /text-(themeRed|themeOrange|themeAmber|themeYellow|themeLime|themeGreen|themeEmerald|themeTeal|themeCyan|themeSky|themeBlue|themeIndigo|themeViolet|themePurple|themeFuchsia|themePink|themeRose)-(primary|secondary)/,
+    },
   ],
   plugins: [require("tailwindcss-animate")],
 };

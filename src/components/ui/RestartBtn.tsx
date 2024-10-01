@@ -1,6 +1,7 @@
 import { randomTwoNumbers, randomTwoNumbersForDivision } from "@/utils";
 import useSettingsStore from "@/store/store";
 import Button from "./Buttons/Button";
+import { THEME } from "@/types/types";
 
 interface RestartBtnProps {
   operationType: "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
@@ -28,7 +29,7 @@ const RestartBtn = ({ operationType, resetTimer }: RestartBtnProps) => {
   };
 
   return (
-    <Button className="" onClick={() => handleGlobalReset(operationType)} data-testid="restart-btn" role="button">
+    <Button className="" onClick={() => handleGlobalReset(operationType)} data-testid="restart-btn" role="button" variant={THEME}>
       Try Again
     </Button>
   );

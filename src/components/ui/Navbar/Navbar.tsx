@@ -45,7 +45,9 @@ const Navbar = () => {
         <NavigationLinksDesktop currentRoute={location.pathname as currentRouteType} />
         <MenuOpenButton openMenu={openMenu} />
         {isOnGameRoute && <Settings />}
-        <ThemeSwitcher />
+        <div className="hidden md:block">
+          <ThemeSwitcher />
+        </div>
       </div>
 
       {/* OPENS WHEN USER CLICKS MENU BUTTON */}

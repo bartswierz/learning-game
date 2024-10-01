@@ -57,7 +57,7 @@ const Button = ({
         };
       case THEME:
         return {
-          topSection: `bg-${theme}-primary border-${theme}-primary`,
+          topSection: `bg-${theme}-primary border-${theme}-secondary`,
           bottomSection: `bg-${theme}-secondary`,
         };
       default:

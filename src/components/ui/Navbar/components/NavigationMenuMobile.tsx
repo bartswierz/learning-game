@@ -3,6 +3,7 @@ import LearningAppSVG from "/LearningAppIcon.svg";
 import { IoMdClose } from "react-icons/io";
 import LanguageCombobox from "./LanguageCombobox";
 import { useTranslation } from "react-i18next";
+import ThemeSwitcherCombobox from "../../ThemeSwitcher/ThemeSwitcherCombobox";
 
 interface MobileNavigationMenuProps {
   isOpen: boolean;
@@ -39,6 +40,9 @@ const NavigationMenuMobile = ({ isOpen, closeMenu }: MobileNavigationMenuProps) 
             ))}
             <li key="language_combobox" className="flex max-w-[296px] w-full text-center">
               <LanguageCombobox />
+            </li>
+            <li key="theme_combobox" className="flex max-w-[296px] w-full text-center">
+              <ThemeSwitcherCombobox />
             </li>
           </ul>
         </div>
