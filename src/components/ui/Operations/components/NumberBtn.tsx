@@ -1,6 +1,7 @@
 import { isNumberOrDecimal } from "@/utils";
 import useSettingsStore from "@/store/store";
 import Button from "../../Buttons/Button";
+import { THEME } from "@/types/types";
 
 interface NumberBtnProps {
   value: string;
@@ -52,7 +53,7 @@ const NumberBtn = ({ value, reactIcon, userInput }: NumberBtnProps) => {
   };
 
   return (
-    <Button onClick={() => handleClick(value)} ariaLabel={ariaLabel}>
+    <Button onClick={() => handleClick(value)} ariaLabel={ariaLabel} variant={THEME}>
       {buttonContent}
     </Button>
   );

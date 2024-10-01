@@ -1,4 +1,5 @@
-import { PRIMARY, SECONDARY, GREEN, YELLOW, RED } from "@/types/types";
+import { PRIMARY, SECONDARY, GREEN, YELLOW, RED, THEME } from "@/types/types";
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -8,7 +9,7 @@ interface ButtonProps {
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
   role?: string;
-  variant?: typeof PRIMARY | typeof SECONDARY | typeof RED | typeof GREEN | typeof YELLOW;
+  variant?: typeof PRIMARY | typeof SECONDARY | typeof RED | typeof GREEN | typeof YELLOW | typeof THEME;
 }
 
 const Button = ({
@@ -21,6 +22,7 @@ const Button = ({
   role = "button",
   disabled,
 }: ButtonProps) => {
+  const { theme } = useTheme();
   //  Base styles for button elements
   const baseButtonStyles = "relative flex items-center justify-center w-full h-full";
   const baseContentStyles = "relative flex items-center justify-center w-full h-full py-2 px-2 rounded-lg border-[1.5px]";
@@ -31,7 +33,6 @@ const Button = ({
       case PRIMARY:
         return {
           topSection: "bg-blue-500 border-blue-600",
-          // topSection: "bg-primary border-blue-600",
           bottomSection: "bg-blue-600",
         };
       case SECONDARY:
@@ -53,6 +54,11 @@ const Button = ({
         return {
           topSection: "bg-red-500 border-red-600",
           bottomSection: "bg-red-600",
+        };
+      case THEME:
+        return {
+          topSection: `bg-${theme}-primary border-${theme}-primary`,
+          bottomSection: `bg-${theme}-secondary`,
         };
       default:
         return {

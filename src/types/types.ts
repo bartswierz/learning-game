@@ -75,6 +75,7 @@ export const GREEN = "GREEN";
 export const RED = "RED";
 export const YELLOW = "YELLOW";
 export const BLUE = "BLUE";
+export const THEME = "THEME"; // For use with the ThemeContext
 
 // Used for the progress of the games - currently only used in the Problems component but can be extended to other components
 export const SUCCESS = "SUCCESS";

@@ -2,6 +2,7 @@ import useSettingsStore from "@/store/store";
 import { checkAnswer, randomTwoNumbers, randomTwoNumbersForDivision } from "@/utils";
 import { useTranslation } from "react-i18next";
 import Button from "../../Buttons/Button";
+import { THEME } from "@/types/types";
 
 interface CheckAnswerBtnProps {
   disabled: boolean;
@@ -11,10 +12,8 @@ interface CheckAnswerBtnProps {
 }
 const CheckAnswerBtn = ({ disabled, operationType, text, userInput }: CheckAnswerBtnProps) => {
   const { t } = useTranslation();
-  // const [isDisabled, setIsDisabled] = useState(false);
   const numOneRange = useSettingsStore((state) => state.settings.numOneRange);
   const numTwoRange = useSettingsStore((state) => state.settings.numTwoRange);
-  // const numOneRange = useSettingsStore((state) => state.settings);
   const updateForCorrectAnswer = useSettingsStore((state) => state.updateForCorrectAnswer);
   const updateForIncorrectAnswer = useSettingsStore((state) => state.updateForIncorrectAnswer);
   const updateForMoreAttempts = useSettingsStore((state) => state.updateForMoreAttempts);
@@ -88,7 +87,7 @@ const CheckAnswerBtn = ({ disabled, operationType, text, userInput }: CheckAnswe
   };
 
   return (
-    <Button onClick={handleClick} disabled={disabled} ariaLabel="button-equal">
+    <Button onClick={handleClick} disabled={disabled} ariaLabel="button-equal" variant={THEME}>
       {t(text)}
     </Button>
   );
