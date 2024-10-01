@@ -26,7 +26,6 @@ function App() {
     <ThemeProvider>
       {/* Navbar is outside the Routes component to prevent unnecessary re-renders of our navbar */}
       <Navbar />
-      <button className="bg-themeGreen-primary">TESTING BUTTON</button>
       <Routes>
         <Route
           path="/"

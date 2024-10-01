@@ -8,57 +8,17 @@ const ThemeSwitcher = () => {
   // Note - following video, only bg-themeRed-primary is used, but bg-themeRed-secondary is also available
   const buttonClasses = `text-color-${theme} bg-${theme}-primary hover:bg-color-${theme}`;
 
-  const themeColorsList = [
-    "themeRed",
-    "themeOrange",
-    "themeAmber",
-    "themeYellow",
-    "themeLime",
-    "themeGreen",
-    "themeEmerald",
-    "themeTeal",
-    "themeCyan",
-    "themeSky",
-    "themeBlue",
-    "themeIndigo",
-    "themeViolet",
-    "themePurple",
-    "themeFuchsia",
-    "themePink",
-    "themeRose",
-  ];
-
-  const handleThemeChange = (themeColor) => {
-    console.log("themeColor:", themeColor);
-    toggleTheme(themeColor);
-  };
-
   return (
     <Popover>
       <PopoverTrigger asChild>
-        {/* TODO - replace with a SVG ICON of a Color Palette Icon */}
         <button>
           <IoMdColorPalette size={40} />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-80">
-        <div className="flex flex-col">
-          <div className="space-y-2">
-            <h4 className={`font-medium leading-none bg-${theme}-primary`}>Colors - Theme: {theme}</h4>
-            <p className="text-sm text-muted-foreground">Set the theme color.</p>
-          </div>
-          {/* TODO - refactor ColorPalette */}
-          <div className="flex flex-wrap gap-4 bb">
-            {themeColorsList.map((themeColor) => (
-              <button
-                className={`rounded-full p-8 w-8 h-8 bg-${themeColor}-primary bb`}
-                onClick={handleThemeChange}
-                key={themeColor}
-              ></button>
-            ))}
-            {/* <ColorPaletteOptions toggleTheme={toggleTheme} /> */}
-          </div>
-        </div>
+      <PopoverContent className="max-w-[218px] w-full">
+        <h4 className={`font-xl text-center mb-3`}>Theme Colors</h4>
+        <span className={`bg-${theme}-primary`}>{theme}</span>
+        <ColorPaletteOptions toggleTheme={toggleTheme} />
       </PopoverContent>
     </Popover>
   );
@@ -68,23 +28,23 @@ export default ThemeSwitcher;
 
 const ColorPaletteOptions = ({ toggleTheme }) => {
   const themeColorsList = [
-    "themeRed",
-    "themeOrange",
-    "themeAmber",
-    "themeYellow",
-    "themeLime",
-    "themeGreen",
-    "themeEmerald",
-    "themeTeal",
-    "themeCyan",
-    "themeSky",
     "themeBlue",
     "themeIndigo",
     "themeViolet",
     "themePurple",
+    "themeTeal",
+    "themeCyan",
+    "themeSky",
+    "themeGreen",
+    "themeEmerald",
+    "themeLime",
+    "themeYellow",
+    "themeAmber",
+    "themeOrange",
     "themeFuchsia",
     "themePink",
     "themeRose",
+    "themeRed",
   ];
 
   const handleThemeChange = (themeColor) => {
@@ -92,9 +52,13 @@ const ColorPaletteOptions = ({ toggleTheme }) => {
   };
 
   return (
-    <div>
+    <div className="grid grid-cols-4 gap-3">
       {themeColorsList.map((themeColor) => (
-        <button className={`rounded-full p-8 w-8 h-8 bg-${themeColor}-primary bb`} onClick={handleThemeChange}></button>
+        <button
+          className={`rounded-full p-4 bg-${themeColor}-primary shadow-xl`}
+          onClick={() => handleThemeChange(themeColor)}
+          key={themeColor}
+        ></button>
       ))}
     </div>
   );
