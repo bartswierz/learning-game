@@ -1,5 +1,6 @@
 import { PiSpeakerHighBold } from "react-icons/pi";
 import Button from "../Buttons/Button";
+import { THEME } from "@/types/types";
 
 interface TextToSpeechProps {
   text: string;
@@ -28,7 +29,7 @@ const TextToSpeech = ({ text, language = "en-US" }: TextToSpeechProps) => {
 
   return (
     <div className="w-10 h-7">
-      <Button onClick={handleSpeak} ariaLabel="text-to-speech">
+      <Button onClick={handleSpeak} ariaLabel="text-to-speech" variant={THEME}>
         <PiSpeakerHighBold size={18} />
       </Button>
     </div>
