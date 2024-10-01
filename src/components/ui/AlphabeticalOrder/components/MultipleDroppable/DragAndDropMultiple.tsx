@@ -5,6 +5,7 @@ import { shuffle } from "lodash";
 import Droppable from "./Droppable"; // Component for the droppable container
 import Draggable from "./Draggable"; // Component for the draggable items
 import { MdOutlineQuestionMark } from "react-icons/md";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const alphabetList = [
   "A",
@@ -84,6 +85,7 @@ function DragAndDropMultiple({
   droppableLayoutClassName = "",
   setIsComplete = () => {},
 }: DragAndDropMultipleProps) {
+  const { theme } = useTheme();
   const [placements, setPlacements] = useState(initialPlacements);
 
   useEffect(() => {
@@ -146,7 +148,7 @@ function DragAndDropMultiple({
       <div className={`${draggableLayoutClassName ? draggableLayoutClassName : className}`}>
         {shuffle(draggableLetters).map((letter) =>
           placements[letter] === null ? (
-            <Draggable key={letter} id={letter} className={`${boxStyles} bg-blue-500`}>
+            <Draggable key={letter} id={letter} className={`${boxStyles} bg-${theme}-primary`}>
               {letter}
             </Draggable>
           ) : null

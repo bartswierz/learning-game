@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Clock, TierChoice, ChoicesList } from "./components";
-import { DifficultyTierType } from "@/types/types";
+import { DifficultyTierType, THEME } from "@/types/types";
 import { EASY, MEDIUM, HARD } from "@/types/types";
 import { createEasyTierArray, createMediumTierArray, createHardTierArray } from "@/utils/createTierChoiceArray";
 import Button from "../Buttons/Button";
@@ -71,14 +71,16 @@ const AnalogClock = () => {
         {tier && (
           <>
             <div className="mb-6 w-full">
-              <Button onClick={handleResetDifficulty}>Change Difficulty</Button>
+              <Button onClick={handleResetDifficulty} variant={THEME}>
+                Change Difficulty
+              </Button>
             </div>
             <h2 className="text-xl min-w-full">What is the correct time?</h2>
             {isCorrect && <h3 className="text-green-500 text-xl mb-2">Good Job!</h3>}
             {/* {isCorrect && <h3 className="text-green-500 text-xl mb-2 ">{isCorrect && Good Job!}</h3>} */}
             <ChoicesList options={choicesArray} answer={answer} setIsCorrect={setIsCorrect} isCorrect={isCorrect} />
             {isCorrect && (
-              <Button onClick={() => handleNewProblem(tier)} className="my-4">
+              <Button onClick={() => handleNewProblem(tier)} className="my-4" variant={THEME}>
                 New Problem
               </Button>
             )}
