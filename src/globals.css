@@ -140,3 +140,10 @@ body {
   border-color: rgb(37 99 235);
   border-width: 2px;
 }
+
+/* Scrollbar Styling */
+html,
+body,
+* {
+  scrollbar-color: #666666 rgb(15 23 42);
+}
