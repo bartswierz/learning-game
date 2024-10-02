@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import LearningAppSVG from "/LearningAppIcon.svg";
 import { IoMdClose } from "react-icons/io";
@@ -14,38 +15,50 @@ interface MobileNavigationMenuProps {
 const NavigationMenuMobile = ({ isOpen, closeMenu }: MobileNavigationMenuProps) => {
   const { t } = useTranslation();
 
+  // Disable body scroll when the menu is open to resolve double scrollbars issue
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    // Cleanup to reset body scroll when component unmounts or when the menu closes
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed md:hidden z-[10] inset-0 bg-black/90 bg-opacity-75 transition-all duration-300 bg-gradient-to-r from-blue-700/80 to-transparent shadow-2xl">
-      <div className="h-full bg-gray-900 transition-all transform duration-300 ease-in-out">
-        <div className="p-4">
-          <h1 className="flex items-center gap-2 text-xl text-white mb-4">
-            <img src={LearningAppSVG} alt="Problem Solvers Logo" className="w-12 h-12" />
-            Problem Solvers
-          </h1>
+    <div className="fixed inset-0 overflow-y-auto bg-gray-900">
+      <div className="p-4 pb-8">
+        <h1 className="flex items-center gap-2 text-xl text-white mb-4">
+          <img src={LearningAppSVG} alt="Problem Solvers Logo" className="w-12 h-12" />
+          Problem Solvers
+        </h1>
 
-          <MenuCloseButton closeMenu={closeMenu} />
-          <ul className="flex flex-col items-center justify-center gap-y-5 mt-6">
-            {mobileLinkInfo.map(({ route, text, className }) => (
-              <li className="flex max-w-[296px] w-full text-center" key={route}>
-                <Link
-                  to={`${route}`}
-                  className={`px-4 py-2 rounded-md border-[3px] cursor-pointer shadow-xl transition-color duration-200 ease-in w-full ${className}`}
-                  onClick={closeMenu}
-                >
-                  {t(text)}
-                </Link>
-              </li>
-            ))}
-            <li key="language_combobox" className="flex max-w-[296px] w-full text-center">
-              <LanguageCombobox />
+        <MenuCloseButton closeMenu={closeMenu} />
+        <ul className="flex flex-col items-center justify-center gap-y-5 mt-6">
+          {mobileLinkInfo.map(({ route, text, className }) => (
+            <li className="flex max-w-[296px] w-full text-center" key={route}>
+              <Link
+                to={`${route}`}
+                className={`px-4 py-2 rounded-md border-[3px] cursor-pointer shadow-xl transition-color duration-200 ease-in w-full ${className}`}
+                onClick={closeMenu}
+              >
+                {t(text)}
+              </Link>
             </li>
-            <li key="theme_combobox" className="flex max-w-[296px] w-full text-center">
-              <ThemeSwitcherCombobox />
-            </li>
-          </ul>
-        </div>
+          ))}
+          <li key="language_combobox" className="flex max-w-[296px] w-full text-center">
+            <LanguageCombobox />
+          </li>
+          <li key="theme_combobox" className="flex max-w-[296px] w-full text-center">
+            <ThemeSwitcherCombobox />
+          </li>
+        </ul>
       </div>
     </div>
   );

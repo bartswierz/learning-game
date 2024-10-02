@@ -51,7 +51,9 @@ const Navbar = () => {
       </div>
 
       {/* OPENS WHEN USER CLICKS MENU BUTTON */}
-      <NavigationMenuMobile isOpen={isOpen} closeMenu={closeMenu} />
+      <div className="fixed md:hidden z-[10] inset-0x top-0 left-0 right-0 scroll-auto">
+        <NavigationMenuMobile isOpen={isOpen} closeMenu={closeMenu} />
+      </div>
     </nav>
   );
 };
