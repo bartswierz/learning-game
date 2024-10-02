@@ -7,7 +7,7 @@ const ThemeSwitcher = () => {
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
+      <PopoverTrigger asChild className="flex item-center justify-center">
         <button>
           <IoMdColorPalette size={40} />
         </button>

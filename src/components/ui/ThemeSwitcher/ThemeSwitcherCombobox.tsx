@@ -33,14 +33,15 @@ const ThemeSwitcherCombobox = () => {
           <CommandList>
             <CommandEmpty>No color found.</CommandEmpty>
             <CommandGroup>
-              {themeList.map(({ label, themeDescription }) => (
+              {themeList.map(({ label, themeDescription, sampleColor }) => (
                 <CommandItem
                   key={themeDescription}
                   value={themeDescription}
                   onSelect={() => handleOnSelect(themeDescription as string)}
+                  className="cursor-pointer"
                 >
                   <Check className={cn("mr-2 h-4 w-4", theme === themeDescription ? "opacity-100" : "opacity-0")} />
-                  {label}
+                  <span className={`mr-2 w-3 h-3 rounded-full ${sampleColor}`}></span> {label}
                 </CommandItem>
               ))}
             </CommandGroup>
@@ -54,95 +55,95 @@ const ThemeSwitcherCombobox = () => {
 export default ThemeSwitcherCombobox;
 
 type ThemeListType = {
-  colorCode: string;
   label: string;
   themeDescription: string;
+  sampleColor: string;
 };
 
 const themeList: ThemeListType[] = [
   {
-    colorCode: "#EF4444",
     label: "Red",
     themeDescription: "themeRed",
+    sampleColor: "bg-[#EF4444]",
   },
   {
-    colorCode: "#F97316",
     label: "Orange",
     themeDescription: "themeOrange",
+    sampleColor: "bg-[#F97316]",
   },
   {
-    colorCode: "#F59E0B",
     label: "Amber",
     themeDescription: "themeAmber",
+    sampleColor: "bg-[#F59E0B]",
   },
   {
-    colorCode: "#EAB308",
     label: "Yellow",
     themeDescription: "themeYellow",
+    sampleColor: "bg-[#EAB308]",
   },
   {
-    colorCode: "#84CC16",
     label: "Lime",
     themeDescription: "themeLime",
+    sampleColor: "bg-[#84CC16]",
   },
   {
-    colorCode: "#22C55E",
     label: "Green",
     themeDescription: "themeGreen",
+    sampleColor: "bg-[#22C55E]",
   },
   {
-    colorCode: "#10B981",
     label: "Emerald",
     themeDescription: "themeEmerald",
+    sampleColor: "bg-[#10B981]",
   },
   {
-    colorCode: "#14B8A6",
     label: "Teal",
     themeDescription: "themeTeal",
+    sampleColor: "bg-[#14B8A6]",
   },
   {
-    colorCode: "#06B6D4",
     label: "Cyan",
     themeDescription: "themeCyan",
+    sampleColor: "bg-[#06B6D4]",
   },
   {
-    colorCode: "#0EA5E9",
     label: "Sky",
     themeDescription: "themeSky",
+    sampleColor: "bg-[#0EA5E9]",
   },
   {
-    colorCode: "#3B82F6",
     label: "Blue",
     themeDescription: "themeBlue",
+    sampleColor: "bg-[#3B82F6]",
   },
   {
-    colorCode: "#6366F1",
     label: "Indigo",
     themeDescription: "themeIndigo",
+    sampleColor: "bg-[#6366F1]",
   },
   {
-    colorCode: "#8B5CF6",
     label: "Violet",
     themeDescription: "themeViolet",
+    sampleColor: "bg-[#8B5CF6]",
   },
   {
-    colorCode: "#A855F7",
     label: "Purple",
     themeDescription: "themePurple",
+    sampleColor: "bg-[#A855F7]",
   },
   {
-    colorCode: "#D946EF",
     label: "Fuchsia",
     themeDescription: "themeFuchsia",
+    sampleColor: "bg-[#D946EF]",
   },
   {
-    colorCode: "#EC4899",
     label: "Pink",
     themeDescription: "themePink",
+    sampleColor: "bg-[#EC4899]",
   },
   {
-    colorCode: "#F43F5E",
     label: "Rose",
     themeDescription: "themeRose",
+    sampleColor: "bg-[#F43F5E]",
   },
 ];

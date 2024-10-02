@@ -41,7 +41,7 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 items-center">
         <NavigationLinksDesktop currentRoute={location.pathname as currentRouteType} />
         <MenuOpenButton openMenu={openMenu} />
         {isOnGameRoute && <Settings />}
