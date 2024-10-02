@@ -7,7 +7,7 @@ import {
   SelectValue,
   SelectSeparator,
 } from "@/components/ui/shadcn/select";
-import { OperationType, ProblemDetails } from "@/types/types";
+import { OperationType, ProblemDetails, THEME } from "@/types/types";
 import { useTranslation } from "react-i18next";
 import Button from "../Buttons/Button";
 
@@ -21,7 +21,7 @@ const ProblemsForm = ({ handleFormData }: ProblemsFormProps) => {
   // CREATES A PDF ON CLICK
   const SubmitButton = () => {
     return (
-      <Button onClick={() => {}} className="" type="submit">
+      <Button onClick={() => {}} type="submit" variant={THEME}>
         {t("Generate Worksheet")}
       </Button>
     );

@@ -4,7 +4,7 @@ import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 import { PDFViewer } from "@react-pdf/renderer";
 import { generateProblems } from "../../../utils/index";
 import ProblemsForm from "./ProblemsForm";
-import { ProblemDetails } from "@/types/types";
+import { ProblemDetails, THEME } from "@/types/types";
 import { useTranslation } from "react-i18next";
 
 // Text-to-Speech Data, Component, and Store for current Language
@@ -142,7 +142,7 @@ const PDFWorksheetGenerator = () => {
   const ViewPdfButton = () => {
     return (
       <div className="w-[130px]">
-        <Button onClick={handleOpen} disabled={!isPdfCreated}>
+        <Button onClick={handleOpen} disabled={!isPdfCreated} variant={THEME}>
           {t("View PDF")}
         </Button>
       </div>
