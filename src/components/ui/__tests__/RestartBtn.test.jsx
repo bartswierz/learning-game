@@ -1,13 +1,13 @@
 import useSettingsStore from "@/store/store";
 import RestartBtn from "../RestartBtn";
 import { expect, describe, it, vi } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
-
+import { fireEvent, screen } from "@testing-library/react";
+import { renderWithTheme } from "../../../utils/test-utils";
 const store = useSettingsStore.getState();
 
 describe("RestartBtn", () => {
   it("renders correctly", () => {
-    render(<RestartBtn operationType="ADDITION" />);
+    renderWithTheme(<RestartBtn operationType="ADDITION" />);
     const buttonElement = screen.getByRole("button", { name: /Try Again/i });
     expect(buttonElement).toBeInTheDocument();
   });
@@ -18,15 +18,13 @@ describe("RestartBtn", () => {
     vi.spyOn(store, "restartGame"); //MUST USE vi.spyOn() in order to check if the function was called, how many times, and with what arguments passed
 
     // Render your component that uses the restartGame function
-    render(<RestartBtn operationType="ADDITION" resetTimer={() => {}} />);
+    renderWithTheme(<RestartBtn operationType="ADDITION" resetTimer={() => {}} />);
 
-    // LOCATE THE BUTTON
-    const buttonElement = screen.getByRole("button", { name: /Try Again/i });
+    const restartButton = screen.getByRole("button", { name: /Try Again/i });
 
-    // USER CLICKS THE RESTART BUTTON
-    fireEvent.click(buttonElement);
+    fireEvent.click(restartButton);
 
-    // Check that the restartGame function was called with the expected arguments
+    // Should invoke restartGame function in setting store
     expect(store.restartGame).toHaveBeenCalledTimes(1);
   });
 });

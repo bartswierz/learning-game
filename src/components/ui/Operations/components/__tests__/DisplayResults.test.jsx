@@ -1,11 +1,12 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import DisplayResults from "../DisplayResults";
 import { describe, it, expect } from "vitest";
 import { MemoryRouter } from "react-router-dom";
+import { renderWithTheme } from "../../../../../utils/test-utils";
 
 describe("DisplayResults", () => {
   it("should display the correct number of correct Questions", () => {
-    render(
+    renderWithTheme(
       <MemoryRouter>
         <DisplayResults score={6} numOfQuestions={10} operationType="ADDITION" />
       </MemoryRouter>
@@ -16,7 +17,7 @@ describe("DisplayResults", () => {
   });
 
   it("should display the correct score(%)", () => {
-    render(
+    renderWithTheme(
       <MemoryRouter>
         <DisplayResults score={5} numOfQuestions={10} operationType="ADDITION" />
       </MemoryRouter>

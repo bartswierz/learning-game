@@ -1,8 +1,9 @@
 import { describe, expect, test, beforeEach } from "vitest";
-import { act, render, screen } from "@testing-library/react";
+import { act, screen } from "@testing-library/react";
 import Operations from "../Operations";
 import userEvent from "@testing-library/user-event";
 import useSettingsStore from "@/store/store";
+import { renderWithTheme } from "../../../../utils/test-utils";
 
 const { updateNewNumbers, attemptsLeft } = useSettingsStore.getState();
 const INITIAL_ATTEMPTS_LEFT = attemptsLeft;
@@ -14,7 +15,7 @@ describe("Problems - Integration", () => {
 
   test("if user answers correctly, increment score", async () => {
     const user = userEvent.setup();
-    render(<Operations operationType="ADDITION" />);
+    renderWithTheme(<Operations operationType="ADDITION" />);
 
     // UPDATING OUT STORE NUMBERS TO 1 AND 2 AS THE NUMBERS ARE NORMALLY RANDOMIZED. THIS WAY, WE CAN STILL SIMULATE THE USER FLOW WITH THE BUTTON CLICKS
     act(() => {
@@ -43,7 +44,7 @@ describe("Problems - Integration", () => {
 
   test("if user clicks a number button, it should update the input display", async () => {
     const user = userEvent.setup();
-    render(<Operations operationType="ADDITION" />);
+    renderWithTheme(<Operations operationType="ADDITION" />);
 
     // <NumberPad />
     const buttonElement = screen.getByRole("button", {
@@ -58,7 +59,7 @@ describe("Problems - Integration", () => {
 
   test("if user answers incorrectly, decrement attemptsLeft", async () => {
     const user = userEvent.setup();
-    render(<Operations operationType="ADDITION" />);
+    renderWithTheme(<Operations operationType="ADDITION" />);
 
     // <NumberPad />
     const buttonNumberElement = screen.getByRole("button", {

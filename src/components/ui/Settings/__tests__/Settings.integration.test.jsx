@@ -1,25 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { describe, it, test, expect, vi } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { describe, it, test, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
 import Settings from "../Settings";
 import userEvent from "@testing-library/user-event";
-import { time } from "console";
-// import useSettingsStore from "../../../store/useSettingsStore";
-// import useSettingsStore from "@/store/store";
-// import useSettingsStore from "../../../../store/store";
-import useSettingsStore from "@/store/store";
-// Mock the ResizeObserver to check if our component is visible or not on screen
-//Reference: https://vitest.dev/guide/mocking.html
-// const ResizeObserverMock = vi.fn(() => ({
-//   disconnect: vi.fn(),
-//   observe: vi.fn(),
-//   unobserve: vi.fn(),
-// }));
+import { renderWithTheme } from "../../../../utils/test-utils";
 
-// vi.stubGlobal("ResizeObserver", ResizeObserverMock);
+import useSettingsStore from "@/store/store";
+
 const { numOfQuestions } = useSettingsStore.getState();
-// const store = useSettingsStore.getState();
-console.log("numOfQuestions: ", numOfQuestions);
 
 describe("Settings", () => {
   /*
@@ -48,14 +36,12 @@ describe("Settings", () => {
     numOfQuestions: 5,
   }
   */
-  // DONT TEST THE FLOW OF THE SLIDER AS THE COMPONENTS ARE FROM A EXTERNAL LIBRARY - INSTEAD TEST THE VALUES MATCH THE ONES FROM THE STORE & WHEN USER SUBMITS THE FORM, CHECK IF THE GAME HAS RESTARTED
-  //CHECK IF SUBMISSION DISPLAYS A POPUP WITH A MESSAGE, "UPDATING SETTINGS WILL RESTART THE GAME, ARE YOU SURE?"
   it("Question should use the initial value from store", async () => {
     const user = userEvent.setup();
     const {
       settings: { numOfQuestions },
     } = useSettingsStore.getState();
-    render(<Settings />);
+    renderWithTheme(<Settings />);
 
     // OPEN SETTINGS POPUP
     const settingsOpenButton = screen.getByTestId("settings-open-btn");
@@ -79,7 +65,7 @@ describe("Settings", () => {
     const {
       settings: { numOfAttempts },
     } = useSettingsStore.getState();
-    render(<Settings />);
+    renderWithTheme(<Settings />);
 
     // OPEN SETTINGS POPUP
     const settingsOpenButton = screen.getByTestId("settings-open-btn");
@@ -108,7 +94,7 @@ describe("Settings", () => {
     } = useSettingsStore.getState();
     console.log("Number One Range: ", min, max);
 
-    render(<Settings />);
+    renderWithTheme(<Settings />);
 
     // OPEN SETTINGS POPUP
     const settingsOpenButton = screen.getByTestId("settings-open-btn");
@@ -136,7 +122,7 @@ describe("Settings", () => {
       },
     } = useSettingsStore.getState();
 
-    render(<Settings />);
+    renderWithTheme(<Settings />);
 
     // OPEN SETTINGS POPUP
     const settingsOpenButton = screen.getByTestId("settings-open-btn");
@@ -156,23 +142,22 @@ describe("Settings", () => {
   });
 
   test("should have the Settings Button visible on app start", () => {
-    render(<Settings />);
+    renderWithTheme(<Settings />);
     const settingsButton = screen.getByTestId("settings-open-btn");
     expect(settingsButton).toBeInTheDocument();
   });
 
   test("should not be open/visible on app start", async () => {
-    render(<Settings />);
+    renderWithTheme(<Settings />);
 
     const updateButton = screen.queryByRole("button", { name: /update settings/i });
 
     expect(updateButton).toBeNull();
   });
 
-  // });
   test("should open panel after clicking settings button", async () => {
     //we first render the Settings component
-    render(<Settings />);
+    renderWithTheme(<Settings />);
 
     //we get the settings button by its test id
     const settingsOpenButton = screen.getByTestId("settings-open-btn");
@@ -188,7 +173,7 @@ describe("Settings", () => {
   // it("closes the popover when Update Settings button is clicked", async () => {
   it("should close panel when the Close Button inside panel is clicked", async () => {
     const user = userEvent.setup();
-    render(<Settings />);
+    renderWithTheme(<Settings />);
 
     // OPEN SETTINGS POPUP
     const settingsOpenButton = screen.getByTestId("settings-open-btn");
@@ -206,7 +191,7 @@ describe("Settings", () => {
 
   it("Update settings button should be disabled when theres no changes ", async () => {
     const user = userEvent.setup();
-    render(<Settings />);
+    renderWithTheme(<Settings />);
 
     // OPEN SETTINGS POPUP
     const settingsOpenButton = screen.getByTestId("settings-open-btn");
@@ -221,7 +206,7 @@ describe("Settings", () => {
 
   it("closes the popover when user clicks outside the content area", async () => {
     const user = userEvent.setup();
-    render(<Settings />);
+    renderWithTheme(<Settings />);
 
     // OPEN SETTINGS POPUP
     const settingsOpenButton = screen.getByTestId("settings-open-btn");

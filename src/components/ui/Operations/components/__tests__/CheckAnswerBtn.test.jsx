@@ -1,8 +1,9 @@
 import { describe, it, expect, vi } from "vitest";
-import { screen, render, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import CheckAnswerBtn from "../CheckAnswerBtn";
 import userEvent from "@testing-library/user-event";
 import * as utils from "../../../../../utils/index";
+import { renderWithTheme } from "../../../../../utils/test-utils";
 
 describe("CheckAnswer", () => {
   it("should invoke checkAnswer function when user clicks button", async () => {
@@ -10,7 +11,7 @@ describe("CheckAnswer", () => {
 
     const user = userEvent.setup();
 
-    render(<CheckAnswerBtn text="Check answer" operationType="ADDITION" />);
+    renderWithTheme(<CheckAnswerBtn text="Check answer" operationType="ADDITION" />);
 
     const buttonElement = screen.getByRole("button", { name: /button-equal/i });
 
@@ -23,7 +24,7 @@ describe("CheckAnswer", () => {
 
   // TODO - move disabled into our CheckAnswerBtn file and have it be true if userInput is an empty string to remove the need for passing a disabled prop
   it("should be disabled on initial render", async () => {
-    render(<CheckAnswerBtn text="Check answer" operationType="ADDITION" disabled={true} />);
+    renderWithTheme(<CheckAnswerBtn text="Check answer" operationType="ADDITION" disabled={true} />);
 
     const buttonElement = await screen.findByRole("button", { name: /button-equal/i });
 

@@ -5,6 +5,7 @@ import { screen, render, waitFor } from "@testing-library/react";
 import NumberPad from "../NumberPad";
 import useSettingsStore from "../../../../../store/store";
 import userEvent from "@testing-library/user-event";
+import { renderWithTheme } from "../../../../../utils/test-utils";
 
 describe("NumberPad", () => {
   // RESETS userInput to an empty string BEFORE EACH TEST
@@ -14,7 +15,7 @@ describe("NumberPad", () => {
 
   it("should update userInput to '7' when user clicks 7", async () => {
     const user = userEvent.setup();
-    render(<NumberPad />);
+    renderWithTheme(<NumberPad />);
 
     // aria-label = "button-7"
     const buttonElement = screen.getByRole("button", { name: "button-7" });
@@ -29,7 +30,7 @@ describe("NumberPad", () => {
 
   it("should remove negative sign if it already exists when clicked a second time", async () => {
     const user = userEvent.setup();
-    render(<NumberPad />);
+    renderWithTheme(<NumberPad />);
 
     const buttonSubElement = screen.getByRole("button", { name: "button-subtract" });
     const button8Element = screen.getByRole("button", { name: "button-8" });
@@ -48,7 +49,7 @@ describe("NumberPad", () => {
   it("should place negative sign in front of user input no matter the order of input", async () => {
     const user = userEvent.setup();
 
-    render(<NumberPad />);
+    renderWithTheme(<NumberPad />);
 
     const buttonSubElement = screen.getByRole("button", { name: "button-subtract" });
     const button8Element = screen.getByRole("button", { name: "button-8" });
@@ -65,7 +66,7 @@ describe("NumberPad", () => {
 
   it("should not allow more than one '.' in the user input value", async () => {
     const user = userEvent.setup();
-    render(<NumberPad />);
+    renderWithTheme(<NumberPad />);
 
     const button1Element = screen.getByRole("button", { name: "button-1" });
     const buttonDotElement = screen.getByRole("button", { name: "button-." });
@@ -83,7 +84,7 @@ describe("NumberPad", () => {
 
   it("should remove the last character from user input when user clicks undo", async () => {
     const user = userEvent.setup();
-    render(<NumberPad />);
+    renderWithTheme(<NumberPad />);
 
     const button1Element = screen.getByRole("button", { name: "button-1" });
     const button2Element = screen.getByRole("button", { name: "button-2" });
