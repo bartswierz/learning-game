@@ -32,7 +32,7 @@ const Problems = ({ operationType }: OperationProps) => {
     setFinishTime(finishedTime);
   };
 
-  if (isGameOver && finishTime && score === numOfQuestions) {
+  if (isGameOver && finishTime) {
     return (
       <>
         <DisplayResults

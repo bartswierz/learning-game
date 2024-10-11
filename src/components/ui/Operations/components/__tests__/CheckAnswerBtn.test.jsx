@@ -22,9 +22,8 @@ describe("CheckAnswer", () => {
     });
   });
 
-  // TODO - move disabled into our CheckAnswerBtn file and have it be true if userInput is an empty string to remove the need for passing a disabled prop
   it("should be disabled on initial render", async () => {
-    renderWithTheme(<CheckAnswerBtn text="Check answer" operationType="ADDITION" disabled={true} />);
+    renderWithTheme(<CheckAnswerBtn text="Check answer" operationType="ADDITION" disabled />);
 
     const buttonElement = await screen.findByRole("button", { name: /button-equal/i });
 
