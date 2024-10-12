@@ -25,7 +25,7 @@ export default function HomePage() {
           return (
             <li
               key={link}
-              className={`relative group flex items-center justify-center h-[20vh] md:h-[30vh] min-h-[100px] transition-all duration-200 hover:border-[12px] hover:border-white ${listItemStyle}`}
+              className={`relative group flex items-center justify-center h-[20vh] md:h-[30vh] min-h-[100px] transition-all duration-200 hover:border-[12px] hover:border-white overflow-hidden ${listItemStyle}`}
             >
               <LogoPlacement title={title} />
               <Link
