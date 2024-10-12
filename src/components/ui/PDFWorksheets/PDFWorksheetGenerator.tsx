@@ -132,10 +132,11 @@ const PDFWorksheetGenerator = () => {
       <div className="flex justify-center pt-2">
         <PDFViewer
           style={{
+            // To prevent eslint error setting fixed as absolute
+            position: "fixed" as "absolute",
             width: "70%",
             height: "100vh",
             zIndex: 100,
-            position: "absolute",
             top: "0",
             left: "0",
             right: "0",
@@ -187,7 +188,7 @@ const PDFWorksheetGenerator = () => {
           text={t("Generate Take Home Problems")}
           voiceText={ttsDescription}
           language={ttsLanguage}
-          className="underline underline-offset-[5px] px-4"
+          className="underline underline-offset-[5px] px-4 mb-2"
         />
         {/* The form should return back the user config choices */}
         <ProblemsForm handleFormData={handleFormData} />
