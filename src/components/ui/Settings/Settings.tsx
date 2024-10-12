@@ -44,7 +44,7 @@ const Settings = () => {
 
         {/* CLOSE BTN */}
         <PopoverClose
-          className={`absolute text-white top-2 right-2 transition-color duration-100 ease-in bg-gray-500 hover:bg-${theme}-primary p-1`}
+          className={`absolute text-white top-2 right-2 transition-color duration-100 ease-in bg-gray-500 hover:bg-${theme}-primary p-1 rounded-md`}
           onClick={handleClose}
           data-testid="settings-close-btn"
         >
