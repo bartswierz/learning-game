@@ -52,6 +52,8 @@ const NavigationMenuMobile = ({ isOpen, closeMenu }: MobileNavigationMenuProps) 
               </Link>
             </li>
           ))}
+
+          <div className="border-t-0 border-b border-gray-400 max-w-[320px] w-full"></div>
           <li key="language_combobox" className="flex max-w-[296px] w-full text-center">
             <LanguageCombobox />
           </li>
