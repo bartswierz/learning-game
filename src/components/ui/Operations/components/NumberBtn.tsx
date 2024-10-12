@@ -16,26 +16,28 @@ const NumberBtn = ({ value, reactIcon, userInput }: NumberBtnProps) => {
 
   // Updates userInput state in the parent component via callback functions
   const handleClick = (input: string) => {
+    const isInputLessThanSixDigits = userInput.length < 6;
     // NUMBER 0 through 9 - APPEND TO THE USERINPUT STRING AND UPDATE THE STATE
     if (isNumberOrDecimal(input)) {
       const isDecimal = input === ".";
       if (isDecimal) {
         const hasDecimalAlready = userInput.includes(".");
         if (hasDecimalAlready) {
-          return; // DO NOTHING IF USERINPUT ALREADY HAS A DECIMAL IN THE NUMBER
+          return; // DO NOTHING, USERINPUT ALREADY HAS A DECIMAL
         } else {
           updateUserInput(userInput + ".");
         }
       } else {
-        // IS A NUMBER
-        updateUserInput(userInput + input);
+        // NOT A DECIMAL / IS A NUMBER
+        if (isInputLessThanSixDigits) {
+          updateUserInput(userInput + input);
+        }
       }
     }
     // REMOVE LAST CHARACTER FROM USERINPUT IF ITS NOT EMPTY
     else if (input === "undo" && userInput.length > 0) {
       const newInput = userInput.slice(0, userInput.length - 1);
       updateUserInput(newInput);
-      // handleUserInputCallback(userInput.slice(0, userInput.length - 1));
     }
     // ADD SUBTRACT SIGN TO THE FRONT OF THE USERINPUT STRING
     else if (input === "subtract") {
