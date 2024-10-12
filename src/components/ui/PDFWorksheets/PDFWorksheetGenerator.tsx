@@ -104,9 +104,7 @@ const PDFWorksheetGenerator = () => {
             <View style={styles.allProblemsContainer}>
               {problemsArray.map(({ num1, num2, operationIcon }, index) => (
                 // INDIVIDIAL PROBLEMS
-                // <div key={index}>
                 <View style={styles.problem} key={index}>
-                  {/* // <div className="bb flexx" key={index}> */}
                   {/* Number One */}
                   <Text style={styles.number}>{num1}</Text>
 
@@ -132,7 +130,19 @@ const PDFWorksheetGenerator = () => {
 
     return (
       <div className="flex justify-center pt-2">
-        <PDFViewer style={{ width: "70%", maxHeight: "100vh", height: "100%", zIndex: 900, top: 0, position: "absolute" }}>
+        <PDFViewer
+          style={{
+            width: "70%",
+            height: "100vh",
+            zIndex: 100,
+            position: "absolute",
+            top: "0",
+            left: "0",
+            right: "0",
+            bottom: "0",
+            margin: "auto",
+          }}
+        >
           <GeneratePdf />
         </PDFViewer>
       </div>
@@ -147,13 +157,6 @@ const PDFWorksheetGenerator = () => {
         </Button>
       </div>
     );
-  };
-
-  // BLACK BACKGROUND DISPLAY WHEN MODAL IS OPEN
-  const ModalBackground = () => {
-    if (!isOpen) return null;
-
-    return <div onClick={handleClose} className="absolute top-0 left-0 right-0 bottom-0 bg-black/70 z-[1]"></div>;
   };
 
   // Data passed from the ProblemsForm
@@ -174,9 +177,9 @@ const PDFWorksheetGenerator = () => {
   };
 
   return (
-    <div className="h-[90vh] relative overflow-x-hidden">
+    <div className="pb-[56px] relative">
       {/* BACKGROUND - USER CLICK WILL CLOSE THE MODAL */}
-      <ModalBackground />
+      <ModalBackground isOpen={isOpen} handleClose={handleClose} />
       <PDFView />
 
       <div className="flex flex-col items-center justify-start mt-8">
@@ -197,11 +200,13 @@ const PDFWorksheetGenerator = () => {
 
 export default PDFWorksheetGenerator;
 
-{
-  /* DOWNLOAD PDF LINK
-  <div>
-  <PDFDownloadLink document={<TakeHomeProblems />} fileName="PracticeProblems.pdf">
-    <button className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600">Download</button>
-  </PDFDownloadLink>
-</div> */
+interface ModalBackgroundProps {
+  isOpen: boolean;
+  handleClose: () => void;
 }
+// BLACK BACKGROUND DISPLAY WHEN MODAL IS OPEN
+const ModalBackground = ({ isOpen, handleClose }: ModalBackgroundProps) => {
+  if (!isOpen) return null;
+
+  return <div onClick={handleClose} className="fixed inset-0 h-[100vh] bg-black/70 z-[100]"></div>;
+};

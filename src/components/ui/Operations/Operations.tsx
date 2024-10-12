@@ -54,7 +54,7 @@ const Problems = ({ operationType }: OperationProps) => {
         <Question operationType={operationType} numberOne={numberOne} numberTwo={numberTwo} />
         <InputDisplay userInput={userInput} />
         <CheckAnswerBtn disabled={userInput === ""} operationType={operationType} userInput={userInput} text="Check Answer" />
-        <NumberPad operationType={operationType} /> {/* This updates Zustand */}
+        <NumberPad operationType={operationType} />
       </div>
     </div>
   );
