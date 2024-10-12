@@ -1,19 +1,17 @@
-import { useState } from "react";
 import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
+  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/shadcn/navigation-menu";
 import { Route } from "@/types/types";
 import useTTSStore from "@/store/tts_store";
 import { useTheme } from "@/contexts/ThemeContext";
-
-import RedirectUserModal from "../../RedirectUserModal";
-import ListItemLink from "./ListItemLink";
 import LanguageList from "./LanguageList";
 import { useTranslation } from "react-i18next";
+import NavigationLink from "./NavigationLink";
 
 export type currentRouteType =
   | "/"
@@ -50,88 +48,73 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const currentLanguage = useTTSStore((state) => state.language);
-  const [redirectRoute, setRedirectRoute] = useState<Route>("");
   const isOnProblemsRoute = [
     "/addition",
     "/subtraction",
     "/multiplication",
     "/division",
     "/analog-clock",
-    "alphabetical-order",
+    "/alphabetical-order",
   ].includes(currentRoute);
 
   const { problemsWidth, resourcesWidth, languagesWidth } = problemRoutesContentWidths[currentLanguage];
 
-  // Modal relies on the redirectRoute to be set via user clicking a link. Canceling or redirect will reset the redirectRoute
-  const closeModal = () => {
-    setRedirectRoute("");
-  };
-
   return (
-    <>
-      {/* TODO - bug is here, we show this redirect modal asking user if they are sure they want to change pages. But this is an issue with the extra section when we are on home page
-      create a condition where it only display if we are not on '/' either */}
-      {/* RESTART MODAL POPUP WHEN USER CLICKS ON A LINK */}
-      {redirectRoute && <RedirectUserModal redirectRoute={redirectRoute} closeModalCallback={closeModal} />}
-
-      <NavigationMenu className="pr-1 hidden md:block">
-        <NavigationMenuList className="flex gap-2">
-          {isOnProblemsRoute && (
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className={`bg-${theme}-primary`}>{t("New Problems")}</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className={`flex flex-wrap p-4 gap-3 ${problemsWidth}`}>
-                  {pageLinks.map(({ title, route, className, description }) => (
-                    <ListItemLink
-                      key={title}
-                      title={t(title)}
-                      route={route}
-                      className={className}
-                      setRedirectRoute={setRedirectRoute}
-                      width="48%"
-                    >
-                      {t(description)}
-                    </ListItemLink>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          )}
+    <NavigationMenu className="pr-1 hidden md:block">
+      <NavigationMenuList className="flex gap-2">
+        {isOnProblemsRoute && (
+          // PROBLEMS DROPDOWN
           <NavigationMenuItem>
-            <NavigationMenuTrigger className={`bg-${theme}-primary`}>{t("Resources")}</NavigationMenuTrigger>
+            <NavigationMenuTrigger className={`bg-${theme}-primary`}>{t("New Problems")}</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className={`flex flex-col p-4 gap-3 ${isOnProblemsRoute ? resourcesWidth : contentWidths[currentLanguage]}`}>
-                <ListItemLink
-                  route="/take-home-worksheets"
-                  title={t("Take Home Worksheets")}
-                  className="bg-teal-500 hover:bg-teal-600 hover:text-white"
-                  setRedirectRoute={setRedirectRoute}
-                >
-                  {t("Generate PDF worksheets for practice (45 Problems)")}
-                </ListItemLink>
+              <ul className={`flex flex-wrap p-4 gap-3 ${problemsWidth}`}>
+                {pageLinks.map(({ title, route, className, description }) => (
+                  <li className="w-[48%]">
+                    <NavigationMenuLink asChild>
+                      <NavigationLink route={route} description={t(description)} title={t(title)} className={className} />
+                    </NavigationMenuLink>
+                  </li>
+                ))}
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
+        )}
 
-          {/* LANGUAGE DROPDOWN */}
-          <NavigationMenuItem>
-            <NavigationMenuTrigger className={`bg-${theme}-primary`}>{t("Languages")}</NavigationMenuTrigger>
-            <NavigationMenuContent className="right-50 left-0x">
-              {isOnProblemsRoute ? (
-                <div className={languagesWidth}>
-                  <LanguageList width="48%" />
-                </div>
-              ) : (
-                // HOME PAGE/TAKE HOME WORKSHEET PAGE/ETC.
-                <div className={contentWidths[currentLanguage]}>
-                  <LanguageList width="100%" />
-                </div>
-              )}
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
-    </>
+        {/* RESOURCES DROPDOWN */}
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className={`bg-${theme}-primary`}>{t("Resources")}</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <div className={`flex flex-col p-4 gap-3 ${isOnProblemsRoute ? resourcesWidth : contentWidths[currentLanguage]}`}>
+              <NavigationMenuLink asChild>
+                <NavigationLink
+                  route="/take-home-worksheets"
+                  description={t("Generate PDF worksheets for practice (45 Problems)")}
+                  title={t("Take Home Worksheets")}
+                  className="bg-teal-500 hover:bg-teal-600"
+                />
+              </NavigationMenuLink>
+            </div>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+
+        {/* LANGUAGE DROPDOWN */}
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className={`bg-${theme}-primary`}>{t("Languages")}</NavigationMenuTrigger>
+          <NavigationMenuContent className="right-50 left-0x">
+            {isOnProblemsRoute ? (
+              <div className={languagesWidth}>
+                <LanguageList width="48%" />
+              </div>
+            ) : (
+              // HOME PAGE/TAKE HOME WORKSHEET PAGE/ETC.
+              <div className={contentWidths[currentLanguage]}>
+                <LanguageList width="100%" />
+              </div>
+            )}
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 };
 
