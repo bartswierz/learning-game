@@ -69,7 +69,7 @@ const DesktopNavigationLinks = ({ currentRoute }: NavigationMenuProps) => {
             <NavigationMenuContent>
               <ul className={`flex flex-wrap p-4 gap-3 ${problemsWidth}`}>
                 {pageLinks.map(({ title, route, className, description }) => (
-                  <li className="w-[48%]">
+                  <li key={route} className="w-[48%]">
                     <NavigationMenuLink asChild>
                       <NavigationLink route={route} description={t(description)} title={t(title)} className={className} />
                     </NavigationMenuLink>

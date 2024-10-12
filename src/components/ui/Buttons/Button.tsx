@@ -26,7 +26,7 @@ const Button = ({
   //  Base styles for button elements
   const baseButtonStyles = "relative flex items-center justify-center w-full h-full";
   const baseContentStyles = "relative flex items-center justify-center w-full h-full py-2 px-2 rounded-lg border-[1.5px]";
-  const transitionStyles = "transition transform duration-600 active:translate-y-2";
+  const transitionStyles = "transition transform duration-600 group-active:translate-y-2";
 
   const getVariantClasses = (variant: string) => {
     switch (variant) {
@@ -72,7 +72,7 @@ const Button = ({
 
   if (disabled) {
     return (
-      <button className={`${baseButtonStyles} cursor-not-allowed ${className}`} aria-label={ariaLabel} role={role} disabled>
+      <button className={`cursor-not-allowed ${baseButtonStyles} ${className}`} aria-label={ariaLabel} role={role} disabled>
         <div className="absolute inset-x-0 h-full -bottom-2 bg-gray-500 rounded-lg"></div>
         <div className={`${baseContentStyles} bg-gray-500 border-gray-600`}>{children}</div>
       </button>
@@ -81,7 +81,7 @@ const Button = ({
 
   return (
     <button
-      className={`${baseButtonStyles} transition-all duration-700 ease-in-out ${className}`}
+      className={`group transition-all duration-700 ease-in-out ${baseButtonStyles} ${className}`}
       onClick={onClick}
       aria-label={ariaLabel}
       type={type}
