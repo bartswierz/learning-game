@@ -22,11 +22,11 @@ const languages = [
     label: "Polish",
   },
   {
-    languageCode: "de-DE",
+    languageCode: "fr-FR",
     label: "French",
   },
   {
-    languageCode: "fr-FR",
+    languageCode: "de-DE",
     label: "German",
   },
 ];
