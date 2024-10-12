@@ -37,7 +37,7 @@ const Settings = () => {
       </TooltipProvider>
 
       {/* CONTENT DISPLAYED WHEN OPEN */}
-      <PopoverContent align="center" className={`bg-black/90 border-${theme}-primary border-4 rounded-md w-full relative`}>
+      <PopoverContent align="center" className={`bg-black/90 border-${theme}-primary border-4 rounded-md w-full relative top-[10px]`}>
         <p className="text-white text-center mb-4 font-bold text-xl">Settings</p>
         {/* CONTAINS OUR SETTING CONFIGURATIONS */}
         <SettingPanel__ handleCloseCallback={handleClose} />

@@ -1,9 +1,10 @@
 import { useTheme } from "../../../contexts/ThemeContext.tsx";
 import { Popover, PopoverContent, PopoverTrigger } from "../shadcn/popover";
 import { IoMdColorPalette } from "react-icons/io";
+import ColorPaletteOptions from "./components/ColorPaletteOptions.tsx";
 
 const ThemeSwitcher = () => {
-  const { toggleTheme } = useTheme();
+  const { toggleTheme, theme } = useTheme();
 
   return (
     <Popover>
@@ -12,54 +13,15 @@ const ThemeSwitcher = () => {
           <IoMdColorPalette size={40} />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="max-w-[218px] w-full">
-        <h4 className={`font-xl text-center mb-3`}>Theme Colors</h4>
-        <ColorPaletteOptions toggleTheme={toggleTheme} />
+      <PopoverContent
+        align="center"
+        className={`relative top-[10px] max-w-[218px]x w-full bg-black/60 border-${theme}-primary border-4 rounded-md`}
+      >
+        <h1 className={`text-xl text-center text-white mb-3`}>Theme Colors</h1>
+        <ColorPaletteOptions toggleTheme={toggleTheme} theme={theme} />
       </PopoverContent>
     </Popover>
   );
 };
 
 export default ThemeSwitcher;
-
-interface ColorPaletteOptionsProps {
-  toggleTheme: (themeColor: string) => void;
-}
-
-const ColorPaletteOptions = ({ toggleTheme }: ColorPaletteOptionsProps) => {
-  const themeColorsList = [
-    "themeBlue",
-    "themeIndigo",
-    "themeViolet",
-    "themePurple",
-    "themeTeal",
-    "themeCyan",
-    "themeSky",
-    "themeGreen",
-    "themeEmerald",
-    "themeLime",
-    "themeYellow",
-    "themeAmber",
-    "themeOrange",
-    "themeFuchsia",
-    "themePink",
-    "themeRose",
-    "themeRed",
-  ];
-
-  const handleThemeChange = (themeColor: string) => {
-    toggleTheme(themeColor);
-  };
-
-  return (
-    <div className="grid grid-cols-4 gap-3">
-      {themeColorsList.map((themeColor) => (
-        <button
-          className={`rounded-full p-4 bg-${themeColor}-primary shadow-xl`}
-          onClick={() => handleThemeChange(themeColor)}
-          key={themeColor}
-        ></button>
-      ))}
-    </div>
-  );
-};
