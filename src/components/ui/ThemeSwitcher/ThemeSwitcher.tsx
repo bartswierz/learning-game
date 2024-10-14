@@ -35,7 +35,7 @@ const ThemeSwitcher = () => {
       {/* PANEL */}
       <PopoverContent
         align="center"
-        className={`relative top-[10px] w-[250px] bg-gray-900 border-${theme}-primary border-4 rounded-md pb-7`}
+        className={`relative top-[10px] w-[250px] bg-gray-900 border-${theme}-primary border-4 rounded-md pb-7 drop-shadow-xl`}
       >
         <h1 className={`text-xl text-center text-startx text-white mb-3`}>Theme Colors</h1>
         <div className="flex justify-center items-center">
