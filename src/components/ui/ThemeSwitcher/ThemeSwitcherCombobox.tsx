@@ -22,7 +22,7 @@ const ThemeSwitcherCombobox = () => {
         <button
           role="combobox"
           aria-expanded={open}
-          className={`flex justify-center w-full items-center px-4 py-2 rounded-md border-[3px] cursor-pointer shadow-xl transition-color duration-200 ease-in bg-${theme}-primary `}
+          className={`flex justify-center w-full items-center px-4 py-2 rounded-md border-[3px] cursor-pointer shadow-xl transition-color duration-200 ease-in bg-${theme}-primary hover:bg-${theme}-secondary`}
         >
           {selectedTheme ? `Theme: ${selectedTheme.label}` : "Select Color..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

@@ -7,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../../shadcn/popover";
 import useTTSStore from "@/store/tts_store";
 import { LanguageType } from "@/types/types";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const languages = [
   {
@@ -33,6 +34,7 @@ const languages = [
 
 const LanguageCombobox = () => {
   const [open, setOpen] = useState(false);
+  const { theme } = useTheme();
 
   const { i18n } = useTranslation();
   const ttsLanguage: LanguageType = useTTSStore((state) => state.language);
@@ -50,7 +52,7 @@ const LanguageCombobox = () => {
         <button
           role="combobox"
           aria-expanded={open}
-          className="flex justify-center w-full bg-blue-500 items-center px-4 py-2 rounded-md border-[3px] cursor-pointer shadow-xl transition-color duration-200 ease-in "
+          className={`flex justify-center w-full items-center px-4 py-2 rounded-md border-[3px] cursor-pointer shadow-xl transition-color duration-200 ease-in bg-${theme}-primary hover:bg-${theme}-secondary`}
         >
           {/* Setting Button text to matched label. i.e. label: "English" */}
           {ttsLanguage ? languages.find(({ languageCode }) => languageCode === ttsLanguage)?.label : "Select language..."}
