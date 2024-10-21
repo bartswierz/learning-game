@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/ui/Navbar/Navbar.tsx";
 import { ThemeProvider } from "./contexts/ThemeContext.tsx";
+import axios from "axios";
 
 // SKELETONS
 import HomePageSkeleton from "./components/ui/Skeletons/HomePageSkeleton.tsx";
@@ -20,6 +21,13 @@ const DivisionPage = lazy(() => import("./pages/Division.jsx"));
 const TakeHomeProblemsPage = lazy(() => import("./pages/TakeHomeProblems.tsx"));
 const AnalogClockPage = lazy(() => import("./pages/AnalogClock.tsx"));
 const AlphabeticalOrderPage = lazy(() => import("./pages/AlphabeticalOrder.tsx"));
+
+const fetchAPI = async () => {
+  const response = await axios.get("http://localhost:8080/api");
+  console.log("response", response);
+};
+
+fetchAPI();
 
 function App() {
   return (
