@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const express = require("express");
 const app = express(); // Initialize express instance
 const cors = require("cors");
@@ -8,7 +9,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.get("/api", (req, res) => {
-  res.json({ fruits: ["apple", "banana", "orange"] });
+  res.json({ fruits: ["apple", "banana", "orange", "strawberry"] });
 });
 
 app.listen(8080, () => {

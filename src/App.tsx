@@ -1,5 +1,5 @@
 import "./globals.css";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/ui/Navbar/Navbar.tsx";
 import { ThemeProvider } from "./contexts/ThemeContext.tsx";
@@ -11,6 +11,7 @@ import OperationsSkeleton from "./components/ui/Skeletons/OperationsSkeleton.tsx
 import AlphabeticalOrderSkeleton from "./components/ui/Skeletons/AlphabeticalOrderSkeleton.tsx";
 import AnalogClockSkeleton from "./components/ui/Skeletons/AnalogClockSkeleton.tsx";
 import TakeHomeProblemsSkeleton from "./components/ui/Skeletons/TakeHomeProblemsSkeleton.tsx";
+import { set } from "lodash";
 
 // LAZY LOADED PAGES
 const HomePage = lazy(() => import("./pages/Home.jsx"));
@@ -22,14 +23,20 @@ const TakeHomeProblemsPage = lazy(() => import("./pages/TakeHomeProblems.tsx"));
 const AnalogClockPage = lazy(() => import("./pages/AnalogClock.tsx"));
 const AlphabeticalOrderPage = lazy(() => import("./pages/AlphabeticalOrder.tsx"));
 
-const fetchAPI = async () => {
-  const response = await axios.get("http://localhost:8080/api");
-  console.log("response", response);
-};
-
-fetchAPI();
-
 function App() {
+  const [data, setData] = useState([]);
+  const fetchAPI = async () => {
+    const response = await axios.get("http://localhost:8080/api");
+    console.log("response", response);
+    console.log("response.data.fruits", response.data.fruits);
+    const fruitsList = response.data.fruits;
+    setData(fruitsList);
+  };
+
+  useEffect(() => {
+    fetchAPI();
+  }, []);
+
   return (
     <ThemeProvider>
       {/* Navbar is outside the Routes component to prevent unnecessary re-renders of our navbar */}
@@ -40,6 +47,11 @@ function App() {
           element={
             <Suspense fallback={<HomePageSkeleton />}>
               <HomePage />
+              {/* TODO - placing array from backend for testing purposes - REMOVE AFTER */}
+              <div>
+                <p>ITEM LIST(From backend API):</p>
+                {data && data.map((item) => <div key={item}>{item}</div>)}
+              </div>
             </Suspense>
           }
         />
