@@ -11,7 +11,6 @@ import OperationsSkeleton from "./components/ui/Skeletons/OperationsSkeleton.tsx
 import AlphabeticalOrderSkeleton from "./components/ui/Skeletons/AlphabeticalOrderSkeleton.tsx";
 import AnalogClockSkeleton from "./components/ui/Skeletons/AnalogClockSkeleton.tsx";
 import TakeHomeProblemsSkeleton from "./components/ui/Skeletons/TakeHomeProblemsSkeleton.tsx";
-import { set } from "lodash";
 
 // LAZY LOADED PAGES
 const HomePage = lazy(() => import("./pages/Home.jsx"));
