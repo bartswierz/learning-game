@@ -23,13 +23,13 @@ const AnalogClockPage = lazy(() => import("./pages/AnalogClock.tsx"));
 const AlphabeticalOrderPage = lazy(() => import("./pages/AlphabeticalOrder.tsx"));
 
 function App() {
-  const [data, setData] = useState([]);
+  const [backendData, setBackendData] = useState([]);
   const fetchAPI = async () => {
-    const response = await axios.get("http://localhost:8080/api");
+    const response = await axios.get("http://localhost:8080/api/students");
     console.log("response", response);
-    console.log("response.data.fruits", response.data.fruits);
-    const fruitsList = response.data.fruits;
-    setData(fruitsList);
+    console.log("response.data.students", response.data.students);
+    const studentsList = response.data.students;
+    setBackendData(studentsList);
   };
 
   useEffect(() => {
@@ -48,8 +48,8 @@ function App() {
               <HomePage />
               {/* TODO - placing array from backend for testing purposes - REMOVE AFTER */}
               <div>
-                <p>ITEM LIST(From backend API):</p>
-                {data && data.map((item) => <div key={item}>{item}</div>)}
+                <p>ITEM LIST(From backend API)</p> 
+                {backendData && backendData.map((student) => <div key={student.id}>{student.name} - {student.points}</div>)}
               </div>
             </Suspense>
           }
