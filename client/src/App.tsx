@@ -1,6 +1,6 @@
 import "./globals.css";
 import { lazy, Suspense, useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/ui/Navbar/Navbar.tsx";
 import { ThemeProvider } from "./contexts/ThemeContext.tsx";
 import axios from "axios";
@@ -14,6 +14,7 @@ import TakeHomeProblemsSkeleton from "./components/ui/Skeletons/TakeHomeProblems
 // TODO - create a StudentProfileSkeleton once the StudentProfile page is done and replace the fallback with it
 // TODO - create a SignInSkeleton once the SignIn page is done and replace the fallback with it
 // TODO - create a SignUpSkeleton once the SignUp page is done and replace the fallback with it
+// TODO - create a ForgotPasswordSkeleton for the 404 page and replace the fallback with it when we create the 404 page
 
 // LAZY LOADED PAGES
 const HomePage = lazy(() => import("./pages/Home.jsx"));
@@ -29,8 +30,15 @@ const AlphabeticalOrderPage = lazy(
 const StudentProfilePage = lazy(() => import("./pages/StudentProfile.tsx"));
 const SignInPage = lazy(() => import("./pages/SignIn.tsx"));
 const SignUpPage = lazy(() => import("./pages/SignUp.tsx"));
+const ForgotPasswordPage = lazy(() => import("./pages/ForgotPassword.tsx"));
 
 function App() {
+  const location = useLocation();
+
+  // Routes where Navbar should be hidden
+  const hideNavbarRoutes = ["/signin", "/signup", "/forgot-password"];
+  const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
+
   const [backendData, setBackendData] = useState([]);
   const fetchAPI = async () => {
     const response = await axios.get("http://localhost:8080/api/students");
@@ -60,7 +68,7 @@ function App() {
   return (
     <ThemeProvider>
       {/* Navbar is outside the Routes component to prevent unnecessary re-renders of our navbar */}
-      <Navbar />
+      {!shouldHideNavbar && <Navbar />}
       <Routes>
         <Route
           path="/"
@@ -164,6 +172,15 @@ function App() {
             // TODO - create a SignUpSkeleton once the SignUp page is done and replace the fallback with it
             <Suspense fallback={<HomePageSkeleton />}>
               <SignUpPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/forgot-password"
+          element={
+            // TODO - create a ForgotPasswordSkeleton for the 404 page and replace the fallback with it when we create the 404 page
+            <Suspense fallback={<HomePageSkeleton />}>
+              <ForgotPasswordPage />
             </Suspense>
           }
         />
