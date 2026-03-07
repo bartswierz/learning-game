@@ -12,6 +12,13 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json()); // Parse JSON request bodies
 
+// function logger(req, res, next) {
+//   console.log(`${new Date().toISOString()}: ${req.originalUrl}`)
+//   next()
+// }
+
+// app.use(logger);
+
 // Fetch all students from database
 app.get("/api/students", async (req, res) => {
   try {
@@ -29,9 +36,9 @@ app.post("/api/students", async (req, res) => {
     const { name, points } = req.body;
     const result = await db.query(
       "INSERT INTO students (name, points) VALUES ($1, $2) RETURNING *",
-      [name, points]
+      [name, points],
     );
-    console.log('New student added:', result.rows[0]);
+    console.log("New student added:", result.rows[0]);
     res.json({ student: result.rows[0] });
   } catch (err) {
     console.error("Database error:", err);
@@ -58,13 +65,19 @@ app.put("/api/students/:id", async (req, res) => {
     const { points } = req.body;
     const result = await db.query(
       "UPDATE students SET points = $1 WHERE id = $2 RETURNING *",
-      [points, id]
+      [points, id],
     );
     res.json({ student: result.rows[0] });
   } catch (err) {
     console.error("Database error:", err);
     res.status(500).json({ error: "Failed to update student points" });
   }
+});
+
+// Error handler middleware
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(err.status || 500).json({ error: err.message });
 });
 
 app.listen(PORT, () => {

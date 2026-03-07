@@ -11,7 +11,7 @@ import OperationsSkeleton from "./components/ui/Skeletons/OperationsSkeleton.tsx
 import AlphabeticalOrderSkeleton from "./components/ui/Skeletons/AlphabeticalOrderSkeleton.tsx";
 import AnalogClockSkeleton from "./components/ui/Skeletons/AnalogClockSkeleton.tsx";
 import TakeHomeProblemsSkeleton from "./components/ui/Skeletons/TakeHomeProblemsSkeleton.tsx";
-import { use } from "i18next";
+// import { use } from "i18next";
 
 // LAZY LOADED PAGES
 const HomePage = lazy(() => import("./pages/Home.jsx"));
@@ -21,7 +21,10 @@ const MultiplicationPage = lazy(() => import("./pages/Multiplication.jsx"));
 const DivisionPage = lazy(() => import("./pages/Division.jsx"));
 const TakeHomeProblemsPage = lazy(() => import("./pages/TakeHomeProblems.tsx"));
 const AnalogClockPage = lazy(() => import("./pages/AnalogClock.tsx"));
-const AlphabeticalOrderPage = lazy(() => import("./pages/AlphabeticalOrder.tsx"));
+const AlphabeticalOrderPage = lazy(
+  () => import("./pages/AlphabeticalOrder.tsx"),
+);
+const StudentProfilePage = lazy(() => import("./pages/StudentProfile.tsx"));
 
 function App() {
   const [backendData, setBackendData] = useState([]);
@@ -41,22 +44,12 @@ function App() {
     try {
       const { data } = await axios.post("http://localhost:8080/api/students", {
         name: "New Student",
-        points: 60
+        points: 60,
       });
       console.log("Student added:", data);
       await fetchAPI();
     } catch (error) {
       console.error("Error adding student:", error);
-    }
-  };
-
-  const removeStudent = async (id: number): Promise<void> => {
-    try {
-      await axios.delete(`http://localhost:8080/api/students/${id}`);
-      console.log("Student removed:", id);
-      await fetchAPI();
-    } catch (error) {
-      console.error("Error removing student:", error);
     }
   };
 
@@ -72,8 +65,13 @@ function App() {
               <HomePage />
               {/* TODO - placing array from backend for testing purposes - REMOVE AFTER */}
               <div>
-                <p>ITEM LIST(From backend API)</p> 
-                {backendData && backendData.map((student) => <div key={student.id}>id:{student.id} - {student.name} - {student.points} pts.</div>)}   
+                <p>ITEM LIST(From backend API)</p>
+                {backendData &&
+                  backendData.map((student) => (
+                    <div key={student.id}>
+                      id:{student.id} - {student.name} - {student.points} pts.
+                    </div>
+                  ))}
                 <button onClick={addStudent}>Add Student</button>
                 {/* <button onClick={() => removeStudent(8)}>Remove Student with ID 1</button> */}
               </div>
@@ -133,6 +131,15 @@ function App() {
           element={
             <Suspense fallback={<AlphabeticalOrderSkeleton />}>
               <AlphabeticalOrderPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            // TODO - create a StudentProfileSkeleton once the StudentProfile page is done and replace the fallback with it
+            <Suspense fallback={<HomePageSkeleton />}>
+              <StudentProfilePage />
             </Suspense>
           }
         />

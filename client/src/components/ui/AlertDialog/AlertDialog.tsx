@@ -14,7 +14,6 @@ interface AlertDialogProps {
   title: string;
   description: string;
 }
-// TODO - update text
 const AlertDialog = ({ title, description }: AlertDialogProps) => {
   return (
     <AlertDialog_>
