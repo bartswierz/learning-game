@@ -11,7 +11,9 @@ import OperationsSkeleton from "./components/ui/Skeletons/OperationsSkeleton.tsx
 import AlphabeticalOrderSkeleton from "./components/ui/Skeletons/AlphabeticalOrderSkeleton.tsx";
 import AnalogClockSkeleton from "./components/ui/Skeletons/AnalogClockSkeleton.tsx";
 import TakeHomeProblemsSkeleton from "./components/ui/Skeletons/TakeHomeProblemsSkeleton.tsx";
-// import { use } from "i18next";
+// TODO - create a StudentProfileSkeleton once the StudentProfile page is done and replace the fallback with it
+// TODO - create a SignInSkeleton once the SignIn page is done and replace the fallback with it
+// TODO - create a SignUpSkeleton once the SignUp page is done and replace the fallback with it
 
 // LAZY LOADED PAGES
 const HomePage = lazy(() => import("./pages/Home.jsx"));
@@ -25,6 +27,8 @@ const AlphabeticalOrderPage = lazy(
   () => import("./pages/AlphabeticalOrder.tsx"),
 );
 const StudentProfilePage = lazy(() => import("./pages/StudentProfile.tsx"));
+const SignInPage = lazy(() => import("./pages/SignIn.tsx"));
+const SignUpPage = lazy(() => import("./pages/SignUp.tsx"));
 
 function App() {
   const [backendData, setBackendData] = useState([]);
@@ -73,7 +77,9 @@ function App() {
                     </div>
                   ))}
                 <button onClick={addStudent}>Add Student</button>
-                {/* <button onClick={() => removeStudent(8)}>Remove Student with ID 1</button> */}
+                <button onClick={() => removeStudent(8)}>
+                  Remove Student with ID 1
+                </button>
               </div>
             </Suspense>
           }
@@ -140,6 +146,24 @@ function App() {
             // TODO - create a StudentProfileSkeleton once the StudentProfile page is done and replace the fallback with it
             <Suspense fallback={<HomePageSkeleton />}>
               <StudentProfilePage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/signin"
+          element={
+            // TODO - create a SignInSkeleton once the SignIn page is done and replace the fallback with it
+            <Suspense fallback={<HomePageSkeleton />}>
+              <SignInPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            // TODO - create a SignUpSkeleton once the SignUp page is done and replace the fallback with it
+            <Suspense fallback={<HomePageSkeleton />}>
+              <SignUpPage />
             </Suspense>
           }
         />
