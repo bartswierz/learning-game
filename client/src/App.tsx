@@ -27,10 +27,10 @@ const AnalogClockPage = lazy(() => import("./pages/AnalogClock.tsx"));
 const AlphabeticalOrderPage = lazy(
   () => import("./pages/AlphabeticalOrder.tsx"),
 );
-const StudentProfilePage = lazy(() => import("./pages/StudentProfile.tsx"));
-const SignInPage = lazy(() => import("./pages/SignIn.tsx"));
-const SignUpPage = lazy(() => import("./pages/SignUp.tsx"));
-const ForgotPasswordPage = lazy(() => import("./pages/ForgotPassword.tsx"));
+// const StudentProfilePage = lazy(() => import("./pages/StudentProfile.tsx"));
+// const SignInPage = lazy(() => import("./pages/SignIn.tsx"));
+// const SignUpPage = lazy(() => import("./pages/SignUp.tsx"));
+// const ForgotPasswordPage = lazy(() => import("./pages/ForgotPassword.tsx"));
 
 function App() {
   const location = useLocation();
@@ -39,31 +39,20 @@ function App() {
   const hideNavbarRoutes = ["/signin", "/signup", "/forgot-password"];
   const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
 
-  const [backendData, setBackendData] = useState([]);
-  const fetchAPI = async () => {
-    const response = await axios.get("http://localhost:8080/api/students");
-    console.log("response", response);
-    console.log("response.data.students", response.data.students);
-    const studentsList = response.data.students;
-    setBackendData(studentsList);
-  };
-
+  // Test API connection to /api/users on backend when app loads using axios and log the response or error to the console
   useEffect(() => {
-    fetchAPI();
-  }, []);
+    console.log("Testing API connection to /api/users...");
+    const testApiConnection = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/api/users");
+        console.log("API connection successful. Users:", response.data.users);
+      } catch (error) {
+        console.error("API connection failed:", error);
+      }
+    };
 
-  const addStudent = async (): Promise<void> => {
-    try {
-      const { data } = await axios.post("http://localhost:8080/api/students", {
-        name: "New Student",
-        points: 60,
-      });
-      console.log("Student added:", data);
-      await fetchAPI();
-    } catch (error) {
-      console.error("Error adding student:", error);
-    }
-  };
+    testApiConnection();
+  }, []);
 
   return (
     <ThemeProvider>
@@ -75,20 +64,6 @@ function App() {
           element={
             <Suspense fallback={<HomePageSkeleton />}>
               <HomePage />
-              {/* TODO - placing array from backend for testing purposes - REMOVE AFTER */}
-              <div>
-                <p>ITEM LIST(From backend API)</p>
-                {backendData &&
-                  backendData.map((student) => (
-                    <div key={student.id}>
-                      id:{student.id} - {student.name} - {student.points} pts.
-                    </div>
-                  ))}
-                <button onClick={addStudent}>Add Student</button>
-                <button onClick={() => removeStudent(8)}>
-                  Remove Student with ID 1
-                </button>
-              </div>
             </Suspense>
           }
         />
@@ -148,7 +123,8 @@ function App() {
             </Suspense>
           }
         />
-        <Route
+        {/* NOTE - Below are WIP routes*/}
+        {/* <Route
           path="/profile"
           element={
             // TODO - create a StudentProfileSkeleton once the StudentProfile page is done and replace the fallback with it
@@ -182,8 +158,8 @@ function App() {
             <Suspense fallback={<HomePageSkeleton />}>
               <ForgotPasswordPage />
             </Suspense>
-          }
-        />
+          } 
+        />*/}
       </Routes>
     </ThemeProvider>
   );
