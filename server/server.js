@@ -38,12 +38,24 @@ const PORT = process.env.PORT || 8080;
 
 // app.use(logger);
 
+app.get("/", async (_, res) => {
+  const client = await pool.connect();
+  const result = await client.query("SELECT version()");
+  client.release();
+  const { version } = result.rows[0];
+  res.json({ version });
+});
+// app.listen(PORT, () => {
+//   console.log(`V2: Listening to http://localhost:${PORT}`);
+// });
+
 // Error handler middleware
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(err.status || 500).json({ error: err.message });
 });
 
+// TODO - fetch all users from databse - remove after
 app.get("/api/users", async (req, res) => {
   try {
     const result = await db.query("SELECT * FROM users ORDER BY id DESC");
@@ -51,6 +63,55 @@ app.get("/api/users", async (req, res) => {
   } catch (err) {
     console.error("Database error:", err);
     res.status(500).json({ error: "Failed to fetch users" });
+  }
+});
+
+// TODO - add a authentication route to create new users and login
+app.post("/api/auth/register", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const result = await db.query(
+      "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *",
+      [username, password],
+    );
+    console.log("New user registered:", result.rows[0]);
+    res.json({ user: result.rows[0] });
+  } catch (err) {
+    console.error("Database error:", err);
+    res.status(500).json({ error: "Failed to register user" });
+  }
+});
+
+// TODO - add a authentication route to login users
+app.post("/api/auth/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const result = await db.query(
+      "SELECT * FROM users WHERE username = $1 AND password = $2",
+      [username, password],
+    );
+    if (result.rows.length === 0) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+    res.json({ user: result.rows[0] });
+  } catch (err) {
+    console.error("Database error:", err);
+    res.status(500).json({ error: "Failed to login user" });
+  }
+});
+
+// TODO - add a route to fetch user data by id
+app.get("/api/users/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await db.query("SELECT * FROM users WHERE id = $1", [id]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json({ user: result.rows[0] });
+  } catch (err) {
+    console.error("Database error:", err);
+    res.status(500).json({ error: "Failed to fetch user" });
   }
 });
 
