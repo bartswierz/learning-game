@@ -1,8 +1,8 @@
 import express from "express";
-import db from "../db.js"; // Import the database connection pool
+import db from "../db.js"; // DB Connection Pool
 const router = express.Router();
 
-// "/api/users"
+// GET ALL USERS - Route: "/api/users"
 router.get("/", async (req, res) => {
   try {
     const result = await db.query("SELECT * FROM users ORDER BY id DESC");
@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// "/api/users/:id"
+// GET USER BY ID - Route: "/api/users/:id"
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
