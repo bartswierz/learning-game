@@ -65,10 +65,6 @@ export default function SignUp() {
           {/* Placeholder gradient background with decorative elements */}
           <div className="absolute inset-0 bg-gradient-to-br from-purple-900/40 via-pink-600/40 to-blue-600/40"></div>
 
-          {/* Decorative shapes */}
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl"></div>
-
           {/* Content overlay */}
           <div className="relative h-full flex flex-col justify-center items-center text-white p-12">
             <div className="text-8xl mb-8">🚀</div>

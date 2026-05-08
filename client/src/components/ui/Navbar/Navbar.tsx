@@ -11,13 +11,23 @@ import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher.tsx";
 import Settings from "../Settings/Settings";
 import NavigationLinksDesktop from "./components/NavigationLinksDesktop";
 import useSettingsStore from "@/store/store";
+// import { Avatar } from "@radix-ui/react-avatar";
+// import { AvatarFallback, AvatarImage } from "../shadcn/avatar.tsx";
+import { Avatar, AvatarFallback, AvatarImage } from "../shadcn/avatar.tsx";
 
 const Navbar = () => {
   const location = useLocation();
-  const resetProgressOnRedirectToHome = useSettingsStore((state) => state.resetProgress);
+  const resetProgressOnRedirectToHome = useSettingsStore(
+    (state) => state.resetProgress,
+  );
   const [isOpen, setIsOpen] = useState(false);
-  const isOnGameRoute = ["addition", "subtraction", "multiplication", "division"].some((operationsTypeRoute) =>
-    location.pathname.includes(operationsTypeRoute)
+  const isOnGameRoute = [
+    "addition",
+    "subtraction",
+    "multiplication",
+    "division",
+  ].some((operationsTypeRoute) =>
+    location.pathname.includes(operationsTypeRoute),
   );
 
   const { theme } = useTheme();
@@ -27,7 +37,9 @@ const Navbar = () => {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <nav className={`inset-x-0 z-[100] flex justify-between items-center p-2 shadow-2xl ${gradientTheme}`}>
+    <nav
+      className={`inset-x-0 z-[100] flex justify-between items-center p-2 shadow-2xl ${gradientTheme}`}
+    >
       <div className="self-center">
         <Link
           to="/"
@@ -36,18 +48,31 @@ const Navbar = () => {
           }}
           className="flex gap-2 items-center text-lg"
         >
-          <img src={LearningAppSVG} alt="Problem Solvers Logo" className="w-12 h-12" />
+          <img
+            src={LearningAppSVG}
+            alt="Problem Solvers Logo"
+            className="w-12 h-12"
+          />
           Problem Solvers
         </Link>
       </div>
 
       <div className="flex gap-2 items-center">
-        <NavigationLinksDesktop currentRoute={location.pathname as currentRouteType} />
+        <NavigationLinksDesktop
+          currentRoute={location.pathname as currentRouteType}
+        />
         <MenuOpenButton openMenu={openMenu} />
         {isOnGameRoute && <Settings />}
         <div className="hidden md:block">
           <ThemeSwitcher />
         </div>
+        {/* User Profile */}
+        <Link to="/profile" className="hidden md:block">
+          <Avatar>
+            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+        </Link>
       </div>
 
       {/* OPENS WHEN USER CLICKS MENU BUTTON */}
@@ -62,7 +87,10 @@ export default Navbar;
 
 export const MenuOpenButton = ({ openMenu }: { openMenu: () => void }) => {
   return (
-    <button onClick={openMenu} className="md:hidden cursor-pointer align-middle">
+    <button
+      onClick={openMenu}
+      className="md:hidden cursor-pointer align-middle"
+    >
       <GiHamburgerMenu size={36} />
     </button>
   );

@@ -2,8 +2,8 @@ import { useState } from "react";
 
 export default function StudentProfile() {
   // TODO - Fetch actual student data from backend and replace hardcoded values
-  const [studentName, setStudentName] = useState("John Doe");
-  const [points, setPoints] = useState(450);
+  const [studentName, setStudentName] = useState<string>("John");
+  const [points, setPoints] = useState<number>(450);
   const [isEditing, setIsEditing] = useState(false);
 
   const handleEditProfile = () => {

@@ -43,10 +43,6 @@ export default function SignIn() {
           {/* Placeholder gradient background with decorative elements */}
           <div className="absolute inset-0 bg-gradient-to-br from-purple-900/40 via-pink-600/40 to-blue-600/40"></div>
 
-          {/* Decorative shapes */}
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl"></div>
-
           {/* Content overlay */}
           <div className="relative h-full flex flex-col justify-center items-center text-white p-12">
             <div className="text-8xl mb-8">🎓</div>
@@ -116,12 +112,12 @@ export default function SignIn() {
                 >
                   Password
                 </label>
-                <Link
+                {/* <Link
                   to="/forgot-password"
                   className="text-sm text-purple-400 hover:text-purple-300"
                 >
                   Forgot password?
-                </Link>
+                </Link> */}
               </div>
               <input
                 id="password"
@@ -146,11 +142,13 @@ export default function SignIn() {
 
           {/* Guest Access */}
           <div className="mt-6 text-center">
-            <Button
-              // className="text-sm text-gray-400 hover:text-gray-300 hover:underline"
-              className="w-full h-12 bg-gray-400 hover:bg-gray-500 text-white rounded-lg font-semibold transition-all duration-200"
-            >
-              Continue as guest
+            <Button className="w-full h-12 bg-gray-400 hover:bg-gray-500 text-white rounded-lg font-semibold transition-all duration-200">
+              <Link
+                to="/"
+                className="w-full h-full flex items-center justify-center"
+              >
+                Continue as guest
+              </Link>
             </Button>
           </div>
         </div>
