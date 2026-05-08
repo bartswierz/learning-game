@@ -27,10 +27,10 @@ const AnalogClockPage = lazy(() => import("./pages/AnalogClock.tsx"));
 const AlphabeticalOrderPage = lazy(
   () => import("./pages/AlphabeticalOrder.tsx"),
 );
-// const StudentProfilePage = lazy(() => import("./pages/StudentProfile.tsx"));
-// const SignInPage = lazy(() => import("./pages/SignIn.tsx"));
-// const SignUpPage = lazy(() => import("./pages/SignUp.tsx"));
-// const ForgotPasswordPage = lazy(() => import("./pages/ForgotPassword.tsx"));
+const StudentProfilePage = lazy(() => import("./pages/StudentProfile.tsx"));
+const SignInPage = lazy(() => import("./pages/SignIn.tsx"));
+const SignUpPage = lazy(() => import("./pages/SignUp.tsx"));
+const ForgotPasswordPage = lazy(() => import("./pages/ForgotPassword.tsx"));
 
 function App() {
   const location = useLocation();
@@ -39,6 +39,16 @@ function App() {
   const hideNavbarRoutes = ["/signin", "/signup", "/forgot-password"];
   const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
 
+  const [apiData, setApiData] = useState<Array<{
+    id: number;
+    email: string;
+    password_hash: string;
+    role: string;
+    is_verified: boolean;
+    created_at: string;
+    updated_at: string;
+  }> | null>(null);
+
   // Test API connection to /api/users on backend when app loads using axios and log the response or error to the console
   useEffect(() => {
     console.log("Testing API connection to /api/users...");
@@ -46,6 +56,7 @@ function App() {
       try {
         const response = await axios.get("http://localhost:8080/api/users");
         console.log("API connection successful. Users:", response.data.users);
+        setApiData(response.data.users);
       } catch (error) {
         console.error("API connection failed:", error);
       }
@@ -64,6 +75,23 @@ function App() {
           element={
             <Suspense fallback={<HomePageSkeleton />}>
               <HomePage />
+              <div>
+                <h1>API CONNECTION TEST FOR USERS</h1>
+                {
+                  // TODO - remove this API connection test code once we confirm that the frontend can successfully connect to the backend and retrieve data from the /api/users endpoint
+                  apiData ? (
+                    <ul>
+                      {apiData.map((user) => (
+                        <li key={user.id}>
+                          ID: {user.id} | Email: {user.email}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>Loading...</p>
+                  )
+                }
+              </div>
             </Suspense>
           }
         />
@@ -124,7 +152,7 @@ function App() {
           }
         />
         {/* NOTE - Below are WIP routes*/}
-        {/* <Route
+        <Route
           path="/profile"
           element={
             // TODO - create a StudentProfileSkeleton once the StudentProfile page is done and replace the fallback with it
@@ -158,8 +186,8 @@ function App() {
             <Suspense fallback={<HomePageSkeleton />}>
               <ForgotPasswordPage />
             </Suspense>
-          } 
-        />*/}
+          }
+        />
       </Routes>
     </ThemeProvider>
   );

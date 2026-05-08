@@ -1,8 +1,6 @@
 import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/shadcn/button";
-import { FcGoogle } from "react-icons/fc";
-import { FaApple } from "react-icons/fa";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -14,27 +12,10 @@ export default function SignUp() {
   });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [agreedToTerms, setAgreedToTerms] = useState(false);
-
-  const handleGoogleSignUp = async () => {
-    setIsLoading(true);
-    try {
-      console.log("Google sign up clicked");
-      window.location.href = "http://localhost:8080/auth/google";
-    } catch (err) {
-      setError("Failed to sign up with Google");
-      setIsLoading(false);
-    }
-  };
 
   const handleEmailSignUp = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
-
-    if (!agreedToTerms) {
-      setError("Please agree to the terms and conditions");
-      return;
-    }
 
     if (formData.password.length < 6) {
       setError("Password must be at least 6 characters");
@@ -95,7 +76,7 @@ export default function SignUp() {
               Start Learning Today!
             </h2>
             <p className="text-xl text-center text-white/90">
-              Join thousands of parents helping their kids excel
+              Join other parents helping their kids excel!
             </p>
           </div>
         </div>
@@ -146,7 +127,7 @@ export default function SignUp() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-white placeholder-gray-500"
-                  placeholder="Bardia"
+                  placeholder="John"
                 />
               </div>
               <div>
@@ -210,26 +191,6 @@ export default function SignUp() {
               />
             </div>
 
-            {/* Terms Checkbox */}
-            <div className="flex items-start">
-              <input
-                id="terms"
-                type="checkbox"
-                checked={agreedToTerms}
-                onChange={(e) => setAgreedToTerms(e.target.checked)}
-                className="mt-1 h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-700 rounded bg-gray-800"
-              />
-              <label htmlFor="terms" className="ml-3 text-sm text-gray-400">
-                I agree to the{" "}
-                <Link
-                  to="/terms"
-                  className="text-purple-400 hover:text-purple-300"
-                >
-                  terms & conditions
-                </Link>
-              </label>
-            </div>
-
             {/* Sign Up Button */}
             <Button
               type="submit"
@@ -239,38 +200,6 @@ export default function SignUp() {
               {isLoading ? "Creating account..." : "Create account"}
             </Button>
           </form>
-
-          {/* Divider */}
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-700"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-gray-900 text-gray-400">
-                Or register with
-              </span>
-            </div>
-          </div>
-
-          {/* OAuth Buttons */}
-          <div className="grid grid-cols-2 gap-4">
-            <Button
-              onClick={handleGoogleSignUp}
-              disabled={isLoading}
-              className="h-12 bg-gray-800 hover:bg-gray-750 text-white border border-gray-700 rounded-lg font-medium transition-all duration-200"
-            >
-              <FcGoogle className="text-xl mr-2" />
-              Google
-            </Button>
-            <Button
-              onClick={() => console.log("Apple sign up")}
-              disabled={isLoading}
-              className="h-12 bg-gray-800 hover:bg-gray-750 text-white border border-gray-700 rounded-lg font-medium transition-all duration-200"
-            >
-              <FaApple className="text-xl mr-2" />
-              Apple
-            </Button>
-          </div>
         </div>
       </div>
     </div>

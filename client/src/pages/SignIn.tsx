@@ -1,8 +1,6 @@
 import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/shadcn/button";
-import { FcGoogle } from "react-icons/fc";
-import { FaApple } from "react-icons/fa";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -10,17 +8,6 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleGoogleSignIn = async () => {
-    setIsLoading(true);
-    try {
-      console.log("Google sign in clicked");
-      window.location.href = "http://localhost:8080/auth/google";
-    } catch (err) {
-      setError("Failed to sign in with Google");
-      setIsLoading(false);
-    }
-  };
 
   const handleEmailSignIn = async (e: FormEvent) => {
     e.preventDefault();
@@ -52,7 +39,6 @@ export default function SignIn() {
     <div className="min-h-screen flex">
       {/* Left Side - Illustration */}
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-purple-600 via-pink-500 to-blue-500 relative overflow-hidden">
-        {/* You can replace this with an actual image or illustration */}
         <div className="absolute inset-0 bg-[url('/path-to-your-illustration.svg')] bg-cover bg-center">
           {/* Placeholder gradient background with decorative elements */}
           <div className="absolute inset-0 bg-gradient-to-br from-purple-900/40 via-pink-600/40 to-blue-600/40"></div>
@@ -158,46 +144,14 @@ export default function SignIn() {
             </Button>
           </form>
 
-          {/* Divider */}
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-700"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-gray-900 text-gray-400">
-                Or continue with
-              </span>
-            </div>
-          </div>
-
-          {/* OAuth Buttons */}
-          <div className="grid grid-cols-2 gap-4">
-            <Button
-              onClick={handleGoogleSignIn}
-              disabled={isLoading}
-              className="h-12 bg-gray-800 hover:bg-gray-750 text-white border border-gray-700 rounded-lg font-medium transition-all duration-200"
-            >
-              <FcGoogle className="text-xl mr-2" />
-              Google
-            </Button>
-            <Button
-              onClick={() => console.log("Apple sign in")}
-              disabled={isLoading}
-              className="h-12 bg-gray-800 hover:bg-gray-750 text-white border border-gray-700 rounded-lg font-medium transition-all duration-200"
-            >
-              <FaApple className="text-xl mr-2" />
-              Apple
-            </Button>
-          </div>
-
           {/* Guest Access */}
           <div className="mt-6 text-center">
-            <Link
-              to="/"
-              className="text-sm text-gray-400 hover:text-gray-300 hover:underline"
+            <Button
+              // className="text-sm text-gray-400 hover:text-gray-300 hover:underline"
+              className="w-full h-12 bg-gray-400 hover:bg-gray-500 text-white rounded-lg font-semibold transition-all duration-200"
             >
               Continue as guest
-            </Link>
+            </Button>
           </div>
         </div>
       </div>
