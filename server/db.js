@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config(); // Load environment variables from .env
 
+// TODO - move to utils folder after we add JWT authentication and need to verify tokens in multiple places
 // DATABASE CONNECTION
 const db = new Pool({
   connectionString: process.env.DATABASE_URL,

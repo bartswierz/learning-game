@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// TODO - add a sign out button that clears the token from localStorage and redirects to the sign in page
 export default function StudentProfile() {
   // TODO - Fetch actual student data from backend and replace hardcoded values
   const [studentName, setStudentName] = useState<string>("John");

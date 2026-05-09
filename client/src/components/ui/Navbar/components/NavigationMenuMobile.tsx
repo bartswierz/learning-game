@@ -62,7 +62,10 @@ const NavigationMenuMobile = ({
 
           <div className="border-t-0 border-b border-gray-400 max-w-[320px] w-full"></div>
           <li key="profile" className="flex max-w-[296px] w-full text-center">
-            <button className="px-4 py-2 rounded-md border-[3px] cursor-pointer shadow-xl transition-color duration-200 ease-in w-full bg-blue-500 hover:bg-blue-600">
+            <button
+              type="button"
+              className="px-4 py-2 rounded-md border-[3px] cursor-pointer shadow-xl transition-color duration-200 ease-in w-full bg-blue-500 hover:bg-blue-600"
+            >
               <Link
                 to="/profile"
                 onClick={closeMenu}
