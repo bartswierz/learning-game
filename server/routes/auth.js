@@ -12,8 +12,6 @@ router.post("/register", async (req, res) => {
   try {
     const { email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log("req.body:", req.body);
-    console.log("hashed password: ", hashedPassword);
 
     // CHECK BOTH FIELDS ARE FILLED OUT
     if (!email || !password) {
@@ -43,15 +41,10 @@ router.post("/register", async (req, res) => {
       [email, hashedPassword],
     );
 
-    // REMOVE AFTER TESTING
-    console.log("New user registered:", result.rows[0]);
-
     // Don't send the password hash back to the client
     const { password_hash: _, ...userWithoutPassword } = result.rows[0];
     const token = await generateAccessToken(userWithoutPassword.id);
 
-    // REMOVE AFTER TESTING
-    console.log("token created during registration: ", token);
     res.json({
       message: "User registered successfully!",
       user: userWithoutPassword,
@@ -84,7 +77,9 @@ router.post("/login", async (req, res) => {
 
     // Don't send the password hash back to the client
     const { password_hash: _, ...userWithoutPassword } = user;
-    res.json({ user: userWithoutPassword });
+
+    const token = await generateAccessToken(userWithoutPassword.id);
+    res.json({ user: userWithoutPassword, token });
   } catch (err) {
     console.error("Database error:", err);
     res.status(500).json({ error: "Failed to login user" });
