@@ -10,24 +10,47 @@ const router = express.Router();
 // CREATE NEW USER - Route: "/api/auth/register"
 router.post("/register", async (req, res) => {
   try {
-    console.log("inside register route, req.body:", req.body);
-    // const { username, password } = req.body;
     const { email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log("req.body:", req.body);
     console.log("hashed password: ", hashedPassword);
 
+    // CHECK BOTH FIELDS ARE FILLED OUT
+    if (!email || !password) {
+      return res.status(400).json({ error: "Email and password are required" });
+    }
+
+    // CHECK IF PASSWORD MEETS MIN. REQUIREMENTS
+    if (password.length < 8) {
+      return res
+        .status(400)
+        .json({ error: "Password must be at least 8 characters long" });
+    }
+
+    // CHECK DB IF EMAIL IS ALREADY EXISTS
+    const existingUser = await db.query(
+      "SELECT * FROM users WHERE email = $1",
+      [email],
+    );
+
+    if (existingUser.rows.length > 0) {
+      return res.status(400).json({ error: "Email already exists" });
+    }
+
+    // ADD NEW USER TO DB
     const result = await db.query(
       "INSERT INTO users (email, password_hash) VALUES ($1, $2) RETURNING *",
       [email, hashedPassword],
     );
 
+    // REMOVE AFTER TESTING
     console.log("New user registered:", result.rows[0]);
 
     // Don't send the password hash back to the client
     const { password_hash: _, ...userWithoutPassword } = result.rows[0];
-    // res.json({ user: userWithoutPassword });
     const token = await generateAccessToken(userWithoutPassword.id);
+
+    // REMOVE AFTER TESTING
     console.log("token created during registration: ", token);
     res.json({
       message: "User registered successfully!",
@@ -43,24 +66,24 @@ router.post("/register", async (req, res) => {
 // LOGIN USER - Route: "/api/auth/login"
 router.post("/login", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    const result = await db.query("SELECT * FROM users WHERE username = $1", [
-      username,
+    const result = await db.query("SELECT * FROM users WHERE email = $1", [
+      email,
     ]);
 
     if (result.rows.length === 0) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
     const user = result.rows[0];
-    const isPasswordValid = await bcrypt.compare(password, user.password); // Compare provided password with stored hash
+    const isPasswordValid = await bcrypt.compare(password, user.password_hash); // Compare provided password with stored hash
 
     if (!isPasswordValid) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
     // Don't send the password hash back to the client
-    const { password: _, ...userWithoutPassword } = user;
+    const { password_hash: _, ...userWithoutPassword } = user;
     res.json({ user: userWithoutPassword });
   } catch (err) {
     console.error("Database error:", err);

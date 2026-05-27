@@ -7,8 +7,7 @@ dotenv.config(); // Load environment variables from .env
 
 // Get the user id, grab the user from the database, and then create a token with that user id as the payload
 async function generateAccessToken(user_id) {
-  console.log("inside generateAccessToken, user_id:", user_id);
-  const payload = { id: user_id }; // Payload containing the user ID
+  const payload = { id: user_id };
   const secretKey = process.env.JWT_SECRET; // Secret key for signing the token
   const options = { expiresIn: "1h" }; // Token expiration time
   return jwt.sign(payload, secretKey, options);
