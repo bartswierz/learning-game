@@ -39,32 +39,6 @@ function App() {
   const hideNavbarRoutes = ["/signin", "/signup", "/forgot-password"];
   const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
 
-  const [apiData, setApiData] = useState<Array<{
-    id: number;
-    email: string;
-    password_hash: string;
-    role: string;
-    is_verified: boolean;
-    created_at: string;
-    updated_at: string;
-  }> | null>(null);
-
-  // Test API connection to /api/users on backend when app loads using axios and log the response or error to the console
-  useEffect(() => {
-    console.log("Testing API connection to /api/users...");
-    const testApiConnection = async () => {
-      try {
-        const response = await axios.get("http://localhost:8080/api/users");
-        console.log("API connection successful. Users:", response.data.users);
-        setApiData(response.data.users);
-      } catch (error) {
-        console.error("API connection failed:", error);
-      }
-    };
-
-    testApiConnection();
-  }, []);
-
   return (
     <ThemeProvider>
       {/* Navbar is outside the Routes component to prevent unnecessary re-renders of our navbar */}
@@ -75,23 +49,6 @@ function App() {
           element={
             <Suspense fallback={<HomePageSkeleton />}>
               <HomePage />
-              <div>
-                <h1>API CONNECTION TEST FOR USERS</h1>
-                {
-                  // TODO - remove this API connection test code once we confirm that the frontend can successfully connect to the backend and retrieve data from the /api/users endpoint
-                  apiData ? (
-                    <ul>
-                      {apiData.map((user) => (
-                        <li key={user.id}>
-                          ID: {user.id} | Email: {user.email}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p>Loading...</p>
-                  )
-                }
-              </div>
             </Suspense>
           }
         />

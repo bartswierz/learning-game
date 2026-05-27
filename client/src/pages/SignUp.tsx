@@ -5,11 +5,10 @@ import { Button } from "@/components/ui/shadcn/button";
 export default function SignUp() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
   });
+
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -17,19 +16,18 @@ export default function SignUp() {
     e.preventDefault();
     setError("");
 
-    if (formData.password.length < 6) {
-      setError("Password must be at least 6 characters");
+    if (formData.password.length < 8) {
+      setError("Password must be at least 8 characters");
       return;
     }
 
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/signup", {
+      const response = await fetch("http://localhost:8080/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: `${formData.firstName} ${formData.lastName}`,
           email: formData.email,
           password: formData.password,
         }),
@@ -37,12 +35,14 @@ export default function SignUp() {
 
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.message || "Failed to create account");
+        // Remove after testing
+        console.log("Error response from server:", data);
+        throw new Error(data.error || "Failed to create account");
       }
 
       const data = await response.json();
       localStorage.setItem("token", data.token);
-      navigate("/");
+      navigate("/signin");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to create account");
     } finally {
@@ -104,48 +104,8 @@ export default function SignUp() {
             </div>
           )}
 
-          {/* Form */}
+          {/* Sign Up Form */}
           <form onSubmit={handleEmailSignUp} className="space-y-5">
-            {/* Name Fields */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label
-                  htmlFor="firstName"
-                  className="block text-sm font-medium text-gray-300 mb-2"
-                >
-                  First Name
-                </label>
-                <input
-                  id="firstName"
-                  name="firstName"
-                  type="text"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-white placeholder-gray-500"
-                  placeholder="John"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="lastName"
-                  className="block text-sm font-medium text-gray-300 mb-2"
-                >
-                  Last Name
-                </label>
-                <input
-                  id="lastName"
-                  name="lastName"
-                  type="text"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-white placeholder-gray-500"
-                  placeholder="Smith"
-                />
-              </div>
-            </div>
-
             {/* Email Input */}
             <div>
               <label
@@ -180,10 +140,10 @@ export default function SignUp() {
                 type="password"
                 value={formData.password}
                 onChange={handleChange}
-                required
-                minLength={6}
+                minLength={8}
                 className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-white placeholder-gray-500"
                 placeholder="••••••••"
+                required
               />
             </div>
 

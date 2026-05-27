@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // TODO - add a sign out button that clears the token from localStorage and redirects to the sign in page
 export default function StudentProfile() {
+  const navigate = useNavigate();
   // TODO - Fetch actual student data from backend and replace hardcoded values
   const [studentName, setStudentName] = useState<string>("John");
   const [points, setPoints] = useState<number>(450);
@@ -15,10 +17,20 @@ export default function StudentProfile() {
 
   const handleDeleteAccount = () => {
     // TODO: Show confirmation dialog before deletion
+    // TODO - implement remove user logic here, the delete account is in /routes/users -> /api/users/:id DELETE
     const confirmed = window.confirm(
       "Are you sure you want to delete this account? This action cannot be undone.",
     );
+
+    console.log("confirmed? ", confirmed);
     if (confirmed) {
+      // TODO - need the user's ID or token to send the DELETE request to the backend for account deletion,
+      // and also need to handle the response to confirm deletion and redirect to sign-in page
+
+      // ADD API DELETE LOGIC HERE - User deletion will be handled by the backend,
+
+      // so we need to send a DELETE request to the appropriate endpoint with the user's ID or token for authentication.
+      // After successful deletion, we should also clear any user data from localStorage and redirect to the sign-in page.
       console.log("Account deleted");
       // TODO: Implement actual deletion logic
     }
@@ -89,12 +101,9 @@ export default function StudentProfile() {
           </button>
         </div>
 
-        {/* Optional: Back to Home Button */}
         <div className="mt-8 text-center">
           <button
-            //   on click go back to '/' route
-            onClick={() => (window.location.href = "/")}
-            // onClick={() => window.history.back()}
+            onClick={() => navigate("/")}
             className="text-white hover:text-white/80 font-semibold text-xl transition-colors"
           >
             ← Back to Home
