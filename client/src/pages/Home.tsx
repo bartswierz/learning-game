@@ -19,7 +19,12 @@ export default function HomePage() {
 
   return (
     <div className="container pb-12 mt-[56px]">
-      <Heading text={tts_description} voiceText={tts_description} className="text-3xl font-bold mb-6" language={ttsLanguage} />
+      <Heading
+        text={tts_description}
+        voiceText={tts_description}
+        className="text-3xl font-bold mb-6"
+        language={ttsLanguage}
+      />
       <ul className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {homepageLinks.map(({ link, title, listItemStyle }) => {
           return (
@@ -43,42 +48,54 @@ export default function HomePage() {
   );
 }
 
-type homepageLinksType = {
+type HomepageLinksType = {
   title: string;
-  link: "/addition" | "/subtraction" | "/multiplication" | "/division" | "/alphabetical-order" | "/analog-clock";
+  link:
+    | "/addition"
+    | "/subtraction"
+    | "/multiplication"
+    | "/division"
+    | "/alphabetical-order"
+    | "/analog-clock";
   listItemStyle: string;
 }[];
 
-const homepageLinks: homepageLinksType = [
+const homepageLinks: HomepageLinksType = [
   {
     link: "/addition",
     title: "Addition",
-    listItemStyle: "bg-green-500 hover:bg-green-600 focus:bg-red-500 rounded-tl-[50px] rounded-br-[50px]",
+    listItemStyle:
+      "bg-green-500 hover:bg-green-600 focus:bg-red-500 rounded-tl-[50px] rounded-br-[50px]",
   },
   {
     link: "/subtraction",
     title: "Subtraction",
-    listItemStyle: "bg-red-500 hover:bg-red-600 rounded-tr-[50px] rounded-bl-[50px]",
+    listItemStyle:
+      "bg-red-500 hover:bg-red-600 rounded-tr-[50px] rounded-bl-[50px]",
   },
   {
     link: "/multiplication",
     title: "Multiplication",
-    listItemStyle: "bg-blue-500 hover:bg-blue-600 rounded-bl-[50px] rounded-tr-[50px]",
+    listItemStyle:
+      "bg-blue-500 hover:bg-blue-600 rounded-bl-[50px] rounded-tr-[50px]",
   },
   {
     link: "/division",
     title: "Division",
-    listItemStyle: "bg-yellow-500 hover:bg-yellow-600 rounded-br-[50px] rounded-tl-[50px]",
+    listItemStyle:
+      "bg-yellow-500 hover:bg-yellow-600 rounded-br-[50px] rounded-tl-[50px]",
   },
   {
     link: "/alphabetical-order",
     title: "Alphabet",
-    listItemStyle: "bg-indigo-500 hover:bg-indigo-600 rounded-tl-[50px] rounded-br-[50px]",
+    listItemStyle:
+      "bg-indigo-500 hover:bg-indigo-600 rounded-tl-[50px] rounded-br-[50px]",
   },
   {
     link: "/analog-clock",
     title: "Time",
-    listItemStyle: "bg-cyan-500 hover:bg-cyan-600 rounded-tr-[50px] rounded-bl-[50px]",
+    listItemStyle:
+      "bg-cyan-500 hover:bg-cyan-600 rounded-tr-[50px] rounded-bl-[50px]",
   },
 ];
 
@@ -120,15 +137,24 @@ const LinkLogos = ({ title, size = 64 }: LinkLogosProps) => {
     case "Alphabet":
       return (
         <>
-          <TiSortAlphabeticallyOutline className="absolute bottom-5 left-5" size={size} />
-          <TiSortAlphabeticallyOutline className="absolute top-5 right-5" size={size} />
+          <TiSortAlphabeticallyOutline
+            className="absolute bottom-5 left-5"
+            size={size}
+          />
+          <TiSortAlphabeticallyOutline
+            className="absolute top-5 right-5"
+            size={size}
+          />
         </>
       );
     case "Time":
       return (
         <>
           <PiClockClockwiseFill className="absolute top-5 left-5" size={size} />
-          <PiClockClockwiseFill className="absolute bottom-5 right-5" size={size} />
+          <PiClockClockwiseFill
+            className="absolute bottom-5 right-5"
+            size={size}
+          />
         </>
       );
     default:

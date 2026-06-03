@@ -1,19 +1,8 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // TODO - add a sign out button that clears the token from localStorage and redirects to the sign in page
 export default function StudentProfile() {
   const navigate = useNavigate();
-  // TODO - Fetch actual student data from backend and replace hardcoded values
-  const [studentName, setStudentName] = useState<string>("John");
-  const [points, setPoints] = useState<number>(450);
-  const [isEditing, setIsEditing] = useState(false);
-
-  const handleEditProfile = () => {
-    setIsEditing(true);
-    // TODO: Open edit profile modal/form
-    console.log("Edit profile clicked");
-  };
 
   const handleDeleteAccount = () => {
     // TODO: Show confirmation dialog before deletion
@@ -62,12 +51,12 @@ export default function StudentProfile() {
             <div className="text-center mb-6">
               <h1 className="text-4xl font-bold text-gray-800 mb-2 flex items-center justify-center gap-2">
                 <span>🌟</span>
-                <span>{studentName}</span>
+                <span>Student</span>
                 <span>🌟</span>
               </h1>
               <div className="text-2xl font-semibold text-purple-600 flex items-center justify-center gap-2">
                 <span>⭐</span>
-                <span>{points} Points Earned!</span>
+                <span>0 Points Earned!</span>
                 <span>⭐</span>
               </div>
             </div>
@@ -78,7 +67,6 @@ export default function StudentProfile() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Edit Profile Button */}
           <button
-            onClick={handleEditProfile}
             className="group bg-gradient-to-br from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-4 border-white p-8"
           >
             <div className="flex flex-col items-center justify-center gap-4">

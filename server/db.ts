@@ -5,14 +5,14 @@ dotenv.config(); // Load environment variables from .env
 
 // TODO - move to utils folder after we add JWT authentication and need to verify tokens in multiple places
 // DATABASE CONNECTION
-const db = new Pool({
+const db: Pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false, // Required for NeonDB
   },
 });
 
-db.on("error", (err) => {
+db.on("error", (err: Error) => {
   console.error("❌ Database error:", err);
 });
 

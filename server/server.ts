@@ -6,8 +6,12 @@ import authRouter from "./routes/auth.js";
 
 dotenv.config(); // Load environment variables from .env
 
+interface ErrorWithStatus extends Error {
+  status?: number;
+}
+
 const app = express(); // Initialize express instance
-const PORT = process.env.PORT || 8080;
+const PORT: number = parseInt(process.env.PORT || "8080", 10);
 
 // ENABLE CORS
 const corsOptions = {
@@ -23,7 +27,7 @@ app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
 
 // ERROR HANDLING MIDDLEWARE
-app.use((err, req, res, next) => {
+app.use((err: ErrorWithStatus, req: any, res: any, next: any) => {
   console.error(err);
   res.status(err.status || 500).json({ error: err.message });
 });

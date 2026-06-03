@@ -1,5 +1,5 @@
 import "./globals.css";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/ui/Navbar/Navbar.tsx";
 import { ThemeProvider } from "./contexts/ThemeContext.tsx";
