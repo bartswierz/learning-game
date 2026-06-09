@@ -1,5 +1,6 @@
 import express, { Request, Response, Router } from "express";
 import db from "../db.js"; // DB Connection Pool
+import { authMiddleware } from "../middleware/auth.js"; // Auth middleware
 const router: Router = express.Router();
 
 interface User {
@@ -12,6 +13,9 @@ interface User {
 interface UserIdParams {
   id: string;
 }
+
+// Apply authentication middleware to all routes in this file
+router.use(authMiddleware);
 
 // GET ALL USERS - Endpoint: "GET /api/users"
 router.get("/", async (req: Request, res: Response) => {

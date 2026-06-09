@@ -1,9 +1,10 @@
 import "./globals.css";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/ui/Navbar/Navbar.tsx";
 import { ThemeProvider } from "./contexts/ThemeContext.tsx";
-import axios from "axios";
+import { ProtectedRoute } from "./components/auth/ProtectedRoute.tsx";
+import { useAuthStore } from "./store/auth_store.ts";
 
 // SKELETONS
 import HomePageSkeleton from "./components/ui/Skeletons/HomePageSkeleton.tsx";
@@ -34,6 +35,12 @@ const ForgotPasswordPage = lazy(() => import("./pages/ForgotPassword.tsx"));
 
 function App() {
   const location = useLocation();
+  const checkAuth = useAuthStore((state) => state.checkAuth);
+
+  // Check authentication status on app mount
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
 
   // Routes where Navbar should be hidden
   const hideNavbarRoutes = ["/signin", "/signup", "/forgot-password"];
@@ -47,75 +54,93 @@ function App() {
         <Route
           path="/"
           element={
-            <Suspense fallback={<HomePageSkeleton />}>
-              <HomePage />
-            </Suspense>
+            <ProtectedRoute>
+              <Suspense fallback={<HomePageSkeleton />}>
+                <HomePage />
+              </Suspense>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/addition"
           element={
-            <Suspense fallback={<OperationsSkeleton />}>
-              <AdditionPage />
-            </Suspense>
+            <ProtectedRoute>
+              <Suspense fallback={<OperationsSkeleton />}>
+                <AdditionPage />
+              </Suspense>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/subtraction"
           element={
-            <Suspense fallback={<OperationsSkeleton />}>
-              <SubtractionPage />
-            </Suspense>
+            <ProtectedRoute>
+              <Suspense fallback={<OperationsSkeleton />}>
+                <SubtractionPage />
+              </Suspense>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/multiplication"
           element={
-            <Suspense fallback={<OperationsSkeleton />}>
-              <MultiplicationPage />
-            </Suspense>
+            <ProtectedRoute>
+              <Suspense fallback={<OperationsSkeleton />}>
+                <MultiplicationPage />
+              </Suspense>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/division"
           element={
-            <Suspense fallback={<OperationsSkeleton />}>
-              <DivisionPage />
-            </Suspense>
+            <ProtectedRoute>
+              <Suspense fallback={<OperationsSkeleton />}>
+                <DivisionPage />
+              </Suspense>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/take-home-worksheets"
           element={
-            <Suspense fallback={<TakeHomeProblemsSkeleton />}>
-              <TakeHomeProblemsPage />
-            </Suspense>
+            <ProtectedRoute>
+              <Suspense fallback={<TakeHomeProblemsSkeleton />}>
+                <TakeHomeProblemsPage />
+              </Suspense>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/analog-clock"
           element={
-            <Suspense fallback={<AnalogClockSkeleton />}>
-              <AnalogClockPage />
-            </Suspense>
+            <ProtectedRoute>
+              <Suspense fallback={<AnalogClockSkeleton />}>
+                <AnalogClockPage />
+              </Suspense>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/alphabetical-order"
           element={
-            <Suspense fallback={<AlphabeticalOrderSkeleton />}>
-              <AlphabeticalOrderPage />
-            </Suspense>
+            <ProtectedRoute>
+              <Suspense fallback={<AlphabeticalOrderSkeleton />}>
+                <AlphabeticalOrderPage />
+              </Suspense>
+            </ProtectedRoute>
           }
         />
         {/* NOTE - Below are WIP routes*/}
         <Route
           path="/profile"
           element={
-            // TODO - create a StudentProfileSkeleton once the StudentProfile page is done and replace the fallback with it
-            <Suspense fallback={<HomePageSkeleton />}>
-              <StudentProfilePage />
-            </Suspense>
+            <ProtectedRoute>
+              {/* TODO - create a StudentProfileSkeleton once the StudentProfile page is done and replace the fallback with it */}
+              <Suspense fallback={<HomePageSkeleton />}>
+                <StudentProfilePage />
+              </Suspense>
+            </ProtectedRoute>
           }
         />
         <Route

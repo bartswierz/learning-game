@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { currentRouteType } from "./components/NavigationLinksDesktop";
 import LearningAppSVG from "/LearningAppIcon.svg";
@@ -14,12 +14,17 @@ import useSettingsStore from "@/store/store";
 // import { Avatar } from "@radix-ui/react-avatar";
 // import { AvatarFallback, AvatarImage } from "../shadcn/avatar.tsx";
 import { Avatar, AvatarFallback, AvatarImage } from "../shadcn/avatar.tsx";
+import { authAPI } from "@/api/auth";
+import { useAuthStore } from "@/store/auth_store";
+import { Button } from "../shadcn/button";
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const resetProgressOnRedirectToHome = useSettingsStore(
     (state) => state.resetProgress,
   );
+  const { isAuthenticated, clearUser } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
   const isOnGameRoute = [
     "addition",
@@ -35,6 +40,19 @@ const Navbar = () => {
 
   const openMenu = () => setIsOpen(true);
   const closeMenu = () => setIsOpen(false);
+
+  const handleLogout = async () => {
+    try {
+      await authAPI.logout();
+      clearUser();
+      navigate("/signin");
+    } catch (error) {
+      console.error("Logout failed:", error);
+      // Clear user state even if API call fails
+      clearUser();
+      navigate("/signin");
+    }
+  };
 
   return (
     <nav
@@ -66,13 +84,25 @@ const Navbar = () => {
         <div className="hidden md:block">
           <ThemeSwitcher />
         </div>
-        {/* User Profile */}
-        <Link to="/profile" className="hidden md:block">
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-        </Link>
+        {/* User Profile and Logout */}
+        {isAuthenticated && (
+          <div className="hidden md:flex items-center gap-2">
+            <Link to="/profile">
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </Link>
+            <Button
+              onClick={handleLogout}
+              variant="outline"
+              size="sm"
+              className="text-sm"
+            >
+              Logout
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* OPENS WHEN USER CLICKS MENU BUTTON */}

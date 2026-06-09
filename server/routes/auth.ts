@@ -2,6 +2,7 @@ import express, { Request, Response, Router } from "express";
 import db from "../db.js"; // DB Connection Pool
 import bcrypt from "bcrypt"; // For password hashing
 import { generateAccessToken } from "../utils/token.js"; // For JWT token generation
+import { authMiddleware } from "../middleware/auth.js"; // Auth middleware
 
 interface RegisterBody {
   email: string;
@@ -22,7 +23,6 @@ interface User {
 
 const router: Router = express.Router();
 
-// TODO - add Logout route that invalidates the JWT on the client side (e.g., by removing it from localStorage) and optionally on the server side (e.g., by maintaining a blacklist of tokens or using a short expiration time for tokens)
 // TODO - add password reset functionality (e.g., by sending a password reset email with a unique token that allows the user to set a new password)
 // Note: may be able to skip on refresh token as this is a learning game that likely will only have users on for short periods of time, and if used in school, it would be wise to have it expire so
 // CREATE NEW USER - Endpoint: "POST /api/auth/register"
@@ -67,10 +67,17 @@ router.post(
       const { password_hash: _, ...userWithoutPassword } = result.rows[0];
       const token: string = await generateAccessToken(userWithoutPassword.id);
 
-      res.json({
+      // Set HTTP-only cookie instead of returning token in response body
+      res.cookie("token", token, {
+        httpOnly: true, // Prevents JavaScript access (XSS protection)
+        secure: process.env.NODE_ENV === "production", // HTTPS only in production
+        sameSite: "lax", // CSRF protection
+        maxAge: 3600000, // 1 hour (matches JWT expiration)
+      });
+
+      res.status(201).json({
         message: "User registered successfully!",
         user: userWithoutPassword,
-        token, // Include JWT token
       });
     } catch (err) {
       console.error("Database error:", err);
@@ -108,12 +115,53 @@ router.post(
       const { password_hash: _, ...userWithoutPassword } = user;
 
       const token: string = await generateAccessToken(userWithoutPassword.id);
-      res.json({ user: userWithoutPassword, token });
+
+      // Set HTTP-only cookie instead of returning token in response body
+      res.cookie("token", token, {
+        httpOnly: true, // Prevents JavaScript access (XSS protection)
+        secure: process.env.NODE_ENV === "production", // HTTPS only in production
+        sameSite: "lax", // CSRF protection
+        maxAge: 3600000, // 1 hour (matches JWT expiration)
+      });
+
+      res.json({ user: userWithoutPassword });
     } catch (err) {
       console.error("Database error:", err);
       res.status(500).json({ error: "Failed to login user" });
     }
   },
 );
+
+// LOGOUT USER - Endpoint: "POST /api/auth/logout"
+router.post("/logout", (req: Request, res: Response) => {
+  // Clear the HTTP-only cookie
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+  });
+  res.json({ message: "Logged out successfully" });
+});
+
+// GET CURRENT USER - Endpoint: "GET /api/auth/me"
+// Requires authentication via authMiddleware
+router.get("/me", authMiddleware, async (req: Request, res: Response) => {
+  try {
+    // req.user is set by authMiddleware after token verification
+    const result = await db.query<User>(
+      "SELECT id, email, created_at FROM users WHERE id = $1",
+      [req.user!.id],
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json({ user: result.rows[0] });
+  } catch (err) {
+    console.error("Database error:", err);
+    res.status(500).json({ error: "Failed to fetch user" });
+  }
+});
 
 export default router;

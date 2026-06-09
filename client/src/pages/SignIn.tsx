@@ -1,9 +1,13 @@
 import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/shadcn/button";
+import { authAPI } from "@/api/auth";
+import { useAuthStore } from "@/store/auth_store";
+import axios from "axios";
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const setUser = useAuthStore((state) => state.setUser);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -15,21 +19,15 @@ export default function SignIn() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Invalid credentials");
-      }
-
-      const data = await response.json();
-      localStorage.setItem("token", data.token);
-      navigate("/");
+      const response = await authAPI.login(email, password);
+      setUser(response.user); // Update auth store with user data
+      navigate("/"); // Navigate to home page
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to sign in");
+      if (axios.isAxiosError(err) && err.response?.data?.error) {
+        setError(err.response.data.error);
+      } else {
+        setError("Invalid credentials");
+      }
     } finally {
       setIsLoading(false);
     }
